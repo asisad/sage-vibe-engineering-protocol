@@ -278,6 +278,11 @@ Assert-Condition (-not (Test-BriefPreservesContract $negative)) 'Reject a brief 
 $negativeJson = '{"record_type":"provider_adapter","schema_version":"sage-contracts/0.8","adapter_id":"adapter.bad","version":"1","provider":"fixture","input_mapping":{},"output_mapping":{},"scope_preservation":false,"permission_preservation":true}'
 $negativeValid = Test-Json -Json $negativeJson -SchemaFile $schemaPath -ErrorAction SilentlyContinue
 Assert-Condition (-not $negativeValid) 'Schema rejects an adapter that does not preserve scope.'
+$negative = Get-Content -Raw -LiteralPath (Join-Path $fixturePath 'r0-documentation-typo.json') | ConvertFrom-Json -Depth 100 -DateKind String
+$negative.task_packet.authority.scope = @()
+$negative.task_packet.authority.PSObject.Properties.Remove('approval_id')
+$negativeValid = Test-Json -Json ($negative | ConvertTo-Json -Depth 100 -Compress) -SchemaFile $schemaPath -ErrorAction SilentlyContinue
+Assert-Condition (-not $negativeValid) 'Schema rejects GRANTED task authority without approval_id and non-empty scope.'
 
 $negative = Get-Content -Raw -LiteralPath (Join-Path $fixturePath 'r2-feature-data-path.json') | ConvertFrom-Json -Depth 100 -DateKind String
 $negative.brief.goal.non_goals = @('Replace the database')

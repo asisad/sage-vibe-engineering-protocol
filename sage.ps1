@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Position=0)][ValidateSet('validate','demo','discover','operations','ci')][string]$Command='validate',[string]$Capability)
+param([Parameter(Position=0)][ValidateSet('validate','demo','discover','operations','lifecycle','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
@@ -9,5 +9,14 @@ switch ($Command) {
   'demo' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDemonstrator.ps1') }
   'discover' { if ([string]::IsNullOrWhiteSpace($Capability)) { throw 'discover requires -Capability' }; & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDiscovery.ps1') -Capability $Capability }
   'operations' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDeploymentRuntime.ps1') }
+  'lifecycle' {
+    if ([string]::IsNullOrWhiteSpace($RunPath)) { $RunPath=Join-Path $root 'fixtures\v0.8\r2-feature-data-path.json' }
+    if ([string]::IsNullOrWhiteSpace($RegistryPath)) { $RegistryPath=Join-Path $root 'fixtures\v0.8\registries' }
+    if ([string]::IsNullOrWhiteSpace($LedgerPath)) { $LedgerPath=Join-Path $root 'tmp\sage-lifecycle-ledger.json' }
+    Import-Module (Join-Path $root 'runtime\production\SageLifecycle.psm1') -Force
+    $contract=Get-Content -Raw -LiteralPath $RunPath | ConvertFrom-Json -Depth 100 -DateKind String
+    Invoke-SageLifecycle -RunContract $contract -RegistryPath $RegistryPath -LedgerPath $LedgerPath -RequiredCapabilities @('json-schema-validation') | ConvertTo-Json -Depth 30
+  }
   'ci' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Invoke-SageReferenceCI.ps1') }
 }
+if (Test-Path variable:LASTEXITCODE) { if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }

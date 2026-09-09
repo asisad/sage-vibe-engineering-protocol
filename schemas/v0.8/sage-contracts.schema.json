@@ -51,6 +51,20 @@
         "approval_id": { "$ref": "#/$defs/Identifier" },
         "expires_at": { "type": "string", "format": "date-time" }
       },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "GRANTED" } },
+            "required": ["status"]
+          },
+          "then": {
+            "required": ["approval_id"],
+            "properties": {
+              "scope": { "$ref": "#/$defs/NonEmptyStringList" }
+            }
+          }
+        }
+      ],
       "additionalProperties": false
     },
     "GoalContract": {

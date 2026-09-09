@@ -23,6 +23,22 @@ function Register-SageToolAdapter {
     return $Registry
 }
 
+function Register-SageDescriptor {
+    param([Parameter(Mandatory)][hashtable]$Registry, [Parameter(Mandatory)]$Descriptor)
+    $kind = [string]$Descriptor.record_type
+    $allowedKinds = @('agent_capability','tool_descriptor','provider_adapter')
+    if ($allowedKinds -notcontains $kind) { throw "Unsupported SAGE descriptor type: $kind" }
+    $id = if ($Descriptor.PSObject.Properties['agent_id']) { [string]$Descriptor.agent_id } elseif ($Descriptor.PSObject.Properties['tool_id']) { [string]$Descriptor.tool_id } elseif ($Descriptor.PSObject.Properties['adapter_id']) { [string]$Descriptor.adapter_id } else { '' }
+    if ([string]::IsNullOrWhiteSpace($id)) { throw 'Descriptor must contain a stable agent_id, tool_id or adapter_id.' }
+    if (-not $Registry.ContainsKey('descriptors')) { $Registry.descriptors = @{} }
+    if ($Registry.descriptors.ContainsKey($id)) { throw "Duplicate SAGE descriptor: $id" }
+    if ($kind -eq 'provider_adapter') {
+        foreach ($field in @('scope_preservation','permission_preservation','authority_preservation','evidence_preservation')) { if ($Descriptor.$field -ne $true) { throw "Provider descriptor must preserve $($field -replace '_preservation','')." } }
+    }
+    $Registry.descriptors[$id] = [pscustomobject]@{ descriptor_id=$id; record_type=$kind; descriptor=$Descriptor; registered_mode='OFFLINE' }
+    return $Registry
+}
+
 function Test-SageAdapterScope {
     param([Parameter(Mandatory)]$Adapter, [Parameter(Mandatory)]$Request)
     $reasons = [System.Collections.Generic.List[string]]::new()
@@ -78,4 +94,4 @@ function Invoke-SageLocalReferenceAdapter {
     [pscustomobject]@{ status='COMPLETED'; executed=$true; adapter_id='adapter.local-reference'; operation='READ_AND_DIGEST'; target=$RelativePath; bytes=[Text.Encoding]::UTF8.GetByteCount($content); sha256=$digest; network='NONE'; mutation='NONE'; evidence_kind='local-read-proof'; recorded_at=[DateTime]::UtcNow.ToString('o') }
 }
 
-Export-ModuleMember -Function Import-SageAdapterRegistry,Register-SageToolAdapter,Test-SageAdapterScope,New-SageInvocationPlan,Invoke-SageAdapter,Test-SageAdapterRegistry,Invoke-SageLocalReferenceAdapter
+Export-ModuleMember -Function Import-SageAdapterRegistry,Register-SageToolAdapter,Register-SageDescriptor,Test-SageAdapterScope,New-SageInvocationPlan,Invoke-SageAdapter,Test-SageAdapterRegistry,Invoke-SageLocalReferenceAdapter

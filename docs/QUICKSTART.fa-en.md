@@ -22,6 +22,7 @@ python -m sage_sdk validate fixtures/v0.8.2/deployment-contract.json
 .\sage.ps1 validate
 .\sage.ps1 demo
 .\sage.ps1 operations
+.\sage.ps1 lifecycle
 .\sage.ps1 ci
 ```
 
@@ -50,6 +51,7 @@ python -m sage_sdk validate fixtures/v0.8.2/deployment-contract.json
 .\sage.ps1 validate
 .\sage.ps1 demo
 .\sage.ps1 operations
+.\sage.ps1 lifecycle
 .\sage.ps1 ci
 ```
 

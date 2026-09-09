@@ -24,6 +24,7 @@ Use PowerShell 7:
 .\sage.ps1 demo
 .\sage.ps1 discover -Capability json-schema-validation
 .\sage.ps1 operations
+.\sage.ps1 lifecycle
 
 # Optional Python SDK
 python -m pip install ./sdk/python
