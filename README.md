@@ -40,6 +40,7 @@ The demo is intentionally domain-neutral and does not contact networks or execut
 - `runtime/production/` — controlled production boundary (DRY_RUN by default)
 - `runtime/production/SageOperations.psm1` — deployment-plan and operations-gate runtime (DRY_RUN by default)
 - `skills/` — SAGE lifecycle Skill Pack (`intake → discover → plan → implement → verify`)
+- `skills/registry.json` — ordered lifecycle registry and authority boundaries for the Skill Pack
 - `bundles/` — versioned role/workflow bundles
 - `examples/` — public demonstrators
 - `tools/` — validation and CI entrypoints
@@ -50,3 +51,5 @@ The demo is intentionally domain-neutral and does not contact networks or execut
 ## Status
 
 Version `0.8.0` remains the preserved Formalized Baseline; version `0.8.1` is the Formalized Agentic Engineering Enhancement Baseline. Version `0.8.2` was the Release Candidate package. Version `0.8.3` is the stable package with the complete lifecycle Skill Pack, production delivery/operations contracts and an installable SDK. External live adapters remain opt-in and separately authorized.
+
+The lifecycle bundle is deliberately ordered: discovery is advisory and cannot authorize execution; implementation requires an approved plan; verification returns `DONE`, `BLOCKED` or `ESCALATED` from evidence. The bundle and `skills/registry.json` must agree before release.

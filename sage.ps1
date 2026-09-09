@@ -7,7 +7,7 @@ $pwsh=(Get-Command pwsh -ErrorAction Stop).Source
 switch ($Command) {
   'validate' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageContracts.ps1') }
   'demo' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDemonstrator.ps1') }
-  'discover' { if ([string]::IsNullOrWhiteSpace($Capability)) { throw 'discover requires -Capability' }; & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDiscovery.ps1') }
+  'discover' { if ([string]::IsNullOrWhiteSpace($Capability)) { throw 'discover requires -Capability' }; & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDiscovery.ps1') -Capability $Capability }
   'operations' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDeploymentRuntime.ps1') }
   'ci' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Invoke-SageReferenceCI.ps1') }
 }

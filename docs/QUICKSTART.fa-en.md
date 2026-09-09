@@ -26,6 +26,7 @@ python -m sage_sdk validate fixtures/v0.8.2/deployment-contract.json
 ```
 
 اجرای Production در این نسخه فقط Dry-Run است؛ هیچ Target خارجی یا سرور واقعی بدون Scope و Approval اجرا نمی‌شود.
+ترتیب Skillها در رجیستری `skills/registry.json` کنترل می‌شود: `intake → discover → plan → implement → verify`. مرحلهٔ Discover فقط پیشنهاددهنده است و مجوز اجرا نمی‌دهد؛ Implement فقط با Plan تأییدشده مجاز است.
 
 ## English
 
@@ -53,3 +54,4 @@ python -m sage_sdk validate fixtures/v0.8.2/deployment-contract.json
 ```
 
 Production execution is Dry-Run only in this release. External targets require an explicit scope and approval.
+The lifecycle order is enforced by `skills/registry.json`: `intake → discover → plan → implement → verify`. Discover is advisory and never grants authority; Implement requires an approved plan.
