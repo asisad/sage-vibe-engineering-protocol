@@ -1,0 +1,44 @@
+{
+  "policy_id": "sage.security.adapter.default",
+  "version": "0.8.0-draft.3",
+  "schema_version": "sage-policy/0.8",
+  "adapter_policy": {
+    "core_dependency": false,
+    "authorization_required": true,
+    "security_scope_required": true,
+    "fix_requires_separate_write_authority": true,
+    "normalize_findings": true,
+    "coverage_disclosure_required": true,
+    "run_status_required": true,
+    "sarif_when_supported": true
+  },
+  "risk_activation": {
+    "R0": "NONE",
+    "R1": "LIGHT",
+    "R2": "CONDITIONAL_QUICK_OR_STANDARD",
+    "R3": "POLICY_DRIVEN_STANDARD",
+    "R4": "HUMAN_APPROVED_DEEP"
+  },
+  "default_budget": {
+    "max_scan_attempts": 1,
+    "max_repair_attempts": 1,
+    "max_rescan_attempts": 1,
+    "max_concurrency": 1
+  },
+  "telemetry": {
+    "allow": ["adapter_version", "duration", "finding_count", "severity_summary", "coverage_summary", "disposition"],
+    "deny_by_default": ["secrets", "tokens", "raw_credentials", "full_exploit_payloads", "personal_data"]
+  },
+  "strix_binding": {
+    "adapter_id": "security.strix",
+    "upstream_tag": "v1.6.2",
+    "upstream_commit": "ff5c8cc8e46d8e60c2bc2439f7bcb07c05ca3db2",
+    "documented_exit_codes": {
+      "0": "clean_within_analyzed_scope",
+      "1": "fatal_error",
+      "2": "vulnerabilities_found"
+    },
+    "require_run_artifact_check": true,
+    "installation_managed_separately": true
+  }
+}

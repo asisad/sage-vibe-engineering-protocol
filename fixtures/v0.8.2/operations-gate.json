@@ -1,0 +1,3 @@
+{
+  "kind": "operations_gate", "gate_id": "gate.production.readiness", "checks": ["healthcheck", "migration-safety", "backup-freshness", "observability", "rollback-reference"], "failure_action": "BLOCKED", "evidence_required": ["deployment-log", "health-result", "rollback-target"]
+}

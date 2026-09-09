@@ -1,0 +1,3 @@
+{
+  "kind": "ai_ssdf_profile", "profile_id": "security.ai-ssdf.baseline", "controls": ["prompt-injection", "tool-integrity", "skill-supply-chain", "context-confidentiality", "model-config-integrity", "provenance"], "human_oversight": "RISK_PROPORTIONAL", "provenance_required": true, "secret_redaction": true
+}

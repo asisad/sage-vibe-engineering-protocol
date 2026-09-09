@@ -1,0 +1,858 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sage.local/schemas/v0.8/sage-contracts.schema.json",
+  "title": "SAGE v0.8 Reference Contracts",
+  "description": "Provider-neutral reference contracts for SAGE 0.8.0-draft.3.",
+  "oneOf": [
+    { "$ref": "#/$defs/RunContract" },
+    { "$ref": "#/$defs/TaskPacket" },
+    { "$ref": "#/$defs/RiskAssessment" },
+    { "$ref": "#/$defs/GatePlan" },
+    { "$ref": "#/$defs/SkillDescriptor" },
+    { "$ref": "#/$defs/AgentCapability" },
+    { "$ref": "#/$defs/ToolDescriptor" },
+    { "$ref": "#/$defs/ProviderAdapter" },
+    { "$ref": "#/$defs/EvidenceRecord" },
+    { "$ref": "#/$defs/RunEvent" },
+    { "$ref": "#/$defs/RuntimeEngineeringBrief" },
+    { "$ref": "#/$defs/WorkflowPackage" },
+    { "$ref": "#/$defs/SecurityScope" },
+    { "$ref": "#/$defs/SecurityFinding" }
+  ],
+  "$defs": {
+    "NonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,127}$"
+    },
+    "StringList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/NonEmptyString" },
+      "uniqueItems": true
+    },
+    "NonEmptyStringList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/NonEmptyString" },
+      "uniqueItems": true
+    },
+    "Authority": {
+      "type": "object",
+      "required": ["source", "scope", "status"],
+      "properties": {
+        "source": { "$ref": "#/$defs/NonEmptyString" },
+        "scope": { "$ref": "#/$defs/StringList" },
+        "status": {
+          "enum": ["NOT_REQUIRED", "PROPOSED", "GRANTED", "DENIED", "EXPIRED", "REVOKED"]
+        },
+        "approval_id": { "$ref": "#/$defs/Identifier" },
+        "expires_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "GoalContract": {
+      "type": "object",
+      "required": ["problem", "outcome", "acceptance_criteria", "non_goals"],
+      "properties": {
+        "problem": { "$ref": "#/$defs/NonEmptyString" },
+        "outcome": { "$ref": "#/$defs/NonEmptyString" },
+        "users": { "$ref": "#/$defs/StringList" },
+        "acceptance_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "claim"],
+            "properties": {
+              "id": { "$ref": "#/$defs/Identifier" },
+              "claim": { "$ref": "#/$defs/NonEmptyString" },
+              "evidence_ids": { "$ref": "#/$defs/StringList" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "failure_states": { "$ref": "#/$defs/StringList" },
+        "unknowns": { "$ref": "#/$defs/StringList" },
+        "non_goals": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "ChangeScopeContract": {
+      "type": "object",
+      "required": [
+        "allowed_paths",
+        "allowed_change_types",
+        "restricted_paths",
+        "forbidden_paths",
+        "forbidden_side_effects",
+        "generated_artifact_policy",
+        "dependency_boundary",
+        "migration_boundary",
+        "deviation_protocol"
+      ],
+      "properties": {
+        "allowed_paths": { "$ref": "#/$defs/StringList" },
+        "allowed_change_types": { "$ref": "#/$defs/StringList" },
+        "restricted_paths": { "$ref": "#/$defs/StringList" },
+        "forbidden_paths": { "$ref": "#/$defs/StringList" },
+        "forbidden_side_effects": { "$ref": "#/$defs/StringList" },
+        "generated_artifact_policy": { "$ref": "#/$defs/NonEmptyString" },
+        "dependency_boundary": { "$ref": "#/$defs/NonEmptyString" },
+        "migration_boundary": { "$ref": "#/$defs/NonEmptyString" },
+        "deviation_protocol": {
+          "enum": ["STOP_AND_REAUTHORIZE", "RECORD_WITHIN_SCOPE", "FORBIDDEN"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "TaskPacket": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "task_id",
+        "objective",
+        "request_type",
+        "goal",
+        "change_scope",
+        "authority",
+        "affected_domains",
+        "expected_deliverables",
+        "expected_evidence",
+        "stop_conditions"
+      ],
+      "properties": {
+        "record_type": { "const": "task_packet" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "task_id": { "$ref": "#/$defs/Identifier" },
+        "objective": { "$ref": "#/$defs/NonEmptyString" },
+        "request_type": {
+          "enum": [
+            "ASK",
+            "INSPECT",
+            "DIAGNOSE",
+            "DESIGN",
+            "CHANGE",
+            "RUN",
+            "EXTERNAL_MUTATION",
+            "DESTRUCTIVE",
+            "MONITOR"
+          ]
+        },
+        "goal": { "$ref": "#/$defs/GoalContract" },
+        "change_scope": { "$ref": "#/$defs/ChangeScopeContract" },
+        "authority": { "$ref": "#/$defs/Authority" },
+        "constraints": { "$ref": "#/$defs/StringList" },
+        "affected_domains": { "$ref": "#/$defs/StringList" },
+        "selected_workflow": { "$ref": "#/$defs/Identifier" },
+        "expected_deliverables": { "$ref": "#/$defs/StringList" },
+        "expected_evidence": { "$ref": "#/$defs/StringList" },
+        "budget": {
+          "type": "object",
+          "properties": {
+            "max_attempts": { "type": "integer", "minimum": 0 },
+            "max_elapsed_minutes": { "type": "integer", "minimum": 1 },
+            "max_tool_failures": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "stop_conditions": { "$ref": "#/$defs/StringList" },
+        "context_provenance": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "RiskAssessment": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "risk_id",
+        "task_id",
+        "pass",
+        "risk_level",
+        "confidence",
+        "dimensions",
+        "mandatory_floors",
+        "classifier_version"
+      ],
+      "properties": {
+        "record_type": { "const": "risk_assessment" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "risk_id": { "$ref": "#/$defs/Identifier" },
+        "task_id": { "$ref": "#/$defs/Identifier" },
+        "pass": { "enum": ["PRELIMINARY", "FINAL"] },
+        "risk_level": { "enum": ["R0", "R1", "R2", "R3", "R4"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "dimensions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "enum": ["NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
+          }
+        },
+        "mandatory_floors": { "$ref": "#/$defs/StringList" },
+        "escalation_reasons": { "$ref": "#/$defs/StringList" },
+        "assumptions": { "$ref": "#/$defs/StringList" },
+        "evidence_ids": { "$ref": "#/$defs/StringList" },
+        "classifier_version": { "$ref": "#/$defs/NonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "Gate": {
+      "type": "object",
+      "required": [
+        "gate_id",
+        "state",
+        "activation_reason",
+        "blocking",
+        "evidence_required",
+        "acceptance_rule",
+        "status"
+      ],
+      "properties": {
+        "gate_id": { "$ref": "#/$defs/Identifier" },
+        "state": { "enum": ["ACTIVE", "NOT_APPLICABLE", "UNRESOLVED"] },
+        "activation_reason": { "$ref": "#/$defs/NonEmptyString" },
+        "blocking": { "type": "boolean" },
+        "automated": { "type": "boolean" },
+        "independent_review": { "type": "boolean" },
+        "human_approval": { "type": "boolean" },
+        "executor": { "$ref": "#/$defs/NonEmptyString" },
+        "reviewer": { "$ref": "#/$defs/NonEmptyString" },
+        "evidence_required": { "$ref": "#/$defs/StringList" },
+        "acceptance_rule": { "$ref": "#/$defs/NonEmptyString" },
+        "status": {
+          "enum": ["PENDING", "PASS", "FAIL", "WAIVED", "NOT_APPLICABLE"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "GatePlan": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "gate_plan_id",
+        "task_id",
+        "gates"
+      ],
+      "properties": {
+        "record_type": { "const": "gate_plan" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "gate_plan_id": { "$ref": "#/$defs/Identifier" },
+        "task_id": { "$ref": "#/$defs/Identifier" },
+        "gates": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Gate" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "RuntimeEngineeringBrief": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "brief_id",
+        "task_id",
+        "required_capabilities",
+        "minimum_context",
+        "goal",
+        "change_scope",
+        "risk_level",
+        "authority",
+        "expected_evidence",
+        "stop_conditions"
+      ],
+      "properties": {
+        "record_type": { "const": "runtime_engineering_brief" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "brief_id": { "$ref": "#/$defs/Identifier" },
+        "task_id": { "$ref": "#/$defs/Identifier" },
+        "required_capabilities": { "$ref": "#/$defs/StringList" },
+        "minimum_context": { "$ref": "#/$defs/StringList" },
+        "goal": { "$ref": "#/$defs/GoalContract" },
+        "change_scope": { "$ref": "#/$defs/ChangeScopeContract" },
+        "risk_level": { "enum": ["R0", "R1", "R2", "R3", "R4"] },
+        "authority": { "$ref": "#/$defs/Authority" },
+        "expected_evidence": { "$ref": "#/$defs/StringList" },
+        "stop_conditions": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "PermissionContract": {
+      "type": "object",
+      "required": ["read", "write", "execute", "network", "external_mutation"],
+      "properties": {
+        "read": { "$ref": "#/$defs/StringList" },
+        "write": { "$ref": "#/$defs/StringList" },
+        "execute": { "$ref": "#/$defs/StringList" },
+        "network": { "$ref": "#/$defs/StringList" },
+        "external_mutation": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "SkillDescriptor": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "id",
+        "version",
+        "title",
+        "description",
+        "intents",
+        "domains",
+        "risk_range",
+        "invocation_policy",
+        "permissions",
+        "evidence_contract",
+        "stop_conditions"
+      ],
+      "properties": {
+        "record_type": { "const": "skill_descriptor" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "title": { "$ref": "#/$defs/NonEmptyString" },
+        "description": { "$ref": "#/$defs/NonEmptyString" },
+        "intents": { "$ref": "#/$defs/StringList" },
+        "domains": { "$ref": "#/$defs/StringList" },
+        "risk_range": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["R0", "R1", "R2", "R3", "R4"] },
+          "uniqueItems": true
+        },
+        "invocation_policy": {
+          "enum": ["implicit", "explicit", "orchestrator_only", "forbidden_in_environment"]
+        },
+        "permissions": { "$ref": "#/$defs/PermissionContract" },
+        "required_capabilities": { "$ref": "#/$defs/StringList" },
+        "optional_capabilities": { "$ref": "#/$defs/StringList" },
+        "tools": { "$ref": "#/$defs/StringList" },
+        "context_requirements": { "$ref": "#/$defs/StringList" },
+        "evidence_contract": { "$ref": "#/$defs/StringList" },
+        "failure_modes": { "$ref": "#/$defs/StringList" },
+        "stop_conditions": { "$ref": "#/$defs/StringList" },
+        "native_bindings": { "type": "object" },
+        "inputs": { "type": "object" },
+        "outputs": { "type": "object" },
+        "preconditions": { "$ref": "#/$defs/StringList" },
+        "procedure_ref": { "$ref": "#/$defs/NonEmptyString" },
+        "side_effects": { "$ref": "#/$defs/StringList" },
+        "retry_policy": { "type": "object" },
+        "compatibility": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "AgentCapability": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "agent_id",
+        "version",
+        "role_profiles",
+        "model_binding",
+        "capabilities",
+        "capability_evidence",
+        "supported_modalities",
+        "context_limits",
+        "available_tool_classes",
+        "supported_environments",
+        "privacy_locality_modes",
+        "maximum_eligible_risk",
+        "independence_attributes",
+        "health_status",
+        "compatibility"
+      ],
+      "properties": {
+        "record_type": { "const": "agent_capability" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "agent_id": { "$ref": "#/$defs/Identifier" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "role_profiles": { "$ref": "#/$defs/NonEmptyStringList" },
+        "model_binding": {
+          "type": "object",
+          "required": ["provider", "model_id", "binding_mode"],
+          "properties": {
+            "provider": { "$ref": "#/$defs/NonEmptyString" },
+            "model_id": { "$ref": "#/$defs/NonEmptyString" },
+            "binding_mode": { "enum": ["FIXED", "FAMILY", "RUNTIME_SELECTED"] }
+          },
+          "additionalProperties": false
+        },
+        "capabilities": { "$ref": "#/$defs/NonEmptyStringList" },
+        "capability_evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["capability", "evidence_refs", "verified_at"],
+            "properties": {
+              "capability": { "$ref": "#/$defs/NonEmptyString" },
+              "evidence_refs": { "$ref": "#/$defs/NonEmptyStringList" },
+              "verified_at": { "type": "string", "format": "date-time" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "supported_modalities": { "$ref": "#/$defs/NonEmptyStringList" },
+        "context_limits": {
+          "type": "object",
+          "required": ["max_input_tokens", "max_output_tokens"],
+          "properties": {
+            "max_input_tokens": { "type": "integer", "minimum": 1 },
+            "max_output_tokens": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "available_tool_classes": { "$ref": "#/$defs/NonEmptyStringList" },
+        "supported_environments": { "$ref": "#/$defs/NonEmptyStringList" },
+        "privacy_locality_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["LOCAL_ONLY", "PRIVATE_REMOTE", "MANAGED_REMOTE", "PUBLIC_DATA_ONLY"] }
+        },
+        "maximum_eligible_risk": { "enum": ["R0", "R1", "R2", "R3", "R4"] },
+        "independence_attributes": { "$ref": "#/$defs/NonEmptyStringList" },
+        "health_status": { "enum": ["HEALTHY", "DEGRADED", "UNAVAILABLE", "UNKNOWN"] },
+        "compatibility": { "$ref": "#/$defs/NonEmptyStringList" },
+        "limitations": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "ToolDescriptor": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "tool_id",
+        "version",
+        "capabilities",
+        "side_effect_class",
+        "input_schema_ref",
+        "output_schema_ref",
+        "permission_requirements",
+        "supported_environments",
+        "network_behavior",
+        "idempotency_support",
+        "timeout_defaults",
+        "evidence_outputs",
+        "rollback_recovery_support",
+        "native_binding"
+      ],
+      "properties": {
+        "record_type": { "const": "tool_descriptor" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "tool_id": { "$ref": "#/$defs/Identifier" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "capabilities": { "$ref": "#/$defs/NonEmptyStringList" },
+        "side_effect_class": {
+          "enum": ["READ_ONLY", "LOCAL_REVERSIBLE", "LOCAL_DESTRUCTIVE", "EXTERNAL_MUTATION", "SECURITY_ACTIVE"]
+        },
+        "input_schema_ref": { "$ref": "#/$defs/NonEmptyString" },
+        "output_schema_ref": { "$ref": "#/$defs/NonEmptyString" },
+        "permission_requirements": { "$ref": "#/$defs/NonEmptyStringList" },
+        "supported_environments": { "$ref": "#/$defs/NonEmptyStringList" },
+        "network_behavior": {
+          "type": "object",
+          "required": ["mode", "destinations"],
+          "properties": {
+            "mode": { "enum": ["NONE", "OUTBOUND", "INBOUND", "BIDIRECTIONAL"] },
+            "destinations": { "$ref": "#/$defs/StringList" }
+          },
+          "additionalProperties": false
+        },
+        "idempotency_support": { "enum": ["NONE", "NATIVE", "ADAPTER", "CALLER_MANAGED"] },
+        "timeout_defaults": {
+          "type": "object",
+          "required": ["default_seconds", "maximum_seconds"],
+          "properties": {
+            "default_seconds": { "type": "integer", "minimum": 1 },
+            "maximum_seconds": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "evidence_outputs": { "$ref": "#/$defs/NonEmptyStringList" },
+        "rollback_recovery_support": {
+          "type": "object",
+          "required": ["rollback", "recovery"],
+          "properties": {
+            "rollback": { "type": "boolean" },
+            "recovery": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "native_binding": {
+          "type": "object",
+          "required": ["provider", "binding_id"],
+          "properties": {
+            "provider": { "$ref": "#/$defs/NonEmptyString" },
+            "binding_id": { "$ref": "#/$defs/NonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "receipt_fields": { "$ref": "#/$defs/StringList" },
+        "failure_modes": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "ProviderAdapter": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "adapter_id",
+        "version",
+        "provider",
+        "interfaces",
+        "input_mapping",
+        "output_mapping",
+        "error_mapping",
+        "event_mapping",
+        "scope_preservation",
+        "permission_preservation",
+        "authority_preservation",
+        "evidence_preservation",
+        "idempotency_passthrough",
+        "cancellation_support",
+        "native_metadata_namespace"
+      ],
+      "properties": {
+        "record_type": { "const": "provider_adapter" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "adapter_id": { "$ref": "#/$defs/Identifier" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "provider": { "$ref": "#/$defs/NonEmptyString" },
+        "interfaces": {
+          "type": "array",
+          "uniqueItems": true,
+          "allOf": [
+            { "contains": { "const": "describe_capabilities" } },
+            { "contains": { "const": "validate_configuration" } },
+            { "contains": { "const": "prepare_request" } },
+            { "contains": { "const": "execute" } },
+            { "contains": { "const": "stream_events" } },
+            { "contains": { "const": "cancel" } },
+            { "contains": { "const": "normalize_result" } },
+            { "contains": { "const": "health_check" } }
+          ],
+          "items": {
+            "enum": [
+              "describe_capabilities",
+              "validate_configuration",
+              "prepare_request",
+              "execute",
+              "stream_events",
+              "cancel",
+              "normalize_result",
+              "health_check"
+            ]
+          }
+        },
+        "input_mapping": { "type": "object" },
+        "output_mapping": { "type": "object" },
+        "error_mapping": { "type": "object", "minProperties": 1 },
+        "event_mapping": { "type": "object", "minProperties": 1 },
+        "scope_preservation": { "const": true },
+        "permission_preservation": { "const": true },
+        "authority_preservation": { "const": true },
+        "evidence_preservation": { "const": true },
+        "idempotency_passthrough": { "type": "boolean" },
+        "cancellation_support": { "type": "boolean" },
+        "native_metadata_namespace": { "$ref": "#/$defs/NonEmptyString" },
+        "limitations": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceRecord": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "evidence_id",
+        "claim_id",
+        "kind",
+        "producer",
+        "method",
+        "scope",
+        "result",
+        "timestamp",
+        "limitations"
+      ],
+      "properties": {
+        "record_type": { "const": "evidence_record" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "evidence_id": { "$ref": "#/$defs/Identifier" },
+        "claim_id": { "$ref": "#/$defs/Identifier" },
+        "kind": {
+          "enum": [
+            "SOURCE_INSPECTION",
+            "BUILD_RESULT",
+            "TEST_RESULT",
+            "STATIC_ANALYSIS",
+            "SECURITY_RESULT",
+            "PERFORMANCE_RESULT",
+            "MIGRATION_RESULT",
+            "DIFF",
+            "HASH",
+            "TOOL_RECEIPT",
+            "RUNTIME_OBSERVATION",
+            "REVIEW_RESULT",
+            "APPROVAL",
+            "RECOVERY_RESULT",
+            "COVERAGE_DISCLOSURE",
+            "CROSS_ARTIFACT_ANALYSIS",
+            "SECURITY_FINDING",
+            "SARIF"
+          ]
+        },
+        "producer": { "$ref": "#/$defs/NonEmptyString" },
+        "method": { "$ref": "#/$defs/NonEmptyString" },
+        "scope": { "$ref": "#/$defs/StringList" },
+        "result": { "enum": ["PASS", "FAIL", "PARTIAL", "INCONCLUSIVE"] },
+        "artifact_refs": { "$ref": "#/$defs/StringList" },
+        "hashes": { "$ref": "#/$defs/StringList" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "environment": { "$ref": "#/$defs/NonEmptyString" },
+        "reproducible": { "type": "boolean" },
+        "limitations": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "RunEvent": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "event_id",
+        "event_type",
+        "task_id",
+        "run_id",
+        "actor",
+        "timestamp",
+        "status",
+        "privacy_classification"
+      ],
+      "properties": {
+        "record_type": { "const": "run_event" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "event_id": { "$ref": "#/$defs/Identifier" },
+        "event_type": { "$ref": "#/$defs/NonEmptyString" },
+        "task_id": { "$ref": "#/$defs/Identifier" },
+        "run_id": { "$ref": "#/$defs/Identifier" },
+        "step_id": { "$ref": "#/$defs/Identifier" },
+        "actor": { "$ref": "#/$defs/NonEmptyString" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "status": { "$ref": "#/$defs/NonEmptyString" },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "tool_refs": { "$ref": "#/$defs/StringList" },
+        "skill_refs": { "$ref": "#/$defs/StringList" },
+        "evidence_refs": { "$ref": "#/$defs/StringList" },
+        "error_code": { "$ref": "#/$defs/NonEmptyString" },
+        "privacy_classification": {
+          "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "WorkflowPackage": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "package_id",
+        "version",
+        "source_pin",
+        "profiles",
+        "precedence",
+        "install_policy",
+        "owned_paths"
+      ],
+      "properties": {
+        "record_type": { "const": "workflow_package" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "package_id": { "$ref": "#/$defs/Identifier" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "source_pin": { "$ref": "#/$defs/NonEmptyString" },
+        "profiles": { "$ref": "#/$defs/StringList" },
+        "extensions": { "$ref": "#/$defs/StringList" },
+        "precedence": { "type": "integer", "minimum": 0 },
+        "install_policy": {
+          "type": "object",
+          "required": ["dry_run", "idempotent", "ownership_aware_removal"],
+          "properties": {
+            "dry_run": { "const": true },
+            "idempotent": { "const": true },
+            "ownership_aware_removal": { "const": true }
+          },
+          "additionalProperties": false
+        },
+        "owned_paths": { "$ref": "#/$defs/StringList" },
+        "compatibility": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "SecurityScope": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "security_scope_id",
+        "authorization",
+        "target_allowlist",
+        "target_denylist",
+        "allowed_techniques",
+        "prohibited_techniques",
+        "profile",
+        "mode",
+        "evaluation_time",
+        "time_window",
+        "budget",
+        "data_handling",
+        "credential_handling",
+        "reporting_destination",
+        "stop_conditions"
+      ],
+      "properties": {
+        "record_type": { "const": "security_scope" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "security_scope_id": { "$ref": "#/$defs/Identifier" },
+        "authorization": {
+          "allOf": [
+            { "$ref": "#/$defs/Authority" },
+            {
+              "type": "object",
+              "required": ["approval_id", "expires_at"],
+              "properties": {
+                "status": { "const": "GRANTED" }
+              }
+            }
+          ]
+        },
+        "target_allowlist": { "$ref": "#/$defs/NonEmptyStringList" },
+        "target_denylist": { "$ref": "#/$defs/StringList" },
+        "allowed_techniques": { "$ref": "#/$defs/NonEmptyStringList" },
+        "prohibited_techniques": { "$ref": "#/$defs/NonEmptyStringList" },
+        "profile": { "enum": ["NONE", "LIGHT", "QUICK", "STANDARD", "DEEP"] },
+        "mode": { "enum": ["LOCAL", "MANAGED", "CI"] },
+        "evaluation_time": { "type": "string", "format": "date-time" },
+        "time_window": {
+          "type": "object",
+          "required": ["starts_at", "ends_at"],
+          "properties": {
+            "starts_at": { "type": "string", "format": "date-time" },
+            "ends_at": { "type": "string", "format": "date-time" }
+          },
+          "additionalProperties": false
+        },
+        "budget": {
+          "type": "object",
+          "required": ["max_attempts", "max_elapsed_minutes", "max_concurrency", "max_cost_usd"],
+          "properties": {
+            "max_cost_usd": { "type": "number", "minimum": 0 },
+            "max_attempts": { "type": "integer", "minimum": 1 },
+            "max_elapsed_minutes": { "type": "integer", "minimum": 1 },
+            "max_concurrency": { "type": "integer", "minimum": 1 },
+            "max_requests_per_minute": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "data_handling": { "$ref": "#/$defs/NonEmptyString" },
+        "credential_handling": { "$ref": "#/$defs/NonEmptyString" },
+        "reporting_destination": { "$ref": "#/$defs/NonEmptyString" },
+        "stop_conditions": { "$ref": "#/$defs/NonEmptyStringList" }
+      },
+      "additionalProperties": false
+    },
+    "SecurityFinding": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "finding_id",
+        "deduplication_key",
+        "title",
+        "severity",
+        "confidence",
+        "affected_target",
+        "evidence_refs",
+        "impact",
+        "status",
+        "source_run_id",
+        "scope_id",
+        "profile",
+        "exploitability",
+        "timestamp"
+      ],
+      "properties": {
+        "record_type": { "const": "security_finding" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "finding_id": { "$ref": "#/$defs/Identifier" },
+        "tool_finding_id": { "$ref": "#/$defs/NonEmptyString" },
+        "deduplication_key": { "$ref": "#/$defs/NonEmptyString" },
+        "title": { "$ref": "#/$defs/NonEmptyString" },
+        "category": { "$ref": "#/$defs/NonEmptyString" },
+        "severity": { "enum": ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "affected_target": { "$ref": "#/$defs/NonEmptyString" },
+        "location": { "$ref": "#/$defs/NonEmptyString" },
+        "evidence_refs": { "$ref": "#/$defs/StringList" },
+        "reproduction_summary": { "$ref": "#/$defs/NonEmptyString" },
+        "impact": { "$ref": "#/$defs/NonEmptyString" },
+        "assumptions": { "$ref": "#/$defs/StringList" },
+        "status": {
+          "enum": ["OPEN", "CONFIRMED", "FALSE_POSITIVE", "ACCEPTED_RISK", "FIXED", "MITIGATED"]
+        },
+        "remediation": { "$ref": "#/$defs/NonEmptyString" },
+        "owner": { "$ref": "#/$defs/NonEmptyString" },
+        "verification_requirement": { "$ref": "#/$defs/NonEmptyString" },
+        "source_run_id": { "$ref": "#/$defs/Identifier" },
+        "scope_id": { "$ref": "#/$defs/Identifier" },
+        "profile": { "enum": ["NONE", "LIGHT", "QUICK", "STANDARD", "DEEP"] },
+        "exploitability": { "$ref": "#/$defs/NonEmptyString" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "RunContract": {
+      "type": "object",
+      "required": [
+        "record_type",
+        "schema_version",
+        "run_id",
+        "task_packet",
+        "risk_assessment",
+        "gate_plan",
+        "brief",
+        "evidence"
+      ],
+      "properties": {
+        "record_type": { "const": "sage_run_contract" },
+        "schema_version": { "const": "sage-contracts/0.8" },
+        "run_id": { "$ref": "#/$defs/Identifier" },
+        "task_packet": { "$ref": "#/$defs/TaskPacket" },
+        "risk_assessment": { "$ref": "#/$defs/RiskAssessment" },
+        "gate_plan": { "$ref": "#/$defs/GatePlan" },
+        "brief": { "$ref": "#/$defs/RuntimeEngineeringBrief" },
+        "security_scope": { "$ref": "#/$defs/SecurityScope" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EvidenceRecord" }
+        },
+        "events": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/RunEvent" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

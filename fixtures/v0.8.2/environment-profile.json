@@ -1,0 +1,3 @@
+{
+  "kind": "environment_profile", "profile_id": "env.production.default", "environment": "PRODUCTION", "secret_policy": "MANAGED_SECRET_STORE", "network_policy": "PUBLIC_INGRESS", "approval": "HUMAN_REQUIRED"
+}

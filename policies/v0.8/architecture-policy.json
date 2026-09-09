@@ -1,0 +1,12 @@
+{
+  "policy_id": "sage.architecture.default",
+  "version": "0.8.0",
+  "schema_version": "sage-policy/0.8",
+  "enabled_when": ["architecture_impact != NONE", "architecture_files_changed == true"],
+  "model": { "source_of_truth": "approved_model", "default_provider": "likec4", "alternative_providers": ["structurizr"], "stable_id_required": true, "authority_states": ["APPROVED", "INFERRED", "OBSERVED", "PROPOSED", "DEPRECATED"] },
+  "views": { "selection": "risk_and_question_adaptive", "minimum_relevant_only": true, "renderers": ["d2", "mermaid", "plantuml", "graphviz", "kroki"], "layout_engines": ["elk", "graphviz", "dagre"] },
+  "fitness_functions": { "required_checks": ["no_forbidden_dependency", "no_boundary_violation", "no_unauthorized_edge", "stable_ids_resolve"], "outputs": ["PASS", "FAIL", "REVIEW_REQUIRED"] },
+  "reverse_discovery": { "sources": ["source_code", "iac", "runtime_telemetry", "sens", "ueg"], "may_overwrite_approved": false, "result_authority": "INFERRED" },
+  "convergence": { "compare_planned_to_observed": true, "material_unexplained_drift_blocks_completion": true },
+  "anti_overengineering": { "skip_for": ["R0_isolated_edit", "R1_non_architecture_change"], "forbid_all_diagram_generation": true, "forbid_multiple_canonical_models": true }
+}

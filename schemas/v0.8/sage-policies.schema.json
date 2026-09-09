@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sage.local/schemas/v0.8/sage-policies.schema.json",
+  "title": "SAGE v0.8 Reference Policies",
+  "oneOf": [
+    { "$ref": "#/$defs/CorePolicy" },
+    { "$ref": "#/$defs/SecurityAdapterPolicy" },
+    { "$ref": "#/$defs/ArchitecturePolicy" }
+  ],
+  "$defs": {
+    "NonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "NonEmptyStringList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/NonEmptyString" }
+    },
+    "ArchitecturePolicy": {
+      "type": "object",
+      "required": ["policy_id", "version", "schema_version", "enabled_when", "model", "views", "fitness_functions", "reverse_discovery", "convergence", "anti_overengineering"],
+      "properties": {
+        "policy_id": { "const": "sage.architecture.default" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "schema_version": { "const": "sage-policy/0.8" },
+        "enabled_when": { "$ref": "#/$defs/NonEmptyStringList" },
+        "model": { "type": "object", "required": ["source_of_truth", "default_provider", "alternative_providers", "stable_id_required", "authority_states"], "properties": { "source_of_truth": { "const": "approved_model" }, "default_provider": { "const": "likec4" }, "alternative_providers": { "$ref": "#/$defs/NonEmptyStringList" }, "stable_id_required": { "const": true }, "authority_states": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "enum": ["APPROVED", "INFERRED", "OBSERVED", "PROPOSED", "DEPRECATED"] } } }, "additionalProperties": false },
+        "views": { "type": "object", "required": ["selection", "minimum_relevant_only", "renderers", "layout_engines"], "properties": { "selection": { "$ref": "#/$defs/NonEmptyString" }, "minimum_relevant_only": { "const": true }, "renderers": { "$ref": "#/$defs/NonEmptyStringList" }, "layout_engines": { "$ref": "#/$defs/NonEmptyStringList" } }, "additionalProperties": false },
+        "fitness_functions": { "type": "object", "required": ["required_checks", "outputs"], "properties": { "required_checks": { "$ref": "#/$defs/NonEmptyStringList" }, "outputs": { "$ref": "#/$defs/NonEmptyStringList" } }, "additionalProperties": false },
+        "reverse_discovery": { "type": "object", "required": ["sources", "may_overwrite_approved", "result_authority"], "properties": { "sources": { "$ref": "#/$defs/NonEmptyStringList" }, "may_overwrite_approved": { "const": false }, "result_authority": { "const": "INFERRED" } }, "additionalProperties": false },
+        "convergence": { "type": "object", "required": ["compare_planned_to_observed", "material_unexplained_drift_blocks_completion"], "properties": { "compare_planned_to_observed": { "const": true }, "material_unexplained_drift_blocks_completion": { "const": true } }, "additionalProperties": false },
+        "anti_overengineering": { "type": "object", "required": ["skip_for", "forbid_all_diagram_generation", "forbid_multiple_canonical_models"], "properties": { "skip_for": { "$ref": "#/$defs/NonEmptyStringList" }, "forbid_all_diagram_generation": { "const": true }, "forbid_multiple_canonical_models": { "const": true } }, "additionalProperties": false }
+      },
+      "additionalProperties": false
+    },
+    "RiskProfile": {
+      "type": "object",
+      "required": ["workflow", "max_primary_attempts", "independent_review", "required_gates"],
+      "properties": {
+        "workflow": { "$ref": "#/$defs/NonEmptyString" },
+        "max_primary_attempts": { "type": "integer", "minimum": 0 },
+        "independent_review": { "type": "boolean" },
+        "human_approval": { "type": "boolean" },
+        "required_gates": { "$ref": "#/$defs/NonEmptyStringList" }
+      },
+      "additionalProperties": false
+    },
+    "CorePolicy": {
+      "type": "object",
+      "required": [
+        "policy_id",
+        "version",
+        "schema_version",
+        "risk_profiles",
+        "clarification",
+        "workflow_resolution",
+        "completion",
+        "projection"
+      ],
+      "properties": {
+        "policy_id": { "const": "sage.core.default" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "schema_version": { "const": "sage-policy/0.8" },
+        "risk_profiles": {
+          "type": "object",
+          "required": ["R0", "R1", "R2", "R3", "R4"],
+          "properties": {
+            "R0": { "$ref": "#/$defs/RiskProfile" },
+            "R1": { "$ref": "#/$defs/RiskProfile" },
+            "R2": { "$ref": "#/$defs/RiskProfile" },
+            "R3": { "$ref": "#/$defs/RiskProfile" },
+            "R4": { "$ref": "#/$defs/RiskProfile" }
+          },
+          "additionalProperties": false
+        },
+        "clarification": {
+          "type": "object",
+          "required": ["blocking_dimensions", "non_blocking_result"],
+          "properties": {
+            "blocking_dimensions": { "$ref": "#/$defs/NonEmptyStringList" },
+            "non_blocking_result": { "enum": ["CLEAR", "ASSUMPTION_BOUNDED"] }
+          },
+          "additionalProperties": false
+        },
+        "workflow_resolution": { "$ref": "#/$defs/NonEmptyStringList" },
+        "completion": {
+          "type": "object",
+          "required": [
+            "require_blocking_gates_pass",
+            "require_claim_evidence_links",
+            "require_coverage_disclosure",
+            "reject_stale_evidence",
+            "reject_unapproved_scope_drift"
+          ],
+          "properties": {
+            "require_blocking_gates_pass": { "const": true },
+            "require_claim_evidence_links": { "const": true },
+            "require_coverage_disclosure": { "const": true },
+            "reject_stale_evidence": { "const": true },
+            "reject_unapproved_scope_drift": { "const": true }
+          },
+          "additionalProperties": false
+        },
+        "projection": {
+          "type": "object",
+          "required": ["preserve_source_ids", "preserve_authority", "report_drift", "silent_overwrite"],
+          "properties": {
+            "preserve_source_ids": { "const": true },
+            "preserve_authority": { "const": true },
+            "report_drift": { "const": true },
+            "silent_overwrite": { "const": false }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "SecurityAdapterPolicy": {
+      "type": "object",
+      "required": [
+        "policy_id",
+        "version",
+        "schema_version",
+        "adapter_policy",
+        "risk_activation",
+        "default_budget",
+        "telemetry",
+        "strix_binding"
+      ],
+      "properties": {
+        "policy_id": { "const": "sage.security.adapter.default" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "schema_version": { "const": "sage-policy/0.8" },
+        "adapter_policy": {
+          "type": "object",
+          "required": [
+            "core_dependency",
+            "authorization_required",
+            "security_scope_required",
+            "fix_requires_separate_write_authority",
+            "normalize_findings",
+            "coverage_disclosure_required",
+            "run_status_required",
+            "sarif_when_supported"
+          ],
+          "properties": {
+            "core_dependency": { "const": false },
+            "authorization_required": { "const": true },
+            "security_scope_required": { "const": true },
+            "fix_requires_separate_write_authority": { "const": true },
+            "normalize_findings": { "const": true },
+            "coverage_disclosure_required": { "const": true },
+            "run_status_required": { "const": true },
+            "sarif_when_supported": { "const": true }
+          },
+          "additionalProperties": false
+        },
+        "risk_activation": {
+          "type": "object",
+          "required": ["R0", "R1", "R2", "R3", "R4"],
+          "properties": {
+            "R0": { "const": "NONE" },
+            "R1": { "const": "LIGHT" },
+            "R2": { "const": "CONDITIONAL_QUICK_OR_STANDARD" },
+            "R3": { "const": "POLICY_DRIVEN_STANDARD" },
+            "R4": { "const": "HUMAN_APPROVED_DEEP" }
+          },
+          "additionalProperties": false
+        },
+        "default_budget": {
+          "type": "object",
+          "required": ["max_scan_attempts", "max_repair_attempts", "max_rescan_attempts", "max_concurrency"],
+          "properties": {
+            "max_scan_attempts": { "type": "integer", "minimum": 1 },
+            "max_repair_attempts": { "type": "integer", "minimum": 0 },
+            "max_rescan_attempts": { "type": "integer", "minimum": 0 },
+            "max_concurrency": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "telemetry": {
+          "type": "object",
+          "required": ["allow", "deny_by_default"],
+          "properties": {
+            "allow": { "$ref": "#/$defs/NonEmptyStringList" },
+            "deny_by_default": { "$ref": "#/$defs/NonEmptyStringList" }
+          },
+          "additionalProperties": false
+        },
+        "strix_binding": {
+          "type": "object",
+          "required": [
+            "adapter_id",
+            "upstream_tag",
+            "upstream_commit",
+            "documented_exit_codes",
+            "require_run_artifact_check",
+            "installation_managed_separately"
+          ],
+          "properties": {
+            "adapter_id": { "const": "security.strix" },
+            "upstream_tag": { "$ref": "#/$defs/NonEmptyString" },
+            "upstream_commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+            "documented_exit_codes": {
+              "type": "object",
+              "required": ["0", "1", "2"],
+              "properties": {
+                "0": { "const": "clean_within_analyzed_scope" },
+                "1": { "const": "fatal_error" },
+                "2": { "const": "vulnerabilities_found" }
+              },
+              "additionalProperties": false
+            },
+            "require_run_artifact_check": { "const": true },
+            "installation_managed_separately": { "const": true }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

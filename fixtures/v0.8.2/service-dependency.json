@@ -1,0 +1,4 @@
+[
+  { "kind": "service_dependency", "dependency_id": "svc.supabase.primary", "provider": "supabase", "purpose": "Postgres/Auth/Storage", "version": "pinned-project-config", "persistence": "PERSISTENT", "backup_policy": "daily-plus-before-migration", "healthcheck": "db-and-api-health", "migration_required": true },
+  { "kind": "service_dependency", "dependency_id": "svc.redis.cache", "provider": "redis", "purpose": "cache-and-queue", "version": "7", "persistence": "PERSISTENT", "backup_policy": "snapshot-or-rebuild-by-policy", "healthcheck": "PING", "migration_required": false }
+]

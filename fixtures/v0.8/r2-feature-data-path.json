@@ -1,0 +1,242 @@
+{
+  "record_type": "sage_run_contract",
+  "schema_version": "sage-contracts/0.8",
+  "run_id": "run.r2.feature.001",
+  "task_packet": {
+    "record_type": "task_packet",
+    "schema_version": "sage-contracts/0.8",
+    "task_id": "task.r2.feature.001",
+    "objective": "Add a repository-scoped feature that writes and reads a non-sensitive preference.",
+    "request_type": "CHANGE",
+    "goal": {
+      "problem": "The application cannot persist the selected preference.",
+      "outcome": "An authenticated user can save and retrieve the preference.",
+      "users": ["authenticated-user"],
+      "acceptance_criteria": [
+        {
+          "id": "claim.r2.write-read",
+          "claim": "A fixture preference is written and read back with the expected value.",
+          "evidence_ids": ["ev.r2.integration.001"]
+        },
+        {
+          "id": "claim.r2.build-green",
+          "claim": "The relevant build and test entrypoints pass after each completed slice.",
+          "evidence_ids": ["ev.r2.test.001"]
+        }
+      ],
+      "failure_states": ["Unauthorized read", "Write succeeds but read-back differs"],
+      "unknowns": [],
+      "non_goals": ["Replace the database", "Redesign unrelated screens"]
+    },
+    "change_scope": {
+      "allowed_paths": ["src/preferences", "tests/preferences", "docs/preferences.md"],
+      "allowed_change_types": ["feature", "test", "documentation"],
+      "restricted_paths": ["database/migrations"],
+      "forbidden_paths": ["deployment/production"],
+      "forbidden_side_effects": ["production-data-write", "external-message"],
+      "generated_artifact_policy": "Temporary fixture data must be removed.",
+      "dependency_boundary": "No new dependency without deviation review.",
+      "migration_boundary": "Migration requires repository policy approval.",
+      "deviation_protocol": "STOP_AND_REAUTHORIZE"
+    },
+    "authority": {
+      "source": "user",
+      "scope": ["src/preferences", "tests/preferences", "docs/preferences.md"],
+      "status": "GRANTED",
+      "approval_id": "approval.r2.001"
+    },
+    "constraints": ["Use non-sensitive fixture data", "Preserve existing API contracts"],
+    "affected_domains": ["application", "data", "tests", "documentation"],
+    "selected_workflow": "workflow.data-integration",
+    "expected_deliverables": ["Feature implementation", "Integration test", "Documentation update"],
+    "expected_evidence": ["Build result", "Write/read proof", "Targeted regression"],
+    "budget": {
+      "max_attempts": 3,
+      "max_elapsed_minutes": 90,
+      "max_tool_failures": 3
+    },
+    "stop_conditions": ["Production credential required", "Public API change discovered"],
+    "context_provenance": ["Approved task", "Repository inspection", "Existing data contract"]
+  },
+  "risk_assessment": {
+    "record_type": "risk_assessment",
+    "schema_version": "sage-contracts/0.8",
+    "risk_id": "risk.r2.feature.001",
+    "task_id": "task.r2.feature.001",
+    "pass": "FINAL",
+    "risk_level": "R2",
+    "confidence": 0.9,
+    "dimensions": {
+      "data_integrity": "MEDIUM",
+      "reversibility": "MEDIUM",
+      "blast_radius": "LOW"
+    },
+    "mandatory_floors": [],
+    "escalation_reasons": [],
+    "assumptions": ["Only non-sensitive fixture data is used"],
+    "evidence_ids": ["ev.r2.integration.001", "ev.r2.test.001"],
+    "classifier_version": "sage-risk/0.8"
+  },
+  "gate_plan": {
+    "record_type": "gate_plan",
+    "schema_version": "sage-contracts/0.8",
+    "gate_plan_id": "gates.r2.feature.001",
+    "task_id": "task.r2.feature.001",
+    "gates": [
+      {
+        "gate_id": "gate.acceptance",
+        "state": "ACTIVE",
+        "activation_reason": "R2 feature requires observable acceptance.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Integration test"],
+        "acceptance_rule": "All acceptance claims have passing evidence.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.data-path-proof",
+        "state": "ACTIVE",
+        "activation_reason": "The feature crosses a data boundary.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Write receipt", "Read-back comparison"],
+        "acceptance_rule": "Written and read values match and fixture is removed.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.consistency",
+        "state": "ACTIVE",
+        "activation_reason": "Spec, implementation and tests must converge.",
+        "blocking": true,
+        "automated": false,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Cross-artifact analysis"],
+        "acceptance_rule": "No unresolved mismatch remains.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.implementation",
+        "state": "ACTIVE",
+        "activation_reason": "R2 feature requires implementation evidence.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Build result"],
+        "acceptance_rule": "The implementation builds in the relevant module.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.relevant-tests",
+        "state": "ACTIVE",
+        "activation_reason": "R2 requires targeted and integration verification.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Integration test", "Targeted regression"],
+        "acceptance_rule": "Relevant tests pass with declared coverage.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.review",
+        "state": "ACTIVE",
+        "activation_reason": "R2 policy requires a review disposition.",
+        "blocking": true,
+        "automated": false,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Review result"],
+        "acceptance_rule": "No blocking review finding remains.",
+        "status": "PASS"
+      }
+    ]
+  },
+  "brief": {
+    "record_type": "runtime_engineering_brief",
+    "schema_version": "sage-contracts/0.8",
+    "brief_id": "brief.r2.feature.001",
+    "task_id": "task.r2.feature.001",
+    "required_capabilities": ["application-change", "integration-testing"],
+    "minimum_context": ["Preference data contract", "Relevant source and tests", "Repository policies"],
+    "goal": {
+      "problem": "The application cannot persist the selected preference.",
+      "outcome": "An authenticated user can save and retrieve the preference.",
+      "users": ["authenticated-user"],
+      "acceptance_criteria": [
+        {
+          "id": "claim.r2.write-read",
+          "claim": "A fixture preference is written and read back with the expected value.",
+          "evidence_ids": ["ev.r2.integration.001"]
+        },
+        {
+          "id": "claim.r2.build-green",
+          "claim": "The relevant build and test entrypoints pass after each completed slice.",
+          "evidence_ids": ["ev.r2.test.001"]
+        }
+      ],
+      "failure_states": ["Unauthorized read", "Write succeeds but read-back differs"],
+      "unknowns": [],
+      "non_goals": ["Replace the database", "Redesign unrelated screens"]
+    },
+    "change_scope": {
+      "allowed_paths": ["src/preferences", "tests/preferences", "docs/preferences.md"],
+      "allowed_change_types": ["feature", "test", "documentation"],
+      "restricted_paths": ["database/migrations"],
+      "forbidden_paths": ["deployment/production"],
+      "forbidden_side_effects": ["production-data-write", "external-message"],
+      "generated_artifact_policy": "Temporary fixture data must be removed.",
+      "dependency_boundary": "No new dependency without deviation review.",
+      "migration_boundary": "Migration requires repository policy approval.",
+      "deviation_protocol": "STOP_AND_REAUTHORIZE"
+    },
+    "risk_level": "R2",
+    "authority": {
+      "source": "user",
+      "scope": ["src/preferences", "tests/preferences", "docs/preferences.md"],
+      "status": "GRANTED",
+      "approval_id": "approval.r2.001"
+    },
+    "expected_evidence": ["Build result", "Write/read proof", "Regression result"],
+    "stop_conditions": ["Scope drift", "Production credential required"]
+  },
+  "evidence": [
+    {
+      "record_type": "evidence_record",
+      "schema_version": "sage-contracts/0.8",
+      "evidence_id": "ev.r2.integration.001",
+      "claim_id": "claim.r2.write-read",
+      "kind": "TEST_RESULT",
+      "producer": "reference-fixture",
+      "method": "Write fixture then read and compare",
+      "scope": ["test-database", "preferences"],
+      "result": "PASS",
+      "artifact_refs": ["tests/preferences/integration"],
+      "timestamp": "2026-09-06T12:10:00Z",
+      "environment": "fixture",
+      "reproducible": true,
+      "limitations": ["Reference fixture, not a production run"]
+    },
+    {
+      "record_type": "evidence_record",
+      "schema_version": "sage-contracts/0.8",
+      "evidence_id": "ev.r2.test.001",
+      "claim_id": "claim.r2.build-green",
+      "kind": "BUILD_RESULT",
+      "producer": "reference-fixture",
+      "method": "Relevant build and targeted tests",
+      "scope": ["preferences-module"],
+      "result": "PASS",
+      "artifact_refs": ["test-report"],
+      "timestamp": "2026-09-06T12:11:00Z",
+      "environment": "fixture",
+      "reproducible": true,
+      "limitations": ["Full regression not run"]
+    }
+  ]
+}

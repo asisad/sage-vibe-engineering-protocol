@@ -1,0 +1,10 @@
+{
+  "request_id": "request.demonstrator.gps-map.001",
+  "title": "Mobile GPS Map Application",
+  "raw_request": "Build a mobile map app that reads GPS location, shows a map, and lets the user save places.",
+  "request_type": "CHANGE",
+  "known_constraints": ["Mobile-first", "Location permission required", "Offline behavior must be explicit"],
+  "unknowns": ["Target mobile platforms", "Map tile provider", "Account/sync requirement", "Privacy retention period"],
+  "non_goals": ["Turn-by-turn navigation", "Public social network", "Commercial map licensing decision"],
+  "authority": { "status": "PROPOSED", "source": "demonstrator", "scope": ["specification", "architecture", "plan"] }
+}

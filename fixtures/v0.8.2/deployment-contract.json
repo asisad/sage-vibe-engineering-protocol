@@ -1,0 +1,3 @@
+{
+  "kind": "deployment_contract", "deployment_id": "deploy.demo.staging.001", "artifact_ref": "ghcr.io/example/app@sha256:abc123", "image_digest": "sha256:abc123", "provider": "docker-compose", "environment": "STAGING", "trigger": "TAG", "gates": ["healthcheck", "migration-safety", "backup-freshness", "observability", "rollback-reference"], "rollback_ref": "ghcr.io/example/app@sha256:previous", "approval_required": true
+}

@@ -1,0 +1,4 @@
+[
+  { "kind": "sensor_descriptor", "sensor_id": "sensor.tests", "class": "COMPUTATIONAL", "determinism": "DETERMINISTIC", "privacy": "REDACTED", "failure_semantics": "BLOCK", "capabilities": ["unit-test", "integration-test"] },
+  { "kind": "sensor_descriptor", "sensor_id": "sensor.ai-review", "class": "INFERENTIAL", "determinism": "NONDETERMINISTIC", "privacy": "REDACTED", "failure_semantics": "REVIEW_REQUIRED", "capabilities": ["semantic-review"] }
+]

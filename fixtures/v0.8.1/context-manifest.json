@@ -1,0 +1,7 @@
+{
+  "kind": "context_manifest", "manifest_id": "ctx.sage.demo.001", "task_id": "task.sage.demo.001",
+  "entries": [
+    { "entry_id": "entry.protocol", "source": "SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT.md", "version": "0.8.0", "authority": "APPROVED", "freshness": "CURRENT", "sensitivity": "PUBLIC", "use_scope": ["governance", "workflow"] },
+    { "entry_id": "entry.proposed", "source": "research-integration-delta", "version": "0.8.1-draft.1", "authority": "PROPOSED", "freshness": "CURRENT", "sensitivity": "PUBLIC", "use_scope": ["enhancement-review"] }
+  ]
+}

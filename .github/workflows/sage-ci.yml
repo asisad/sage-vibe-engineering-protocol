@@ -1,0 +1,14 @@
+name: SAGE CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  contracts-and-reference-runtime:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run SAGE unified CI
+        shell: pwsh
+        run: ./sage.ps1 ci

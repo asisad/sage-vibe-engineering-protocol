@@ -1,0 +1,9 @@
+{
+  "policy_id": "sage.production-operations",
+  "version": "0.8.2-draft.1",
+  "deployment": { "immutable_artifact_required": true, "image_digest_required_for": ["STAGING", "PRODUCTION"], "production_approval": "HUMAN_REQUIRED", "rollback_reference_required": true },
+  "environments": { "local": { "network": "LOOPBACK_ONLY", "approval": "NONE" }, "ci": { "network": "PRIVATE_NETWORK", "approval": "REVIEW_REQUIRED" }, "staging": { "network": "PRIVATE_NETWORK", "approval": "REVIEW_REQUIRED" }, "production": { "network": "PUBLIC_INGRESS", "approval": "HUMAN_REQUIRED" } },
+  "gates": { "required": ["healthcheck", "migration-safety", "backup-freshness", "observability", "rollback-reference"], "failure_action": "BLOCKED" },
+  "secrets": { "inject_at_runtime": true, "log_or_evidence": false },
+  "providers": { "docker-compose": "first_class_execution", "coolify": "optional_paas_adapter", "dokploy": "optional_paas_adapter", "incus": "optional_infrastructure_adapter", "supabase": "optional_backend_adapter", "redis": "dependency_descriptor" }
+}

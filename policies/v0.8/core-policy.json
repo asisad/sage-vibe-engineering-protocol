@@ -1,0 +1,61 @@
+{
+  "policy_id": "sage.core.default",
+  "version": "0.8.0-draft.3",
+  "schema_version": "sage-policy/0.8",
+  "risk_profiles": {
+    "R0": {
+      "workflow": "MICRO",
+      "max_primary_attempts": 1,
+      "independent_review": false,
+      "required_gates": ["scope", "targeted-verification", "anti-overengineering"]
+    },
+    "R1": {
+      "workflow": "QUICK",
+      "max_primary_attempts": 2,
+      "independent_review": false,
+      "required_gates": ["scope", "relevant-checks", "rollback"]
+    },
+    "R2": {
+      "workflow": "STANDARD",
+      "max_primary_attempts": 3,
+      "independent_review": false,
+      "required_gates": ["acceptance", "implementation", "relevant-tests", "review", "consistency"]
+    },
+    "R3": {
+      "workflow": "CONTROLLED",
+      "max_primary_attempts": 2,
+      "independent_review": true,
+      "required_gates": ["spec", "architecture", "rollback", "ci", "independent-review", "convergence"]
+    },
+    "R4": {
+      "workflow": "CRITICAL",
+      "max_primary_attempts": 1,
+      "independent_review": true,
+      "human_approval": true,
+      "required_gates": ["exact-target", "human-approval", "recovery", "independent-verification", "observability"]
+    }
+  },
+  "clarification": {
+    "blocking_dimensions": ["outcome", "scope", "risk", "authority"],
+    "non_blocking_result": "ASSUMPTION_BOUNDED"
+  },
+  "workflow_resolution": [
+    "project_override",
+    "explicit_task_package",
+    "compatible_extensions",
+    "sage_core_default"
+  ],
+  "completion": {
+    "require_blocking_gates_pass": true,
+    "require_claim_evidence_links": true,
+    "require_coverage_disclosure": true,
+    "reject_stale_evidence": true,
+    "reject_unapproved_scope_drift": true
+  },
+  "projection": {
+    "preserve_source_ids": true,
+    "preserve_authority": true,
+    "report_drift": true,
+    "silent_overwrite": false
+  }
+}

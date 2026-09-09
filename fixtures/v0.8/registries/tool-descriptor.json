@@ -1,0 +1,32 @@
+{
+  "record_type": "tool_descriptor",
+  "schema_version": "sage-contracts/0.8",
+  "tool_id": "tool.reference.validator",
+  "version": "0.8.0",
+  "capabilities": ["json-schema-validation", "semantic-contract-checks"],
+  "side_effect_class": "READ_ONLY",
+  "input_schema_ref": "schemas/v0.8/sage-contracts.schema.json",
+  "output_schema_ref": "schemas/v0.8/sage-contracts.schema.json#/$defs/EvidenceRecord",
+  "permission_requirements": ["read:schemas", "read:fixtures"],
+  "supported_environments": ["powershell-7"],
+  "network_behavior": {
+    "mode": "NONE",
+    "destinations": []
+  },
+  "idempotency_support": "NATIVE",
+  "timeout_defaults": {
+    "default_seconds": 30,
+    "maximum_seconds": 120
+  },
+  "evidence_outputs": ["validation-result", "failure-list"],
+  "rollback_recovery_support": {
+    "rollback": false,
+    "recovery": false
+  },
+  "native_binding": {
+    "provider": "powershell",
+    "binding_id": "tools/Test-SageContracts.ps1"
+  },
+  "receipt_fields": ["status", "passed_checks", "failed_checks"],
+  "failure_modes": ["INVALID_INPUT", "VERIFICATION_FAILED", "TOOL_UNAVAILABLE"]
+}

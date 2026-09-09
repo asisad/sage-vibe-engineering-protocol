@@ -1,0 +1,20 @@
+{
+  "record_type": "architecture_model",
+  "schema_version": "sage-architecture/0.8",
+  "model_id": "sage.sample.checkout",
+  "model_version": "2026.09.09.1",
+  "authority": "APPROVED",
+  "source_of_truth": true,
+  "provider": "likec4",
+  "elements": [
+    { "architecture_id": "system.checkout", "kind": "System", "name": "Checkout", "authority": "APPROVED", "provenance": { "source": "architecture-review", "observed_at": "2026-09-09T10:00:00Z" } },
+    { "architecture_id": "service.checkout-api", "kind": "Service", "name": "Checkout API", "authority": "APPROVED", "provenance": { "source": "architecture-review", "observed_at": "2026-09-09T10:00:00Z" } },
+    { "architecture_id": "database.orders", "kind": "Database", "name": "Orders DB", "authority": "APPROVED", "provenance": { "source": "architecture-review", "observed_at": "2026-09-09T10:00:00Z" } }
+  ],
+  "relationships": [
+    { "relationship_id": "rel.checkout-api-orders", "from": "service.checkout-api", "to": "database.orders", "kind": "writes", "authority": "APPROVED", "provenance": { "source": "architecture-review", "observed_at": "2026-09-09T10:00:00Z" } }
+  ],
+  "views": [
+    { "view_id": "view.checkout-dependency", "view_type": "dependency", "element_ids": ["system.checkout", "service.checkout-api", "database.orders"], "generated_from_model_version": "2026.09.09.1", "renderer": "mermaid", "artifact_refs": ["architecture/generated/checkout-dependency.mmd"] }
+  ]
+}

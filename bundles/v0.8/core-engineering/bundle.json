@@ -1,0 +1,10 @@
+{
+  "bundle_id": "sage.core-engineering",
+  "version": "0.8.0",
+  "protocol": "sage/0.8",
+  "skills": ["sage-intake", "sage-plan", "sage-verify"],
+  "policies": ["policies/v0.8/core-policy.json", "policies/v0.8/architecture-policy.json"],
+  "install_policy": "project-root-only",
+  "offline": true,
+  "idempotent": true
+}

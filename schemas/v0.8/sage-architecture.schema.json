@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sage.local/schemas/v0.8/sage-architecture.schema.json",
+  "title": "SAGE v0.8 Architecture Model Contract",
+  "anyOf": [
+    { "$ref": "#/$defs/ArchitectureModel" },
+    { "$ref": "#/$defs/ArchitectureDelta" },
+    { "$ref": "#/$defs/RuntimeComparison" }
+  ],
+  "$defs": {
+    "Id": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9_.:/-]+$" },
+    "NonEmpty": { "type": "string", "minLength": 1 },
+    "StringList": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/NonEmpty" } },
+    "ArchitectureElement": {
+      "type": "object",
+      "required": ["architecture_id", "kind", "name", "authority", "provenance"],
+      "properties": {
+        "architecture_id": { "$ref": "#/$defs/Id" },
+        "kind": { "enum": ["System", "Service", "Component", "Module", "Database", "Queue", "ExternalSystem", "DeploymentNode", "Agent", "Model", "Skill", "Tool", "MCPEndpoint", "TrustBoundary", "DataBoundary", "Team", "ConfigurationItem"] },
+        "name": { "$ref": "#/$defs/NonEmpty" },
+        "description": { "type": "string" },
+        "owner": { "$ref": "#/$defs/NonEmpty" },
+        "authority": { "enum": ["APPROVED", "INFERRED", "OBSERVED", "PROPOSED", "DEPRECATED"] },
+        "provenance": { "type": "object", "required": ["source", "observed_at"], "properties": { "source": { "$ref": "#/$defs/NonEmpty" }, "source_ref": { "$ref": "#/$defs/NonEmpty" }, "observed_at": { "type": "string", "format": "date-time" }, "confidence": { "type": "number", "minimum": 0, "maximum": 1 } }, "additionalProperties": false },
+        "tags": { "$ref": "#/$defs/StringList" }
+      },
+      "additionalProperties": false
+    },
+    "ArchitectureRelationship": {
+      "type": "object",
+      "required": ["relationship_id", "from", "to", "kind", "authority", "provenance"],
+      "properties": {
+        "relationship_id": { "$ref": "#/$defs/Id" },
+        "from": { "$ref": "#/$defs/Id" },
+        "to": { "$ref": "#/$defs/Id" },
+        "kind": { "enum": ["calls", "depends_on", "reads", "writes", "publishes", "subscribes", "deploys_to", "contains", "crosses_boundary", "owns"] },
+        "description": { "type": "string" },
+        "authority": { "enum": ["APPROVED", "INFERRED", "OBSERVED", "PROPOSED", "DEPRECATED"] },
+        "provenance": { "type": "object", "required": ["source", "observed_at"], "properties": { "source": { "$ref": "#/$defs/NonEmpty" }, "source_ref": { "$ref": "#/$defs/NonEmpty" }, "observed_at": { "type": "string", "format": "date-time" }, "confidence": { "type": "number", "minimum": 0, "maximum": 1 } }, "additionalProperties": false }
+      },
+      "additionalProperties": false
+    },
+    "ArchitectureView": {
+      "type": "object",
+      "required": ["view_id", "view_type", "element_ids", "generated_from_model_version"],
+      "properties": { "view_id": { "$ref": "#/$defs/Id" }, "view_type": { "enum": ["system_context", "landscape", "container", "component", "dependency", "sequence", "state", "data_flow", "deployment", "security", "agent_tool_flow", "drift", "blast_radius"] }, "element_ids": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Id" } }, "generated_from_model_version": { "$ref": "#/$defs/NonEmpty" }, "renderer": { "$ref": "#/$defs/NonEmpty" }, "artifact_refs": { "$ref": "#/$defs/StringList" } },
+      "additionalProperties": false
+    },
+    "ArchitectureModel": {
+      "type": "object",
+      "required": ["record_type", "schema_version", "model_id", "model_version", "authority", "elements", "relationships", "views"],
+      "properties": {
+        "record_type": { "const": "architecture_model" },
+        "schema_version": { "const": "sage-architecture/0.8" },
+        "model_id": { "$ref": "#/$defs/Id" },
+        "model_version": { "$ref": "#/$defs/NonEmpty" },
+        "authority": { "enum": ["APPROVED", "INFERRED", "OBSERVED", "PROPOSED", "DEPRECATED"] },
+        "elements": { "type": "array", "items": { "$ref": "#/$defs/ArchitectureElement" } },
+        "relationships": { "type": "array", "items": { "$ref": "#/$defs/ArchitectureRelationship" } },
+        "views": { "type": "array", "items": { "$ref": "#/$defs/ArchitectureView" } },
+        "source_of_truth": { "const": true },
+        "provider": { "enum": ["likec4", "structurizr", "provider-neutral"] }
+      },
+      "additionalProperties": false
+    },
+    "ArchitectureDelta": {
+      "type": "object",
+      "required": ["record_type", "schema_version", "delta_id", "base_model_version", "changes", "affected_views", "authority"],
+      "properties": { "record_type": { "const": "architecture_delta" }, "schema_version": { "const": "sage-architecture/0.8" }, "delta_id": { "$ref": "#/$defs/Id" }, "base_model_version": { "$ref": "#/$defs/NonEmpty" }, "changes": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["operation", "target_id"], "properties": { "operation": { "enum": ["ADD", "UPDATE", "REMOVE"] }, "target_id": { "$ref": "#/$defs/Id" }, "reason": { "$ref": "#/$defs/NonEmpty" } }, "additionalProperties": false } }, "affected_views": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Id" } }, "authority": { "enum": ["PROPOSED", "APPROVED"] }, "approval_ref": { "$ref": "#/$defs/NonEmpty" } },
+      "additionalProperties": false
+    },
+    "RuntimeComparison": {
+      "type": "object",
+      "required": ["record_type", "schema_version", "comparison_id", "approved_model_version", "observed_model_version", "status", "findings"],
+      "properties": { "record_type": { "const": "architecture_runtime_comparison" }, "schema_version": { "const": "sage-architecture/0.8" }, "comparison_id": { "$ref": "#/$defs/Id" }, "approved_model_version": { "$ref": "#/$defs/NonEmpty" }, "observed_model_version": { "$ref": "#/$defs/NonEmpty" }, "status": { "enum": ["CONVERGED", "PARTIALLY_CONVERGED", "NOT_CONVERGED", "REVIEW_REQUIRED"] }, "findings": { "type": "array", "items": { "type": "object", "required": ["finding_id", "kind", "severity", "evidence_refs"], "properties": { "finding_id": { "$ref": "#/$defs/Id" }, "kind": { "enum": ["ARCHITECTURE_DRIFT", "DEPENDENCY_DRIFT", "IMPLEMENTATION_DRIFT", "UNEXPECTED_RUNTIME_RELATIONSHIP", "MAPPING_ERROR"] }, "severity": { "enum": ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"] }, "evidence_refs": { "$ref": "#/$defs/StringList" } }, "additionalProperties": false } } },
+      "additionalProperties": false
+    }
+  }
+}

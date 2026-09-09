@@ -1,0 +1,277 @@
+{
+  "record_type": "sage_run_contract",
+  "schema_version": "sage-contracts/0.8",
+  "run_id": "run.r4.security.001",
+  "task_packet": {
+    "record_type": "task_packet",
+    "schema_version": "sage-contracts/0.8",
+    "task_id": "task.r4.security.001",
+    "objective": "Define a controlled deep security validation run against an explicitly owned staging target.",
+    "request_type": "RUN",
+    "goal": {
+      "problem": "A critical staging release requires bounded security evidence.",
+      "outcome": "The authorized target is evaluated within the approved scope and findings are normalized without automatic repair.",
+      "users": ["system-owner", "security-reviewer"],
+      "acceptance_criteria": [
+        {
+          "id": "claim.r4.scope-enforced",
+          "claim": "Only allowlisted targets and techniques are eligible for execution.",
+          "evidence_ids": ["ev.r4.scope.001"]
+        }
+      ],
+      "failure_states": ["Target escapes allowlist", "Authorization expires", "Emergency stop fails"],
+      "unknowns": ["Runtime tool availability"],
+      "non_goals": ["Production testing", "Automatic vulnerability repair", "Credential extraction"]
+    },
+    "change_scope": {
+      "allowed_paths": ["reports/security/staging"],
+      "allowed_change_types": ["security-report", "run-receipt", "sarif"],
+      "restricted_paths": ["staging-target"],
+      "forbidden_paths": ["production", "third-party-targets"],
+      "forbidden_side_effects": ["denial-of-service", "persistence", "data-destruction", "automatic-fix"],
+      "generated_artifact_policy": "Security artifacts are restricted and redacted.",
+      "dependency_boundary": "Adapter installation is managed separately.",
+      "migration_boundary": "No migration.",
+      "deviation_protocol": "STOP_AND_REAUTHORIZE"
+    },
+    "authority": {
+      "source": "written-owner-authorization",
+      "scope": ["https://staging.example.invalid"],
+      "status": "GRANTED",
+      "approval_id": "approval.r4.security.001",
+      "expires_at": "2026-09-07T00:00:00Z"
+    },
+    "constraints": ["No production target", "No automatic repair", "Emergency stop must remain available"],
+    "affected_domains": ["security", "network", "application", "restricted-evidence"],
+    "selected_workflow": "workflow.security-validation",
+    "expected_deliverables": ["Run receipt", "Coverage disclosure", "Normalized findings", "Restricted report"],
+    "expected_evidence": ["Authorization receipt", "Scope validation", "Run status", "Coverage report"],
+    "budget": {
+      "max_attempts": 1,
+      "max_elapsed_minutes": 60,
+      "max_tool_failures": 1
+    },
+    "stop_conditions": ["Authorization invalid", "Out-of-scope target observed", "Rate limit exceeded", "Unexpected destructive behavior"],
+    "context_provenance": ["Written authorization fixture", "Security policy", "Target allowlist"]
+  },
+  "risk_assessment": {
+    "record_type": "risk_assessment",
+    "schema_version": "sage-contracts/0.8",
+    "risk_id": "risk.r4.security.001",
+    "task_id": "task.r4.security.001",
+    "pass": "FINAL",
+    "risk_level": "R4",
+    "confidence": 0.98,
+    "dimensions": {
+      "security": "CRITICAL",
+      "external_side_effect": "HIGH",
+      "data_sensitivity": "HIGH",
+      "blast_radius": "HIGH"
+    },
+    "mandatory_floors": ["Explicit authorization", "Human approval", "Independent review", "Emergency stop"],
+    "escalation_reasons": ["Active security techniques"],
+    "assumptions": ["Target ownership remains valid for the time window"],
+    "evidence_ids": ["ev.r4.scope.001"],
+    "classifier_version": "sage-risk/0.8"
+  },
+  "gate_plan": {
+    "record_type": "gate_plan",
+    "schema_version": "sage-contracts/0.8",
+    "gate_plan_id": "gates.r4.security.001",
+    "task_id": "task.r4.security.001",
+    "gates": [
+      {
+        "gate_id": "gate.authorization",
+        "state": "ACTIVE",
+        "activation_reason": "Active security testing requires explicit authority.",
+        "blocking": true,
+        "automated": false,
+        "independent_review": true,
+        "human_approval": true,
+        "evidence_required": ["Authorization record", "Expiry check"],
+        "acceptance_rule": "Authorization is valid for the exact target and time window.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.security-scope",
+        "state": "ACTIVE",
+        "activation_reason": "R4 security work requires an enforceable scope.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": true,
+        "human_approval": true,
+        "evidence_required": ["Allowlist resolution", "Denylist enforcement"],
+        "acceptance_rule": "Every target and technique is within the signed scope.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.security-evidence",
+        "state": "ACTIVE",
+        "activation_reason": "Exit code alone is insufficient.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": true,
+        "human_approval": false,
+        "evidence_required": ["Run artifact", "Coverage disclosure", "Normalized findings"],
+        "acceptance_rule": "Run status, coverage, findings and limitations are recorded.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.exact-target",
+        "state": "ACTIVE",
+        "activation_reason": "R4 requires exact target resolution.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": true,
+        "human_approval": true,
+        "evidence_required": ["Resolved target receipt"],
+        "acceptance_rule": "The resolved target equals an allowlisted target.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.human-approval",
+        "state": "ACTIVE",
+        "activation_reason": "R4 requires explicit human approval before execution.",
+        "blocking": true,
+        "automated": false,
+        "independent_review": true,
+        "human_approval": true,
+        "evidence_required": ["Approval record"],
+        "acceptance_rule": "Approval is valid for target, methods and time window.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.recovery",
+        "state": "ACTIVE",
+        "activation_reason": "R4 requires containment and recovery readiness.",
+        "blocking": true,
+        "automated": false,
+        "independent_review": true,
+        "human_approval": true,
+        "evidence_required": ["Containment and recovery procedure"],
+        "acceptance_rule": "Emergency stop and recovery procedure are executable.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.independent-verification",
+        "state": "ACTIVE",
+        "activation_reason": "R4 cannot be finalized by the executor alone.",
+        "blocking": true,
+        "automated": false,
+        "independent_review": true,
+        "human_approval": false,
+        "evidence_required": ["Independent review result"],
+        "acceptance_rule": "Independent reviewer resolves all blocking findings.",
+        "status": "PENDING"
+      },
+      {
+        "gate_id": "gate.observability",
+        "state": "ACTIVE",
+        "activation_reason": "R4 requires bounded runtime observation.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Run status", "Coverage disclosure", "Emergency-stop signal"],
+        "acceptance_rule": "Run state and stop conditions remain observable.",
+        "status": "PENDING"
+      }
+    ]
+  },
+  "brief": {
+    "record_type": "runtime_engineering_brief",
+    "schema_version": "sage-contracts/0.8",
+    "brief_id": "brief.r4.security.001",
+    "task_id": "task.r4.security.001",
+    "required_capabilities": ["authorized-security-validation", "restricted-evidence-handling"],
+    "minimum_context": ["Authorization", "Security scope", "Target ownership", "Emergency stop procedure"],
+    "goal": {
+      "problem": "A critical staging release requires bounded security evidence.",
+      "outcome": "The authorized target is evaluated within the approved scope and findings are normalized without automatic repair.",
+      "users": ["system-owner", "security-reviewer"],
+      "acceptance_criteria": [
+        {
+          "id": "claim.r4.scope-enforced",
+          "claim": "Only allowlisted targets and techniques are eligible for execution.",
+          "evidence_ids": ["ev.r4.scope.001"]
+        }
+      ],
+      "failure_states": ["Target escapes allowlist", "Authorization expires", "Emergency stop fails"],
+      "unknowns": ["Runtime tool availability"],
+      "non_goals": ["Production testing", "Automatic vulnerability repair", "Credential extraction"]
+    },
+    "change_scope": {
+      "allowed_paths": ["reports/security/staging"],
+      "allowed_change_types": ["security-report", "run-receipt", "sarif"],
+      "restricted_paths": ["staging-target"],
+      "forbidden_paths": ["production", "third-party-targets"],
+      "forbidden_side_effects": ["denial-of-service", "persistence", "data-destruction", "automatic-fix"],
+      "generated_artifact_policy": "Security artifacts are restricted and redacted.",
+      "dependency_boundary": "Adapter installation is managed separately.",
+      "migration_boundary": "No migration.",
+      "deviation_protocol": "STOP_AND_REAUTHORIZE"
+    },
+    "risk_level": "R4",
+    "authority": {
+      "source": "written-owner-authorization",
+      "scope": ["https://staging.example.invalid"],
+      "status": "GRANTED",
+      "approval_id": "approval.r4.security.001",
+      "expires_at": "2026-09-07T00:00:00Z"
+    },
+    "expected_evidence": ["Authorization receipt", "Scope proof", "Coverage disclosure", "Run status"],
+    "stop_conditions": ["Scope drift", "Authorization expiry", "Emergency stop"]
+  },
+  "security_scope": {
+    "record_type": "security_scope",
+    "schema_version": "sage-contracts/0.8",
+    "security_scope_id": "scope.r4.security.001",
+    "authorization": {
+      "source": "written-owner-authorization",
+      "scope": ["https://staging.example.invalid"],
+      "status": "GRANTED",
+      "approval_id": "approval.r4.security.001",
+      "expires_at": "2026-09-07T00:00:00Z"
+    },
+    "target_allowlist": ["https://staging.example.invalid"],
+    "target_denylist": ["production.example.invalid", "third-party systems"],
+    "allowed_techniques": ["bounded web application checks", "non-destructive validation"],
+    "prohibited_techniques": ["denial-of-service", "persistence", "destructive payloads", "social engineering"],
+    "profile": "DEEP",
+    "mode": "LOCAL",
+    "evaluation_time": "2026-09-06T20:30:00Z",
+    "time_window": {
+      "starts_at": "2026-09-06T20:00:00Z",
+      "ends_at": "2026-09-06T21:00:00Z"
+    },
+    "budget": {
+      "max_attempts": 1,
+      "max_elapsed_minutes": 60,
+      "max_concurrency": 1,
+      "max_requests_per_minute": 30,
+      "max_cost_usd": 10
+    },
+    "data_handling": "Redact credentials and personal data; store reports as restricted.",
+    "credential_handling": "Use runtime secret injection only.",
+    "reporting_destination": "reports/security/staging",
+    "stop_conditions": ["Any out-of-scope target", "Unexpected destructive effect", "Authorization expiry"]
+  },
+  "evidence": [
+    {
+      "record_type": "evidence_record",
+      "schema_version": "sage-contracts/0.8",
+      "evidence_id": "ev.r4.scope.001",
+      "claim_id": "claim.r4.scope-enforced",
+      "kind": "APPROVAL",
+      "producer": "reference-fixture",
+      "method": "Authorization and allowlist contract inspection",
+      "scope": ["https://staging.example.invalid"],
+      "result": "PARTIAL",
+      "artifact_refs": ["scope.r4.security.001"],
+      "timestamp": "2026-09-06T12:20:00Z",
+      "environment": "fixture",
+      "reproducible": true,
+      "limitations": ["No security tool was installed or run", "Target is non-routable example.invalid"]
+    }
+  ]
+}

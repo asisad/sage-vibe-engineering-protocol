@@ -1,0 +1,3 @@
+{
+  "kind": "workflow_profile", "profile_id": "workflow.sdd.compatible", "stages": ["CONSTITUTION", "SPECIFY", "PLAN", "TASKS", "IMPLEMENT", "VERIFY", "CONVERGE"], "gate_binding": "SAGE_REQUIRED", "source_compatibility": ["github/spec-kit", "gitlab/duo-foundational-flow"]
+}

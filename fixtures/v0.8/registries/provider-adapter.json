@@ -1,0 +1,41 @@
+{
+  "record_type": "provider_adapter",
+  "schema_version": "sage-contracts/0.8",
+  "adapter_id": "adapter.reference.local",
+  "version": "0.8.0",
+  "provider": "local-reference-runtime",
+  "interfaces": [
+    "describe_capabilities",
+    "validate_configuration",
+    "prepare_request",
+    "execute",
+    "stream_events",
+    "cancel",
+    "normalize_result",
+    "health_check"
+  ],
+  "input_mapping": {
+    "task_packet": "native.request",
+    "authority": "native.authorization"
+  },
+  "output_mapping": {
+    "native.result": "evidence_record",
+    "native.events": "run_event"
+  },
+  "error_mapping": {
+    "native.invalid_input": "INVALID_INPUT",
+    "native.timeout": "TOOL_FAILURE"
+  },
+  "event_mapping": {
+    "native.started": "EXECUTING",
+    "native.completed": "VERIFYING"
+  },
+  "scope_preservation": true,
+  "permission_preservation": true,
+  "authority_preservation": true,
+  "evidence_preservation": true,
+  "idempotency_passthrough": true,
+  "cancellation_support": true,
+  "native_metadata_namespace": "provider.local-reference-runtime",
+  "limitations": ["Reference mapping only"]
+}

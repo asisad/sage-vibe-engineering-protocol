@@ -1,0 +1,33 @@
+{
+  "record_type": "agent_capability",
+  "schema_version": "sage-contracts/0.8",
+  "agent_id": "agent.reference.engineer",
+  "version": "0.8.0",
+  "role_profiles": ["implementation", "review"],
+  "model_binding": {
+    "provider": "runtime-selected",
+    "model_id": "engineering-capable",
+    "binding_mode": "RUNTIME_SELECTED"
+  },
+  "capabilities": ["repository-inspection", "scoped-change", "test-execution"],
+  "capability_evidence": [
+    {
+      "capability": "scoped-change",
+      "evidence_refs": ["benchmark.scoped-change.001"],
+      "verified_at": "2026-09-06T10:00:00Z"
+    }
+  ],
+  "supported_modalities": ["text", "code"],
+  "context_limits": {
+    "max_input_tokens": 100000,
+    "max_output_tokens": 20000
+  },
+  "available_tool_classes": ["READ_ONLY", "LOCAL_REVERSIBLE"],
+  "supported_environments": ["local-workspace"],
+  "privacy_locality_modes": ["LOCAL_ONLY", "PRIVATE_REMOTE"],
+  "maximum_eligible_risk": "R3",
+  "independence_attributes": ["fresh-context-capable", "separate-review-role"],
+  "health_status": "HEALTHY",
+  "compatibility": ["sage-contracts/0.8"],
+  "limitations": ["No standing authority"]
+}

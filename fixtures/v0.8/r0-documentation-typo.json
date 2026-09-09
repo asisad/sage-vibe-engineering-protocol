@@ -1,0 +1,173 @@
+{
+  "record_type": "sage_run_contract",
+  "schema_version": "sage-contracts/0.8",
+  "run_id": "run.r0.typo.001",
+  "task_packet": {
+    "record_type": "task_packet",
+    "schema_version": "sage-contracts/0.8",
+    "task_id": "task.r0.typo.001",
+    "objective": "Correct one confirmed typo in a documentation file.",
+    "request_type": "CHANGE",
+    "goal": {
+      "problem": "A documentation word is misspelled.",
+      "outcome": "The word is corrected without changing meaning or formatting.",
+      "acceptance_criteria": [
+        {
+          "id": "claim.r0.typo.correct",
+          "claim": "The target typo is absent and surrounding text is unchanged.",
+          "evidence_ids": ["ev.r0.diff.001"]
+        }
+      ],
+      "non_goals": ["Rewrite the section", "Run the full repository test suite"]
+    },
+    "change_scope": {
+      "allowed_paths": ["docs/guide.md"],
+      "allowed_change_types": ["single-text-replacement"],
+      "restricted_paths": [],
+      "forbidden_paths": ["src", "config"],
+      "forbidden_side_effects": ["network", "dependency-install"],
+      "generated_artifact_policy": "No generated artifacts.",
+      "dependency_boundary": "No dependency changes.",
+      "migration_boundary": "No migration.",
+      "deviation_protocol": "STOP_AND_REAUTHORIZE"
+    },
+    "authority": {
+      "source": "user",
+      "scope": ["docs/guide.md"],
+      "status": "GRANTED",
+      "approval_id": "approval.r0.001"
+    },
+    "constraints": ["Preserve surrounding content"],
+    "affected_domains": ["documentation"],
+    "selected_workflow": "workflow.micro",
+    "expected_deliverables": ["Updated docs/guide.md"],
+    "expected_evidence": ["Targeted diff"],
+    "budget": {
+      "max_attempts": 1,
+      "max_elapsed_minutes": 5,
+      "max_tool_failures": 1
+    },
+    "stop_conditions": ["Target path differs", "Requested change expands"],
+    "context_provenance": ["User request", "Current file content"]
+  },
+  "risk_assessment": {
+    "record_type": "risk_assessment",
+    "schema_version": "sage-contracts/0.8",
+    "risk_id": "risk.r0.typo.001",
+    "task_id": "task.r0.typo.001",
+    "pass": "FINAL",
+    "risk_level": "R0",
+    "confidence": 0.99,
+    "dimensions": {
+      "reversibility": "LOW",
+      "blast_radius": "LOW"
+    },
+    "mandatory_floors": [],
+    "escalation_reasons": [],
+    "assumptions": ["File is not generated"],
+    "evidence_ids": ["ev.r0.diff.001"],
+    "classifier_version": "sage-risk/0.8"
+  },
+  "gate_plan": {
+    "record_type": "gate_plan",
+    "schema_version": "sage-contracts/0.8",
+    "gate_plan_id": "gates.r0.typo.001",
+    "task_id": "task.r0.typo.001",
+    "gates": [
+      {
+        "gate_id": "gate.scope",
+        "state": "ACTIVE",
+        "activation_reason": "All mutations require exact scope.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Target path check"],
+        "acceptance_rule": "Only docs/guide.md changed.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.anti-overengineering",
+        "state": "ACTIVE",
+        "activation_reason": "R0 must remain minimal.",
+        "blocking": false,
+        "automated": false,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Plan inspection"],
+        "acceptance_rule": "No unrelated ceremony or test suite added.",
+        "status": "PASS"
+      },
+      {
+        "gate_id": "gate.targeted-verification",
+        "state": "ACTIVE",
+        "activation_reason": "R0 requires evidence for the exact edited text.",
+        "blocking": true,
+        "automated": true,
+        "independent_review": false,
+        "human_approval": false,
+        "evidence_required": ["Targeted diff"],
+        "acceptance_rule": "The typo is corrected and adjacent content is unchanged.",
+        "status": "PASS"
+      }
+    ]
+  },
+  "brief": {
+    "record_type": "runtime_engineering_brief",
+    "schema_version": "sage-contracts/0.8",
+    "brief_id": "brief.r0.typo.001",
+    "task_id": "task.r0.typo.001",
+    "required_capabilities": ["text-edit"],
+    "minimum_context": ["Target line", "Adjacent paragraph"],
+    "goal": {
+      "problem": "A documentation word is misspelled.",
+      "outcome": "The word is corrected without changing meaning or formatting.",
+      "acceptance_criteria": [
+        {
+          "id": "claim.r0.typo.correct",
+          "claim": "The target typo is absent and surrounding text is unchanged.",
+          "evidence_ids": ["ev.r0.diff.001"]
+        }
+      ],
+      "non_goals": ["Rewrite the section", "Run the full repository test suite"]
+    },
+    "change_scope": {
+      "allowed_paths": ["docs/guide.md"],
+      "allowed_change_types": ["single-text-replacement"],
+      "restricted_paths": [],
+      "forbidden_paths": ["src", "config"],
+      "forbidden_side_effects": ["network", "dependency-install"],
+      "generated_artifact_policy": "No generated artifacts.",
+      "dependency_boundary": "No dependency changes.",
+      "migration_boundary": "No migration.",
+      "deviation_protocol": "STOP_AND_REAUTHORIZE"
+    },
+    "risk_level": "R0",
+    "authority": {
+      "source": "user",
+      "scope": ["docs/guide.md"],
+      "status": "GRANTED",
+      "approval_id": "approval.r0.001"
+    },
+    "expected_evidence": ["Targeted diff"],
+    "stop_conditions": ["Scope drift"]
+  },
+  "evidence": [
+    {
+      "record_type": "evidence_record",
+      "schema_version": "sage-contracts/0.8",
+      "evidence_id": "ev.r0.diff.001",
+      "claim_id": "claim.r0.typo.correct",
+      "kind": "DIFF",
+      "producer": "reference-fixture",
+      "method": "Targeted diff inspection",
+      "scope": ["docs/guide.md"],
+      "result": "PASS",
+      "artifact_refs": ["docs/guide.md"],
+      "timestamp": "2026-09-06T12:00:00Z",
+      "environment": "fixture",
+      "reproducible": true,
+      "limitations": ["Fixture evidence only"]
+    }
+  ]
+}
