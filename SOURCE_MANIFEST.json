@@ -69,8 +69,8 @@
     { "path": "tools/Test-SageDemonstrator.ps1", "sha256": "de7f7fb748b637484e04d3b18beb95f460710d901aa26cdb7dfcfad41b57b136" },
     { "path": "runtime/reference/SageDiscovery.psm1", "sha256": "16be1483081ad4c19cafe1c6cf5f5f744fd7a119627af40f4f972ce92e3741cc" },
     { "path": "tools/Test-SageDiscovery.ps1", "sha256": "affa621094043d707a8c842eeb53dfe30b6347f439ed2cd1e6d1b43266a825af" },
-    { "path": "README.md", "sha256": "3b3d987909d76738604317aa3a1cba3483b073b54a750e22d2bfbb8a1f9b4c1f" },
-    { "path": "CHANGELOG.md", "sha256": "4e3e9256ed55ca740ab5277ec8c04908d6e2f591e01582db8b70749eac617927" },
+    { "path": "README.md", "sha256": "b105666474a9944edbe8ef39c2b1688dac6c048222e24b1e2a60bb9d46472405" },
+    { "path": "CHANGELOG.md", "sha256": "8a1b83023217a2c377f0986b5ef051c897f6b2e0b477341d79685fc810d0a31f" },
     { "path": "SECURITY.md", "sha256": "6cd8524c46213015172c5e119470269a72c384d9506055a6b869ae650630fb8d" },
     { "path": "CONTRIBUTING.md", "sha256": "ab241f69b793b97ff0e4d17e0d176c63bec01020896d279222f073d0c9673655" },
     { "path": "LICENSE", "sha256": "d9b0df4276b3288a852a8346a4f9a7f28c6187cd5eed119c97dafee29d9e0657" },
@@ -78,7 +78,7 @@
     { "path": "skills/sage-intake/SKILL.md", "sha256": "06272e249521aa30e3f14e903e677e07d26bbf441807b67e1519b695ac58e7c2" },
     { "path": "skills/sage-plan/SKILL.md", "sha256": "405101b163fa76a09860b8133e89d0324b51fd06d3be23fee40a9a483a527e04" },
     { "path": "skills/sage-verify/SKILL.md", "sha256": "7bd739345df7be04f069b0e418e343e59f94b433c17f230eaf31fad53bc7e8ef" },
-    { "path": "bundles/v0.8/core-engineering/bundle.json", "sha256": "94845839416638bf6ab419304235823aee7e6be89e7c9ab6e025328903938e5e" },
+    { "path": "bundles/v0.8/core-engineering/bundle.json", "sha256": "4cd180923e8c97a571810cca802a094e5c23964d6bbf1e149e61751db8f178bf" },
     { "path": "examples/gps-map/README.md", "sha256": "bb4eb40139a18d980c1b140ab23f480c2220776c35f60df1caa4cf93480705e2" },
     { "path": ".github/workflows/sage-ci.yml", "sha256": "f2216bfbe3b3ee829ba7dace802efccad1b712558b5fa5355a7191ca7dbe3095" },
     { "path": "SAGE_v0.8.1_AGENTIC_ENGINEERING_ENHANCEMENTS_DELTA.md", "sha256": "c6838070e31419f9cf12c84ac268b95dd6c3c790dff00f6cd8fe27eeb7de6e9f" },
@@ -103,11 +103,11 @@
     { "path": "tools/Test-SageDeploymentRuntime.ps1", "sha256": "14ad8ce18476b2cec902f67b3038b71919ef24b32f08cf199a5e6ec6a3965f34" },
     { "path": "RELEASE_MANIFEST_v0.8.2.json", "sha256": "936e80a56b7260a22163af45afb937e3742b0eea9ddbcd698a67108a66a71691" },
     { "path": "docs/QUICKSTART.fa-en.md", "sha256": "81308daeb2ddb4edf6f53e0de95f584222b07c8190da9abfeb40f8477e213b5a" },
-    { "path": "sdk/python/pyproject.toml", "sha256": "3a6a40854051e362c56fd5b382e69ceaa69b36ec1ea96ee5594583983f5f57c2" },
+    { "path": "sdk/python/pyproject.toml", "sha256": "969d59f84a509ec3c32bbd7485aedd318096a98186a3dec551379b0d33c45e0c" },
     { "path": "sdk/python/README.md", "sha256": "773bd6f35a3b7e9b1caa66bdf7cd845e8a8cc70e1ee02bf67dd8d8cfc94d8443" },
     { "path": "sdk/python/src/sage_sdk/__init__.py", "sha256": "676787e10dad04793f0619ba13b7514a00bf3875e25331c9c9acb1f1796fc232" },
     { "path": "sdk/python/src/sage_sdk/contracts.py", "sha256": "c680a00bb525e60a8029d427f371ec6a130642de8df39e663f7c971a26fa8afe" },
     { "path": "sdk/python/src/sage_sdk/cli.py", "sha256": "29f38f946d224d581825cb877ee655b81e20383d7ad81e23a2521485f7cf7309" },
-    { "path": "tools/Test-SageRelease.ps1", "sha256": "e67aa753f8e6d406df63619eec27f9f3f587fdb35c2fb4e13dead2b5cbd0b007" }
+    { "path": "tools/Test-SageRelease.ps1", "sha256": "f9508081fddb9dc1854cbe1e0c96fd7b0df2ab06824005824fd2de27aa15c392" }
   ]
 }

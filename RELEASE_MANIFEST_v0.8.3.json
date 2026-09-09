@@ -1,0 +1,11 @@
+{
+  "release_id": "sage-v0.8.3",
+  "display_name": "SAGE — Vibe Engineering Protocol & Runtime Kit",
+  "version": "0.8.3",
+  "status": "STABLE",
+  "language_support": ["fa", "en"],
+  "artifacts": ["protocol", "schemas", "policies", "runtime", "skills", "bundles", "examples", "python-sdk", "ci"],
+  "lifecycle": ["intake", "discover", "plan", "implement", "verify"],
+  "external_execution": "DISABLED_BY_DEFAULT",
+  "required_release_checks": ["contract-validation", "runtime-tests", "sdk-install", "manifest-integrity", "security-boundary", "skill-pack"]
+}

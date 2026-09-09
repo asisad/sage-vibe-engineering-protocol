@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.3 — 2026-09-09
+
+- Promoted the package from release candidate to stable protocol/runtime kit.
+- Completed the canonical lifecycle Skill Pack: intake, discover, plan, implement and verify.
+- Added explicit discovery and implementation safety contracts; authority remains separate from capability.
+- Updated the core bundle and Python SDK metadata to `0.8.3`.
+
 ## 0.8.2-draft.1 — 2026-09-09
 
 - Added Production Delivery & Operations contracts for deployment, environments, service dependencies and operations gates.
