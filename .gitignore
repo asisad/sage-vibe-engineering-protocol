@@ -1,0 +1,4 @@
+# Local generated validation/runtime output
+tmp/
+sdk/python/src/sage_sdk/__pycache__/
+*.pyc
