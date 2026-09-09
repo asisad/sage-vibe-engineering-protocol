@@ -1,0 +1,12 @@
+{
+  "scope_id": "sage.local.security.preflight",
+  "environment": "LOCAL",
+  "target": ".",
+  "scope": ["repository://sage"],
+  "allowed_techniques": ["static-analysis", "dependency-audit", "safe-http-checks"],
+  "prohibited_techniques": ["destructive-action", "credential-exfiltration", "persistence", "denial-of-service"],
+  "budget": {"max_minutes": 15, "max_requests": 100},
+  "approval": {"status": "GRANTED_FOR_PREFLIGHT_ONLY", "approval_id": "user-confirmed-local-preflight"},
+  "live_execution": false,
+  "credential_ref": "env://STRIX_LLM+LLM_API_KEY"
+}

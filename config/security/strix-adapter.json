@@ -1,0 +1,14 @@
+{
+  "record_type": "security_adapter_config",
+  "schema_version": "sage-strix-adapter/0.8",
+  "adapter_id": "security.strix",
+  "provider": "strix",
+  "mode": "DRY_RUN",
+  "live_execution": false,
+  "credential_policy": "reference-only-runtime-injection",
+  "required_request_fields": ["target", "authority.approval_id", "credential_ref"],
+  "forbidden_request_fields": ["credential", "token", "password", "secret", "private_key"],
+  "side_effect_class": "EXTERNAL_SECURITY_VALIDATION",
+  "installation_managed_separately": true,
+  "notes": ["This configuration describes a gated adapter only.", "No target is contacted during validation."]
+}

@@ -151,7 +151,7 @@ Assert-Condition (@($manifest.entries).Count -ge 30) 'Source manifest contains a
 Assert-Condition ($manifest.upstream_pins.'github/spec-kit'.commit -match '^[a-f0-9]{40}$') 'Spec Kit upstream pin is a full commit hash.'
 Assert-Condition ($manifest.upstream_pins.'usestrix/strix'.commit -match '^[a-f0-9]{40}$') 'Strix upstream pin is a full commit hash.'
 
-$fixtureFiles = @(Get-ChildItem -LiteralPath $fixturePath -Filter '*.json' -File | Where-Object { $_.Name -notin @('architecture-model.json','demonstrator-gps-map-request.json') } | Sort-Object Name)
+$fixtureFiles = @(Get-ChildItem -LiteralPath $fixturePath -Filter '*.json' -File | Where-Object { $_.Name -notin @('architecture-model.json','demonstrator-gps-map-request.json','strix-dry-run-request.json') } | Sort-Object Name)
 Assert-Condition ($fixtureFiles.Count -eq 3) 'Exactly three R0/R2/R4 reference fixtures exist.'
 
 foreach ($file in $fixtureFiles) {

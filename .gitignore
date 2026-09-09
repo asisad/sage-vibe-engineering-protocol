@@ -1,4 +1,7 @@
 # Local generated validation/runtime output
 tmp/
+strix_runs/
 sdk/python/src/sage_sdk/__pycache__/
 *.pyc
+sdk/python/build/
+sdk/python/src/*.egg-info/

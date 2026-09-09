@@ -74,6 +74,39 @@ function Invoke-SageAdapter {
     [pscustomobject]@{ status='PLANNED'; executed=$false; plan_id=$Plan.plan_id; adapter_id=$Plan.adapter_id; tool_id=$Plan.tool_id; allowed=$Plan.allowed; reasons=@($Plan.reasons); evidence_kind='adapter-dry-run'; recorded_at=[DateTime]::UtcNow.ToString('o') }
 }
 
+function Test-SageStrixDryRun {
+    <#
+      Validate a Strix invocation without contacting Strix, a target, or a
+      credential store. Credentials are represented only by a non-secret
+      reference so missing authority is fail-closed and auditable.
+    #>
+    param([Parameter(Mandatory)]$Config, [Parameter(Mandatory)]$Request)
+    $reasons = [System.Collections.Generic.List[string]]::new()
+    if ([string]$Config.adapter_id -ne 'security.strix') { $reasons.Add('config adapter_id must be security.strix') }
+    if ([string]$Config.mode -ne 'DRY_RUN') { $reasons.Add('Strix adapter must remain DRY_RUN') }
+    $target = if ($Request.PSObject.Properties['target']) { [string]$Request.target } else { '' }
+    if ([string]::IsNullOrWhiteSpace($target)) { $reasons.Add('target is missing') }
+    $authority = if ($Request.PSObject.Properties['authority']) { $Request.authority } else { $null }
+    if ($null -eq $authority -or -not $authority.PSObject.Properties['status'] -or [string]$authority.status -ne 'GRANTED') { $reasons.Add('approval/authority is missing or not GRANTED') }
+    if ($null -eq $authority -or -not $authority.PSObject.Properties['approval_id'] -or [string]::IsNullOrWhiteSpace([string]$authority.approval_id)) { $reasons.Add('approval_id is missing') }
+    $credentialRef = if ($Request.PSObject.Properties['credential_ref']) { [string]$Request.credential_ref } else { '' }
+    if ([string]::IsNullOrWhiteSpace($credentialRef)) { $reasons.Add('credential_ref is missing (secret value is never accepted)') }
+    if ($authority -and $authority.PSObject.Properties['scope'] -and $authority.scope -and $target -and @($authority.scope) -notcontains $target) { $reasons.Add('target is outside granted authority scope') }
+    [pscustomobject]@{
+        status = if ($reasons.Count -eq 0) { 'READY_FOR_REVIEW' } else { 'BLOCKED' }
+        allowed = ($reasons.Count -eq 0)
+        executed = $false
+        adapter_id = 'security.strix'
+        mode = 'DRY_RUN'
+        target = $target
+        approval_id = if ($authority -and $authority.PSObject.Properties['approval_id']) { [string]$authority.approval_id } else { '' }
+        credential_ref_present = (-not [string]::IsNullOrWhiteSpace($credentialRef))
+        reasons = @($reasons)
+        evidence_kind = 'strix-dry-run-validation'
+        recorded_at = [DateTime]::UtcNow.ToString('o')
+    }
+}
+
 function Test-SageAdapterRegistry {
     param([Parameter(Mandatory)]$Adapter, [Parameter(Mandatory)]$Tool)
     $issues = @()
@@ -94,4 +127,4 @@ function Invoke-SageLocalReferenceAdapter {
     [pscustomobject]@{ status='COMPLETED'; executed=$true; adapter_id='adapter.local-reference'; operation='READ_AND_DIGEST'; target=$RelativePath; bytes=[Text.Encoding]::UTF8.GetByteCount($content); sha256=$digest; network='NONE'; mutation='NONE'; evidence_kind='local-read-proof'; recorded_at=[DateTime]::UtcNow.ToString('o') }
 }
 
-Export-ModuleMember -Function Import-SageAdapterRegistry,Register-SageToolAdapter,Register-SageDescriptor,Test-SageAdapterScope,New-SageInvocationPlan,Invoke-SageAdapter,Test-SageAdapterRegistry,Invoke-SageLocalReferenceAdapter
+Export-ModuleMember -Function Import-SageAdapterRegistry,Register-SageToolAdapter,Register-SageDescriptor,Test-SageAdapterScope,New-SageInvocationPlan,Invoke-SageAdapter,Test-SageAdapterRegistry,Invoke-SageLocalReferenceAdapter,Test-SageStrixDryRun

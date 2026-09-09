@@ -1,0 +1,70 @@
+%% SAGE public architecture — Diagram-as-Code
+%% Source of truth for the high-level protocol/runtime boundary.
+%% Render with Mermaid CLI, GitHub Markdown, or Mermaid Live Editor.
+flowchart LR
+    user([Task intent / Vibe request]) --> intake[INTAKE\nclarify + risk classify]
+    intake --> discover[DISCOVER\ncapability discovery]
+    discover --> plan[PLAN\nscope + architecture + gates]
+    plan --> implement[IMPLEMENT\ncontrolled changes]
+    implement --> verify[VERIFY\nobservations + tests]
+    verify --> outcome{Evidence sufficient?}
+    outcome -->|yes| done([DONE])
+    outcome -->|no, missing/unsafe| blocked([BLOCKED])
+    outcome -->|needs human decision| escalated([ESCALATED])
+
+    subgraph sage[SAGE Core Runtime]
+        context[Context & Memory
+        scoped + provenance-aware]
+        intake
+        discover
+        plan
+        implement
+        verify
+        ledger[(Evidence Ledger\nappend-only + sealed)]
+        authority[Authority & Scope Gates]
+        registry[Provider / Tool / Skill Registry]
+        state[Workflow State Machine]
+    end
+
+    intake -. loads minimum sufficient context .-> context
+    context -. records provenance .-> ledger
+    intake -. records .-> ledger
+    discover -. records .-> ledger
+    plan -. records .-> ledger
+    implement -. records .-> ledger
+    verify -. records .-> ledger
+    state -. governs .-> intake
+    state -. governs .-> discover
+    state -. governs .-> plan
+    state -. governs .-> implement
+    state -. governs .-> verify
+    authority -. constrains .-> plan
+    authority -. protects context boundary .-> context
+    authority -. permits only approved plan .-> implement
+    registry -. advisory matches .-> discover
+    registry -. selected capability .-> implement
+
+    subgraph adapters[External Adapters — opt-in boundary]
+        providers[Providers]
+        tools[Tools]
+        strix[Strix Security Adapter]
+    end
+
+    implement -->|scoped invocation| providers
+    implement -->|scoped invocation| tools
+    verify -->|independent security evidence| strix
+    providers -. result/evidence .-> ledger
+    tools -. result/evidence .-> ledger
+    strix -. result/evidence .-> ledger
+    authority -. scope + approval required .-> providers
+    authority -. scope + approval required .-> tools
+    authority -. separate target approval .-> strix
+
+    classDef core fill:#e8f1ff,stroke:#356ae6,color:#102a56;
+    classDef gate fill:#fff4d6,stroke:#b7791f,color:#5b3b00;
+    classDef evidence fill:#e8f8ee,stroke:#2f855a,color:#174b2b;
+    classDef external fill:#f3e8ff,stroke:#805ad5,color:#3b206d;
+    class intake,discover,plan,implement,verify,state,registry core;
+    class authority gate;
+    class ledger,done,blocked,escalated evidence;
+    class providers,tools,strix external;

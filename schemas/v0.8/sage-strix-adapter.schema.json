@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sage.local/schemas/v0.8/sage-strix-adapter.schema.json",
+  "title": "SAGE Strix Adapter Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "adapter_id", "provider", "mode", "live_execution", "credential_policy", "required_request_fields", "forbidden_request_fields", "side_effect_class"],
+  "properties": {
+    "record_type": {"const": "security_adapter_config"},
+    "schema_version": {"const": "sage-strix-adapter/0.8"},
+    "adapter_id": {"const": "security.strix"},
+    "provider": {"const": "strix"},
+    "mode": {"const": "DRY_RUN"},
+    "live_execution": {"const": false},
+    "credential_policy": {"const": "reference-only-runtime-injection"},
+    "required_request_fields": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+    "forbidden_request_fields": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "side_effect_class": {"const": "EXTERNAL_SECURITY_VALIDATION"},
+    "installation_managed_separately": {"type": "boolean"},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

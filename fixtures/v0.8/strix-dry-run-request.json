@@ -1,0 +1,7 @@
+{
+  "record_type": "strix_dry_run_request",
+  "schema_version": "sage-strix-adapter/0.8",
+  "target": "https://staging.example.invalid",
+  "credential_ref": "runtime://strix/staging",
+  "authority": {"status": "GRANTED", "approval_id": "approval.strix.fixture.001", "scope": ["https://staging.example.invalid"]}
+}

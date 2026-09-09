@@ -44,10 +44,13 @@ The demo is intentionally domain-neutral and does not contact networks or execut
 - `skills/registry.json` — ordered lifecycle registry and authority boundaries for the Skill Pack
 - `bundles/` — versioned role/workflow bundles
 - `examples/` — public demonstrators
+- `docs/diagrams/` — editable Diagram-as-Code architecture model for SAGE
 - `tools/` — validation and CI entrypoints
 - `sdk/python/` — installable, dependency-free contract SDK
 - `SAGE_v0.8.1_AGENTIC_ENGINEERING_ENHANCEMENTS_DELTA.md` — approved enhancement delta (Context, Workflow, Sensors, Evaluation, AI-SSDF)
 - `SAGE_v0.8.2_PRODUCTION_DELIVERY_OPERATIONS_DELTA.md` — production delivery and operations contracts
+- `docs/RELEASE_READINESS.fa-en.md` — bilingual release gates, delivery status and acceptance criteria
+- `docs/INFOGRAPHIC_HANDOFF.fa-en.md` — bilingual brief for architecture/process infographic production
 
 ## Status
 
