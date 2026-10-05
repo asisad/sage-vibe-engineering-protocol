@@ -28,6 +28,15 @@ remains disabled. The manifest retains `security_certified=false` and
 Local generated receipts are retained under `tmp/`; remote Actions results
 and the release record are the independently observable publication evidence.
 
+## Runner compatibility repair
+
+The first publication CI run (`37380950520`) reached the release check but
+failed because inline comma-separated path expressions were received as
+literal arguments by the runner's Python command. `Test-SageRelease.ps1`
+now resolves the three SDK paths before the native call and splats the
+argument array. Release acceptance requires a successful rerun, not that
+failed run or local-only evidence.
+
 ## Publication receipts
 
 - Repository: https://github.com/asisad/sage-vibe-engineering-protocol

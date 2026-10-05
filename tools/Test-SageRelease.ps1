@@ -20,7 +20,14 @@ $projectVersion=[regex]::Match($projectText,'(?m)^version\s*=\s*"([^"]+)"\s*$').
 $moduleVersion=[regex]::Match($initText,'(?m)^__version__\s*=\s*"([^"]+)"\s*$').Groups[1].Value
 if($projectVersion -ne $manifest.version -or $moduleVersion -ne $manifest.version){throw 'SDK metadata/module/release version mismatch.'}
 $python=Get-Command python -ErrorAction Stop
-& $python.Source -m py_compile (Join-Path $Root 'sdk\python\src\sage_sdk\__init__.py'),(Join-Path $Root 'sdk\python\src\sage_sdk\contracts.py'),(Join-Path $Root 'sdk\python\src\sage_sdk\cli.py')
+# Resolve paths before the native call. Inline comma expressions in native
+# argument mode are parsed differently by runner/PowerShell versions.
+$sdkCompilePaths=@(
+    (Join-Path $Root 'sdk\python\src\sage_sdk\__init__.py')
+    (Join-Path $Root 'sdk\python\src\sage_sdk\contracts.py')
+    (Join-Path $Root 'sdk\python\src\sage_sdk\cli.py')
+)
+& $python.Source -m py_compile @sdkCompilePaths
 if($LASTEXITCODE -ne 0){throw 'Python SDK compilation failed.'}
 $skills=@('sage-intake','sage-discover','sage-plan','sage-implement','sage-verify')
 $allSkills=@($skills)+@('interface-audit','mcp-review','cli-harness-review')

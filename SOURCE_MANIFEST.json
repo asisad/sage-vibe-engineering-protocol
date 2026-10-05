@@ -69,7 +69,7 @@
     {"path":"RELEASE_MANIFEST_v0.8.4.json","sha256":"1f930069e3136e3c4e9dbf18537c43d48abf95ac4482c0285a167e895bd508b5"},
     {"path":"reports/SAGE_v0.8_RELEASE_READINESS.md","sha256":"5304e8bcc73e9933835c36cf39874227ae147b5813b15f9903602287228a2063"},
     {"path":"reports/SAGE_v0.8.4_PHASE_PLAN.md","sha256":"d75cb87654e9e2fa09bc22bef4e44ef38ccdd06543a8c8204cd5b3cf35a5ed5f"},
-    {"path":"reports/SAGE_v0.8.4_PUBLICATION.md","sha256":"3fc6a38b31249ee43d7d35415ee4662a32c1132b996008e668b57cd118dc204f"},
+    {"path":"reports/SAGE_v0.8.4_PUBLICATION.md","sha256":"70e0649b401d806bac122b72483650a386a805f49bfedd5c2eef1abe1d955201"},
     {"path":"reports/SAGE_v0.8.4_VERIFICATION.md","sha256":"d4f221eeaa966b40f5f1f296fef128b80bddd6258eb57cccbd3a22e3fee233d2"},
     {"path":"runtime/production/README.md","sha256":"1228771e1681b8bb84499b6ef72e9eb16cc1c03f3fd4c676a830712876463761"},
     {"path":"runtime/production/SageAdapters.psm1","sha256":"d699f298c1a4c274c8d56cc2190da6ceecdc4b87a3b8e73089d855adb302870d"},
@@ -158,7 +158,7 @@
     {"path":"tools/Test-SageProductionAdapters.ps1","sha256":"3ff917d4b19a735082ea0a16c8973835a2e8fa11a4461f93eb4e6677321e839e"},
     {"path":"tools/Test-SageProductionRuntime.ps1","sha256":"04aa442ffa3a5654c934d8a3220a83d44798a5ccdf466ea3e7dc3627ebd532b0"},
     {"path":"tools/Test-SageReferenceRuntime.ps1","sha256":"0b8bd482274f472e7826da7e5c7157bfda207df39ddf20e24e7f3d758ae03aa6"},
-    {"path":"tools/Test-SageRelease.ps1","sha256":"b9e695c715ac265ddde335556cf0bc68e9a6ce970c2e9c4f692966a803d799e4"},
+    {"path":"tools/Test-SageRelease.ps1","sha256":"b9b234999eec2e452f6026561ee2c1c60cd135c5f74727d665e6320a13a83b19"},
     {"path":"tools/Test-SageSdk.ps1","sha256":"a358b6d3f5eff57d1da1024a1a2408d8beb92df77c0cb361d4cc7838ef3a4336"},
     {"path":"tools/Test-SageStrixAdapter.ps1","sha256":"2aba2407913b2a8272f9e6909c23945a757672c5c9b77d52992397b27a54bc38"}
   ]
