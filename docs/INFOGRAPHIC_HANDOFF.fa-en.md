@@ -1,5 +1,14 @@
 # SAGE Infographic Handoff — فارسی / English
 
+نسخهٔ فعال محلی: 0.8.4 Review Candidate. در کنار Registry، قرارداد
+Agent-Native و مسیر API بومی، Bridge اختیاری، CLI/MCP تایپ‌شده و Skill را
+نمایش دهید. اتصال‌های target-specific خط‌چین‌اند؛ آزمون descriptor به معنی
+پیاده‌سازی یا تأیید همهٔ اتصال‌های live نیست.
+
+Current local package: 0.8.4 Review Candidate. Show Agent-Native validation and
+advisory selection beside Registry; API/optional Bridge/CLI-MCP/Skill links are
+target-specific contracts rather than evidence of fully implemented transports.
+
 این بریف برای تحویل مستقیم به طراح اینفوگرافی آماده شده است. هدف، توضیح **روش و معماری SAGE** است؛ نه تبلیغ یک اپلیکیشن یا نمایش نتیجهٔ Scan امنیتی.
 
 ## فارسی — بریف طراحی

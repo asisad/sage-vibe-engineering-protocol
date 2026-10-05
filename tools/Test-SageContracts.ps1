@@ -310,7 +310,7 @@ $missingRequired = @($corePolicy.risk_profiles.R0.required_gates | Where-Object 
 Assert-Condition ($missingRequired.Count -gt 0) 'Detect a fixture that drops a policy-required gate.'
 
 $policyFiles = @(Get-ChildItem -LiteralPath $policyPath -Filter '*.json' -File | Sort-Object Name)
-Assert-Condition ($policyFiles.Count -eq 3) 'Three reference policy files exist.'
+Assert-Condition ($policyFiles.Count -eq 4) 'Four reference policy files exist.'
 foreach ($file in $policyFiles) {
     try {
         $raw = Get-Content -Raw -LiteralPath $file.FullName
@@ -379,4 +379,3 @@ $result | ConvertTo-Json -Depth 10
 if ($failures.Count -gt 0) {
     exit 1
 }
-

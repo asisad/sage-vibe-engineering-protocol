@@ -6,13 +6,16 @@ The canonical diagram is [`sage-architecture.mmd`](sage-architecture.mmd). It de
 
 `Intent → Context/Memory → Intake → Discover → Plan → Implement → Verify → Outcome`
 
-The diagram makes four architectural rules visible:
+The diagram makes these architectural rules visible:
 
 1. Discovery is advisory; it cannot authorize execution.
 2. Implementation is constrained by scope, authority and an approved plan.
 3. Every stage and adapter returns evidence to the append-only Evidence Ledger.
 4. Providers, Tools and Strix are optional adapters behind an explicit approval boundary.
 5. Context and Memory are scoped and provenance-aware; they are inputs to Intake, not an authority source.
+6. Agent-Native descriptors are validated before advisory selection. Thin bridges
+   are optional; dashed native/MCP/CLI binding edges describe target-specific
+   connections, not proof that every connection is implemented in this package.
 
 ## Rendering
 

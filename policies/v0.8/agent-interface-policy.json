@@ -1,0 +1,12 @@
+{
+  "policy_id": "sage.agent.interface.default",
+  "version": "0.8.0",
+  "schema_version": "sage-policy/0.8",
+  "preferred_path": ["NATIVE_API", "THIN_BRIDGE", "TYPED_CLI_OR_MCP", "SKILL"],
+  "arbitrary_code_execution": "EXPERT_ESCAPE_HATCH_WITH_EXPLICIT_GATE",
+  "selection": { "mode": "risk_and_capability_adaptive", "discovery_grants_authority": false },
+  "decisions": ["ADOPT", "ADAPT", "BUILD"],
+  "required_checks": ["schema", "help_or_handshake", "json_contract", "error_taxonomy", "timeout", "compatibility", "packaging", "smoke", "dependency_security"],
+  "required_preservation": ["scope", "permission", "authority", "evidence"],
+  "live_execution": "disabled_by_default"
+}

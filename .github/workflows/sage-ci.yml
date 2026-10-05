@@ -11,4 +11,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run SAGE unified CI
         shell: pwsh
-        run: ./sage.ps1 ci
+        run: ./tools/Invoke-SageReferenceCI.ps1 -EvidencePath ./tmp/ci-result.json
+      - name: Preserve CI evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sage-ci-evidence
+          path: tmp/ci-result.json
+          if-no-files-found: error

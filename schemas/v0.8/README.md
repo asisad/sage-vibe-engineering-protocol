@@ -4,6 +4,8 @@ Status: draft.3 reference implementation; not production authorization enforceme
 
 `sage-contracts.schema.json` validates 14 record types through local `$defs`. Three run fixtures exercise Task Packet, Risk Assessment, Gate Plan, Runtime Engineering Brief, Evidence and Security Scope. سه fixture ثبتی نیز Agent Capability، Tool Descriptor و Provider Adapter کامل را پوشش می‌دهند. `sage-policies.schema.json` دو policy مرجع را اعتبارسنجی می‌کند.
 
+`sage-agent-interface.schema.json` قرارداد لایهٔ `Native API → Thin Bridge → Typed CLI/MCP → Skill` را ثبت می‌کند و تصمیم `ADOPT/ADAPT/BUILD`، حفظ Scope/Authority و آزمون‌های سازگاری را اجباری می‌سازد.
+
 The normative architecture describes the full conceptual contract. The current JSON schemas are reduced transport projections. Fields omitted from a projection must remain in the authoritative registry/task record; they must never be silently discarded in a production adapter. A production implementation must finish and test the mapping before claiming full SAGE conformance.
 
 | Projection | Remaining full-model work |

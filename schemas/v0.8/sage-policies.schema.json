@@ -5,7 +5,8 @@
   "oneOf": [
     { "$ref": "#/$defs/CorePolicy" },
     { "$ref": "#/$defs/SecurityAdapterPolicy" },
-    { "$ref": "#/$defs/ArchitecturePolicy" }
+    { "$ref": "#/$defs/ArchitecturePolicy" },
+    { "$ref": "#/$defs/AgentInterfacePolicy" }
   ],
   "$defs": {
     "NonEmptyString": {
@@ -32,6 +33,23 @@
         "reverse_discovery": { "type": "object", "required": ["sources", "may_overwrite_approved", "result_authority"], "properties": { "sources": { "$ref": "#/$defs/NonEmptyStringList" }, "may_overwrite_approved": { "const": false }, "result_authority": { "const": "INFERRED" } }, "additionalProperties": false },
         "convergence": { "type": "object", "required": ["compare_planned_to_observed", "material_unexplained_drift_blocks_completion"], "properties": { "compare_planned_to_observed": { "const": true }, "material_unexplained_drift_blocks_completion": { "const": true } }, "additionalProperties": false },
         "anti_overengineering": { "type": "object", "required": ["skip_for", "forbid_all_diagram_generation", "forbid_multiple_canonical_models"], "properties": { "skip_for": { "$ref": "#/$defs/NonEmptyStringList" }, "forbid_all_diagram_generation": { "const": true }, "forbid_multiple_canonical_models": { "const": true } }, "additionalProperties": false }
+      },
+      "additionalProperties": false
+    },
+    "AgentInterfacePolicy": {
+      "type": "object",
+      "required": ["policy_id", "version", "schema_version", "preferred_path", "arbitrary_code_execution", "selection", "decisions", "required_checks", "required_preservation", "live_execution"],
+      "properties": {
+        "policy_id": { "const": "sage.agent.interface.default" },
+        "version": { "$ref": "#/$defs/NonEmptyString" },
+        "schema_version": { "const": "sage-policy/0.8" },
+        "preferred_path": { "const": ["NATIVE_API", "THIN_BRIDGE", "TYPED_CLI_OR_MCP", "SKILL"] },
+        "arbitrary_code_execution": { "const": "EXPERT_ESCAPE_HATCH_WITH_EXPLICIT_GATE" },
+        "selection": { "type": "object", "required": ["mode", "discovery_grants_authority"], "properties": { "mode": { "const": "risk_and_capability_adaptive" }, "discovery_grants_authority": { "const": false } }, "additionalProperties": false },
+        "decisions": { "const": ["ADOPT", "ADAPT", "BUILD"] },
+        "required_checks": { "$ref": "#/$defs/NonEmptyStringList" },
+        "required_preservation": { "const": ["scope", "permission", "authority", "evidence"] },
+        "live_execution": { "const": "disabled_by_default" }
       },
       "additionalProperties": false
     },

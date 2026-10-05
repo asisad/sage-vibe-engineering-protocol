@@ -1,0 +1,20 @@
+{
+  "record_type": "agent_native_interface",
+  "schema_version": "sage-agent-interface/0.8",
+  "interface_id": "interface.reference.validator.cli",
+  "version": "0.8.4",
+  "capabilities": ["json-schema-validation", "semantic-contract-checks"],
+  "layers": { "native_api": "PowerShell Test-Json", "bridge": null, "callable_surface": "CLI", "skill": "interface-audit" },
+  "decision": "ADAPT",
+  "decision_rationale": "Synthetic descriptor: model an existing local typed validator behind a CLI surface; no transport conformance claim.",
+  "contract": {
+    "input_schema_ref": "schemas/v0.8/sage-contracts.schema.json",
+    "output_schema_ref": "schemas/v0.8/sage-contracts.schema.json#/$defs/EvidenceRecord",
+    "version_handshake": true, "timeout_seconds": 30, "maximum_timeout_seconds": 120,
+    "cancellation": true, "json_output": true, "typed_errors": true,
+    "error_codes": ["INVALID_INPUT", "TIMEOUT", "CANCELLED", "VERSION_MISMATCH", "UNAUTHORIZED"],
+    "dry_run": false, "transport": "STDIO"
+  },
+  "security": { "side_effect_class": "READ_ONLY", "scope_preserved": true, "permission_preserved": true, "authority_preserved": true, "evidence_preserved": true, "secrets_redacted": true, "network_authentication": "NOT_APPLICABLE" },
+  "verification": { "schema": true, "contract": true, "compatibility": true, "smoke": true, "evidence_refs": ["fixture://reference-validator-contract"] }
+}

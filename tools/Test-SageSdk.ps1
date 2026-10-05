@@ -18,7 +18,7 @@ try {
     & $venvPython -m pip install --disable-pip-version-check --no-deps $sdkRoot | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'SDK installation failed.' }
     $version = (& $venvPython -c 'import sage_sdk; print(sage_sdk.__version__)').Trim()
-    if ($version -ne '0.8.3') { throw "SDK version mismatch: $version" }
+    if ($version -ne '0.8.4') { throw "SDK version mismatch: $version" }
     $json = (& $venvPython -m sage_sdk validate $fixture | Out-String) | ConvertFrom-Json
     if ($json.status -ne 'PASS') { throw 'SDK CLI validation returned FAIL.' }
     [pscustomobject]@{ status = 'PASS'; package = 'sage-vibe-engineering'; version = $version; install = 'ISOLATED_VENV'; cli = 'PASS'; network = 'NOT_REQUIRED' } | ConvertTo-Json -Depth 5

@@ -8,6 +8,12 @@ Language: Persian explanatory text; English machine contracts
 Extends: SAGE Master Baseline v0.7  
 Replaces: Nothing
 
+Active package composition: baseline v0.8.0 plus the normative
+`SAGE_v0.8.4_AGENT_NATIVE_INTERFACE_DELTA.md` (Agent-Native Review Candidate).
+The unchanged v0.8.0 text is archived in
+`history/SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT_v0.8.0-formalized.md`.
+Interface-specific decisions use the addendum; baseline authority rules prevail.
+
 Source Baseline: SAGE_v0.7_MASTER_BASELINE.md  
 Baseline SHA-256: DC0C6BAF80465E1F2CF63A2ACA96F3578153A898D55752DEB9A936E506FD6C0D  
 Handoff Source: SAGE_HANDOFF_v0.7_to_v0.8.md  

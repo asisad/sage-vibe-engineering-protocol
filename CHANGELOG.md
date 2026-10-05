@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.4 — Agent-Native Interface Review Candidate — 2026-10-06
+
+- Added normative Agent-Native layering for Native API, Thin Bridge, typed CLI/MCP and Skills.
+- Added CLI, MCP and Bridge standards, interface schema and ADOPT/ADAPT/BUILD decisions.
+- Added interface-audit, mcp-review and cli-harness-review Skills with CI coverage.
+- Strix remains an optional, separately authorized adapter and is not activated by this addendum.
+- Completed advisory interface validation/discovery and behavioral contract tests; live transport conformance requires target-specific receipts.
+- Prepared GitHub pre-release `v0.8.4` with Strix explicitly pending; preserve exact source bytes across Git checkouts for manifest integrity.
+
 ## 0.8.3 — 2026-09-09
 
 - Promoted the package from release candidate to stable protocol/runtime kit.

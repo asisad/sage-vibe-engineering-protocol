@@ -1,0 +1,20 @@
+{
+  "record_type": "agent_native_interface",
+  "schema_version": "sage-agent-interface/0.8",
+  "interface_id": "interface.reference.validator.mcp",
+  "version": "0.8.4",
+  "capabilities": ["json-schema-validation", "semantic-contract-checks"],
+  "layers": { "native_api": "PowerShell Test-Json", "bridge": "fixture.typed.bridge", "callable_surface": "MCP", "skill": "mcp-review" },
+  "decision": "BUILD",
+  "decision_rationale": "Synthetic descriptor: illustrate a new authenticated typed MCP bridge for reference validation; no live server claim.",
+  "contract": {
+    "input_schema_ref": "schemas/v0.8/sage-contracts.schema.json",
+    "output_schema_ref": "schemas/v0.8/sage-contracts.schema.json#/$defs/EvidenceRecord",
+    "version_handshake": true, "timeout_seconds": 30, "maximum_timeout_seconds": 120,
+    "cancellation": true, "json_output": true, "typed_errors": true,
+    "error_codes": ["INVALID_INPUT", "TIMEOUT", "CANCELLED", "VERSION_MISMATCH", "UNAUTHORIZED"],
+    "dry_run": false, "transport": "LOCALHOST"
+  },
+  "security": { "side_effect_class": "READ_ONLY", "scope_preserved": true, "permission_preserved": true, "authority_preserved": true, "evidence_preserved": true, "secrets_redacted": true, "network_authentication": "TOKEN" },
+  "verification": { "schema": true, "contract": true, "compatibility": true, "smoke": true, "evidence_refs": ["fixture://reference-mcp-contract"] }
+}

@@ -1,5 +1,8 @@
 # SAGE v0.8 Release Readiness
 
+Historical report: its version/check counts describe the earlier reference
+package, not current 0.8.4. Use `SAGE_v0.8.4_VERIFICATION.md` for current evidence.
+
 Status: READY FOR REPOSITORY REVIEW  
 Version: 0.8.0 Formalized Baseline  
 Date: 2026-09-09

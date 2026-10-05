@@ -89,3 +89,21 @@ Install state، provider credentials و Docker runtime جزو Authority این R
 ۳) هر تغییر معماری نیازمند Integration Audit تازه و disposition صریح است.  
 ۴) فایل تاریخی و Hash قدیمی overwrite نمی‌شود.  
 ۵) Sourceهای دارای License باید همراه License snapshot نگهداری شوند.
+
+## ۸. Agent-Native Interface / 2026-10-06
+
+- Approval: explicit integration approval in this task on 2026-09-09.
+- Supplied preview original is no longer present at its Temp path. Reviewed
+  content is preserved as a labeled conversation extract at
+  `sources/task-extracts/SAGE_Agent_Native_Interface_Architecture_v0.1_CHAT_EXTRACT.md`;
+  no byte-identical preservation/hash claim is made for the unavailable original.
+- Normative disposition: `SAGE_v0.8.4_AGENT_NATIVE_INTERFACE_DELTA.md`.
+- External methodological reference: https://github.com/HKUDS/CLI-Anything
+  at inspected HEAD `34f519533bc175d2fe287ab8316b0dd99bb9cc43`; ADAPT ideas,
+  no imported dependency/code. Future code import requires its own license review.
+- MCP lifecycle reference revision: 2025-06-18 at
+  https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle
+  (version/capability negotiation). No claim this is the newest revision.
+- Hashes for current derived artifacts and preserved formalized baseline are
+  in SOURCE_MANIFEST.json. The baseline archive hash is
+  `c8ff946ab4e1fadde6b3d73d859eafa8afd1f4406c43b96d58d1eb4326c7c6cd`.

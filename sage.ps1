@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Position=0)][ValidateSet('validate','demo','discover','operations','lifecycle','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath)
+param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','operations','lifecycle','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
@@ -9,6 +9,13 @@ switch ($Command) {
   'demo' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDemonstrator.ps1') }
   'discover' { if ([string]::IsNullOrWhiteSpace($Capability)) { throw 'discover requires -Capability' }; & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDiscovery.ps1') -Capability $Capability }
   'operations' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDeploymentRuntime.ps1') }
+  'interfaces' {
+    if ([string]::IsNullOrWhiteSpace($Capability)) { $Capability = 'json-schema-validation' }
+    if ([string]::IsNullOrWhiteSpace($RegistryPath)) { $RegistryPath = Join-Path $root 'fixtures\v0.8\interfaces' }
+    Import-Module (Join-Path $root 'runtime\reference\SageDiscovery.psm1') -Force
+    $registry = Import-SageRegistrySet -Path $RegistryPath
+    Find-SageCapabilities -Registry $registry -RequiredCapabilities @($Capability) -MaxSideEffect READ_ONLY | ConvertTo-Json -Depth 100
+  }
   'lifecycle' {
     if ([string]::IsNullOrWhiteSpace($RunPath)) { $RunPath=Join-Path $root 'fixtures\v0.8\r2-feature-data-path.json' }
     if ([string]::IsNullOrWhiteSpace($RegistryPath)) { $RegistryPath=Join-Path $root 'fixtures\v0.8\registries' }

@@ -1,0 +1,3 @@
+# SOURCE_MANIFEST.json and archived-source checks hash exact file bytes.
+# Preserve those bytes on checkout, including on Windows; do not normalize EOLs.
+* -text

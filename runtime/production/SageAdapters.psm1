@@ -1,4 +1,5 @@
 Set-StrictMode -Version Latest
+Import-Module (Join-Path $PSScriptRoot '..\reference\SageAgentInterfaces.psm1') -Force
 
 # Provider-neutral production boundary. The default execution mode is DRY_RUN;
 # adapters may describe an invocation but cannot perform external side effects.
@@ -26,14 +27,23 @@ function Register-SageToolAdapter {
 function Register-SageDescriptor {
     param([Parameter(Mandatory)][hashtable]$Registry, [Parameter(Mandatory)]$Descriptor)
     $kind = [string]$Descriptor.record_type
-    $allowedKinds = @('agent_capability','tool_descriptor','provider_adapter')
+    $allowedKinds = @('agent_capability','tool_descriptor','provider_adapter','agent_native_interface')
     if ($allowedKinds -notcontains $kind) { throw "Unsupported SAGE descriptor type: $kind" }
-    $id = if ($Descriptor.PSObject.Properties['agent_id']) { [string]$Descriptor.agent_id } elseif ($Descriptor.PSObject.Properties['tool_id']) { [string]$Descriptor.tool_id } elseif ($Descriptor.PSObject.Properties['adapter_id']) { [string]$Descriptor.adapter_id } else { '' }
-    if ([string]::IsNullOrWhiteSpace($id)) { throw 'Descriptor must contain a stable agent_id, tool_id or adapter_id.' }
+    $id = if ($Descriptor.PSObject.Properties['agent_id']) { [string]$Descriptor.agent_id } elseif ($Descriptor.PSObject.Properties['tool_id']) { [string]$Descriptor.tool_id } elseif ($Descriptor.PSObject.Properties['adapter_id']) { [string]$Descriptor.adapter_id } elseif ($Descriptor.PSObject.Properties['interface_id']) { [string]$Descriptor.interface_id } else { '' }
+    if ([string]::IsNullOrWhiteSpace($id)) { throw 'Descriptor must contain a stable agent_id, tool_id, adapter_id or interface_id.' }
     if (-not $Registry.ContainsKey('descriptors')) { $Registry.descriptors = @{} }
     if ($Registry.descriptors.ContainsKey($id)) { throw "Duplicate SAGE descriptor: $id" }
     if ($kind -eq 'provider_adapter') {
         foreach ($field in @('scope_preservation','permission_preservation','authority_preservation','evidence_preservation')) { if ($Descriptor.$field -ne $true) { throw "Provider descriptor must preserve $($field -replace '_preservation','')." } }
+    }
+    if ($kind -eq 'agent_native_interface') {
+        $validation = Test-SageAgentInterface -Descriptor $Descriptor
+        if (-not $validation.valid) { throw "Invalid Agent-Native descriptor: $($validation.errors -join ', ')" }
+    }
+    else {
+        $schema = Join-Path $PSScriptRoot '..\..\schemas\v0.8\sage-contracts.schema.json'
+        $valid = Test-Json -Json ($Descriptor | ConvertTo-Json -Depth 100) -SchemaFile $schema -ErrorAction SilentlyContinue
+        if (-not $valid) { throw "Invalid SAGE descriptor contract: $kind" }
     }
     $Registry.descriptors[$id] = [pscustomobject]@{ descriptor_id=$id; record_type=$kind; descriptor=$Descriptor; registered_mode='OFFLINE' }
     return $Registry

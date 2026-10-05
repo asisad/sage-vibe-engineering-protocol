@@ -1,15 +1,15 @@
 {
   "bundle_id": "sage.core-engineering",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "protocol": "sage/0.8",
-  "skills": ["sage-intake", "sage-discover", "sage-plan", "sage-implement", "sage-verify"],
+  "skills": ["sage-intake", "sage-discover", "sage-plan", "sage-implement", "sage-verify", "interface-audit", "mcp-review", "cli-harness-review"],
   "skill_registry": "skills/registry.json",
   "lifecycle_contract": {
     "ordered_stages": ["sage-intake", "sage-discover", "sage-plan", "sage-implement", "sage-verify"],
     "authority_boundary": "discover_is_advisory_implement_requires_approved_plan",
     "live_adapters": "disabled_by_default"
   },
-  "policies": ["policies/v0.8/core-policy.json", "policies/v0.8/architecture-policy.json"],
+  "policies": ["policies/v0.8/core-policy.json", "policies/v0.8/architecture-policy.json", "policies/v0.8/agent-interface-policy.json"],
   "install_policy": "project-root-only",
   "offline": true,
   "idempotent": true

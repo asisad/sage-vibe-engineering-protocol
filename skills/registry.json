@@ -1,6 +1,6 @@
 {
   "record_type": "sage_skill_registry",
-  "schema_version": "sage/0.8.3",
+  "schema_version": "sage/0.8.4",
   "bundle_id": "sage.core-engineering",
   "offline": true,
   "skills": [
@@ -8,6 +8,9 @@
     {"name": "sage-discover", "stage": "DISCOVER", "next": ["PLAN"], "authority": "advisory", "may_execute": false},
     {"name": "sage-plan", "stage": "PLAN", "next": ["IMPLEMENT"], "authority": "plan_only"},
     {"name": "sage-implement", "stage": "IMPLEMENT", "next": ["VERIFY"], "authority": "approved_plan_required", "live_adapters": "disabled_by_default"},
-    {"name": "sage-verify", "stage": "VERIFY", "next": ["DONE", "BLOCKED", "ESCALATED"], "authority": "evidence_only"}
+    {"name": "sage-verify", "stage": "VERIFY", "next": ["DONE", "BLOCKED", "ESCALATED"], "authority": "evidence_only"},
+    {"name": "interface-audit", "stage": "DISCOVER", "next": ["PLAN"], "authority": "advisory", "may_execute": false},
+    {"name": "mcp-review", "stage": "VERIFY", "next": ["DONE", "BLOCKED", "ESCALATED"], "authority": "evidence_only"},
+    {"name": "cli-harness-review", "stage": "VERIFY", "next": ["DONE", "BLOCKED", "ESCALATED"], "authority": "evidence_only"}
   ]
 }

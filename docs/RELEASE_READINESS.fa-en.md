@@ -2,6 +2,15 @@
 
 این سند وضعیت آماده‌بودن SAGE برای بازبینی، ارائه و انتشار را مشخص می‌کند. این سند «ادعای امنیتی» یا مجوز اجرای Target واقعی نیست؛ هر اجرای بیرونی همچنان به Scope و Approval مستقل نیاز دارد.
 
+نسخهٔ فعال محلی 0.8.4 با وضعیت `REVIEW_CANDIDATE` است. مرجع هنجاری تازه
+`SAGE_v0.8.4_AGENT_NATIVE_INTERFACE_DELTA.md` است؛ مدارک 0.8.3 تاریخی‌اند.
+آزمون‌های interface، validation و انتخاب advisory را اثبات می‌کنند، نه
+کارکرد transport یا host واقعی. SDK فعلی helper اعتبارسنجی Deployment است.
+
+کانال انتشار تأییدشدهٔ `v0.8.4`، پیش‌انتشار GitHub است؛ اسکن کامل Strix
+در وضعیت `PENDING` باقی می‌ماند و انتشار به معنای تأیید امنیت نیست.
+فایل‌ها باید در یک checkout مستقل نیز با هش‌های ثبت‌شده و CI سازگار باشند.
+
 ## فارسی
 
 ### SAGE چیست؟
@@ -27,6 +36,9 @@ Intent → Intake → Discover → Plan → Implement → Verify → DONE / BLOC
 ۲) **Runtime** — اجرای مرجع و مرز کنترل‌شدهٔ Production در `runtime/`
 
 ۳) **Skill Pack** — پنج مرحلهٔ استاندارد در `skills/` و ترتیب رسمی در `skills/registry.json`
+
+سه Skill شرطی `interface-audit`، `mcp-review` و `cli-harness-review` نیز در
+Bundle و Registry ثبت شده‌اند؛ در مجموع هشت Skill، با حفظ ترتیب پنج مرحلهٔ چرخه.
 
 ۴) **Registry و Discovery** — توصیف و Route کردن `Agent / Tool / Provider / Skill`
 
@@ -86,6 +98,15 @@ Discover is advisory and never grants authority. Implement is gated by an approv
 - Diagram-as-Code: `docs/diagrams/sage-architecture.mmd`
 - SDK and CLI: `sdk/python/` and `sage.ps1`
 - Optional Strix security adapter: `config/` and `schemas/`
+- Agent-Native formalization: `SAGE_v0.8.4_AGENT_NATIVE_INTERFACE_DELTA.md`
+- Advisory interface module: `runtime/reference/SageAgentInterfaces.psm1`
+
+Current local version is 0.8.4 REVIEW_CANDIDATE. Tests establish descriptor
+validation and advisory selection, not universal live CLI/MCP/host conformance.
+The Python SDK currently implements deployment-contract helper validation.
+
+The approved GitHub channel for `v0.8.4` is a pre-release. The full Strix scan
+remains PENDING; publication does not establish security certification.
 
 ### Release gates
 

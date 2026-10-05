@@ -20,5 +20,9 @@ foreach ($edge in @('intake --> discover','discover --> plan','plan --> implemen
     Assert ($source.Contains($edge)) "Diagram includes lifecycle edge: $edge."
 }
 Assert ($source.Contains('opt-in boundary')) 'Diagram marks external adapters as opt-in.'
+foreach ($edge in @('interfaces -. constrains .-> registry','callable -. optional transport .-> bridge','callable -. direct native binding .-> api')) {
+    Assert ($source.Contains($edge)) "Diagram includes Agent-Native relationship: $edge."
+}
+Assert ($source.Contains('target-specific conformance')) 'Diagram discloses target-specific transport coverage.'
 if ($failures.Count -gt 0) { $failures | ForEach-Object { Write-Error $_ }; exit 1 }
 [pscustomobject]@{ status='PASS'; checks=@($passes) } | ConvertTo-Json -Depth 10

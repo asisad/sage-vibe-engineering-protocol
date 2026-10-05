@@ -1,0 +1,18 @@
+{
+  "release_id": "sage-v0.8.4",
+  "display_name": "SAGE — Vibe Engineering Protocol & Runtime Kit",
+  "version": "0.8.4",
+  "status": "REVIEW_CANDIDATE",
+  "previous_release": "sage-v0.8.3",
+  "language_support": ["fa", "en"],
+  "artifacts": ["protocol", "schemas", "policies", "runtime", "lifecycle", "skills", "bundles", "examples", "python-sdk", "agent-native-interfaces", "ci"],
+  "lifecycle": ["intake", "discover", "plan", "implement", "verify"],
+  "external_execution": "DISABLED_BY_DEFAULT",
+  "security_certified": false,
+  "security_scan": {
+    "provider": "strix",
+    "status": "PENDING",
+    "evidence_ref": "reports/SAGE_STRIX_SCAN_RETRY_PLAN.md"
+  },
+  "required_release_checks": ["contract-validation", "runtime-tests", "sdk-install", "manifest-integrity", "security-boundary", "skill-pack", "agent-interface-contract"]
+}

@@ -1,5 +1,5 @@
 %% SAGE public architecture — Diagram-as-Code
-%% Source of truth for the high-level protocol/runtime boundary.
+%% View of formal protocol and addendum; not an approval/authority source.
 %% Render with Mermaid CLI, GitHub Markdown, or Mermaid Live Editor.
 flowchart LR
     user([Task intent / Vibe request]) --> intake[INTAKE\nclarify + risk classify]
@@ -24,6 +24,7 @@ flowchart LR
         authority[Authority & Scope Gates]
         registry[Provider / Tool / Skill Registry]
         state[Workflow State Machine]
+        interfaces[Agent-Native Contract\nvalidation + advisory selection]
     end
 
     intake -. loads minimum sufficient context .-> context
@@ -43,15 +44,25 @@ flowchart LR
     authority -. permits only approved plan .-> implement
     registry -. advisory matches .-> discover
     registry -. selected capability .-> implement
+    interfaces -. constrains .-> registry
+    interfaces -. verified by .-> ledger
 
     subgraph adapters[External Adapters — opt-in boundary]
         providers[Providers]
         tools[Tools]
         strix[Strix Security Adapter]
+        bridge[Thin Bridge\noptional target binding]
+        callable[Typed CLI / MCP\ntarget-specific conformance]
+        api[Native API\ntarget capability source]
     end
 
     implement -->|scoped invocation| providers
     implement -->|scoped invocation| tools
+    implement -->|typed invocation| callable
+    callable -. optional transport .-> bridge
+    bridge -. maps .-> api
+    callable -. direct native binding .-> api
+    api -. provider binding .-> providers
     verify -->|independent security evidence| strix
     providers -. result/evidence .-> ledger
     tools -. result/evidence .-> ledger
@@ -64,7 +75,7 @@ flowchart LR
     classDef gate fill:#fff4d6,stroke:#b7791f,color:#5b3b00;
     classDef evidence fill:#e8f8ee,stroke:#2f855a,color:#174b2b;
     classDef external fill:#f3e8ff,stroke:#805ad5,color:#3b206d;
-    class intake,discover,plan,implement,verify,state,registry core;
+    class intake,discover,plan,implement,verify,state,registry,interfaces core;
     class authority gate;
     class ledger,done,blocked,escalated evidence;
-    class providers,tools,strix external;
+    class providers,tools,strix,bridge,callable,api external;
