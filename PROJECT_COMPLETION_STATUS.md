@@ -2,6 +2,20 @@
 
 Date: 2026-10-06
 Package: 0.8.4 REVIEW_CANDIDATE; approved GitHub channel: pre-release.
+
+Source-branch extension (2026-10-14): `sage.technology-engineering` 0.1.0 adds a
+requirements-driven decision contract, advisory specialist profiles and
+decision-aware reference planning. It is NOT in the published v0.8.4 tag.
+No new core/SDK version, host installation, toolchain or live agent execution
+is implied. See `SAGE_v0.8_TECHNOLOGY_ENGINEERING_DELTA.md` and the local
+`reports/SAGE_TECHNOLOGY_ENGINEERING_2026-10-14.md` historical local verification report.
+
+SENS integration seam 0.1.0: `integrations/sens/` contains the independent
+SENS project's protocol, registration proposal template, disabled config,
+metadata event/finding contracts and offline validation/preview. There is no
+connected SENS source/endpoint, live instance, transport or deployment.
+Source Push and CI are tracked in
+`reports/SAGE_SENS_SOURCE_INTEGRATION_2026-10-14.md`; v0.8.4 tags stay preserved.
 Published-history baseline: efc36ff / 0.8.3 (local history; remote publication must be checked separately).
 
 The active package consists of the preserved v0.8 protocol plus the normative

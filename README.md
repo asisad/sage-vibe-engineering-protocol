@@ -63,6 +63,25 @@ selection is not evidence of a functioning live CLI/MCP/host connection.
 
 ## Status
 
+Source-branch optional extension (2026-10-14): technology-engineering 0.1 adds
+requirements-driven technology decisions, 17 declared on-demand specialist
+profiles and 18 optional Skills. See
+`extensions/technology-engineering/README.fa-en.md` and
+`SAGE_v0.8_TECHNOLOGY_ENGINEERING_DELTA.md`. These source additions are **not in the
+published v0.8.4 tag**; it installs no agents/toolchains and performs no live work.
+
+افزونهٔ انتخاب فناوری در شاخهٔ توسعه اضافه شده است: انتخاب مستدل زبان و ساختار، پروفایل
+متخصص و برنامهٔ آزمون. این افزوده در Tag قبلی نیست و به معنی اجرای تیم یا نصب
+ابزار نیست. هشت Skill هسته و نسخهٔ SDK حفظ شده‌اند.
+
+SENS has a dedicated connection slot at [`integrations/sens/`](integrations/sens/README.fa-en.md).
+Its independent implementation can submit a protocol-compatible proposal using
+the handoff there. Default mode is DISABLED; offline contracts/preview are not a
+deployed SENS service, a live transport or authority to change SAGE.
+
+جایگاه اتصال پروژهٔ مستقل SENS در `integrations/sens/` آماده است. معرفی SENS
+فقط پیشنهادی برای بازبینی است؛ نصب، فعال‌سازی یا استقرار خودکار انجام نمی‌شود.
+
 GitHub delivery: `v0.8.4` is a **pre-release / Review Candidate**, not a
 security-certified stable release. A complete Strix scan is still pending;
 interrupted historical scans are not security evidence. See

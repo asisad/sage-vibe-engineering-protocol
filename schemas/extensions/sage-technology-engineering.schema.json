@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sage.local/schemas/extensions/sage-technology-engineering.schema.json",
+  "title": "SAGE optional technology engineering records, 0.1",
+  "oneOf": [{"$ref":"#/$defs/Decision"},{"$ref":"#/$defs/Catalog"},{"$ref":"#/$defs/Policy"}],
+  "$defs": {
+    "Text": {"type":"string","minLength":1,"pattern":"\\S"},
+    "Id": {"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9_.:/-]*$"},
+    "Texts": {"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/Text"}},
+    "Refs": {"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/Id"}},
+    "Constraint": {
+      "type":"object","additionalProperties":false,
+      "required":["constraint_id","kind","requirement","mandatory"],
+      "properties":{"constraint_id":{"$ref":"#/$defs/Id"},"kind":{"enum":["PLATFORM","SECURITY","PERFORMANCE","COST","LICENSE","MAINTAINABILITY","COMPATIBILITY","PRIVACY"]},"requirement":{"$ref":"#/$defs/Text"},"mandatory":{"type":"boolean"}}
+    },
+    "ConstraintResult": {
+      "type":"object","additionalProperties":false,"required":["constraint_id","status","evidence_refs"],
+      "properties":{"constraint_id":{"$ref":"#/$defs/Id"},"status":{"enum":["SATISFIED","UNSATISFIED","UNKNOWN"]},"evidence_refs":{"$ref":"#/$defs/Refs"}}
+    },
+    "Candidate": {
+      "type":"object","additionalProperties":false,
+      "required":["candidate_id","languages","runtime","target","documentation_refs","constraint_results","tradeoffs"],
+      "properties":{"candidate_id":{"$ref":"#/$defs/Id"},"languages":{"allOf":[{"$ref":"#/$defs/Texts"},{"minItems":1}]},"runtime":{"$ref":"#/$defs/Text"},"target":{"$ref":"#/$defs/Text"},"frameworks":{"$ref":"#/$defs/Texts"},"documentation_refs":{"allOf":[{"$ref":"#/$defs/Refs"},{"minItems":1}]},"constraint_results":{"type":"array","items":{"$ref":"#/$defs/ConstraintResult"}},"tradeoffs":{"allOf":[{"$ref":"#/$defs/Texts"},{"minItems":1}]}}
+    },
+    "Evidence": {
+      "type":"object","additionalProperties":false,
+      "required":["evidence_id","kind","status","source_ref","version","observed_at","subject_candidate_id","subject_revision"],
+      "properties":{"evidence_id":{"$ref":"#/$defs/Id"},"kind":{"enum":["DOCUMENTATION","BUILD","TEST","COMPATIBILITY","BENCHMARK","SECURITY","REVIEW"]},"status":{"enum":["PASS","FAIL","NOT_RUN"]},"source_ref":{"$ref":"#/$defs/Text"},"version":{"$ref":"#/$defs/Text"},"observed_at":{"type":"string","format":"date-time"},"subject_candidate_id":{"$ref":"#/$defs/Id"},"subject_revision":{"$ref":"#/$defs/Text"},"artifact_ref":{"$ref":"#/$defs/Text"},"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"environment":{"$ref":"#/$defs/Text"},"command":{"$ref":"#/$defs/Text"}}
+    },
+    "Check": {
+      "type":"object","additionalProperties":false,"required":["check_id","kind","required","status","evidence_refs"],
+      "properties":{"check_id":{"$ref":"#/$defs/Id"},"kind":{"enum":["BUILD","TEST","COMPATIBILITY","BENCHMARK","SECURITY","REVIEW"]},"required":{"type":"boolean"},"status":{"enum":["PASS","FAIL","NOT_RUN"]},"evidence_refs":{"$ref":"#/$defs/Refs"}}
+    },
+    "Decision": {
+      "type":"object","additionalProperties":false,
+      "required":["record_type","schema_version","decision_id","record_context","task_id","component_id","architecture_model_version","project_revision","problem","project_languages","constraints","candidates","selection","validation_plan","evidence","required_specialist_capabilities"],
+      "properties":{
+        "record_type":{"const":"sage_technology_decision"},"schema_version":{"const":"sage-technology/0.1"},
+        "decision_id":{"$ref":"#/$defs/Id"},"record_context":{"enum":["REFERENCE_FIXTURE","PROJECT"]},"task_id":{"$ref":"#/$defs/Id"},"component_id":{"$ref":"#/$defs/Id"},"architecture_model_version":{"$ref":"#/$defs/Text"},"project_revision":{"type":"string","pattern":"^[a-f0-9]{40}$"},"problem":{"$ref":"#/$defs/Text"},"project_languages":{"$ref":"#/$defs/Texts"},
+        "constraints":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/Constraint"}},"candidates":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/Candidate"}},"single_option_rationale":{"$ref":"#/$defs/Text"},
+        "selection":{"type":"object","additionalProperties":false,"required":["candidate_id","rationale","minimality_rationale","performance_claim"],"properties":{"candidate_id":{"$ref":"#/$defs/Id"},"rationale":{"$ref":"#/$defs/Text"},"minimality_rationale":{"$ref":"#/$defs/Text"},"added_language_cost_rationale":{"$ref":"#/$defs/Text"},"performance_claim":{"enum":["NONE","MEASURED"]}}},
+        "validation_plan":{"type":"array","minItems":2,"items":{"$ref":"#/$defs/Check"}},"evidence":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/Evidence"}},"required_specialist_capabilities":{"allOf":[{"$ref":"#/$defs/Texts"},{"minItems":1}]}
+      }
+    },
+    "Profile": {
+      "type":"object","additionalProperties":false,"required":["profile_id","role","kind","capabilities","languages","skill_ref","activation","execution_verified"],
+      "properties":{"profile_id":{"$ref":"#/$defs/Id"},"role":{"$ref":"#/$defs/Text"},"kind":{"enum":["LANGUAGE","DOMAIN","RESEARCH","VERIFICATION","KNOWLEDGE"]},"capabilities":{"allOf":[{"$ref":"#/$defs/Texts"},{"minItems":1}]},"languages":{"$ref":"#/$defs/Texts"},"skill_ref":{"$ref":"#/$defs/Text"},"activation":{"const":"ON_DEMAND"},"execution_verified":{"const":false}}
+    },
+    "Catalog": {
+      "type":"object","additionalProperties":false,"required":["record_type","schema_version","catalog_id","profiles"],
+      "properties":{"record_type":{"const":"sage_specialist_catalog"},"schema_version":{"const":"sage-technology/0.1"},"catalog_id":{"$ref":"#/$defs/Id"},"profiles":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/Profile"}}}
+    },
+    "Policy": {
+      "type":"object","additionalProperties":false,"required":["record_type","schema_version","policy_id","default_language","routing","authority_granted","external_execution","telemetry_failure","approval_gate_failure"],
+      "properties":{"record_type":{"const":"sage_technology_policy"},"schema_version":{"const":"sage-technology/0.1"},"policy_id":{"$ref":"#/$defs/Id"},"default_language":{"type":"null"},"routing":{"const":"ON_DEMAND_MINIMUM_NECESSARY"},"authority_granted":{"const":false},"external_execution":{"const":false},"telemetry_failure":{"const":"OPTIONAL_TELEMETRY_FAIL_OPEN"},"approval_gate_failure":{"const":"FAIL_CLOSED"}}
+    }
+  }
+}

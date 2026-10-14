@@ -1,5 +1,20 @@
 # SAGE Infographic Handoff — فارسی / English
 
+SENS را به‌عنوان پروژهٔ مستقل و اتصال اختیاری `integrations/sens/` نمایش دهید:
+رویدادهای کم‌حجم و حذف‌شده از دادهٔ حساس به سمت SENS، و یافته‌های مشاهداتی
+به سمت بازبینی SAGE. لینک‌ها خط‌چین و غیرفعال‌اند؛ سرویس واقعی مستقر نشده است.
+
+افزونهٔ محلی انتخاب فناوری (۲۰۲۶-۱۰-۱۴): میان کشف و برنامه‌ریزی، یک گرهٔ
+«تصمیم فناوری» با گزینه‌ها، محدودیت‌ها، دلیل و شواهد نمایش دهید. آن را به
+Component ID مدل و Evidence Ledger وصل کنید؛ پروفایل متخصصان On-demand و
+صرفاً اعلام‌شده‌اند، نه Agent فعال. تأیید انسانی/Scope از این گره جدا می‌ماند.
+این بخش هنوز در Tag منتشرشدهٔ v0.8.4 نیست و نشان نصب همهٔ زبان‌ها نیست.
+
+Local optional view: DISCOVER -> technology decision (alternatives/constraints/
+versioned evidence) -> PLAN. Link stable component IDs and decision hashes to
+the ledger. Specialists are declared, on-demand profiles; do not depict an
+always-on autonomous team, universal Rust default or completed production apps.
+
 نسخهٔ فعال محلی: 0.8.4 Review Candidate. در کنار Registry، قرارداد
 Agent-Native و مسیر API بومی، Bridge اختیاری، CLI/MCP تایپ‌شده و Skill را
 نمایش دهید. اتصال‌های target-specific خط‌چین‌اند؛ آزمون descriptor به معنی

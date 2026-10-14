@@ -23,3 +23,8 @@ The PowerShell validator additionally checks selected cross-object invariants: t
 Schema-valid does not mean authorized, complete, safe to execute, or production-ready. A denied or expired authorization may be a valid record describing a blocked task. All fixture evidence is illustrative.
 
 Run from the project root: `./tools/Test-SageContracts.ps1` (PowerShell with `Test-Json -SchemaFile` support).
+# Optional technology-engineering records
+
+`schemas/extensions/sage-technology-engineering.schema.json` adds standalone
+decision/catalog/policy records linked by stable component IDs. It does not
+change existing v0.8 object shapes or the published v0.8.4 release manifest.

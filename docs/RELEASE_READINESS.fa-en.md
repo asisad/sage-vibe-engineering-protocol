@@ -1,5 +1,15 @@
 # SAGE Release Readiness — فارسی / English
 
+افزونهٔ شاخهٔ توسعه ۲۰۲۶-۱۰-۱۴: انتخاب فناوری و پروفایل متخصصان، نسخهٔ افزونه 0.1.0.
+این تغییرات هنوز در نسخهٔ منتشرشدهٔ v0.8.4 نیستند؛ انتشار یا تغییر نسخه
+نیازمند چرخهٔ انتشار مستقل است. گزارش فعلی در
+`reports/SAGE_TECHNOLOGY_ENGINEERING_2026-10-14.md` نگهداری می‌شود.
+
+Source-branch technology-engineering 0.1.0 is separate from the published v0.8.4 tag.
+It adds reference validation/routing, not installed agents or language toolchains.
+SENS source integration 0.1.0 is a disabled contract/offline preview, not a live
+SENS connection. Source Push does not create a new version tag or deployment.
+
 این سند وضعیت آماده‌بودن SAGE برای بازبینی، ارائه و انتشار را مشخص می‌کند. این سند «ادعای امنیتی» یا مجوز اجرای Target واقعی نیست؛ هر اجرای بیرونی همچنان به Scope و Approval مستقل نیاز دارد.
 
 نسخهٔ فعال محلی 0.8.4 با وضعیت `REVIEW_CANDIDATE` است. مرجع هنجاری تازه

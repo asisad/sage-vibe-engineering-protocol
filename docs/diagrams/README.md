@@ -24,3 +24,10 @@ GitHub renders Mermaid blocks natively; the `.mmd` source can also be rendered w
 ## فارسی
 
 این دیاگرام برای توضیح «SAGE چیست و چگونه کار می‌کند» مناسب است: SAGE یک اپلیکیشن دامنه‌ای نیست؛ یک پروتکل و Runtime برای تبدیل درخواست خام به کار مهندسیِ قابل‌بررسی، قابل‌آزمون و دارای شواهد است.
+# Optional technology-decision projection
+
+The local technology-engineering extension adds decision/specialist relationships
+to the overview. `sage.ps1 technology -DecisionPath <path> -View` generates a
+Mermaid source view from the same decision's stable component ID and alternatives.
+Labels are encoded; selection remains proposed and rendered output is not an
+authority source. Reference tests validate generation, not a visual rendering.

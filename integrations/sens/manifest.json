@@ -1,0 +1,20 @@
+{
+  "integration_id": "sage.sens",
+  "version": "0.1.0",
+  "protocol": "sage-sens/0.1",
+  "status": "SOURCE_CONTRACT_AND_OFFLINE_PREVIEW",
+  "architecture_owner": "SAGE",
+  "implementation_owner": "INDEPENDENT_SENS_PROJECT",
+  "source_ref": null,
+  "schema": "schemas/sage-sens.schema.json",
+  "config_example": "config.example.json",
+  "registration_template": "registration.example.json",
+  "registration_directory": "registrations/",
+  "module": "SageSens.psm1",
+  "default_mode": "DISABLED",
+  "transport_implemented": false,
+  "auto_install": false,
+  "auto_activate": false,
+  "deployment_performed": false,
+  "authority_granted": false
+}

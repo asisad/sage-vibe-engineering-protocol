@@ -1,0 +1,11 @@
+{
+  "record_type": "sage_technology_policy",
+  "schema_version": "sage-technology/0.1",
+  "policy_id": "sage.technology-fit",
+  "default_language": null,
+  "routing": "ON_DEMAND_MINIMUM_NECESSARY",
+  "authority_granted": false,
+  "external_execution": false,
+  "telemetry_failure": "OPTIONAL_TELEMETRY_FAIL_OPEN",
+  "approval_gate_failure": "FAIL_CLOSED"
+}

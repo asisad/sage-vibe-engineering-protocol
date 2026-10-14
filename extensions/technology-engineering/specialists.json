@@ -1,0 +1,263 @@
+{
+  "record_type": "sage_specialist_catalog",
+  "schema_version": "sage-technology/0.1",
+  "catalog_id": "sage.technology-engineering.specialists",
+  "profiles": [
+    {
+      "profile_id": "rust-engineer",
+      "role": "rust-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.rust",
+        "systems.concurrent"
+      ],
+      "languages": [
+        "Rust"
+      ],
+      "skill_ref": "skills/rust-engineering/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "python-ai-engineer",
+      "role": "python-ai-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.python",
+        "ai.pipeline"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "skill_ref": "skills/python-ai/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "typescript-web-engineer",
+      "role": "typescript-web-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.typescript",
+        "web.browser"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "skill_ref": "skills/typescript-web/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "go-engineer",
+      "role": "go-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.go",
+        "network.service"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "skill_ref": "skills/go-backend/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "csharp-dotnet-engineer",
+      "role": "csharp-dotnet-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.csharp",
+        "dotnet.application",
+        "engine.unity"
+      ],
+      "languages": [
+        "C#"
+      ],
+      "skill_ref": "skills/csharp-dotnet/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "cpp-native-engineer",
+      "role": "cpp-native-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.cpp",
+        "native.abi"
+      ],
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "skill_ref": "skills/cpp-native/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "data-sql-engineer",
+      "role": "data-sql-engineer",
+      "kind": "LANGUAGE",
+      "capabilities": [
+        "language.sql",
+        "data.schema"
+      ],
+      "languages": [
+        "SQL"
+      ],
+      "skill_ref": "skills/data-sql/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "graphics-engineer",
+      "role": "graphics-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "graphics.rendering",
+        "shader.validation"
+      ],
+      "languages": [
+        "GLSL",
+        "WGSL",
+        "HLSL",
+        "GDScript"
+      ],
+      "skill_ref": "skills/graphics-game/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "devops-containers-engineer",
+      "role": "devops-containers-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "containers.packaging",
+        "deployment.plan"
+      ],
+      "languages": [],
+      "skill_ref": "skills/devops-containers/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "automation-iac-engineer",
+      "role": "automation-iac-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "automation.iac",
+        "shell.automation",
+        "language.powershell"
+      ],
+      "languages": [
+        "PowerShell",
+        "Bash",
+        "HCL"
+      ],
+      "skill_ref": "skills/automation-iac/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "docs-knowledge-curator",
+      "role": "docs-knowledge-curator",
+      "kind": "KNOWLEDGE",
+      "capabilities": [
+        "knowledge.provenance"
+      ],
+      "languages": [],
+      "skill_ref": "skills/docs-knowledge/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "language-researcher",
+      "role": "language-researcher",
+      "kind": "RESEARCH",
+      "capabilities": [
+        "technology.research"
+      ],
+      "languages": [],
+      "skill_ref": "skills/emerging-language-research/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "qa-security-reviewer",
+      "role": "qa-security-reviewer",
+      "kind": "VERIFICATION",
+      "capabilities": [
+        "engineering.review",
+        "security.review"
+      ],
+      "languages": [],
+      "skill_ref": "skills/engineering-qa/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "embedded-iot-engineer",
+      "role": "embedded-iot-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "embedded.firmware"
+      ],
+      "languages": [
+        "C",
+        "C++",
+        "Rust",
+        "MicroPython"
+      ],
+      "skill_ref": "skills/embedded-iot/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "robotics-control-engineer",
+      "role": "robotics-control-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "robotics.simulation"
+      ],
+      "languages": [
+        "Python",
+        "C++"
+      ],
+      "skill_ref": "skills/robotics-motion/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "cnc-gcode-engineer",
+      "role": "cnc-gcode-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "cnc.static-validation"
+      ],
+      "languages": [
+        "G-code"
+      ],
+      "skill_ref": "skills/cnc-gcode/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    },
+    {
+      "profile_id": "hdl-fpga-engineer",
+      "role": "hdl-fpga-engineer",
+      "kind": "DOMAIN",
+      "capabilities": [
+        "hdl.simulation"
+      ],
+      "languages": [
+        "Verilog",
+        "SystemVerilog",
+        "VHDL"
+      ],
+      "skill_ref": "skills/hdl-fpga/SKILL.md",
+      "activation": "ON_DEMAND",
+      "execution_verified": false
+    }
+  ]
+}

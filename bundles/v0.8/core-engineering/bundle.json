@@ -4,6 +4,8 @@
   "protocol": "sage/0.8",
   "skills": ["sage-intake", "sage-discover", "sage-plan", "sage-implement", "sage-verify", "interface-audit", "mcp-review", "cli-harness-review"],
   "skill_registry": "skills/registry.json",
+  "optional_extensions": ["extensions/technology-engineering/manifest.json"],
+  "optional_integrations": ["integrations/sens/manifest.json"],
   "lifecycle_contract": {
     "ordered_stages": ["sage-intake", "sage-discover", "sage-plan", "sage-implement", "sage-verify"],
     "authority_boundary": "discover_is_advisory_implement_requires_approved_plan",

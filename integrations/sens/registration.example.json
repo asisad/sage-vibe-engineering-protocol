@@ -1,0 +1,13 @@
+{
+  "record_type": "sens_registration",
+  "schema_version": "sage-sens/0.1",
+  "registration_id": "registration.sens.reference",
+  "sens_id": "sens.reference",
+  "implementation_version": "0.0.0-template",
+  "source_ref": null,
+  "protocol_versions": ["sage-sens/0.1"],
+  "capabilities": ["telemetry.receive", "evidence.query", "drift.analysis"],
+  "approval_state": "PROPOSED",
+  "authority": "OBSERVATION_ONLY",
+  "auto_activate": false
+}

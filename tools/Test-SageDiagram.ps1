@@ -24,5 +24,8 @@ foreach ($edge in @('interfaces -. constrains .-> registry','callable -. optiona
     Assert ($source.Contains($edge)) "Diagram includes Agent-Native relationship: $edge."
 }
 Assert ($source.Contains('target-specific conformance')) 'Diagram discloses target-specific transport coverage.'
+Assert ($source.Contains('Technology Decision') -and $source.Contains('declared, not instantiated')) 'Diagram discloses optional technology review and declared specialist profiles.'
+Assert ($source.Contains('technology -. PLAN review gate .-> plan') -and $source.Contains('technology -. decision hash .-> ledger')) 'Technology decision links plan and evidence, not execution authority.'
+Assert ($source.Contains('SENS independent observer') -and $source.Contains('ledger -. metadata only, disabled .-> sens') -and $source.Contains('sens -. advisory findings only .-> verify')) 'SENS seam remains independent, disabled and advisory.'
 if ($failures.Count -gt 0) { $failures | ForEach-Object { Write-Error $_ }; exit 1 }
 [pscustomobject]@{ status='PASS'; checks=@($passes) } | ConvertTo-Json -Depth 10

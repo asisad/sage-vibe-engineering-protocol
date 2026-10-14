@@ -69,3 +69,18 @@ Production execution is Dry-Run only in this release. External targets require a
 The `interfaces` command selects validated descriptor candidates, using
 synthetic fixtures by default; it does not execute their declared transports.
 The lifecycle order is enforced by `skills/registry.json`: `intake → discover → plan → implement → verify`. Discover is advisory and never grants authority; Implement requires an approved plan.
+# Optional technology-engineering extension / افزونهٔ انتخاب فناوری
+
+For significant technology choices, see
+`extensions/technology-engineering/README.fa-en.md`. Example from the repository
+root: `./sage.ps1 technology -DecisionPath fixtures/extensions/technology-engineering/keep-current-stack.json -View`.
+This reviews a synthetic proposal and emits diagram source; it does not build
+or approve an application. `./sage.ps1 specialists -Capability language.python`
+discovers a declared profile only. The extension has not been published in v0.8.4.
+
+## SENS connection slot / جایگاه اتصال SENS
+
+Read `integrations/sens/docs/CONNECTING_SENS.fa-en.md` from the independently
+developed SENS project. `./sage.ps1 sens` reports the unconnected slot;
+`./sage.ps1 sens -InputPath integrations/sens/examples/event.json -Preview`
+performs local metadata validation only. No service or live connection starts.

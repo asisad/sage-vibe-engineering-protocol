@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased — SENS source integration seam 0.1 — 2026-10-14
+
+- Added `integrations/sens/` as the handoff slot for an independent SENS project:
+  schema, proposal registry, disabled config, metadata examples and guide.
+- Added offline validation/context checks and bounded event preview; no live
+  transport, SENS deployment or self-activation is implemented.
+- Prepared source-branch delivery together with technology-engineering 0.1;
+  preserved v0.8.4 release/SDK versions and tags, with Strix still pending.
+
+## Unreleased — Technology Engineering extension 0.1 — 2026-10-14
+
+- Added requirements-driven technology decision contracts, versioned evidence,
+  current-stack alternatives and explicit cross-language cost/compatibility gates.
+- Adapted 17 on-demand specialist profiles and 18 optional Skills, without a
+  Rust-first policy, host installation or change to the eight-Skill core bundle.
+- Added advisory discovery, lifecycle plan gating, decision-hash ledger links,
+  CLI review and source-only decision diagrams with regression tests.
+- Preserved supplied originals; no GitHub release, toolchain/hardware execution,
+  SENS deployment or Strix scan is part of this integration.
+
 ## 0.8.4 — Agent-Native Interface Review Candidate — 2026-10-06
 
 - Added normative Agent-Native layering for Native API, Thin Bridge, typed CLI/MCP and Skills.

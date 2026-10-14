@@ -14,6 +14,13 @@ The unchanged v0.8.0 text is archived in
 `history/SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT_v0.8.0-formalized.md`.
 Interface-specific decisions use the addendum; baseline authority rules prevail.
 
+Optional source-branch composition (2026-10-14):
+`SAGE_v0.8_TECHNOLOGY_ENGINEERING_DELTA.md` and the technology-engineering 0.1
+extension add requirements-driven technology decisions and on-demand specialist
+profiles. This does not replace the baseline or republish the v0.8.4 release.
+`SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md` adds a disabled metadata/proposal
+interface for the independently built SENS project, not a deployed service.
+
 Source Baseline: SAGE_v0.7_MASTER_BASELINE.md  
 Baseline SHA-256: DC0C6BAF80465E1F2CF63A2ACA96F3578153A898D55752DEB9A936E506FD6C0D  
 Handoff Source: SAGE_HANDOFF_v0.7_to_v0.8.md  

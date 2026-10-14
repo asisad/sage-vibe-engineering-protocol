@@ -1,0 +1,120 @@
+{
+  "record_type": "sage_technology_decision",
+  "schema_version": "sage-technology/0.1",
+  "decision_id": "decision.keep-powershell",
+  "record_context": "REFERENCE_FIXTURE",
+  "task_id": "task.technology.reference.001",
+  "component_id": "component.validation-cli",
+  "architecture_model_version": "technology.reference.1",
+  "project_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d",
+  "problem": "Synthetic decision example; declarations are not actual project execution evidence.",
+  "project_languages": [
+    "PowerShell"
+  ],
+  "constraints": [
+    {
+      "constraint_id": "constraint.target",
+      "kind": "COMPATIBILITY",
+      "requirement": "Keep the specified target and existing interface contract.",
+      "mandatory": true
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "candidate.powershell",
+      "languages": [
+        "PowerShell"
+      ],
+      "runtime": "PowerShell 7.6",
+      "target": "Existing PowerShell module contract",
+      "frameworks": [],
+      "documentation_refs": [
+        "doc.powershell"
+      ],
+      "constraint_results": [
+        {
+          "constraint_id": "constraint.target",
+          "status": "SATISFIED",
+          "evidence_refs": [
+            "doc.powershell"
+          ]
+        }
+      ],
+      "tradeoffs": [
+        "Keep existing test/toolchain; no language migration."
+      ]
+    },
+    {
+      "candidate_id": "candidate.rust",
+      "languages": [
+        "Rust"
+      ],
+      "runtime": "Rust 1.85",
+      "target": "Reimplementation would change the required PowerShell module contract",
+      "frameworks": [],
+      "documentation_refs": [
+        "doc.rust"
+      ],
+      "constraint_results": [
+        {
+          "constraint_id": "constraint.target",
+          "status": "UNSATISFIED",
+          "evidence_refs": [
+            "doc.rust"
+          ]
+        }
+      ],
+      "tradeoffs": [
+        "Potential native binary benefits are not measured and do not justify a rewrite."
+      ]
+    }
+  ],
+  "selection": {
+    "candidate_id": "candidate.powershell",
+    "rationale": "Fits the explicit target constraint; alternatives and limits are recorded.",
+    "minimality_rationale": "Reuse a suitable stack; no unnecessary runtime or service boundary.",
+    "performance_claim": "NONE"
+  },
+  "validation_plan": [
+    {
+      "check_id": "check.build",
+      "kind": "BUILD",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    },
+    {
+      "check_id": "check.test",
+      "kind": "TEST",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "doc.powershell",
+      "kind": "DOCUMENTATION",
+      "status": "PASS",
+      "source_ref": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_modules?view=powershell-7.6",
+      "version": "PowerShell 7.6",
+      "observed_at": "2026-10-14T00:00:00Z",
+      "subject_candidate_id": "candidate.powershell",
+      "subject_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d"
+    },
+    {
+      "evidence_id": "doc.rust",
+      "kind": "DOCUMENTATION",
+      "status": "PASS",
+      "source_ref": "https://doc.rust-lang.org/1.85.0/book/",
+      "version": "Rust 1.85.0",
+      "observed_at": "2026-10-14T00:00:00Z",
+      "subject_candidate_id": "candidate.rust",
+      "subject_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d"
+    }
+  ],
+  "required_specialist_capabilities": [
+    "language.powershell",
+    "engineering.review"
+  ]
+}

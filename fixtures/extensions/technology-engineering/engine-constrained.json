@@ -1,0 +1,87 @@
+{
+  "record_type": "sage_technology_decision",
+  "schema_version": "sage-technology/0.1",
+  "decision_id": "decision.engine-bound",
+  "record_context": "REFERENCE_FIXTURE",
+  "task_id": "task.technology.reference.001",
+  "component_id": "component.engine-script",
+  "architecture_model_version": "technology.reference.1",
+  "project_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d",
+  "problem": "Synthetic decision example; declarations are not actual project execution evidence.",
+  "project_languages": [
+    "C#"
+  ],
+  "constraints": [
+    {
+      "constraint_id": "constraint.target",
+      "kind": "COMPATIBILITY",
+      "requirement": "Keep the specified target and existing interface contract.",
+      "mandatory": true
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "candidate.csharp",
+      "languages": [
+        "C#"
+      ],
+      "runtime": "Unity 6000.0",
+      "target": "Approved existing C# scripting interface",
+      "frameworks": [],
+      "documentation_refs": [
+        "doc.csharp"
+      ],
+      "constraint_results": [
+        {
+          "constraint_id": "constraint.target",
+          "status": "SATISFIED",
+          "evidence_refs": [
+            "doc.csharp"
+          ]
+        }
+      ],
+      "tradeoffs": [
+        "Preserve the engine's configured C# interface and supported language level."
+      ]
+    }
+  ],
+  "selection": {
+    "candidate_id": "candidate.csharp",
+    "rationale": "Fits the explicit target constraint; alternatives and limits are recorded.",
+    "minimality_rationale": "Reuse a suitable stack; no unnecessary runtime or service boundary.",
+    "performance_claim": "NONE"
+  },
+  "validation_plan": [
+    {
+      "check_id": "check.build",
+      "kind": "BUILD",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    },
+    {
+      "check_id": "check.test",
+      "kind": "TEST",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "doc.csharp",
+      "kind": "DOCUMENTATION",
+      "status": "PASS",
+      "source_ref": "https://docs.unity3d.com/6000.0/Documentation/Manual/intro-to-scripting.html",
+      "version": "Unity 6000.0",
+      "observed_at": "2026-10-14T00:00:00Z",
+      "subject_candidate_id": "candidate.csharp",
+      "subject_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d"
+    }
+  ],
+  "required_specialist_capabilities": [
+    "language.csharp",
+    "engineering.review"
+  ],
+  "single_option_rationale": "The task explicitly fixes the existing engine scripting interface; adding another runtime or native plugin is outside scope."
+}

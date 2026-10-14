@@ -25,6 +25,8 @@ flowchart LR
         registry[Provider / Tool / Skill Registry]
         state[Workflow State Machine]
         interfaces[Agent-Native Contract\nvalidation + advisory selection]
+        technology[Technology Decision\nconstraints + alternatives + evidence]
+        specialists[On-demand Specialist Profiles\ndeclared, not instantiated]
     end
 
     intake -. loads minimum sufficient context .-> context
@@ -46,6 +48,11 @@ flowchart LR
     registry -. selected capability .-> implement
     interfaces -. constrains .-> registry
     interfaces -. verified by .-> ledger
+    technology -. PLAN review gate .-> plan
+    technology -. decision hash .-> ledger
+    specialists -. task-scoped advisory routing .-> discover
+    technology -. required capabilities .-> specialists
+    authority -. approval remains required .-> technology
 
     subgraph adapters[External Adapters — opt-in boundary]
         providers[Providers]
@@ -54,6 +61,7 @@ flowchart LR
         bridge[Thin Bridge\noptional target binding]
         callable[Typed CLI / MCP\ntarget-specific conformance]
         api[Native API\ntarget capability source]
+        sens[SENS independent observer\ncontracts only, disabled]
     end
 
     implement -->|scoped invocation| providers
@@ -70,12 +78,15 @@ flowchart LR
     authority -. scope + approval required .-> providers
     authority -. scope + approval required .-> tools
     authority -. separate target approval .-> strix
+    ledger -. metadata only, disabled .-> sens
+    sens -. advisory findings only .-> verify
+    authority -. never delegated .-> sens
 
     classDef core fill:#e8f1ff,stroke:#356ae6,color:#102a56;
     classDef gate fill:#fff4d6,stroke:#b7791f,color:#5b3b00;
     classDef evidence fill:#e8f8ee,stroke:#2f855a,color:#174b2b;
     classDef external fill:#f3e8ff,stroke:#805ad5,color:#3b206d;
-    class intake,discover,plan,implement,verify,state,registry,interfaces core;
+    class intake,discover,plan,implement,verify,state,registry,interfaces,technology,specialists core;
     class authority gate;
     class ledger,done,blocked,escalated evidence;
-    class providers,tools,strix,bridge,callable,api external;
+    class providers,tools,strix,bridge,callable,api,sens external;

@@ -1,6 +1,7 @@
 Set-StrictMode -Version Latest
 Import-Module (Join-Path $PSScriptRoot 'SageProduction.psm1') -Force
 Import-Module (Join-Path (Split-Path $PSScriptRoot -Parent) 'reference\SageDiscovery.psm1') -Force
+Import-Module (Join-Path (Split-Path $PSScriptRoot -Parent) 'reference\SageTechnologyEngineering.psm1')
 
 function Invoke-SageLifecycle {
     [CmdletBinding()]
@@ -9,7 +10,10 @@ function Invoke-SageLifecycle {
         [Parameter(Mandatory)][string]$RegistryPath,
         [Parameter(Mandatory)][string]$LedgerPath,
         [string[]]$RequiredCapabilities = @('json-schema-validation'),
-        [ValidateSet('READ_ONLY','ADAPTER_ONLY')][string]$MaxSideEffect = 'READ_ONLY'
+        [ValidateSet('READ_ONLY','ADAPTER_ONLY')][string]$MaxSideEffect = 'READ_ONLY',
+        $TechnologyDecision,
+        [switch]$RequireTechnologyDecision,
+        [string]$SpecialistCatalogPath
     )
     $engine = New-SageProductionEngine -LedgerPath $LedgerPath
     $ledger = [pscustomobject]@{ ledger_id="lifecycle.$($RunContract.run_id)"; run_id=[string]$RunContract.run_id; entries=@(); chain_head=''; status='OPEN' }
@@ -26,7 +30,38 @@ function Invoke-SageLifecycle {
     $discovery = Find-SageCapabilities -Registry $registry -RequiredCapabilities $RequiredCapabilities -MaxSideEffect $MaxSideEffect
     RecordStage 'discover' 'PASS' "discovery://$($discovery.match_count)-matches" | Out-Null
     if ($discovery.match_count -eq 0) { RecordStage 'plan' 'FAIL' 'plan://no-safe-capability' | Out-Null; $ledger.status='BLOCKED'; Save-SageProductionLedger $ledger $LedgerPath | Out-Null; return [pscustomobject]@{status='BLOCKED';final_stage='plan';stages=@($stages);discovery=$discovery;ledger_path=$LedgerPath;external_execution='NOT_PERFORMED'} }
+    $technologyReview=$null; $specialists=$null
+    if ($RequireTechnologyDecision -or $null -ne $TechnologyDecision) {
+        $technologyReview=Get-SageTechnologyDecisionReview -Decision $TechnologyDecision -TaskId ([string]$RunContract.task_packet.task_id) -Phase PLAN
+        if ($technologyReview.status -eq 'READY_FOR_REVIEW') {
+            $routeArgs=@{RequiredCapabilities=@($technologyReview.required_specialist_capabilities)}
+            if ($SpecialistCatalogPath) { $routeArgs.CatalogPath=$SpecialistCatalogPath }
+            $specialists=Find-SageEngineeringCapabilities @routeArgs
+            if ($specialists.status -eq 'MATCHES') {
+                $selectedCandidate=@($TechnologyDecision.candidates | Where-Object candidate_id -CEQ $TechnologyDecision.selection.candidate_id)[0]
+                $profileLanguages=@($specialists.matches | ForEach-Object languages)
+                $uncoveredLanguages=@($selectedCandidate.languages | Where-Object { $profileLanguages -notcontains $_ })
+                if ($uncoveredLanguages.Count -gt 0) {
+                    $specialists.status='NO_MATCH'
+                    $specialists.errors=@($specialists.errors)+@('SELECTED_LANGUAGE_HAS_NO_ROUTED_SPECIALIST')
+                }
+            }
+        }
+        if ($technologyReview.status -ne 'READY_FOR_REVIEW' -or $null -eq $specialists -or $specialists.status -ne 'MATCHES') {
+            RecordStage 'plan' 'FAIL' 'technology://missing-invalid-or-unroutable' | Out-Null
+            $ledger.status='BLOCKED'; Save-SageProductionLedger $ledger $LedgerPath | Out-Null
+            return [pscustomobject]@{status='BLOCKED';final_stage='plan';stages=@($stages);technology_review=$technologyReview;specialists=$specialists;ledger_path=$LedgerPath;external_execution='NOT_PERFORMED'}
+        }
+        $decisionBytes=[Text.Encoding]::UTF8.GetBytes(($TechnologyDecision | ConvertTo-Json -Depth 100 -Compress))
+        $decisionHash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($decisionBytes)).ToLowerInvariant()
+        Add-SageProductionLedgerEntry -Ledger $ledger -Kind 'TECHNOLOGY_REVIEW' -Status 'ADVISORY_ONLY' -Ref "decision://$($TechnologyDecision.decision_id)/sha256/$decisionHash" | Out-Null
+    }
     $plan = [pscustomobject]@{plan_type='sage.lifecycle.plan';mode='DRY_RUN';selected_capabilities=@($discovery.matches|ForEach-Object id);required_capabilities=@($RequiredCapabilities);created_at=[DateTime]::UtcNow.ToString('o')}
+    if ($null -ne $technologyReview) {
+        $plan | Add-Member NoteProperty technology_review $technologyReview
+        $plan | Add-Member NoteProperty specialist_profiles @($specialists.matches.profile_id)
+        $plan | Add-Member NoteProperty specialists_instantiated $false
+    }
     RecordStage 'plan' 'PASS' 'plan://dry-run' | Out-Null
     $implementation = [pscustomobject]@{status='PLANNED';executed=$false;mode='DRY_RUN';mutations=0;external_execution='NOT_PERFORMED';receipt='implementation://dry-run'}
     RecordStage 'implement' 'PASS' $implementation.receipt | Out-Null

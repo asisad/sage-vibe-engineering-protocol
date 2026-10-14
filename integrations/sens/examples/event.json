@@ -1,0 +1,18 @@
+{
+  "record_type": "sage_sens_event",
+  "schema_version": "sage-sens/0.1",
+  "event_id": "event.reference.001",
+  "event_type": "test.result",
+  "project_id": "sage.reference",
+  "task_id": "task.reference.001",
+  "run_id": "run.reference.001",
+  "step_id": "step.reference.verify",
+  "actor_id": "sage.reference.validator",
+  "timestamp": "2026-10-14T00:00:00Z",
+  "source_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d",
+  "status": "NOT_RUN",
+  "duration_ms": 0,
+  "privacy_class": "INTERNAL",
+  "content_mode": "METADATA_ONLY",
+  "evidence_refs": []
+}

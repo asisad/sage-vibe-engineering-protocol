@@ -1,0 +1,128 @@
+{
+  "record_type": "sage_technology_decision",
+  "schema_version": "sage-technology/0.1",
+  "decision_id": "decision.browser-ui",
+  "record_context": "REFERENCE_FIXTURE",
+  "task_id": "task.technology.reference.001",
+  "component_id": "component.browser-ui",
+  "architecture_model_version": "technology.reference.1",
+  "project_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d",
+  "problem": "Synthetic decision example; declarations are not actual project execution evidence.",
+  "project_languages": [
+    "Python"
+  ],
+  "constraints": [
+    {
+      "constraint_id": "constraint.target",
+      "kind": "COMPATIBILITY",
+      "requirement": "Keep the specified target and existing interface contract.",
+      "mandatory": true
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "candidate.typescript",
+      "languages": [
+        "TypeScript"
+      ],
+      "runtime": "TypeScript 5.9",
+      "target": "Browser DOM without a Python-to-browser adapter",
+      "frameworks": [],
+      "documentation_refs": [
+        "doc.typescript"
+      ],
+      "constraint_results": [
+        {
+          "constraint_id": "constraint.target",
+          "status": "SATISFIED",
+          "evidence_refs": [
+            "doc.typescript"
+          ]
+        }
+      ],
+      "tradeoffs": [
+        "Adds a frontend toolchain and an explicit API boundary."
+      ]
+    },
+    {
+      "candidate_id": "candidate.python",
+      "languages": [
+        "Python"
+      ],
+      "runtime": "Python 3.14",
+      "target": "Existing server runtime; no browser adapter in approved scope",
+      "frameworks": [],
+      "documentation_refs": [
+        "doc.python"
+      ],
+      "constraint_results": [
+        {
+          "constraint_id": "constraint.target",
+          "status": "UNSATISFIED",
+          "evidence_refs": [
+            "doc.python"
+          ]
+        }
+      ],
+      "tradeoffs": [
+        "Reuse backend; does not fulfill the specified client target alone."
+      ]
+    }
+  ],
+  "selection": {
+    "candidate_id": "candidate.typescript",
+    "rationale": "Fits the explicit target constraint; alternatives and limits are recorded.",
+    "minimality_rationale": "Reuse a suitable stack; no unnecessary runtime or service boundary.",
+    "performance_claim": "NONE",
+    "added_language_cost_rationale": "A browser UI over the existing Python API justifies a separate frontend build; maintain one versioned interface and test its compatibility."
+  },
+  "validation_plan": [
+    {
+      "check_id": "check.build",
+      "kind": "BUILD",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    },
+    {
+      "check_id": "check.test",
+      "kind": "TEST",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    },
+    {
+      "check_id": "check.compatibility",
+      "kind": "COMPATIBILITY",
+      "required": true,
+      "status": "NOT_RUN",
+      "evidence_refs": []
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "doc.typescript",
+      "kind": "DOCUMENTATION",
+      "status": "PASS",
+      "source_ref": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html",
+      "version": "TypeScript 5.9",
+      "observed_at": "2026-10-14T00:00:00Z",
+      "subject_candidate_id": "candidate.typescript",
+      "subject_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d"
+    },
+    {
+      "evidence_id": "doc.python",
+      "kind": "DOCUMENTATION",
+      "status": "PASS",
+      "source_ref": "https://docs.python.org/3.14/",
+      "version": "Python 3.14",
+      "observed_at": "2026-10-14T00:00:00Z",
+      "subject_candidate_id": "candidate.python",
+      "subject_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d"
+    }
+  ],
+  "required_specialist_capabilities": [
+    "web.browser",
+    "engineering.review"
+  ]
+}

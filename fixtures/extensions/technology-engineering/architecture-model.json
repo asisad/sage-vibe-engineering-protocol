@@ -1,0 +1,46 @@
+{
+  "record_type": "architecture_model",
+  "schema_version": "sage-architecture/0.8",
+  "model_id": "model.technology.reference",
+  "model_version": "technology.reference.1",
+  "authority": "PROPOSED",
+  "elements": [
+    {
+      "architecture_id": "component.validation-cli",
+      "kind": "Component",
+      "name": "Validation CLI",
+      "owner": "reference-fixture",
+      "authority": "PROPOSED",
+      "provenance": {
+        "source": "synthetic technology fixture",
+        "observed_at": "2026-10-14T00:00:00Z"
+      }
+    },
+    {
+      "architecture_id": "component.browser-ui",
+      "kind": "Component",
+      "name": "Browser UI",
+      "owner": "reference-fixture",
+      "authority": "PROPOSED",
+      "provenance": {
+        "source": "synthetic technology fixture",
+        "observed_at": "2026-10-14T00:00:00Z"
+      }
+    },
+    {
+      "architecture_id": "component.engine-script",
+      "kind": "Component",
+      "name": "Engine script",
+      "owner": "reference-fixture",
+      "authority": "PROPOSED",
+      "provenance": {
+        "source": "synthetic technology fixture",
+        "observed_at": "2026-10-14T00:00:00Z"
+      }
+    }
+  ],
+  "relationships": [],
+  "views": [],
+  "source_of_truth": true,
+  "provider": "provider-neutral"
+}

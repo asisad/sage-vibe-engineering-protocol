@@ -107,3 +107,38 @@ Install state، provider credentials و Docker runtime جزو Authority این R
 - Hashes for current derived artifacts and preserved formalized baseline are
   in SOURCE_MANIFEST.json. The baseline archive hash is
   `c8ff946ab4e1fadde6b3d73d859eafa8afd1f4406c43b96d58d1eb4326c7c6cd`.
+## ۹. Technology Engineering / 2026-10-14
+
+Explicit user approval in this task authorizes the local additive integration.
+Supplied originals are byte-preserved (not executed or installed):
+
+- `sources/supplied-originals/AI_Engineering_Agent_Team_Blueprint_FA_2026-10-14_v0.2.md`
+  — SHA-256 `466d5222f27389fdddd1824141c6c49f3d6e8b4190f2046931c97c99647dab25`.
+- `sources/supplied-originals/AI_Engineering_Agent_Team_Starter_v0.2.zip`
+  — SHA-256 `1542658e50cfdd227ca068a061437caa6b7305dab74c7e74782b66e0055e20fe`.
+
+Disposition: ADAPT language/domain workflows and evidence/approval separation;
+do not adopt fixed Rust routing, an always-on language team or a new global
+AGENTS.md. Archive contains 17 role and 17 Skill templates, not running agents.
+Derived package: `extensions/technology-engineering/`, with one additional
+technology-selection Skill. Normative local delta:
+`SAGE_v0.8_TECHNOLOGY_ENGINEERING_DELTA.md`.
+
+Method references inspected 2026-10-14: CMU SEI ATAM (1998),
+https://www.sei.cmu.edu/library/the-architecture-tradeoff-analysis-method/ ;
+Microsoft ADR guidance (page updated 2026-04-13),
+https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record .
+These are methodological references, not imported source code or certification.
+Source-index URLs inside the ZIP are not evidence of a compatible build.
+
+## ۱۰. SENS integration seam / 2026-10-14
+
+Explicit user approval authorizes `integrations/sens/`, verification and source
+Push together with the technology-engineering extension. SENS itself remains
+an independent project. No SENS repository or running endpoint was supplied;
+`source_ref=null`, disabled config and an empty proposal registry preserve that fact.
+
+The contract/schema/module/examples are newly authored for this approved seam,
+not copied SENS implementation code. Normative disposition:
+`SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md`. No new third-party package is imported.
+Source delivery does not certify a live transport, service, hardware or Strix scan.

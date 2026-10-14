@@ -1,0 +1,18 @@
+{
+  "record_type": "sens_integration_config",
+  "schema_version": "sage-sens/0.1",
+  "mode": "DISABLED",
+  "transport_connected": false,
+  "endpoint_ref": null,
+  "credential_ref": null,
+  "project_allowlist": ["sage.reference"],
+  "budget": {
+    "max_event_bytes": 4096,
+    "max_queue_events": 64,
+    "max_batch_events": 16,
+    "max_rate_per_minute": 120,
+    "retention_seconds": 600
+  },
+  "telemetry_failure": "DROP_OPTIONAL_TELEMETRY",
+  "approval_gate_failure": "FAIL_CLOSED"
+}

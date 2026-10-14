@@ -1,5 +1,6 @@
 Set-StrictMode -Version Latest
 Import-Module (Join-Path $PSScriptRoot 'SageAgentInterfaces.psm1') -Force
+Import-Module (Join-Path $PSScriptRoot 'SageTechnologyEngineering.psm1')
 
 function Import-SageRegistrySet {
     param([Parameter(Mandatory)][string]$Path)
@@ -63,4 +64,13 @@ function Find-SageCapabilities {
     [pscustomobject]@{ required_capabilities=@($RequiredCapabilities); matches=@($matches); match_count=$matches.Count; rejected=@($rejected); interface_selection=$interfaceSelection; authority_granted=$false; external_execution=$false }
 }
 
-Export-ModuleMember -Function Import-SageRegistrySet, Find-SageCapabilities
+function Find-SageEngineeringCapabilities {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)][string[]]$RequiredCapabilities,
+          [string]$CatalogPath=(Join-Path $PSScriptRoot '..\..\extensions\technology-engineering\specialists.json'))
+    try { $catalog=Get-Content -LiteralPath $CatalogPath -Raw | ConvertFrom-Json -Depth 100 -DateKind String }
+    catch { $catalog=$null }
+    Find-SageSpecialistProfiles -Catalog $catalog -RequiredCapabilities $RequiredCapabilities
+}
+
+Export-ModuleMember -Function Import-SageRegistrySet, Find-SageCapabilities, Find-SageEngineeringCapabilities

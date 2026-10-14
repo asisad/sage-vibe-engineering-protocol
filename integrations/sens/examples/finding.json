@@ -1,0 +1,21 @@
+{
+  "record_type": "sens_finding",
+  "schema_version": "sage-sens/0.1",
+  "finding_id": "finding.reference.001",
+  "sens_id": "sens.reference",
+  "project_id": "sage.reference",
+  "task_id": "task.reference.001",
+  "source_revision": "dd3753b94df7bd2879ef191533a14f4291eb091d",
+  "kind": "MISSING_EVIDENCE",
+  "severity": "INFO",
+  "confidence": 0.5,
+  "evidence_refs": ["evidence.reference.missing"],
+  "suggested_review": "REVIEW_TESTS",
+  "provenance": {
+    "sensor_version": "0.0.0-template",
+    "sensor_run_id": "sensor.reference.001",
+    "observed_at": "2026-10-14T00:00:00Z"
+  },
+  "authority": "OBSERVED",
+  "auto_execute": false
+}

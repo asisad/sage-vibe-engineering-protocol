@@ -1,0 +1,10 @@
+{
+  "record_type": "sens_proposal_registry",
+  "schema_version": "sage-sens/0.1",
+  "registry_id": "sage.sens.proposals",
+  "protocol": "sage-sens/0.1",
+  "entries": [],
+  "active_instances": [],
+  "self_activation_allowed": false,
+  "note": "Templates are not registered implementations. No live service is connected."
+}
