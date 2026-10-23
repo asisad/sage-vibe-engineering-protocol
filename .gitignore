@@ -3,5 +3,8 @@ tmp/
 strix_runs/
 sdk/python/src/sage_sdk/__pycache__/
 *.pyc
+runtime/autonomous/build/
+runtime/autonomous/dist/
+runtime/autonomous/src/*.egg-info/
 sdk/python/build/
 sdk/python/src/*.egg-info/

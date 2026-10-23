@@ -3,7 +3,7 @@
   "schema_version": "sage/0.8.4",
   "bundle_id": "sage.core-engineering",
   "offline": true,
-  "optional_extensions": ["extensions/technology-engineering/manifest.json", "extensions/ecc/manifest.json"],
+  "optional_extensions": ["extensions/technology-engineering/manifest.json", "extensions/ecc/manifest.json", "extensions/autonomous-runtime/manifest.json"],
   "skills": [
     {"name": "sage-intake", "stage": "INTAKE", "next": ["DISCOVER", "CLARIFYING"], "authority": "advisory"},
     {"name": "sage-discover", "stage": "DISCOVER", "next": ["PLAN"], "authority": "advisory", "may_execute": false},

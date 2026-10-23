@@ -1,7 +1,7 @@
 {
-  "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog.2026-10-23",
+  "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24",
   "schema_version": "sage-source-manifest/0.1",
-  "recorded_at": "2026-10-23T16:51:42Z",
+  "recorded_at": "2026-10-23T23:03:28Z",
   "hash_algorithm": "SHA-256",
   "upstream_pins": {
     "HKUDS/CLI-Anything": {
@@ -41,6 +41,14 @@
       "channel": "SOURCE_BRANCH_REVIEW_CANDIDATE",
       "live_execution": false,
       "native_installation": false
+    },
+    "bounded_autonomous_runtime": {
+      "version": "0.1.0",
+      "channel": "LOCAL_REFERENCE_ACCEPTANCE_PASSED_NOT_RELEASED",
+      "default_live_execution": false,
+      "explicit_task_approval_required": true,
+      "native_ecc_installation": false,
+      "manifest": "extensions/autonomous-runtime/manifest.json"
     }
   },
   "entries": [
@@ -86,15 +94,15 @@
     },
     {
       "path": ".github/workflows/sage-ci.yml",
-      "sha256": "50782afd104d79a7df514b65e5911cc12a53afc40e1a1beb9772c1efc18f26f7"
+      "sha256": "be430c2842ddc7b0bc4f1c4b311c904d9f72175272494da219fc104eb456907c"
     },
     {
       "path": ".gitignore",
-      "sha256": "d213379126d5b29b75b797e184e149dbcf0cceb1755326d1eccb4c79981b6e43"
+      "sha256": "58704504934aa6abf360e4ccd9bd8212355be984dd3b5216add865401b4de1e7"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "bebacb3c74f14cbd43c9b8c228c4510977b8d3762240f1e954e188ff79b2940e"
+      "sha256": "7507d464c585b814e6121b3e029799af51ed95645a4cb34ec4aa4b7ab32a06c3"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -110,7 +118,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "a70683105a03fed11be034e34c6f081f5db65958d7c07ff646a1c2c7614783a6"
+      "sha256": "9aa68efb5376d4f35015f6fccc4e953885d5f70701a950830392f283791571cc"
     },
     {
       "path": "RELEASE_MANIFEST_v0.8.2.json",
@@ -123,6 +131,10 @@
     {
       "path": "RELEASE_MANIFEST_v0.8.4.json",
       "sha256": "1f930069e3136e3c4e9dbf18537c43d48abf95ac4482c0285a167e895bd508b5"
+    },
+    {
+      "path": "SAGE_AUTONOMOUS_RUNTIME_DELTA.md",
+      "sha256": "cb1ef13ae720af7cfa48bd3e8350d32754d2af9e72fa27a0806a09d940f016dc"
     },
     {
       "path": "SAGE_HANDOFF_v0.7_to_v0.8.md",
@@ -158,7 +170,7 @@
     },
     {
       "path": "SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT.md",
-      "sha256": "c827c84414aa571907eb804ab046e9ac054ff50f68fe7e4143a3c49eadf0753d"
+      "sha256": "4edd9fb22c8cb8dad977835aeb3618d455ce0107fd501a8476a268cf8c29eb75"
     },
     {
       "path": "SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md",
@@ -178,7 +190,7 @@
     },
     {
       "path": "bundles/v0.8/core-engineering/bundle.json",
-      "sha256": "fd4c28e83f0551add457e98376b20d37feb8ba147d260f87aa38883f5466cbd6"
+      "sha256": "6a478f3fc29192dd38f931c87625c3f7cdfc3d62f17e482a0439aa853d0937c5"
     },
     {
       "path": "config/security/default-local-scope.json",
@@ -187,6 +199,10 @@
     {
       "path": "config/security/strix-adapter.json",
       "sha256": "93823eb2055f79d3dca225ad2d1ad4e683eab3deaa1853d5a88ee5fc72d67327"
+    },
+    {
+      "path": "docs/AUTONOMOUS_RUNTIME_ACCEPTANCE.fa-en.md",
+      "sha256": "903db0fd3b9454f502f687daec0f00507df76cb0488523aad803e567781857e5"
     },
     {
       "path": "docs/INFOGRAPHIC_HANDOFF.fa-en.md",
@@ -243,6 +259,14 @@
     {
       "path": "examples/gps-map/README.md",
       "sha256": "bb4eb40139a18d980c1b140ab23f480c2220776c35f60df1caa4cf93480705e2"
+    },
+    {
+      "path": "extensions/autonomous-runtime/acceptance.json",
+      "sha256": "1c439c660f69f949ed67f37d1aa2a442682c500d678104bbaeda3d97c43364cc"
+    },
+    {
+      "path": "extensions/autonomous-runtime/manifest.json",
+      "sha256": "fd135a5e43b4c67b05f6ff4f5ae1c98396da7aeedda2db9140f2590dcb22f8d1"
     },
     {
       "path": "extensions/ecc/README.fa-en.md",
@@ -633,6 +657,102 @@
       "sha256": "881d6b71f42e200c3d6f8267230a14b8e7dce2a931f2b9cfe3faaaf2eb3c2c09"
     },
     {
+      "path": "runtime/autonomous/DESIGN.md",
+      "sha256": "40ca8dc2d812760255ef29891814c7ab5caa28035ca614bb7e615b718aca85f6"
+    },
+    {
+      "path": "runtime/autonomous/MANIFEST.in",
+      "sha256": "adfa38594173bb54c46dd2c5e432e6da87434bfcb6c05f15032dc14417a3c445"
+    },
+    {
+      "path": "runtime/autonomous/README.fa-en.md",
+      "sha256": "f4373194a003eca4251ee5e334989ca199f7600497c454bf363de7e5a856ddcd"
+    },
+    {
+      "path": "runtime/autonomous/pyproject.toml",
+      "sha256": "5afdd8046d810ee6c08fad4373b13694acd127c3b0fbb8943bf9f3b009b61f5c"
+    },
+    {
+      "path": "runtime/autonomous/setup.py",
+      "sha256": "b32c17d8a70c4a4901764599261eb618efdb89cf4b706f2c93fd1021bb09540e"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/__init__.py",
+      "sha256": "4f8ea4dacfa88f2ec4a18da396d715fcad3b82894af1cc9c16b75288ece4542c"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/__main__.py",
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/cli.py",
+      "sha256": "0cdb21826b1178088d4304a576ad952daa8cbfa1e74caa581bd3e58f34a95689"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/discovery.py",
+      "sha256": "e61752dd1c7b69ad58f4d644279f55781a332896ed8d39193a51084287af0d6e"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/engine.py",
+      "sha256": "b574e9f1e87a44593e64cdfd9940506a59e82d5a2a556e2647379524f902d26c"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/process.py",
+      "sha256": "e154f7b4a625caccd8a583b3f4b66a79f75821d8b3434c9e38a4b54dfd77200e"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/providers.py",
+      "sha256": "780f3b3399069a425030000dc66dea566c05f4bd0b2d0280ac4b10fa30acd654"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/safety.py",
+      "sha256": "8e7279967322ba6b0f0282acc6acd2f9a3d84821ec54c972c60f8d963dbe33e4"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/schemas.py",
+      "sha256": "27f2941db3a7a727ecb7e1f4834c4c86ac882d2ea64167be3ff541da9e179603"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/storage.py",
+      "sha256": "c01ad3c5389eba6a07de037219634b0da15548ea81fdf56c6030e5e62c42818b"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/verify_profile.py",
+      "sha256": "ef34cf5786bfea972b65879e1cbf34b31d81945df9c73aff71e49ef77276a57b"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_cli.py",
+      "sha256": "5b3b4587e87371117657b53394bd3fa7bad3d781ac22505b75030e827112127a"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_engine.py",
+      "sha256": "cc5b43e96cba45d90ac2917a51cbde4389bac7b480600e73444b6bfaeee6b775"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_engine_adversarial.py",
+      "sha256": "82f3ad507c9703850224559ae1db405acea843980f6e12a05d0c2c7e890d8a7b"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_engine_status.py",
+      "sha256": "7d67eff222b08aa536a243d43ef28f1d0ce0be645d8c1557f9af1464f9b8a987"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_process.py",
+      "sha256": "ab5fd8a5857c7bf8469f09bfd48c5f18a717e4c04e8f3c19e38f8ba2ff333771"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_providers.py",
+      "sha256": "aa57900089c4599f1a8536a43d076476a9180337604f728dbe2a7e986d8c0128"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_safety_storage.py",
+      "sha256": "c9330a770024bc906102a108552c2ef25bb96753ab513cb8ffd3584d3f299d63"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_snapshot.py",
+      "sha256": "26ed7f3d60722c745eaf7e620f0706d0d4f24c6a9f6d9629bc60254f6e7666d1"
+    },
+    {
       "path": "runtime/production/README.md",
       "sha256": "1228771e1681b8bb84499b6ef72e9eb16cc1c03f3fd4c676a830712876463761"
     },
@@ -762,7 +882,7 @@
     },
     {
       "path": "skills/registry.json",
-      "sha256": "bba30a33d3b97fc0bf27c5b27f3d8a3bde78dfde94e90809df4ddf8946878a40"
+      "sha256": "b4a93f76c4ccdef3de101bedd4afd7b15c84695945f48e005a74ea70b164b432"
     },
     {
       "path": "skills/sage-discover/SKILL.md",
@@ -6429,8 +6549,16 @@
       "sha256": "c8dd01925c95f15f5042710cbeb142636fff59918b5b27d79ce2067e505a0f21"
     },
     {
+      "path": "tools/Run-SageAutonomousLive.py",
+      "sha256": "51d80f61c8b53dd1fbfaab6d66f245cdb0cded37da77815e301fde557270dc35"
+    },
+    {
       "path": "tools/Test-SageAgentInterfaces.ps1",
       "sha256": "80abdfd5b546e13fd4e2250bc8b756d78f95871af63f338df2ceb244ff61f7f0"
+    },
+    {
+      "path": "tools/Test-SageAutonomousRuntime.py",
+      "sha256": "61e3203440783cd34192baa0c2a3213d269c7546f10c5029d6735ab6e13048d0"
     },
     {
       "path": "tools/Test-SageContracts.ps1",
@@ -6514,7 +6642,7 @@
     },
     {
       "path": "tools/Update-SageSourceManifest.py",
-      "sha256": "98a59194a15d8cb1711cbcff07a7f4b8f9ff69f2902f215f9b5a0feb33a61ff3"
+      "sha256": "defad87df36850bde5ec2325dfd04aba66942e8e3cd23395432fc0cc9a482cf6"
     },
     {
       "path": "tools/Verify-SageEccCatalog.py",

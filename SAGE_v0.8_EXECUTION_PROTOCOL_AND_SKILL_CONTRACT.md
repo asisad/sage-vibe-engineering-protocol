@@ -21,6 +21,12 @@ profiles. This does not replace the baseline or republish the v0.8.4 release.
 `SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md` adds a disabled metadata/proposal
 interface for the independently built SENS project, not a deployed service.
 
+Optional development execution composition (2026-10-24):
+`SAGE_AUTONOMOUS_RUNTIME_DELTA.md` defines a separate, opt-in, bounded local
+runtime and concrete provider/sandbox adapters. It preserves baseline authority,
+exact plan approval, evidence and stop conditions. The reference lifecycle and
+historical SDK/tag remain unchanged; installing source does not grant live authority.
+
 Source Baseline: SAGE_v0.7_MASTER_BASELINE.md  
 Baseline SHA-256: DC0C6BAF80465E1F2CF63A2ACA96F3578153A898D55752DEB9A936E506FD6C0D  
 Handoff Source: SAGE_HANDOFF_v0.7_to_v0.8.md  

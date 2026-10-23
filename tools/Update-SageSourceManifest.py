@@ -31,7 +31,10 @@ def main():
         entries.append({"path": relative, "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
     if not any(row["path"] == "extensions/ecc/catalog.json" for row in entries):
         raise ValueError("Stage reviewed extension files before refreshing their source manifest")
-    document["manifest_id"] = "sage.source-manifest.v0.8.4+ecc-catalog.2026-10-23"
+    autonomous_path = ROOT / "extensions/autonomous-runtime/manifest.json"
+    autonomous = json.loads(autonomous_path.read_text(encoding="utf-8")) if autonomous_path.is_file() else None
+    document["manifest_id"] = ("sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24"
+                               if autonomous else "sage.source-manifest.v0.8.4+ecc-catalog.2026-10-23")
     document["recorded_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     document["upstream_pins"]["affaan-m/ECC"] = {
         "repository": "https://github.com/affaan-m/ECC",
@@ -43,8 +46,14 @@ def main():
         "version": "0.1.0", "channel": "SOURCE_BRANCH_REVIEW_CANDIDATE",
         "live_execution": False, "native_installation": False,
     }
+    if autonomous:
+        document["source_extensions"]["bounded_autonomous_runtime"] = {
+            "version": autonomous["version"], "channel": autonomous["status"],
+            "default_live_execution": False, "explicit_task_approval_required": True,
+            "native_ecc_installation": False, "manifest": "extensions/autonomous-runtime/manifest.json",
+        }
     document["entries"] = entries
-    PATH.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    PATH.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({"status": "UPDATED", "tracked_files_hashed": len(entries),
                       "historical_manifests_modified": False}))
 
