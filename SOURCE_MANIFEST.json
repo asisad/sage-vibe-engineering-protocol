@@ -1,7 +1,7 @@
 {
   "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog.2026-10-23",
   "schema_version": "sage-source-manifest/0.1",
-  "recorded_at": "2026-10-23T16:41:52Z",
+  "recorded_at": "2026-10-23T16:51:42Z",
   "hash_algorithm": "SHA-256",
   "upstream_pins": {
     "HKUDS/CLI-Anything": {
@@ -222,7 +222,7 @@
     },
     {
       "path": "docs/catalog/index.html",
-      "sha256": "8574f31d975a3fe34c7bdfcee382d6a73f9af72dab5ee5798370e2fc1391d7a2"
+      "sha256": "7636d96b96bce221f46cf86647ac781fe3c4b40a70e3a07c30a9eaa49f5a39e3"
     },
     {
       "path": "docs/decisions/ADR-agent-interface-selection.md",
@@ -254,7 +254,7 @@
     },
     {
       "path": "extensions/ecc/catalog.json",
-      "sha256": "15f0ac0b1d994e434a8a17aafc1fa9fdb3d9d035f7952e68a2af51bed783305a"
+      "sha256": "00abe033dbc52fd3909e7f15d9cafdc164724ad382c6542906a2d46cbdcda88c"
     },
     {
       "path": "extensions/ecc/catalog.template.html",
@@ -262,7 +262,7 @@
     },
     {
       "path": "extensions/ecc/descriptors.json",
-      "sha256": "784c08aa67ba7f0e1ae57ee715981103c784fdb82c533bd34ab7e63e4ce9bbf0"
+      "sha256": "be8e0933bb40a9f557289001c02246c67cf5fb370654bd24bc7e5e9517e07777"
     },
     {
       "path": "extensions/ecc/enhancements.json",
@@ -282,15 +282,15 @@
     },
     {
       "path": "extensions/ecc/review/OVERLAP-MATRIX.fa.md",
-      "sha256": "d787bffc7376c8f8dc456b68a4ac6017760c8c2494d06baf2c593745c2deb693"
+      "sha256": "2a11b95d1901dac91cecd985c2b850020cda7284d69746a415fd8525a6c50c9a"
     },
     {
       "path": "extensions/ecc/review/REVIEW-SCOPE.fa.md",
-      "sha256": "58e558075b52d69b144a5efa0a20017aa502673c437188c08a9d3330481243d2"
+      "sha256": "5fe08483ead501ff3eff3883966f3fa9d7d2cca6f7952f08c84708032ed310cd"
     },
     {
       "path": "extensions/ecc/review/agents.json",
-      "sha256": "10cfc3dcb5e95e450ef1afaf56e795c4e712567b81cb2b43155b4058857c34f0"
+      "sha256": "be2ce0c70d14ef6b30c1e3cda1e918d50f3bfc6125ee5f487bb668398e890477"
     },
     {
       "path": "extensions/ecc/review/component-dispositions.json",
@@ -314,11 +314,11 @@
     },
     {
       "path": "extensions/ecc/review/web-validation.json",
-      "sha256": "9dd01d214905963c6b84c1d8a8a0be04538e6cf691a2b7ee0f5add3072591667"
+      "sha256": "fb0293e412fc9b29f851a769bab94c43d1a06fabe0ec3f88d275beea3ee8bdc9"
     },
     {
       "path": "extensions/ecc/sage_ecc.py",
-      "sha256": "ba7cd17e70446abeb84403c453044cde292418a6d881a9196240fbd4c61e5abf"
+      "sha256": "6df1d896aae66e1488d2606395d752c48d88a0b9982c4465eb02ec078f9ffb2b"
     },
     {
       "path": "extensions/ecc/upstream-lock.json",
@@ -6522,7 +6522,7 @@
     },
     {
       "path": "tools/test_sage_ecc.py",
-      "sha256": "4758e7a17dd19c1c6efc3f8107be14ba8ba39d94c5b57d049a3411593a1ed00a"
+      "sha256": "91fe082e3e2d833ecf9a2723f0a7b1122eae8dca001cd8b68469e68508febc53"
     },
     {
       "path": "tools/test_sage_ecc_integration.py",

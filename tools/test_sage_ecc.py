@@ -222,6 +222,27 @@ class EccBoundaryTests(unittest.TestCase):
         missing_parent = self.base / "missing/packet"
         self.assert_error("OUTPUT_PARENT_MISSING", lambda: catalog.bundle([self.python["id"]], missing_parent))
 
+    def test_entry_boundaries_survive_show_plan_and_packet_json(self):
+        boundaries = ["Inspect only the authorized project scope.", "برای اقدام مخرب، تأیید صریح لازم است."]
+        self.python["boundaries"] = boundaries
+        self.save()
+        catalog = self.catalog()
+        self.assertEqual(catalog.show(self.python["id"])["boundaries"], boundaries)
+
+        stream = io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            code = ecc.main(["--json", "--repo-root", str(self.root), "plan", "--task", "Python security", "--limit", "1"])
+        self.assertEqual(code, 0)
+        candidate = json.loads(stream.getvalue())["data"]["candidates"][0]
+        self.assertEqual(candidate["id"], self.python["id"])
+        self.assertEqual(candidate["boundaries"], boundaries)
+
+        output = self.base / "packet"
+        catalog.bundle([self.python["id"]], output)
+        selected = json.loads((output / "packet.json").read_text(encoding="utf-8"))["entries"][0]
+        self.assertEqual(selected["id"], self.python["id"])
+        self.assertEqual(selected["boundaries"], boundaries)
+
     def test_symlink_sources_and_outputs_are_rejected(self):
         outside = self.base / "outside"
         outside.mkdir()

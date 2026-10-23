@@ -34171,7 +34171,7 @@
         "classification_owner": "SAGE",
         "classification_performed": false
       },
-      "invocation_policy": "explicit",
+      "invocation_policy": "forbidden_in_environment",
       "inputs": {
         "required": [
           "task",
@@ -34198,7 +34198,7 @@
         "applicable_authorization_present"
       ],
       "side_effects": {
-        "potential_class": "external_action",
+        "potential_class": "orchestration",
         "execution_by_catalog": false
       },
       "permissions": {

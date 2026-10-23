@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "checked_at": "2026-10-23T16:40:35.429Z",
+  "checked_at": "2026-10-23T16:50:35.588Z",
   "status": "pass",
   "subject": "docs/catalog/index.html",
   "environment": {
@@ -96,8 +96,8 @@
       "status": "pass",
       "observed": {
         "shown": 50,
-        "all": 62,
-        "text": "۶۲ از ۴۲۵ تعریف"
+        "all": 63,
+        "text": "۶۳ از ۴۲۵ تعریف"
       }
     },
     {
@@ -105,15 +105,15 @@
       "status": "pass",
       "observed": {
         "enabled": 0,
-        "disabled": 62
+        "disabled": 63
       }
     },
     {
       "id": "details_provenance_and_boundaries",
       "status": "pass",
       "observed": {
-        "name": "conversation-analyzer",
-        "source": "https://github.com/affaan-m/ECC/blob/90606c8315ee09cafc303515c5f33024db6b9882/agents/conversation-analyzer.md",
+        "name": "chief-of-staff",
+        "source": "https://github.com/affaan-m/ECC/blob/90606c8315ee09cafc303515c5f33024db6b9882/agents/chief-of-staff.md",
         "runtime_limit_present": true
       }
     },
@@ -122,6 +122,22 @@
       "status": "pass",
       "observed": {
         "visible": false
+      }
+    },
+    {
+      "id": "chief_of_staff_reference_routing_and_constraints",
+      "status": "pass",
+      "observed": {
+        "id": "ecc.agent.chief-of-staff",
+        "decision": "REFERENCE_ONLY",
+        "checkbox_disabled": true,
+        "badge": "مرجع اقتباس",
+        "boundaries": [
+          "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند.",
+          "خطوط ۱۰۲ تا ۱۱۲ منبع، پس از هر ارسال تغییر تقویم و حافظه، archive و Git commit/push را الزامی می‌کنند؛ این دنباله فعال نمی‌شود.",
+          "PostToolUse، فایل‌های روابط و کارها و قواعد خودکار .claude/rules جزء معماری بومی‌اند و با ورود کاتالوگ نصب یا پذیرفته نمی‌شوند."
+        ],
+        "boundaries_rendered": true
       }
     },
     {
@@ -170,7 +186,7 @@
           "command": "bundle",
           "execution_authorized": false,
           "data": {
-            "output": "/tmp/sage-web-qa-ohRh2i/packet",
+            "output": "/tmp/sage-web-qa-yncEg2/packet",
             "selected_ids": [
               "sage.skill.rust-engineering"
             ],
@@ -303,6 +319,7 @@
   "network_requests": [],
   "screenshots": [
     "tmp/ecc-qa/detail.png",
+    "tmp/ecc-qa/chief-of-staff-detail.png",
     "tmp/ecc-qa/desktop-independent.png",
     "tmp/ecc-qa/mobile.png",
     "tmp/ecc-qa/mobile-results.png",
@@ -312,12 +329,18 @@
   "limitations": [
     "Local browser verification only; no deployment, remote source availability or upstream skill execution is asserted.",
     "Clipboard fallback is deliberately exercised; OS clipboard permission and platform-specific native paste were not tested.",
-    "The source URL is displayed and pinned, but remote links were not followed during this offline test. This is representative UI validation, not an accessibility certification or cross-browser guarantee."
+    "Source links were displayed and pinned but not followed. This is representative local UI validation, not an accessibility certification or cross-browser guarantee."
   ],
-  "subject_sha256": "8574f31d975a3fe34c7bdfcee382d6a73f9af72dab5ee5798370e2fc1391d7a2",
-  "subject_bytes": 784018,
+  "subject_sha256": "7636d96b96bce221f46cf86647ac781fe3c4b40a70e3a07c30a9eaa49f5a39e3",
+  "subject_bytes": 785362,
+  "catalog_decisions": {
+    "KEEP": 43,
+    "ENHANCE": 190,
+    "ADD": 129,
+    "REFERENCE_ONLY": 63
+  },
   "visual_review": {
-    "method": "Screenshots opened and visually inspected after successful Playwright interaction checks.",
+    "method": "All seven screenshots opened and visually inspected after the final-mapping Playwright run.",
     "status": "pass",
     "viewports_reviewed": [
       {
@@ -331,6 +354,7 @@
     ],
     "images_reviewed": [
       "tmp/ecc-qa/detail.png",
+      "tmp/ecc-qa/chief-of-staff-detail.png",
       "tmp/ecc-qa/desktop-independent.png",
       "tmp/ecc-qa/mobile.png",
       "tmp/ecc-qa/mobile-results.png",
@@ -340,8 +364,9 @@
     "findings": [
       "Persian headings, summaries and row text render legibly in RTL without observed clipping or control overlap.",
       "At 390px the statistics become two columns and entries become readable cards; labels, checkboxes and detail controls remain inside the viewport.",
-      "Detail and copy-command dialogs fit the mobile viewport; long details require vertical reading, and the command textarea wraps inside its dialog.",
-      "The fallback command remains left-to-right while Persian instructions and labels remain right-to-left."
+      "Detail and copy-command dialogs fit the mobile viewport; long details require vertical reading and the command textarea wraps inside its dialog.",
+      "The fallback command is left-to-right while Persian instructions remain right-to-left.",
+      "The updated chief-of-staff dialog visibly shows the reference-only badge and the memory, PostToolUse, archive and Git commit/push constraints."
     ],
     "blocking_findings": []
   }

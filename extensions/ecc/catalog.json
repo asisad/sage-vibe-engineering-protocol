@@ -25,8 +25,8 @@
     "decisions": {
       "KEEP": 43,
       "ENHANCE": 190,
-      "ADD": 130,
-      "REFERENCE_ONLY": 62
+      "ADD": 129,
+      "REFERENCE_ONLY": 63
     },
     "vendored_files": 1375,
     "upstream_files_inventoried": 4627,
@@ -250,11 +250,11 @@
       "origin": "ECC",
       "domain": "Communications operations",
       "profile": "operations",
-      "decision": "ADD",
+      "decision": "REFERENCE_ONLY",
       "sage_targets": [],
-      "rationale_fa": "تریاژ چندکاناله جزو پروفایل‌های فعلی مهندسی سیج نیست.",
-      "improvement_fa": "طبقه‌بندی پیام و تهیهٔ پیش‌نویس با اتصال‌های جداگانه؛ archive/send خودکار منبع باید به مجوز وظیفه مقید شود.",
-      "execution_class": "external_action",
+      "rationale_fa": "گردش کار بومی به حافظهٔ پایدار، hook میزبان و commit/push پس از هر ارسال وابسته است؛ نیازمند اقتباس جداگانه زیر قرارداد سیج است.",
+      "improvement_fa": "ایدهٔ طبقه‌بندی پیام و تهیهٔ پیش‌نویس حفظ شود؛ نسخهٔ سیج باید دامنهٔ اتصال‌ها و آثار هر اقدام را جداگانه مشخص کند.",
+      "execution_class": "orchestration",
       "local_path": "sources/upstream/ecc/agents/chief-of-staff.md",
       "source": {
         "repository": "affaan-m/ECC",
@@ -271,7 +271,9 @@
         "provider_specific"
       ],
       "boundaries": [
-        "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+        "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند.",
+        "خطوط ۱۰۲ تا ۱۱۲ منبع، پس از هر ارسال تغییر تقویم و حافظه، archive و Git commit/push را الزامی می‌کنند؛ این دنباله فعال نمی‌شود.",
+        "PostToolUse، فایل‌های روابط و کارها و قواعد خودکار .claude/rules جزء معماری بومی‌اند و با ورود کاتالوگ نصب یا پذیرفته نمی‌شوند."
       ],
       "native_model_hint": "sonnet",
       "native_tools_hint": "Read, Grep, Glob, Bash, Edit, Write",
@@ -756,7 +758,8 @@
         "provider_specific"
       ],
       "boundaries": [
-        "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+        "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند.",
+        "SQL بررسی‌شده خودکار اجرا نمی‌شود. EXPLAIN ANALYZE دستور را واقعاً اجرا می‌کند و برای UPDATE/DELETE می‌تواند داده را تغییر دهد؛ اجرای آن، تغییر schema/RLS یا تنظیمات پایگاه داده به دامنه و مجوز معتبر جداگانه یا محیط ایزولهٔ مجاز نیاز دارد."
       ],
       "native_model_hint": "sonnet",
       "native_tools_hint": "Read, Grep, Glob, Bash",
@@ -2526,7 +2529,8 @@
         "provider_specific"
       ],
       "boundaries": [
-        "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+        "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند.",
+        "دستور منبع برای اطلاع‌رسانی به مالک پروژه و چرخش credential بخشی از incident response است؛ نقش بازبینی فقط یافته و فوریت را گزارش می‌کند. تماس، تغییر کلید و رفع مشکل نیازمند دامنه و مجوز معتبر همان اقدام است."
       ],
       "native_model_hint": "sonnet",
       "native_tools_hint": "Read, Grep, Glob, Bash",

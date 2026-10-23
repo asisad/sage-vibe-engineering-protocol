@@ -285,7 +285,7 @@ class Catalog:
 
     @staticmethod
     def summary(entry: dict) -> dict:
-        keys = ("id", "kind", "name", "description", "origin", "domain", "profile", "decision", "sage_targets", "rationale_fa", "improvement_fa", "execution_class", "source", "local_path", "review", "dependency_flags", "references", "license", "license_scope", "contract_ref")
+        keys = ("id", "kind", "name", "description", "origin", "domain", "profile", "decision", "sage_targets", "rationale_fa", "improvement_fa", "execution_class", "boundaries", "source", "local_path", "review", "dependency_flags", "references", "license", "license_scope", "contract_ref")
         result = {key: entry[key] for key in keys if key in entry}
         result["resource_count"] = len(entry.get("resources", []))
         return result
