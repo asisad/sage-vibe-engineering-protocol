@@ -1,10 +1,21 @@
 [CmdletBinding()]
-param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','specialists','technology','sens','operations','lifecycle','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath,[string]$DecisionPath,[ValidateSet('PLAN','VERIFY')][string]$Phase='PLAN',[switch]$RequireTechnologyDecision,[string]$ArchitecturePath,[switch]$View,[string]$InputPath,[string]$ConfigPath,[switch]$Preview)
+param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','specialists','technology','sens','operations','lifecycle','catalog','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath,[string]$DecisionPath,[ValidateSet('PLAN','VERIFY')][string]$Phase='PLAN',[switch]$RequireTechnologyDecision,[string]$ArchitecturePath,[switch]$View,[string]$InputPath,[string]$ConfigPath,[switch]$Preview,[ValidateSet('list','search','show','plan')][string]$CatalogAction='list',[string]$Query,[string]$EntryId)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
 $pwsh=(Get-Command pwsh -ErrorAction Stop).Source
 switch ($Command) {
+  'catalog' {
+    $python=(Get-Command python -ErrorAction Stop).Source
+    $catalogArgs=@((Join-Path $root 'extensions\ecc\sage_ecc.py'),$CatalogAction)
+    switch ($CatalogAction) {
+      'search' { if ([string]::IsNullOrWhiteSpace($Query)) { $Query=$Capability }; if ([string]::IsNullOrWhiteSpace($Query)) { throw 'catalog search requires -Query or -Capability' }; $catalogArgs+=@($Query) }
+      'show' { if ([string]::IsNullOrWhiteSpace($EntryId)) { throw 'catalog show requires -EntryId' }; $catalogArgs+=@($EntryId) }
+      'plan' { if ([string]::IsNullOrWhiteSpace($Query)) { throw 'catalog plan requires -Query' }; $catalogArgs+=@('--task',$Query) }
+    }
+    $catalogArgs+=@('--json')
+    & $python @catalogArgs
+  }
   'validate' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageContracts.ps1') }
   'demo' { & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDemonstrator.ps1') }
   'discover' { if ([string]::IsNullOrWhiteSpace($Capability)) { throw 'discover requires -Capability' }; & $pwsh -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root 'tools\Test-SageDiscovery.ps1') -Capability $Capability }

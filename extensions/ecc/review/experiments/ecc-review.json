@@ -1,0 +1,73 @@
+{
+  "review_type": "offline_adapter_code_review",
+  "role_source": "sources/upstream/ecc/agents/code-reviewer.md",
+  "scope": [
+    "extensions/ecc/sage_ecc.py",
+    "tools/test_sage_ecc.py"
+  ],
+  "findings": [
+    {
+      "id": "ECC-ADAPTER-001",
+      "severity": "MEDIUM",
+      "priority": "P2",
+      "title": "Type-check enum fields before testing set membership",
+      "file": "extensions/ecc/sage_ecc.py",
+      "lines": {
+        "start": 187,
+        "end": 188
+      },
+      "snippet": "require(entry.get(\"decision\") in DECISIONS, ...)\nrequire(entry.get(\"execution_class\") in EXECUTION_CLASSES, ...)",
+      "failure_scenario": "Load an otherwise valid catalog with an entry whose decision or execution_class is an array or object; invoke main([\"--json\", \"--repo-root\", fixture_root, \"list\"]).",
+      "observed_evidence": [
+        "decision=[] raised TypeError: unhashable type: list and produced empty stdout.",
+        "execution_class=[] produced the same uncaught exception and empty stdout.",
+        "The public CLI catches IntegrationError and OSError only, so these malformed catalog inputs bypass its structured error response."
+      ],
+      "impact": "A malformed catalog crashes the CLI and breaks JSON consumers instead of returning the existing INVALID_CATALOG error envelope.",
+      "requested_change": "Require a string value before membership checks for both fields, and add negative CLI tests asserting a structured INVALID_CATALOG response and exit code 2 for array/object values.",
+      "confidence": 1.0
+    },
+    {
+      "id": "ECC-ADAPTER-002",
+      "severity": "MEDIUM",
+      "priority": "P2",
+      "title": "Enforce the packet budget as each payload is loaded",
+      "file": "extensions/ecc/sage_ecc.py",
+      "lines": {
+        "start": 336,
+        "end": 344
+      },
+      "related_lines": [
+        {
+          "start": 355,
+          "end": 361
+        }
+      ],
+      "snippet": "for resource in entry.get(\"resources\", []):\n    resource_content = self._content(...)\n    payloads.append((resource_target, resource_content))\n    total += len(resource_content)\nrequire(total <= MAX_PACKET_BYTES, ...)",
+      "failure_scenario": "Select one valid skill with many individually valid resources whose combined size exceeds MAX_PACKET_BYTES. Every resource is read and retained before the packet limit is checked. The notice loop similarly postpones its budget check until all notices have been loaded.",
+      "observed_evidence": [
+        "A fixture with a 110-byte entrypoint, three 64-byte resources, and a temporarily reduced 142-byte packet limit read all 302 bytes before raising LIMIT_EXCEEDED; the first resource had already exceeded the budget.",
+        "Production constants permit 512 resources per entry and 16 MiB per file, allowing approximately 8 GiB of resource payloads to accumulate for one entry before the 128 MiB packet guard executes.",
+        "The current code keeps each bytes object in payloads, so the postponed check does not merely perform unnecessary reads; it retains the excess allocation."
+      ],
+      "impact": "Oversized but well-formed input can exhaust memory and terminate the process before it can return the intended LIMIT_EXCEEDED failure.",
+      "requested_change": "Check the aggregate limit immediately after each entrypoint, resource, and notice read, before retaining or reading further payloads. Prefer bounding each read by the remaining packet budget when practical. Add a regression test asserting that later resources/notices are not read after the budget is exhausted.",
+      "confidence": 1.0
+    }
+  ],
+  "validation": {
+    "baseline_command": "python3 -B tools/test_sage_ecc.py",
+    "baseline_result": "18 tests passed",
+    "additional_checks": "Standard-library temporary fixtures reproduced both reported failures. No dependency installation, network access, third-party source execution, or source-file edits were performed."
+  },
+  "summary": {
+    "counts": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 2,
+      "LOW": 0
+    },
+    "verdict": "APPROVE",
+    "verdict_basis": "The supplied reviewer role permits approval when no CRITICAL or HIGH findings are present. Both MEDIUM findings should be addressed for production failure robustness."
+  }
+}

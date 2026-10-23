@@ -1,0 +1,145 @@
+{
+  "review_type": "independent_engineering_qa",
+  "reviewed_base_commit": "46e65164f726d902d360b3be341bd6f35171c982",
+  "reviewed_files": [
+    {
+      "path": "extensions/ecc/sage_ecc.py",
+      "sha256": "a2694e55f66394ffd19f46a0a3e27c613ab12caccd13afe260824828c31d2bd7"
+    },
+    {
+      "path": "tools/test_sage_ecc.py",
+      "sha256": "4a7a0170ead708078923e4a50ddc529316f480e621ea7006da5dd1bd7cfff0cc"
+    }
+  ],
+  "skill": "extensions/technology-engineering/skills/engineering-qa/SKILL.md",
+  "findings": [
+    {
+      "id": "ECC-QA-001",
+      "severity": "P2",
+      "title": "Enforce the packet byte budget while loading each resource and notice",
+      "location": {
+        "path": "extensions/ecc/sage_ecc.py",
+        "start_line": 336,
+        "end_line": 344
+      },
+      "related_location": {
+        "path": "extensions/ecc/sage_ecc.py",
+        "start_line": 355,
+        "end_line": 361
+      },
+      "problem": "Every resource in one entry is read and retained in payloads before MAX_PACKET_BYTES is checked. The notices loop likewise reads all selected notices before its check. A single permitted 512-resource entry with 16 MiB resources can therefore retain about 8 GiB before the stated 128 MiB packet limit is enforced, potentially terminating the process instead of returning LIMIT_EXCEEDED.",
+      "evidence": {
+        "method": "Temporary standard-library fixture; lowered MAX_PACKET_BYTES with unittest.mock.patch to exercise the same control flow safely.",
+        "configured_packet_limit_bytes": 1000,
+        "resource_count": 6,
+        "resource_bytes_each": 800,
+        "actual_resources_read_before_rejection": 6,
+        "actual_total_source_bytes_read_before_rejection": 4910,
+        "result": "LIMIT_EXCEEDED after all six resources were retained; no output directory created."
+      },
+      "recommendation": "Track the remaining byte budget and enforce it for every source/resource/notice before retaining more payload data. Prefer checking the file size against the remaining budget before reading, with a bounded read and a post-read check. Add a regression that verifies later resources are not read after the limit is crossed."
+    },
+    {
+      "id": "ECC-QA-002",
+      "severity": "P2",
+      "title": "Reject non-string enum values through the structured error path",
+      "location": {
+        "path": "extensions/ecc/sage_ecc.py",
+        "start_line": 187,
+        "end_line": 188
+      },
+      "problem": "Catalog enum fields are tested for membership in sets without first checking their types. Valid JSON containing decision: [] or execution_class: [] raises TypeError rather than IntegrationError. main() does not catch TypeError, so --json commands emit no JSON result and terminate with an uncaught exception. A malformed catalog therefore breaks the documented machine-readable failure behavior.",
+      "evidence": {
+        "invocation": "ecc.main(['--json', '--repo-root', fixture_root, 'list'])",
+        "cases": [
+          {
+            "field": "decision",
+            "value": [],
+            "exception": "TypeError: unhashable type: 'list'",
+            "stdout": ""
+          },
+          {
+            "field": "execution_class",
+            "value": [],
+            "exception": "TypeError: unhashable type: 'list'",
+            "stdout": ""
+          }
+        ],
+        "fixture": "Otherwise valid existing EccBoundaryTests catalog."
+      },
+      "recommendation": "Validate each enum field is a string before set membership, raising INVALID_CATALOG for malformed values. Add CLI regressions asserting exit code 2 and a valid JSON error envelope for list/object enum values."
+    },
+    {
+      "id": "ECC-QA-003",
+      "severity": "P3",
+      "title": "Match the Persian TypeScript alias before splitting its joiner",
+      "location": {
+        "path": "extensions/ecc/sage_ecc.py",
+        "start_line": 116,
+        "end_line": 120
+      },
+      "problem": "The declared alias تایپ‌اسکریپت contains a zero-width non-joiner, but tokens() replaces that character with a space before alias lookup. Its lookup key is therefore unreachable and this supported Persian spelling does not retrieve an otherwise matching TypeScript capability.",
+      "evidence": {
+        "fixture_entry": {
+          "id": "ecc.skill.typescript",
+          "name": "typescript",
+          "domain": "typescript",
+          "description": "TypeScript programming"
+        },
+        "queries": [
+          {
+            "query": "typescript",
+            "matches": [
+              "ecc.skill.typescript"
+            ]
+          },
+          {
+            "query": "تایپاسکریپت",
+            "matches": [
+              "ecc.skill.typescript"
+            ]
+          },
+          {
+            "query": "تایپ‌اسکریپت",
+            "tokens": [
+              "اسکریپت",
+              "تایپ"
+            ],
+            "matches": []
+          }
+        ]
+      },
+      "recommendation": "Apply phrase aliases before splitting the normalized text, or normalize alias keys and input consistently so the full Persian term expands to typescript. Add a regression for the zero-width non-joiner spelling."
+    }
+  ],
+  "verification": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools -p test_sage_ecc.py -v",
+      "working_directory": "/workspace/scratch/d3a50ed9f1f2/sage",
+      "status": "PASS",
+      "tests_run": 18,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "check": "Malformed-enum CLI counterexamples",
+      "status": "FAIL",
+      "finding": "ECC-QA-002"
+    },
+    {
+      "check": "Incremental resource budget counterexample",
+      "status": "FAIL",
+      "finding": "ECC-QA-001"
+    },
+    {
+      "check": "Persian TypeScript alias counterexample",
+      "status": "FAIL",
+      "finding": "ECC-QA-003"
+    }
+  ],
+  "scope_limitations": [
+    "Review used only local standard-library execution and temporary fixtures; no dependencies installed, network used, or third-party source scripts executed.",
+    "No source files were changed.",
+    "Cross-platform Windows behavior and actual multi-gigabyte allocation were not executed; the memory finding uses a safely scaled limit and the production constants."
+  ]
+}

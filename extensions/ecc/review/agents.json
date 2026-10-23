@@ -1,0 +1,1068 @@
+[
+  {
+    "name": "a11y-architect",
+    "domain": "UI / accessibility",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "پوشش عمومی UI سیج را به معیارهای مشخص دسترس‌پذیری وصل می‌کند.",
+    "improvement_fa": "چک‌لیست WCAG، قرارداد تعامل با صفحه‌کلید و ثبت تصمیم دسترس‌پذیری.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "agent-evaluator",
+    "domain": "Agent evaluation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "بازبینی سیج را با ارزیابی کیفیت خروجی ایجنت تکمیل می‌کند.",
+    "improvement_fa": "روبریک پنج‌محوری و امتیاز همراه با شاهد؛ امتیاز جای مدرک اجرای تست را نمی‌گیرد.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "architect",
+    "domain": "Architecture",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan",
+      "technology-selection"
+    ],
+    "rationale_fa": "با برنامه‌ریزی و انتخاب فناوری سیج همپوشانی مستقیم دارد.",
+    "improvement_fa": "تحلیل trade-off، مقیاس‌پذیری و ADR به عنوان مشاورهٔ زیرمجموعهٔ برنامهٔ سیج.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "bengali-reviewer",
+    "domain": "Bengali / Unicode",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "بازبین تخصصی Bengali در سیج وجود ندارد.",
+    "improvement_fa": "کنترل grapheme، normalization و پردازش خط بنگالی؛ قابل تعمیم خودکار به فارسی نیست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "build-error-resolver",
+    "domain": "TypeScript / build",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "نام عمومی دارد ولی محتوای آن بیشتر TypeScript/Next.js است.",
+    "improvement_fa": "رفع build/type error با diff محدود؛ برای Rust باید rust-build-resolver انتخاب شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "chief-of-staff",
+    "domain": "Communications operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تریاژ چندکاناله جزو پروفایل‌های فعلی مهندسی سیج نیست.",
+    "improvement_fa": "طبقه‌بندی پیام و تهیهٔ پیش‌نویس با اتصال‌های جداگانه؛ archive/send خودکار منبع باید به مجوز وظیفه مقید شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "code-architect",
+    "domain": "Feature architecture",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan"
+    ],
+    "rationale_fa": "طراحی feature در سیج را جزئی‌تر می‌کند.",
+    "improvement_fa": "نقشهٔ فایل، interface، جریان داده و ترتیب ساخت مبتنی بر الگوهای موجود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "code-explorer",
+    "domain": "Repository discovery",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover"
+    ],
+    "rationale_fa": "کشف قابلیت سیج را با تحلیل مسیر اجرای کد تکمیل می‌کند.",
+    "improvement_fa": "شناخت entry point، لایه‌ها و وابستگی‌ها پیش از تغییر.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "code-reviewer",
+    "domain": "Code review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "بازبینی عمومی کیفیت و امنیت در سیج موجود است.",
+    "improvement_fa": "فیلتر یافته‌های کم‌اطمینان، شاهد برای شدت بالا و تمرکز بر diff؛ الزام همیشگی منبع تابع گیت پویا است.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "code-simplifier",
+    "domain": "Refactoring",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement"
+    ],
+    "rationale_fa": "پیاده‌سازی سیج می‌تواند نقش متمرکز ساده‌سازی داشته باشد.",
+    "improvement_fa": "حفظ رفتار همراه با کاهش پیچیدگی و محدود ماندن به فایل‌های مرتبط.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "comment-analyzer",
+    "domain": "Documentation quality",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "engineering-qa"
+    ],
+    "rationale_fa": "بررسی سند موجود را تا دقت commentهای داخل کد گسترش می‌دهد.",
+    "improvement_fa": "کشف comment منسوخ یا گمراه‌کننده با مقایسهٔ رفتار واقعی.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "commit-reviewer",
+    "domain": "Git / change review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "یک مرحلهٔ تخصصی قابل انتخاب در بازبینی تغییرات است.",
+    "improvement_fa": "تطبیق پیام commit با diff و سابقهٔ همان مخزن؛ ایجاد commit وظیفهٔ مستقل است.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "conversation-analyzer",
+    "domain": "Learning / hook design",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "از transcript به hook پیشنهادی می‌رسد و با سیاست میزبان تداخل بالقوه دارد.",
+    "improvement_fa": "استخراج الگوهای تکرار خطا فقط به صورت پیشنهاد شواهددار؛ نصب hook جدا بررسی شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "cpp-build-resolver",
+    "domain": "C++",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "cpp-native"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای C++ را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر حافظه، concurrency، CMake و خطاهای linker.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "cpp-reviewer",
+    "domain": "C++",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "cpp-native"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای C++ را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر حافظه، concurrency، CMake و خطاهای linker.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "csharp-reviewer",
+    "domain": "C# / .NET",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "csharp-dotnet"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای C# / .NET را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر async، nullable reference، امنیت و قراردادهای .NET.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "dart-build-resolver",
+    "domain": "Dart / Flutter",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Dart / Flutter در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر تحلیل Dart، pub و build_runner.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "database-reviewer",
+    "domain": "SQL / PostgreSQL",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql"
+    ],
+    "rationale_fa": "متخصص دادهٔ سیج را با بازبین PostgreSQL مکمل می‌کند.",
+    "improvement_fa": "index، query plan، RLS، schema و خطر migration.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "django-build-resolver",
+    "domain": "Python / Django",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Python / Django را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر ORM، migration، تنظیمات Django و DRF.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "django-reviewer",
+    "domain": "Python / Django",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Python / Django را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر ORM، migration، تنظیمات Django و DRF.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "doc-updater",
+    "domain": "Documentation / codemaps",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "تولید مستندات در سیج موجود است.",
+    "improvement_fa": "codemap و همگام‌سازی README با تغییرات واقعی کد.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "docs-lookup",
+    "domain": "Documentation research",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "emerging-language-research"
+    ],
+    "rationale_fa": "بازیابی منابع سیج را با یک مسیر مشخص Context7 تکمیل می‌کند.",
+    "improvement_fa": "منبع و نسخهٔ کتابخانه باید ثبت شود؛ Context7 اختیاری است و ابزار موجود باید تطبیق داده شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "e2e-runner",
+    "domain": "Browser / E2E",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "اعتبارسنجی سیج را با سفرهای کاربر تکمیل می‌کند.",
+    "improvement_fa": "تفکیک Vercel Agent Browser و Playwright، ثبت trace و شواهد واقعی تست؛ upload خودکار مجاز نیست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "fastapi-reviewer",
+    "domain": "Python / FastAPI",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Python / FastAPI را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر async، dependency injection و قراردادهای Pydantic/OpenAPI.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "flutter-reviewer",
+    "domain": "Dart / Flutter",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Dart / Flutter در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر ساختار widget، state management و دسترس‌پذیری موبایل.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "fsharp-reviewer",
+    "domain": "F# / .NET",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی F# / .NET در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر برنامه‌نویسی تابعی، pattern matching و computation expression.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "gan-evaluator",
+    "domain": "Product / browser evaluation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "ارزیابی محصول در سیج را به روبریک و آزمون تعامل وصل می‌کند.",
+    "improvement_fa": "ثبت حالت واقعی playwright/screenshot/code-only؛ آستانهٔ ۷ منبع جای گیت سیج را نمی‌گیرد.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "gan-generator",
+    "domain": "Product implementation",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-implement"
+    ],
+    "rationale_fa": "الگوی ساخت و اصلاح با چرخهٔ سیج همپوشان است ولی قواعد تحمیلی stack دارد.",
+    "improvement_fa": "ایدهٔ جداسازی تولیدکننده از ارزیاب حفظ شود؛ commit خودکار، الزام React و پیروی بی‌چون از ارزیاب مرجع اجرایی نیست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "gan-planner",
+    "domain": "Product specification",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan"
+    ],
+    "rationale_fa": "از brief به spec و rubric می‌رسد ولی افزودن ۱۲ تا ۱۶ feature را توصیه می‌کند.",
+    "improvement_fa": "فقط ساختار spec و acceptance criteria بازاستفاده شود؛ توسعهٔ دامنه تابع نیاز واقعی کاربر است.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "go-build-resolver",
+    "domain": "Go",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "go-backend"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Go را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر goroutine، vet، مدیریت خطا و زنجیرهٔ build.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "go-reviewer",
+    "domain": "Go",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "go-backend"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Go را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر goroutine، vet، مدیریت خطا و زنجیرهٔ build.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "harmonyos-app-resolver",
+    "domain": "HarmonyOS / ArkTS",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "اکوسیستم HarmonyOS/ArkUI در کاتالوگ سیج تخصص مستقل ندارد.",
+    "improvement_fa": "V2 state، Navigation و سازگاری API؛ ابزار و target واقعی باید احراز شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "harness-optimizer",
+    "domain": "Agent host configuration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "خود configuration و hookهای میزبان را تغییر می‌دهد.",
+    "improvement_fa": "روش eval-driven با baseline و rollback قابل اقتباس است؛ اجرای خودکار تغییرات میزبان وارد نمی‌شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "healthcare-reviewer",
+    "domain": "Healthcare software",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل بازبینی نرم‌افزار سلامت در سیج وجود ندارد.",
+    "improvement_fa": "ایمنی داده و CDSS، PHI و integrity؛ این تعریف گواهی انطباق یا اعتبارسنجی بالینی نیست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "homelab-architect",
+    "domain": "Homelab network",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "طراحی شبکهٔ کوچک یک تخصص دامنه‌ای تازه است.",
+    "improvement_fa": "موجودی سخت‌افزار، برنامهٔ مرحله‌ای و rollback؛ توصیه به تغییر دستگاه مجوز اجرا نمی‌دهد.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "java-build-resolver",
+    "domain": "Java / Spring / Quarkus",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Java / Spring / Quarkus در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر Maven/Gradle، JPA/Panache و تشخیص چارچوب.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "java-reviewer",
+    "domain": "Java / Spring / Quarkus",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Java / Spring / Quarkus در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر Maven/Gradle، JPA/Panache و تشخیص چارچوب.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "kotlin-build-resolver",
+    "domain": "Kotlin / Android / KMP",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Kotlin / Android / KMP در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر coroutine، Compose و سازگاری Gradle.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "kotlin-reviewer",
+    "domain": "Kotlin / Android / KMP",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Kotlin / Android / KMP در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر coroutine، Compose و سازگاری Gradle.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "loop-operator",
+    "domain": "Autonomous orchestration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "یک کنترل‌کنندهٔ loop موازی با Orchestrator سیج ایجاد می‌کند.",
+    "improvement_fa": "ایدهٔ تشخیص stall، retry storm، بودجه و stop condition به سیج منتقل شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "marketing-agent",
+    "domain": "Marketing / product launch",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "برنامه‌ریزی بازاریابی و محتوا خارج از متخصص‌های فعلی سیج است.",
+    "improvement_fa": "نقش اختیاری برای positioning، مخاطب، کمپین و متن پیش‌نویس؛ انتشار به صورت خودکار انجام نمی‌شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "mle-reviewer",
+    "domain": "ML engineering",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "حوزهٔ AI موجود را به چرخهٔ production ML پیوند می‌دهد.",
+    "improvement_fa": "data contract، reproducibility، eval، serving، monitoring و rollback.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "network-architect",
+    "domain": "Network architecture",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "معماری شبکهٔ سازمانی در سیج نقش اختصاصی ندارد.",
+    "improvement_fa": "انتخاب topology و مسیر بررسی/اتوماسیون از نیازهای واقعی شبکه.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "network-config-reviewer",
+    "domain": "Network configuration",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "یک بازبین جدید برای پیکربندی router/switch است.",
+    "improvement_fa": "کشف ارجاع کهنه، فرمان پرخطر و نبود برنامهٔ change-window/rollback.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "network-troubleshooter",
+    "domain": "Network diagnostics",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "عیب‌یابی شبکهٔ لایه‌ای مکمل حوزه‌های سیج است.",
+    "improvement_fa": "شواهد OSI، DNS، routing و policy با محدودهٔ فقط خواندن.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "opensource-forker",
+    "domain": "Open-source preparation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "devops-containers"
+    ],
+    "rationale_fa": "آماده‌سازی انتشار با عملیات سیج همپوشانی محدود دارد.",
+    "improvement_fa": "کپی در فضای جدا و بررسی اطلاعات خصوصی؛ پاک‌سازی history و تغییر license باید مستقل تصمیم‌گیری شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "opensource-packager",
+    "domain": "Open-source packaging",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "devops-containers"
+    ],
+    "rationale_fa": "بسته‌بندی و مستندسازی انتشار را تخصصی می‌کند.",
+    "improvement_fa": "README و نمونهٔ setup و contributor docs؛ license پروژهٔ اصلی حفظ و نصب میزبان جداگانه بررسی شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "opensource-sanitizer",
+    "domain": "Release review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "بازبینی انتشار سیج را تقویت می‌کند.",
+    "improvement_fa": "کشف الگوهای secret/PII و گزارش یافته؛ regex به تنهایی تضمین پاک‌سازی کامل نیست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "performance-optimizer",
+    "domain": "Performance",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "بهبود عملکرد در مهارت‌های زبان موجود است اما نقش متمرکز مفید است.",
+    "improvement_fa": "profiling، نشتی حافظه و اندازهٔ bundle با baseline اندازه‌گیری‌شده.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "php-reviewer",
+    "domain": "PHP / Laravel",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی PHP / Laravel در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر PSR-12، type system، Eloquent و امنیت.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "planner",
+    "domain": "Engineering planning",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan"
+    ],
+    "rationale_fa": "همپوشان با برنامه‌ریزی اصلی سیج است.",
+    "improvement_fa": "تفکیک مرحله‌ها، وابستگی‌ها و ریسک؛ منبع تصمیم نهایی و مجوز همچنان SAGE است.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "pr-test-analyzer",
+    "domain": "Test quality",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "کنترل تست سیج را با بازبینی رفتاری PR تکمیل می‌کند.",
+    "improvement_fa": "کشف مسیرهای بدون تست و سنجش پیشگیری از bug به جای شمارش سادهٔ تست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "python-reviewer",
+    "domain": "Python",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Python را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر typing، idiomهای Python، خطا و امنیت.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "pytorch-build-resolver",
+    "domain": "PyTorch / CUDA",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای PyTorch / CUDA را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر tensor shape، device، gradient و DataLoader.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "rag-pipeline-reviewer",
+    "domain": "RAG / retrieval",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "RAG در توان AI موجود قابل پوشش است و این نقش عمق تخصصی می‌دهد.",
+    "improvement_fa": "کیفیت retrieval، chunking، embedding و پوشش ارزیابی.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "react-build-resolver",
+    "domain": "TypeScript / React",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای TypeScript / React را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر hookها، rendering، component و build React.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "react-reviewer",
+    "domain": "TypeScript / React",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای TypeScript / React را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر hookها، rendering، component و build React.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "refactor-cleaner",
+    "domain": "Refactoring / dead code",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement"
+    ],
+    "rationale_fa": "بازآرایی موجود را به پاک‌سازی dependency و کد بلااستفاده بسط می‌دهد.",
+    "improvement_fa": "knip/depcheck/ts-prune با اثبات بی‌مصرفی و تست رفتار قبل از حذف.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "ruby-reviewer",
+    "domain": "Ruby / Rails",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Ruby / Rails در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر ActiveRecord، idiomهای Ruby و کیفیت RSpec/Minitest.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "rust-build-resolver",
+    "domain": "Rust",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "rust-engineering"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Rust را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر ownership، lifetime، unsafe، Cargo و MSRV.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "rust-reviewer",
+    "domain": "Rust",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "rust-engineering"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Rust را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر ownership، lifetime، unsafe، Cargo و MSRV.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "security-reviewer",
+    "domain": "Application security",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "امنیت جزء موجود سیج است؛ نقش تخصصی مکمل است.",
+    "improvement_fa": "SSRF، injection، secrets، crypto و اولویت شدت با مدرک؛ نام agent به معنی اسکنر نصب‌شده نیست.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "seo-specialist",
+    "domain": "SEO",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "SEO تخصص دامنه‌ای تازه برای محصول وب است.",
+    "improvement_fa": "crawl/index، structured data، Core Web Vitals و remediation مبتنی بر شاهد.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "silent-failure-hunter",
+    "domain": "Reliability review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "بازبینی خطاهای پنهان در سیج را دقیق‌تر می‌کند.",
+    "improvement_fa": "empty catch، fallback پنهان، propagation و log لازم؛ قواعد fail-open SENS با fail-closed مجوز خلط نشود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "spec-miner",
+    "domain": "Spec-driven / brownfield",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "sage-plan"
+    ],
+    "rationale_fa": "با هستهٔ spec-driven سیج همسو است.",
+    "improvement_fa": "استخراج Requirement/Invariant و test anchor از کد؛ خروجی OpenSpec باید به شناسه‌های قرارداد سیج نگاشت شود.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "swift-build-resolver",
+    "domain": "Swift / Apple",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Swift / Apple در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "رفع خطای حداقلی با تمرکز بر ARC، concurrency، SPM، Xcode و code signing.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "swift-reviewer",
+    "domain": "Swift / Apple",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروفایل اختصاصی Swift / Apple در کاتالوگ فعلی سیج وجود ندارد.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر ARC، concurrency، SPM، Xcode و code signing.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "tdd-guide",
+    "domain": "Testing workflow",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement",
+      "engineering-qa"
+    ],
+    "rationale_fa": "روش تست موجود سیج را با چرخهٔ red/green/refactor تکمیل می‌کند.",
+    "improvement_fa": "ایدهٔ تست رفتار قبل از تغییر حفظ شود؛ پوشش ثابت ۸۰٪ و اجبار TDD برای هر تغییر تابع ریسک و گیت پویا است.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "type-design-analyzer",
+    "domain": "Type / contract design",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "technology-selection"
+    ],
+    "rationale_fa": "بازبینی قراردادها را به بیان invariant در type متصل می‌کند.",
+    "improvement_fa": "encapsulation، قابلیت بیان و enforcement قرارداد نوعی.",
+    "boundaries": [
+      "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "typescript-reviewer",
+    "domain": "TypeScript / JavaScript",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای TypeScript / JavaScript را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر type safety، async و امنیت Node/Web.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "vue-reviewer",
+    "domain": "Vue / Nuxt",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "متخصص زبان موجود در سیج برای Vue / Nuxt را با یک نقش محدودتر تکمیل می‌کند.",
+    "improvement_fa": "بازبینی تخصصی با تمرکز بر reactivity، Composition API، Pinia و SSR.",
+    "boundaries": [
+      "ابزارها و نسخهٔ toolchain پروژه باید واقعاً موجود و شناسایی شوند.",
+      "فرمان build/test ممکن است کد مخزن را اجرا کند؛ read-only بودن نقش به معنی مجوز اجرای خودکار shell نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  }
+]

@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased — ECC capability catalog 0.1 — 2026-10-23
+
+- Reviewed and mapped all 311 canonical Skills and 71 agent definitions in ECC
+  commit `90606c8315ee09cafc303515c5f33024db6b9882` against existing SAGE
+  capabilities, with ADD, ENHANCE and REFERENCE_ONLY dispositions.
+- Added a unified 425-definition catalog, portable sidecars, per-item Persian
+  rationale, pinned source hashes, attribution and complete skill-local resources.
+- Added an offline Persian web catalog and dependency-free Python discovery,
+  advisory planning and bounded source-packet export for generic/Codex/Claude use.
+- Preserved SAGE policy ownership, the eight core Skills, existing technology
+  profiles and release version. Native hooks, memory, commands and tool/model
+  bindings remain uninstalled source references.
+- Added source-integrity and behavioral checks. Catalog presence and static review
+  are explicitly separated from per-workflow execution and security certification.
+
 ## Unreleased — SENS source integration seam 0.1 — 2026-10-14
 
 - Added `integrations/sens/` as the handoff slot for an independent SENS project:

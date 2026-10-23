@@ -14,6 +14,29 @@ SAGE یک پروتکل و کیت Runtime برای تبدیل وایب‌کدین
 - authority, scope, security and approval gates
 - workflow state machine and tamper-evident evidence ledger
 - convergence checks between specification, implementation and observed reality
+- an optional, attributed capability library combining SAGE with 311 ECC Skills
+  and 71 ECC agent definitions, with per-item overlap decisions and on-demand
+  source packets
+
+## Capability library — SAGE × ECC
+
+Open [`docs/catalog/index.html`](docs/catalog/index.html) locally for the Persian
+searchable catalog. It includes 425 definitions: 337 Skills and 88 agent/role
+profiles across SAGE and ECC. These are attributed source definitions; functional
+coverage and live bindings are tracked separately.
+
+```bash
+python extensions/ecc/sage_ecc.py search "Rust review" --json
+python extensions/ecc/sage_ecc.py plan --task "Review a Rust service" --scope "src/" --json
+python extensions/ecc/sage_ecc.py show ecc.agent.code-reviewer --json
+```
+
+کتابخانهٔ قابل‌جست‌وجوی فارسی، رابطهٔ هر قابلیت با سیج و دلیل اضافه‌شدن یا تقویت
+را نشان می‌دهد. ابزار Python منابع انتخاب‌شده و مجوزهای آن‌ها را در یک بستهٔ
+مستقل آماده می‌کند. دستورها، تنظیمات میزبان و حلقه‌های خودکار ECC با این کار
+فعال نمی‌شوند. [راهنمای استفاده](extensions/ecc/README.fa-en.md)،
+[ماتریس کامل تطبیق](extensions/ecc/review/OVERLAP-MATRIX.fa.md) و
+[تصمیم معماری](SAGE_v0.8_ECC_CAPABILITY_DELTA.md) جزئیات را ثبت می‌کنند.
 
 ## Quick start
 
@@ -62,6 +85,13 @@ selection is not evidence of a functioning live CLI/MCP/host connection.
 - `docs/INFOGRAPHIC_HANDOFF.fa-en.md` — bilingual brief for architecture/process infographic production
 
 ## Status
+
+Source-branch optional extension (2026-10-23): ECC capability catalog 0.1 pins
+`affaan-m/ECC` at `90606c8315ee09cafc303515c5f33024db6b9882`. It adds static
+per-definition review, a portable descriptor registry, offline catalog UI,
+advisory routing and bounded source export. Generic, Codex and Claude exports
+are source packets; this extension provisions no native runtime or live website.
+The published v0.8.4 release remains separate from these source-branch additions.
 
 Source-branch optional extension (2026-10-14): technology-engineering 0.1 adds
 requirements-driven technology decisions, 17 declared on-demand specialist
