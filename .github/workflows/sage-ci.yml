@@ -5,10 +5,33 @@ on:
   pull_request:
 
 jobs:
+  ecc-catalog-and-adapter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify pinned source inventory and catalog contracts
+        run: python tools/Verify-SageEccCatalog.py
+      - name: Exercise source-packet boundaries
+        run: python tools/test_sage_ecc.py
+      - name: Exercise real catalog workflows
+        run: python tools/test_sage_ecc_integration.py
   contracts-and-reference-runtime:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check catalog JSON schema and PowerShell discovery entrypoint
+        shell: pwsh
+        run: |
+          $catalog = Get-Content extensions/ecc/catalog.json -Raw
+          if (-not (Test-Json -Json $catalog -SchemaFile schemas/extensions/sage-ecc-catalog.schema.json)) { throw 'ECC catalog schema validation failed.' }
+          $reply = ./sage.ps1 catalog -CatalogAction search -Query 'Rust ownership' | ConvertFrom-Json -Depth 100
+          if (-not $reply.ok -or $reply.execution_authorized -or @($reply.data.entries).Count -eq 0) { throw 'ECC catalog CLI contract failed.' }
       - name: Run SAGE unified CI
         shell: pwsh
         run: ./tools/Invoke-SageReferenceCI.ps1 -EvidencePath ./tmp/ci-result.json

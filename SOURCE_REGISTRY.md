@@ -4,7 +4,33 @@ Status: Active source register for `0.8.0 Formalized Baseline`
 Recorded: 2026-09-06  
 Hash algorithm: SHA-256
 
+Latest additive source extension: ECC capability catalog, recorded 2026-10-23.
+
 این Registry منشأ را ثبت می‌کند؛ وجود یک منبع به معنی تبدیل همهٔ محتوای آن به Rule الزامی SAGE نیست. قواعد فقط پس از تحلیل، تعمیم و ثبت disposition وارد معماری می‌شوند.
+
+## ECC capability library / 2026-10-23
+
+- Source: [affaan-m/ECC](https://github.com/affaan-m/ECC), pinned commit
+  `90606c8315ee09cafc303515c5f33024db6b9882`.
+- Existing SAGE comparison baseline: `46e65164f726d902d360b3be341bd6f35171c982`.
+- Scope: every canonical `skills/*/SKILL.md` (311) and `agents/*.md` (71), with
+  per-item semantic review and all skill-local supporting files retained.
+- Review and mapping: `extensions/ecc/review/skills.json`, `agents.json` and
+  `OVERLAP-MATRIX.fa.md`; source coverage and hashes: `extensions/ecc/upstream-lock.json`.
+- Additional runtime/provider sources are inert references. Excluded duplicate,
+  translated, asset and upstream test surfaces remain inventoried by path/hash.
+- Licenses: root MIT, eight skill-local Apache-2.0 declarations and one
+  CC-BY-SA-4.0 skill; see `extensions/ecc/THIRD_PARTY_NOTICES.md` and original
+  local license/attribution files. The imported tree is not uniformly MIT.
+- Approval: the user explicitly requested comprehensive review, overlap mapping
+  and integration into SAGE in this task. This authorizes the additive source
+  implementation; source presence does not authorize third-party external actions.
+- Disposition: retain SAGE governance; add complementary capabilities and source
+  packets; reference-only treatment for competing orchestration, native hook and
+  host configuration layers. Full delta: `SAGE_v0.8_ECC_CAPABILITY_DELTA.md`.
+- Historical manifest preserved at
+  `history/SOURCE_MANIFEST_before_ecc_2026-10-23.json`; the current manifest
+  records this source branch and does not alter published v0.8.4 provenance.
 
 ## ۱. Baselineهای حاکم
 

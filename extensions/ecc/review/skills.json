@@ -1,0 +1,5040 @@
+[
+  {
+    "name": "accessibility",
+    "domain": "ui-accessibility",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "بخش‌های Semantic Mapping، مدیریت فوکوس و جدول Web/iOS/Android پوشش عمومی دسترس‌پذیری typescript-web را به چک‌های مشخص رابط تبدیل می‌کنند.",
+    "improvement_fa": "معیارهای کنتراست، هدف لمسی، خروج از مودال و آزمون صفحه‌خوان را با نسخه مرجع و رسید واقعی به بازبینی رابط اضافه کن.",
+    "boundaries": [
+      "مستندات WCAG/WAI-ARIA و API دقیق پلتفرم باید تطبیق داده شوند",
+      "تطبیق استاتیک ویژگی‌ها اثبات تجربه صفحه‌خوان نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "agent-architecture-audit",
+    "domain": "agent-runtime-audit",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "interface-audit"
+    ],
+    "rationale_fa": "مدل دوازده‌لایه از prompt تا persistence، آلودگی حافظه و repair loop مخفی را جدا می‌کند؛ SAGE فعلاً بازبینی رابط و شواهد کلی دارد.",
+    "improvement_fa": "جدول یافته با لایه، شدت، مسیر کد و آزمایش تفکیک‌کننده به ممیزی SAGE اضافه شود؛ الزام خودکار upstream برای هر انتشار به سیاست پروژه تبدیل نشود.",
+    "boundaries": [
+      "کد wrapper، tool router، حافظه و لاگ پالایش‌شده لازم است",
+      "هیچ ادعای اجرای ابزار بدون رسید پذیرفته نشود"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "agent-eval",
+    "domain": "agent-evaluation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "technology-selection"
+    ],
+    "rationale_fa": "تعریف وظیفه YAML، worktree مستقل و مقایسه pass rate/cost/time برای انتخاب فناوری مبتنی بر شواهد SAGE مفید است.",
+    "improvement_fa": "مقایسه عامل‌ها با commit ثابت، چند تکرار و داور قطعی به تصمیم فناوری متصل شود؛ worktree به‌عنوان sandbox امنیتی معرفی نشود.",
+    "boundaries": [
+      "runner جداگانه joaquinhuigomez/agent-eval",
+      "CLI و احراز هویت هر عامل",
+      "اجرای عامل می‌تواند هزینه API و تغییر فایل داشته باشد"
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "agent-harness-construction",
+    "domain": "agent-interface-design",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "interface-audit",
+      "mcp-review",
+      "cli-harness-review"
+    ],
+    "rationale_fa": "قواعد action-space، observation و error-recovery مستقیماً با خروجی typed و timeout در سه بازبین رابط SAGE همپوشان و مکمل‌اند.",
+    "improvement_fa": "بخش status/summary/artifacts و safe retry/stop به قرارداد پاسخ افزوده و اندازه ابزار بر اساس خطر و round-trip توجیه شود.",
+    "boundaries": [
+      "الگوهای ReAct/function-calling توصیه طراحی‌اند و runtime مستقل نمی‌سازند",
+      "نام و schema ابزار باید با میزبان واقعی تطبیق یابد"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "agent-introspection-debugging",
+    "domain": "agent-failure-analysis",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "چهار مرحله capture/diagnose/contained recovery/report خطای تکراری، 429، branch drift و فشار context را تفکیک می‌کنند.",
+    "improvement_fa": "پیش از retry یک فرضیه و چک تفکیک‌کننده ثبت شود؛ نتیجه recovery به رسید VERIFY وصل و تغییر برنامه از مسیر SAGE انجام شود.",
+    "boundaries": [
+      "خواندن cwd/branch/process و لاگ محدود به دامنه مجاز",
+      "تبدیل یافته به continuous-learning-v2 و auto-healing خودکار فعال نشود"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "agent-payment-x402",
+    "domain": "agent-payments",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پروتکل HTTP 402، محدودیت خرج و سه مسیر Base/OKX/Solana قابلیت پرداختی است که در مهارت‌های فعلی SAGE وجود ندارد.",
+    "improvement_fa": "به‌صورت پروفایل عملیات پرداخت نگهداری شود؛ طراحی و شبیه‌سازی از امضا و settlement جدا و مبلغ/شبکه/گیرنده در مجوز SAGE قید شود.",
+    "boundaries": [
+      "agentwallet-sdk یا OKX Agent Payments یا بسته‌های x402",
+      "کلید کیف پول و facilitator",
+      "تراکنش و پرداخت نیازمند مجوز مالی مشخص",
+      "ادعای non-custodial جایگزین ارزیابی خطر قرارداد نیست"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "agent-runtime-gateway-smoke-test",
+    "domain": "agent-gateway-verification",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "interface-audit",
+      "mcp-review",
+      "cli-harness-review"
+    ],
+    "rationale_fa": "مسیر local API→tunnel→remote callback و الزام بازگرداندن route قبلی، شکاف میان descriptor و اتصال واقعی SAGE را هدف می‌گیرد.",
+    "improvement_fa": "آزمون tool-free با پاسخ دقیق، timeout و cleanup روی همه مسیرهای شکست به رسید integration افزوده شود.",
+    "boundaries": [
+      "تونل عمومی و sandbox راه‌دور",
+      "credential ارائه‌دهنده",
+      "فقط API و app آزمایشی با مجوز expose/dispatch",
+      "بازگرداندن route و سلامت آن باید مشاهده شود"
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "agent-security-hardening",
+    "domain": "agent-security",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "mcp-review",
+      "interface-audit"
+    ],
+    "rationale_fa": "کنترل مرز URL/identifier/path، symlink، credential و خروجی bounded جزئیاتی عملی فراتر از چک کلی امنیت SAGE می‌دهد.",
+    "improvement_fa": "کنترل هویت/مقصد در entrypoint واقعی و تست رد path escape، داده آلوده و permission نامعتبر به قرارداد adapter افزوده شود.",
+    "boundaries": [
+      "مدل، حافظه و tool output داده نامطمئن‌اند",
+      "مقادیر بودجه و حدود باید از نیازمندی یا config واقعی بیایند",
+      "این متن مجوز offensive testing نمی‌دهد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "agent-self-evaluation",
+    "domain": "output-quality-review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "پنج محور همراه evidence و فایل evaluate.py برای بازبینی کیفیت مفید است، ولی امتیازدهی متن و مثال‌ها صحت اجرای کار را ثابت نمی‌کنند.",
+    "improvement_fa": "scorecard فقط به‌عنوان مشاهده مشورتی در کنار رسید مستقل ثبت شود؛ مثال retry در httpx قبل از بازاستفاده با API واقعی تطبیق یابد.",
+    "boundaries": [
+      "Python برای evaluate.py",
+      "ارزیاب متنی heuristic است",
+      "Stop-hook اختیاری نباید نصب یا به gate موازی تبدیل شود"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "agent-sort",
+    "domain": "skill-catalog-curation",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-discover",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "طبقه‌بندی DAILY/LIBRARY با شواهد repo مفید است، اما ادامه متن نصب و حذف مهارت/rule/hook در .claude و library router را اداره می‌کند.",
+    "improvement_fa": "منطق رتبه‌بندی و چرایی انتخاب به discovery منتقل شود؛ installer و router مستقل ECC مرجع بمانند.",
+    "boundaries": [
+      "مسیرهای .claude و installer ECC",
+      "مرجع تصمیم فعال‌سازی و حذف فقط SAGE",
+      "اجرای موازی review باید از dispatcher موجود عبور کند"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "agentic-engineering",
+    "domain": "engineering-orchestration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "eval-first و واحد مستقل قابل‌اثبات سودمندند، اما مهارت end-to-end execution و انتخاب Haiku/Sonnet/Opus را تحمیل می‌کند.",
+    "improvement_fa": "معیار پایان، تقسیم کار و هزینه هر موفقیت به الگوی برنامه SAGE افزوده شود؛ model routing و session policy بازنویسی نشوند.",
+    "boundaries": [
+      "وابستگی مفهومی به tierهای Claude",
+      "قانون ثابت پانزده‌دقیقه‌ای باید معیار قابل‌تنظیم باشد",
+      "کنترل اجرای عامل با SAGE است"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "agentic-os",
+    "domain": "persistent-agent-os",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "Kernel در CLAUDE.md، specialist routing، auto-reflection و scheduler سیستم‌عامل یک حاکمیت و حافظه موازی می‌سازند.",
+    "improvement_fa": "ایده memory scope، append-only log و schema evolution استخراج شود؛ kernel و زمان‌بند ECC فعال نشوند.",
+    "boundaries": [
+      "Claude Code و MCP",
+      "LaunchAgent/systemd/pm2",
+      "فایل حافظه میان‌جلسه‌ای و reflection",
+      "نیازمند طراحی adapter زیر اختیار SAGE"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "ai-first-engineering",
+    "domain": "engineering-process",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "تأکید بر قرارداد typed، eval coverage، امنیت و رفتار سیستم با هدف پروتکل SAGE سازگار و فاقد runtime تحمیلی است.",
+    "improvement_fa": "برای بررسی کد AI، invariant و failure/rollout به معیار پذیرش افزوده شود؛ توصیه منابع انسانی از gate کد جدا بماند.",
+    "boundaries": [
+      "نیازمند پذیرش سیاست تست متناسب با خطر پروژه",
+      "الزام عام پوشش تست نباید جای آزمون مشخص را بگیرد"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ai-regression-testing",
+    "domain": "ai-code-regression",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "typescript-web"
+    ],
+    "rationale_fa": "الگوهای Next.js/Vitest برای sandbox/production mismatch، SELECT omission و optimistic rollback کورنقطه self-review را آشکار می‌کنند.",
+    "improvement_fa": "آزمون پاسخ API و هم‌ارزی مسیر mock/live به QA اضافه شود؛ قواعد پوشش کلی به ریسک واقعی پروژه محدود شوند.",
+    "boundaries": [
+      "Next.js App Router و Vitest در مثال‌ها",
+      "sandbox بدون DB اثبات integration واقعی نیست",
+      "دستور «فقط کد دارای باگ را تست کن» قاعده عام SAGE نشود"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "android-clean-architecture",
+    "domain": "android-kotlin",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "مرزبندی domain/data/presentation، UseCase و نگاشت Room/SQLDelight/Ktor در فهرست فعلی تخصص Kotlin/Android ندارد.",
+    "improvement_fa": "پروفایل اختیاری Android/KMP با domain بدون framework، تست mapper و انتخاب Hilt/Koin مبتنی بر پلتفرم اضافه شود.",
+    "boundaries": [
+      "Kotlin/Gradle",
+      "Android یا KMP",
+      "Room/SQLDelight/Ktor و Hilt/Koin بسته به پروژه",
+      "SDK و قابلیت platform باید جدا تأیید شوند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "angular-developer",
+    "domain": "angular-web",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "بدنه و ۳۵ مرجع signals، forms، DI، routing، ARIA و testing شکاف Reactمحور مهارت وب عمومی را پر می‌کنند.",
+    "improvement_fa": "زیرپروفایل Angular با بارگذاری مرجع موضوعی، نسخه پروژه و harness تست موجود اضافه شود؛ پیش‌فرض آخرین نسخه یا Tailwind v4 تحمیل نشود.",
+    "boundaries": [
+      "Angular CLI و package manager",
+      "برخی APIهای signal/resource نسخه‌حساس‌اند",
+      "ng add/update و npx می‌توانند نصب یا migration انجام دهند",
+      "MCP اختیاری نیازمند بررسی جداگانه"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "api-connector-builder",
+    "domain": "provider-adapter-implementation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "interface-audit",
+      "sage-implement"
+    ],
+    "rationale_fa": "خواندن حداقل دو connector موجود و پوشش config/auth/pagination/registry/test باعث می‌شود یکپارچه‌سازی فقط HTTP client نباشد.",
+    "improvement_fa": "چک‌لیست تطابق با connector خانه به مرحله ADAPT/BUILD افزوده و رسید transport از wiring رجیستری جدا ثبت شود.",
+    "boundaries": [
+      "مستندات API مقصد و نمونه connector واقعی",
+      "credential و webhook/polling در اجرای زنده مجوز مستقل دارند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "api-design",
+    "domain": "http-api-design",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "interface-audit",
+      "typescript-web",
+      "go-backend"
+    ],
+    "rationale_fa": "نام‌گذاری resource، status/error envelope، pagination و versioning جزئیات قرارداد HTTP را تکمیل می‌کند.",
+    "improvement_fa": "قرارداد OpenAPI، مجوز سطح resource و تست cursor/خطا به descriptor رابط اضافه شود؛ مثال‌های زبانی بر اساس stack انتخاب شوند.",
+    "boundaries": [
+      "Next.js/DRF/net-http مثال‌اند نه dependency اجباری",
+      "سیاست نرخ و versioning باید با API موجود هم‌خوان باشد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "architecture-decision-records",
+    "domain": "architecture-knowledge",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-plan"
+    ],
+    "rationale_fa": "ADR شماره‌دار با context، alternatives، consequences و supersession پوشش عمومی تصمیم فناوری و provenance را عملی می‌کند.",
+    "improvement_fa": "ADR به stable component ID و technology decision متصل شود؛ شماره و مسیر از ساختار موجود repository گرفته شود.",
+    "boundaries": [
+      "نوشتن docs/adr فقط در دامنه پروژه",
+      "ADR backfill باید بازسازی تاریخی برچسب بخورد",
+      "تصمیم ثبت‌شده مجوز اجرا نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "article-writing",
+    "domain": "longform-content",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "فرآیند source-first، طرح هر بخش و تطبیق صدای نویسنده قابلیت محتوای بلند است که core مهندسی پوشش نمی‌دهد.",
+    "improvement_fa": "پروفایل محتوای اختیاری با منابع قابل‌ارجاع، voice profile و بازبینی ادعاها اضافه شود.",
+    "boundaries": [
+      "نمونه متن یا راهنمای لحن کاربر",
+      "brand-voice وابستگی اختیاری",
+      "نوشتن پیش‌نویس به معنی انتشار نیست"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "automation-audit-ops",
+    "domain": "automation-inventory",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "interface-audit"
+    ],
+    "rationale_fa": "تفکیک configured/authenticated/recently verified/stale/missing با ممنوعیت استنتاج سلامت از config با discovery SAGE سازگار است.",
+    "improvement_fa": "جدول inventory و پیشنهاد keep/merge/cut/fix-next به شواهد discovery اضافه شود؛ تغییر automation بعد از برنامه مجاز انجام شود.",
+    "boundaries": [
+      "خواندن cron،CI،MCP و hook در محدوده مجاز",
+      "وجود تعریف ابزار یا skill شاهد اجرای زنده نیست"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "autonomous-agent-harness",
+    "domain": "autonomous-agent-runtime",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "interface-audit"
+    ],
+    "rationale_fa": "ترکیب memory graph، scheduling، dispatch و computer use یک runtime دائمی مستقل پیشنهاد می‌کند و با مرجع اجرای SAGE تداخل دارد.",
+    "improvement_fa": "تمایز cron جلسه‌ای از scheduler مستقل، queue محلی و cleanup را به طراحی adapter منتقل کن؛ harness کامل فعال نشود.",
+    "boundaries": [
+      "Claude Code",
+      "OS/CI scheduler و MCP memory/browser",
+      "auth و مجوز تکرار/ارسال/کنترل رایانه باید جدا باشند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "autonomous-loops",
+    "domain": "legacy-autonomous-loops",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "خود متن نام را compatibility معرفی می‌کند و الگوهای claude-p، continuous PR loop و RFC-DAG با auto-merge عرضه می‌کند.",
+    "improvement_fa": "bounded budget، worktree isolation و توقف CI به طراحی SAGE کمک کنند؛ نام قدیمی به مرجع canonical پیوند بخورد.",
+    "boundaries": [
+      "Claude CLI و ابزارهای جداگانه continuous-claude/NanoClaw",
+      "PR/merge خودکار و حافظه مشترک فعال نشوند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "backend-patterns",
+    "domain": "node-backend",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "data-sql"
+    ],
+    "rationale_fa": "repository/service/middleware، جلوگیری N+1، cache-aside و shared-store rate limiting مهارت عمومی وب را به backend گسترش می‌دهند.",
+    "improvement_fa": "الگوهای Node/Express/Next با transaction و خطای typed زیرپروفایل شوند؛ صف و cache به بودجه واقعی متصل گردند.",
+    "boundaries": [
+      "Node/Express/Next.js",
+      "Redis یا rate limiter پلتفرم در استقرار چندنمونه‌ای",
+      "کد نمونه صف تضمین پایداری production نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "benchmark",
+    "domain": "performance-measurement",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "technology-selection"
+    ],
+    "rationale_fa": "اندازه‌گیری Core Web Vitals، صدک latency و زمان build با before/after برای تصمیم‌های performance در SAGE مستقیم قابل‌استفاده است.",
+    "improvement_fa": "baseline نسخه‌دار و شرایط آزمایش در evidence ledger ثبت شود؛ .ecc/benchmarks به مسیر توافق‌شده نگاشت گردد.",
+    "boundaries": [
+      "Browser MCP و endpoint مجاز",
+      "بارسنجی API و اجرای build دامنه/بودجه می‌خواهند",
+      "اسکرین‌شات جای سنجه عملکرد را نمی‌گیرد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "benchmark-methodology",
+    "domain": "competitive-benchmarking",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "نه بُعد امتیازدهی با شاهد، پروفایل رقیب و محور تنش برای benchmark تجاری است و با benchmark عملکرد نرم‌افزار فرق دارد.",
+    "improvement_fa": "پروفایل پژوهش بازار با وزن‌های قابل‌توضیح و لینک منبع برای هر نمره اضافه شود.",
+    "boundaries": [
+      "مجموعه رقبا از competitive-platform-analysis",
+      "brief جایگاه برند",
+      "نمرات rubric مشاهده‌اند نه دقت آماری اثبات‌شده"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "benchmark-optimization-loop",
+    "domain": "measured-optimization",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-implement"
+    ],
+    "rationale_fa": "baseline، یک فرضیه در هر variant، correctness gate و توقف در noise حلقه بهینه‌سازی محدود است و coordinator جدید ایجاد نمی‌کند.",
+    "improvement_fa": "ledger آزمایش با سقف زمان/هزینه و تأیید تکرار به بهینه‌سازی SAGE اضافه شود؛ بهترین اندازه‌گیری‌شده از optimum جدا بماند.",
+    "boundaries": [
+      "ورودی یکسان و محیط قابل‌تکرار",
+      "هر variant در دامنه برنامه مصوب",
+      "promote نیازمند حفظ correctness و rollback"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "bengali-nlp",
+    "domain": "bengali-language-processing",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "NFC، grapheme/conjunct، Banglish و ICU collation قابلیت زبانی مشخص و خارج از پوشش عمومی python-ai است.",
+    "improvement_fa": "پروفایل اختیاری بنگالی با fixture متن مختلط، ارقام و zero-width اضافه شود؛ به فارسی تعمیم بی‌دلیل داده نشود.",
+    "boundaries": [
+      "regex/bnlp_toolkit/PyICU در مثال‌ها",
+      "provider و locale collation پایگاه باید خوانده شود",
+      "تغییر encoding/schema عملیات زنده جداست"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "blender-motion-state-inspection",
+    "domain": "blender-animation-inspection",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game",
+      "python-ai"
+    ],
+    "rationale_fa": "استخراج bones، transform، bounds، facing و تماس پا از state واقعی نسبت به حکم صرفاً تصویری، پوشش Blender SAGE را دقیق‌تر می‌کند.",
+    "improvement_fa": "رسید frame-sampled JSON کنار رندر و تفکیک fact/hypothesis/fix برای retargeting اضافه شود.",
+    "boundaries": [
+      "Blender واقعی و bpy در همان host",
+      "فایل scene و بازه frame مشخص",
+      "background/headless جای آزمون GUI یا مشاهده رندر را نمی‌گیرد"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "blueprint",
+    "domain": "multi-session-planning",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan"
+    ],
+    "rationale_fa": "پنج مرحله، PR-sized units، dependency graph و adversarial review ارزش برنامه‌ریزی دارند، اما مدل tier و اجرای چندعامل را نیز هدایت می‌کنند.",
+    "improvement_fa": "context brief و معیار پایان هر واحد به plan SAGE نگاشت شود؛ plan mutation و dispatch فقط در lifecycle موجود بمانند.",
+    "boundaries": [
+      "Claude slash-command",
+      "Git/GitHub CLI برای branch/PR/CI اختیاری",
+      "ادعای zero runtime risk برای Markdown به معنی بی‌خطر بودن دستورات آن نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "brand-discovery",
+    "domain": "brand-strategy",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "هفت ماژول مصاحبه و synthesis نهایی با بخش Raw/Synthesis و چندبنیان‌گذار، قابلیت برند را با حفظ منشأ پاسخ اضافه می‌کند.",
+    "improvement_fa": "پروفایل مصاحبه برند با پاسخ جدا از تفسیر، checkpoint پروژه و حفظ تعارض‌ها اضافه شود.",
+    "boundaries": [
+      "هشت فایل مرجع ماژول‌ها",
+      "داده شخصی/تجاری بنیان‌گذار فقط در مقصد مجاز ذخیره شود",
+      "این persistence پرونده است نه حافظه خودکار عامل"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "brand-voice",
+    "domain": "brand-writing-style",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "voice-profile-schema و اولویت نمونه‌های واقعی برای حفظ لحن، نیاز مستقل از docs-knowledge مهندسی را پوشش می‌دهند.",
+    "improvement_fa": "پروفایل لحن مبتنی بر شاهد با استثناهای هر کانال و تعارض منابع اضافه شود؛ پیش‌فرض شخصی Affaan بر کاربر تحمیل نشود.",
+    "boundaries": [
+      "دسترسی مجاز به نمونه‌ها",
+      "ثبت fingerprint شخصی در git بدون خواست کاربر انجام نشود"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "brownfield-retrospective",
+    "domain": "legacy-project-analysis",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "sage-plan",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "چهار محور gap و بازسازی spec/ADR از slice موجود، همراه تصریح پیروی از authority پروژه، برای پذیرش پروژه قدیمی SAGE مکمل است.",
+    "improvement_fa": "gap register و reconstructed spec به state موجود پیوند بخورند؛ backfilled ADR از سند هم‌زمان با تصمیم تفکیک شود.",
+    "boundaries": [
+      "spec-miner و مهارت‌های همکار فقط در صورت وجود",
+      "تعویض فناوری/migration نیازمند برنامه و مجوز جاری",
+      "tracker موازی ایجاد نشود"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "browser-qa",
+    "domain": "browser-quality-assurance",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "smoke، interaction، visual regression چندعرضی و axe مکمل compile/lint وب‌اند و متن محدودیت audit خودکار را صریح می‌گوید.",
+    "improvement_fa": "رسید مرورگر، breakpoint و مسیر کاربر به VERIFY افزوده شود؛ SHIP upstream صرفاً توصیه باشد و مجوز نشر نشود.",
+    "boundaries": [
+      "Browser MCP یا Playwright/Puppeteer",
+      "preview/staging و test account برای مسیرهای mutating",
+      "حذف اطلاعات حساس از capture",
+      "چک دستی فوکوس/صفحه‌خوان جداست"
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "bun-runtime",
+    "domain": "javascript-runtime",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "technology-selection"
+    ],
+    "rationale_fa": "run/install/build/test و مهاجرت Node→Bun ابزار زنجیره JS را کامل می‌کند، ولی ترجیح خودکار Bun با تصمیم بی‌طرف SAGE سازگار نیست.",
+    "improvement_fa": "نسخه و lockfile فعلی حفظ و Bun با compatibility spike انتخاب شود؛ پیش‌فرض adoption از متن حذف گردد.",
+    "boundaries": [
+      "Bun CLI و نسخه راهنما 1.4.x",
+      "نصب dependency و اتصال deployment مجوز جدا دارند",
+      "ادعاهای runtime/flags باید با نسخه نصب‌شده سنجیده شوند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "canary-watch",
+    "domain": "post-deploy-monitoring",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "devops-containers"
+    ],
+    "rationale_fa": "چک HTTP/SSE/asset/console با quick،watch وdiff برای شاهد پس از deploy سودمند است.",
+    "improvement_fa": "single-pass مجاز به رسید release وصل شود؛ watch پایدار، alert و webhook فقط با زمان‌بند و سیاست SAGE فعال گردند.",
+    "boundaries": [
+      "URL و بودجه check مشخص",
+      "Slack/Discord webhook ارسال خارجی است",
+      "PostToolUse و log سراسری .claude خودکار نصب نشوند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "carrier-relationship-management",
+    "domain": "freight-procurement",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "FMCSA vetting، RFP، routing guide و scorecard حمل بار قابلیت زنجیره تأمین مستقل از مهندسی نرم‌افزار است.",
+    "improvement_fa": "پروفایل اختیاری لجستیک با شواهد lane، نرخ و عملکرد اضافه شود؛ درصدها و KPI نمونه به واقعیت بازار مقصد کالیبره شوند.",
+    "boundaries": [
+      "TMS و داده نرخ DAT/Greenscreens در صورت دسترسی",
+      "FMCSA مختص آمریکا",
+      "مذاکره، قرارداد و تخصیص بار مجوز عملیاتی جدا می‌خواهند"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "change-impact",
+    "domain": "change-impact-analysis",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan",
+      "sage-verify"
+    ],
+    "rationale_fa": "ردیابی call path، data/schema، API، تست و مقایسه planned-vs-diff مستقیماً شکاف impact در plan/verify را دقیق می‌کند.",
+    "improvement_fa": "جدول impact با evidence و unknown به stable IDs وصل شود؛ post-change alignment از ledger موجود تغذیه شود.",
+    "boundaries": [
+      "دسترسی محدود به repo",
+      "مرجع contract/Issue/ADR باید حفظ شود",
+      "نوشتن گزارش یا اجرای probe تابع دامنه جاری است"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "cisco-ios-patterns",
+    "domain": "network-configuration-review",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "IOS/IOS-XE، wildcard mask، ACL direction و read-only show برای شبکه capability تخصصی جدیدی ارائه می‌دهند.",
+    "improvement_fa": "پروفایل اختیاری network review با fingerprint دستگاه، diff و چک قبل/بعد اضافه شود؛ apply واقعی جدا بماند.",
+    "boundaries": [
+      "نسخه IOS/IOS-XE و نام interface واقعی",
+      "out-of-band access و rollback برای تغییر",
+      "کانفیگ باید از secret و topology حساس پاک‌سازی شود"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ck",
+    "domain": "context-keeper-memory",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "دستورهای Node init/save/resume/forget و SessionStart داده را در context.json و حافظه native Claude بازنویسی و تزریق می‌کنند؛ مرجع حافظه موازی‌اند.",
+    "improvement_fa": "ساختار checkpoint و تشخیص stale/git delta به provenance SAGE الهام بدهد؛ scripts و hook حافظه فعال نشوند.",
+    "boundaries": [
+      "Node.js و Git",
+      "مسیر ~/.claude/skills/ck و حافظه native",
+      "forget حذف داده و migrate تغییر ساختار می‌دهند",
+      "انتقال حافظه فقط با قرارداد SAGE"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "claude-devfleet",
+    "domain": "multi-agent-worktree-runtime",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "interface-audit"
+    ],
+    "rationale_fa": "DevFleet سرور و MCP جداگانه با dispatch موازی، worktree و auto-merge معرفی می‌کند؛ این چرخه مالکیت اجرا و ادغام را کنار SAGE قرار می‌دهد.",
+    "improvement_fa": "فقط الگوی جداسازی worktree، ثبت مأموریت و مشاهده وضعیت به قراردادهای SAGE منتقل شود؛ dispatcher و ادغام خودکار فعال نشوند.",
+    "boundaries": [
+      "سرور LEC-AI/claude-devfleet",
+      "MCP و آدرس محلی 18801",
+      "اجرای چند harness و هزینه مدل",
+      "auto_dispatch و auto-merge نیازمند اختیار مستقل‌اند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "click-path-audit",
+    "domain": "frontend-state-transition-review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "بازبینی مسیر کلیک، mutationهای پشت‌سرهم، closure قدیمی و تداخل useEffect شکاف مشخصی را فراتر از چک‌لیست کلی رابط پوشش می‌دهد؛ نمونه composeMode اثر setter بعدی را نشان می‌دهد.",
+    "improvement_fa": "به بازبینی UI، جدول رخداد/وضعیت و مسیرهای success، cancel و back اضافه شود و raceها با شواهد مرورگر بررسی شوند.",
+    "boundaries": [
+      "کد واقعی store و handler لازم است",
+      "تحلیل ایستا به‌تنهایی بازتولید خطای مرورگر نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "clickhouse-io",
+    "domain": "clickhouse-analytics",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql"
+    ],
+    "rationale_fa": "راهنمای MergeTree، ReplacingMergeTree، materialized view، ingest دسته‌ای و funnel/cohort دانش اختصاصی ClickHouse را به مهارت عمومی داده می‌افزاید.",
+    "improvement_fa": "زیرپروفایل ClickHouse با طرح partition/order، EXPLAIN و اندازه‌گیری ingest اضافه شود؛ ادعاهای FINAL و dedup با نسخه واقعی سنجیده شوند.",
+    "boundaries": [
+      "ClickHouse و نسخه موتور",
+      "Kafka/CDC فقط در صورت وجود",
+      "اجرای DDL، ingestion و تغییر view در محیط زنده اختیار جدا می‌خواهد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "code-tour",
+    "domain": "repository-onboarding-tour",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "خروجی .tours را با مسیر، شماره خط و ref واقعی و چند نوع step تعریف می‌کند؛ این پیوند دقیق کد و روایت در مستندسازی SAGE موجود نیست.",
+    "improvement_fa": "تورهای کوتاه مبتنی بر persona با Git ref و بررسی شکست لینک ساخته شوند و راهنمای اصلی پروژه مرجع باقی بماند.",
+    "boundaries": [
+      "قالب CodeTour و viewer اختیاری",
+      "خط‌ها و ref باید از checkout واقعی تأیید شوند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "codebase-onboarding",
+    "domain": "repository-reconnaissance",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "reconnaissance ساختار، معماری و قراردادهای مخزن به خروجی onboarding تبدیل می‌شود؛ قسمت starter CLAUDE.md باید با مرجع حاکمیت موجود سازگار شود.",
+    "improvement_fa": "نقشه ماژول‌ها، دستورهای معتبر و نقاط ورود را به discovery اضافه کند؛ فایل provider فقط projection بازبینی‌شده از قرارداد SAGE باشد.",
+    "boundaries": [
+      "دسترسی خواندن مخزن",
+      "ایجاد CLAUDE.md به‌معنای اختیار تغییر دستورهای حاکمیتی نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "codehealth-mcp",
+    "domain": "codescene-code-health",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "MCP شرکت CodeScene امتیاز ساختاری Code Health و مقایسه پیش/پس ارائه می‌کند؛ ابزار مکمل بازبینی است و موفقیت runtime یا نبود آسیب‌پذیری را ثابت نمی‌کند.",
+    "improvement_fa": "adapter اختیاری برای baseline، delta و شواهد محل عیب تعریف شود؛ نتیجه امتیازدهی کنار تست و review مستقل گزارش شود.",
+    "boundaries": [
+      "@codescene/codehealth-mcp",
+      "CS_ACCESS_TOKEN و حساب سرویس",
+      "احتمال انتقال متن کد به سرویس",
+      "ثبت MCP و هزینه سرویس خودکار نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "coding-standards",
+    "domain": "cross-cutting-code-quality",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement",
+      "engineering-qa",
+      "typescript-web"
+    ],
+    "rationale_fa": "نمونه‌های KISS/DRY/YAGNI، نام‌گذاری، type و الگوهای React/API معیارهای اجرایی مفیدی به کیفیت عمومی می‌دهند، ولی بسیاری از مثال‌ها JavaScript محورند.",
+    "improvement_fa": "چک‌لیست متناسب زبان و سبک مخزن استخراج شود؛ قواعد immutability یا component به‌صورت سراسری به زبان‌های دیگر تحمیل نشوند.",
+    "boundaries": [
+      "سبک و toolchain موجود پروژه",
+      "نمونه‌های JavaScript/TypeScript باید با زبان هدف تطبیق یابند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "competitive-platform-analysis",
+    "domain": "competitive-research",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "رده‌بندی Direct/Adjacent/Aspirational و pruning بر اساس positioning brief یک قابلیت پژوهش بازار مستقل از مجموعه مهندسی فعلی است.",
+    "improvement_fa": "پروفایل اختیاری پژوهش رقبا با جدول claim، URL، تاریخ و دلیل ورود یا حذف هر رقیب اضافه شود.",
+    "boundaries": [
+      "brief موقعیت‌یابی و مخاطب",
+      "دسترسی به منابع عمومی یا منابع مجاز",
+      "تازگی قیمت و ویژگی‌ها باید بررسی شود"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "competitive-report-structure",
+    "domain": "competitive-reporting",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "از پروفایل‌های امتیازدار به landscape، matrix، deep dive، white space و راهبرد می‌رسد و صریحاً امتیاز کل ترکیبی را منع می‌کند.",
+    "improvement_fa": "قالب گزارش قابل ردیابی به شواهد و امتیازهای هر بُعد اضافه شود؛ نبود داده و استنباط راهبردی جدا ثبت شوند.",
+    "boundaries": [
+      "ورودی پروفایل‌های پژوهش‌شده و rubric سازگار",
+      "امتیاز بدون منبع یا داده ساختگی معتبر نیست"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "compose-multiplatform-patterns",
+    "domain": "kotlin-compose-multiplatform",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "StateFlow، event sink، lifecycle، Navigation، expect/actual و recomposition تخصص Kotlin/Compose را پوشش می‌دهد؛ SAGE مهارت اختصاصی Kotlin ندارد.",
+    "improvement_fa": "پروفایل مهندسی Kotlin/Compose با معیار state ownership، targetهای واقعی و آزمون UI هر سکو اضافه شود.",
+    "boundaries": [
+      "Kotlin و Compose Multiplatform",
+      "APIهای Navigation و lifecycle وابسته به نسخه‌اند",
+      "build هر target به toolchain همان سکو نیاز دارد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "config-gc",
+    "domain": "agent-host-configuration-cleanup",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "skills، hooks، permissions، MCP و حافظه زیر ~/.claude را بررسی و حذف پیشنهاد می‌کند؛ حتی با تأیید جزءبه‌جزء، مدیریت پیکربندی میزبان خارج از اقتدار مهارت واردشده است.",
+    "improvement_fa": "ایده inventory، تشخیص orphan و گزارش فضای مصرفی حفظ شود؛ پاک‌سازی فقط از گردش‌کار حاکمیتی SAGE با backup و برنامه روشن انجام شود.",
+    "boundaries": [
+      "مسیرهای جهانی Claude",
+      "حذف skill، cache و حافظه",
+      "نیاز به preview و بازیابی قبل از هر تغییر"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "configure-ecc",
+    "domain": "ecc-installer-configuration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-discover",
+      "interface-audit"
+    ],
+    "rationale_fa": "wizard انتخاب scope، hook profile، preview/apply/doctor و تفاوت lifecycle کلود، Codex و Kimi را دارد؛ نصب خودکار می‌تواند مرجع ابزار و hooks SAGE را جابه‌جا کند.",
+    "improvement_fa": "ماتریس سازگاری provider و مفهوم preview/doctor به اسناد adapter منتقل شود؛ installer و hook profile به‌صورت ضمنی اجرا نشوند.",
+    "boundaries": [
+      "Claude Code، Codex native plugin یا Kimi",
+      "hooks در Kimi پشتیبانی یکسان ندارند",
+      "نوشتن تنظیمات و نصب plugin نیازمند مسیر مصوب SAGE است"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "connections-optimizer",
+    "domain": "social-connections-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "برای X و LinkedIn، followingها را ارزیابی و outreach گرم را آماده می‌کند؛ حذف following با پاک‌کردن followers متفاوت است و این کار در SAGE فعلی وجود ندارد.",
+    "improvement_fa": "پروفایل اختیاری مدیریت ارتباطات با preview فهرست تغییر، هویت حساب و متن‌های draft اضافه شود.",
+    "boundaries": [
+      "حساب و ابزار مجاز X/LinkedIn",
+      "unfollow، تغییر ارتباط و ارسال پیام action بیرونی‌اند",
+      "پیشنهاد متن مجوز ارسال ایجاد نمی‌کند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "content-engine",
+    "domain": "multichannel-content-planning",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تقویم و repurposing برای X، LinkedIn، TikTok، YouTube و newsletter را با صدای برند و ادعای مرکزی هر قطعه تعریف می‌کند.",
+    "improvement_fa": "پروفایل تولید محتوا با منبع واحد، نسخه هر کانال و ثبت فرض‌های مخاطب اضافه شود.",
+    "boundaries": [
+      "متن یا منبع مورد تأیید کاربر",
+      "ادعاهای محصول باید منبع داشته باشند",
+      "خروجی draft است و انتشار مجوز مستقل می‌خواهد"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "content-hash-cache-pattern",
+    "domain": "content-addressed-caching",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "data-sql"
+    ],
+    "rationale_fa": "SHA256 محتوای فایل، خواندن chunk، dataclass ثابت و cache JSON را از لایه خدمت جدا می‌کند؛ خود سند وابستگی نتیجه به configuration را استثنای کلید ساده می‌داند.",
+    "improvement_fa": "الگوی cache با کلید شامل نسخه پردازشگر و تنظیمات مؤثر، رفتار corruption-as-miss و سیاست lifecycle به مهارت داده افزوده شود.",
+    "boundaries": [
+      "فایل محلی و Python",
+      "hash محتوا کافی نیست اگر نتیجه به مدل، schema یا تنظیمات وابسته باشد",
+      "cache حاوی داده حساس باید محدود و قابل حذف باشد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "context-and-decisions",
+    "domain": "domain-glossary-and-decision-records",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-plan"
+    ],
+    "rationale_fa": "glossary و context کسب‌وکار را از ADR، task و state جدا می‌کند و از docs-map موجود یا CONTEXT.md استفاده می‌کند؛ مرجع حافظه اجرایی جدید تعریف نمی‌کند.",
+    "improvement_fa": "واژه‌نامه دامنه و لینک تصمیم‌های پایدار به knowledge SAGE اضافه شود و نقش اسناد موجود حفظ شود.",
+    "boundaries": [
+      "اسناد جاری پروژه مرجع اول‌اند",
+      "قالب context جایگزین وضعیت اجرا یا دفتر اختیارات نمی‌شود"
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "context-budget",
+    "domain": "context-window-inspection",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "mcp-review"
+    ],
+    "rationale_fa": "حالت پیش‌فرض NO TOOLS و audit فقط با درخواست صریح و root محدود، به تفکیک اندازه فایل از شمار token کمک می‌کند و از اسکن سراسری جلوگیری می‌کند.",
+    "improvement_fa": "گزارش سبک هزینه context و بار MCP به discovery اضافه شود؛ اندازه byte، تخمین token و مقدار اعلامی host جدا ثبت شوند.",
+    "boundaries": [
+      "خروجی native context/status وابسته به میزبان",
+      "audit فقط در ریشه صریح",
+      "اسکن recursive خانه یا workspace کلی مجاز فرض نشود"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "continuous-agent-loop",
+    "domain": "persistent-agent-execution",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "نسخه canonical حلقه مداوم با DAG، eval، freeze، replay و چند harness تعریف می‌کند؛ مالک scheduling و خاتمه عمل می‌شود.",
+    "improvement_fa": "ایده checkpoint، replay و توقف پس از شکست برای کنترل SAGE استخراج شود؛ runtime و loop مستقل وارد مسیر اجرا نشوند.",
+    "boundaries": [
+      "runtimeهای plankton/nanoclaw یا harness متناظر",
+      "پرداخت API و اجرای مداوم",
+      "سقف تلاش و اختیار توقف باید در SAGE بماند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "continuous-learning",
+    "domain": "legacy-session-learning",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "مهارت deprecated است و Stop-hook و evaluate-session.sh قدیمی صرفاً شمارش و سیگنال‌دهی می‌کنند؛ ادعای یادگیری را نباید به سازوکار واقعی ارتقای مدل تعبیر کرد.",
+    "improvement_fa": "فقط شکل ثبت lesson و نیاز به review انسانی حفظ شود؛ از شاخه قدیمی hook و auto-learning استفاده نشود.",
+    "boundaries": [
+      "deprecated در متن منبع",
+      "فایل config و Stop hook",
+      "auto_approve=false",
+      "خروجی script اثبات یادگیری یا کیفیت rule نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "continuous-learning-v2",
+    "domain": "recursive-instinct-memory",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-discover"
+    ],
+    "rationale_fa": "instinct با confidence، observer پس‌زمینه و promotion به skill/command/agent، چرخه حافظه و توانایی خودتقویت‌گر می‌سازد؛ config موجود observer را غیرفعال گذاشته است.",
+    "improvement_fa": "ساختار provenance، محدوده پروژه و review پیش از promotion الهام‌بخش knowledge SAGE باشد؛ observer و evolve خودکار نصب نشوند.",
+    "boundaries": [
+      "Claude CLI و observer Haiku",
+      "Linux/macOS/WSL و محدودیت Windows native",
+      "import URL، subprocess و نوشتن/حذف حافظه در scripts",
+      "observer.enabled=false در config فعلی"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "contract-first",
+    "domain": "api-contract-development",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "interface-audit",
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "یک قرارداد مرجع OpenAPI/AsyncAPI/protobuf/JSON Schema را مبنای تولید type، آزمون provider/consumer و مهاجرت قرار می‌دهد؛ با ownership مورد انتظار SAGE هم‌راستاست.",
+    "improvement_fa": "قبل از adapter، قرارداد و compatibility policy ثبت شود؛ drift بین schema، codegen و runtime با evidence بررسی شود.",
+    "boundaries": [
+      "قالب قرارداد متناسب protocol",
+      "ابزار codegen و نسخه آن",
+      "وجود schema به‌تنهایی اثبات رفتار runtime نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "conventional-commit-review",
+    "domain": "commit-message-review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "از staged diff و تاریخچه به type، scope، subject و footer دقیق می‌رسد و ماهیت آن review پیام است؛ اجرای commit لازمه بررسی نیست.",
+    "improvement_fa": "پیشنهاد پیام و تشخیص breaking change به تحویل تغییر اضافه شود و متن بر diff واقعی تکیه کند.",
+    "boundaries": [
+      "Git و staged diff",
+      "قرارداد commit مخزن مقدم است",
+      "ساخت commit، push یا تغییر تاریخچه جدا از نوشتن پیام‌اند"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "cost-aware-llm-pipeline",
+    "domain": "llm-application-cost-control",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "routing، بودجه، retry محدود و cache برای pipeline برنامه LLM را توضیح می‌دهد؛ این قابلیت لایه برنامه است، اما نام مدل‌ها و قیمت‌های hardcoded قابل اتکای دائمی نیستند.",
+    "improvement_fa": "بودجه و هزینه measured در برنامه نمونه اضافه شود؛ routing از قرارداد SAGE جدا و قیمت/provider پیش از استفاده بازبینی شوند.",
+    "boundaries": [
+      "SDK و API مدل انتخابی",
+      "قیمت و قابلیت‌های model نسخه‌پذیر و متغیرند",
+      "فراخوانی شبکه هزینه‌دار باید در بودجه مجاز باشد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "cost-tracking",
+    "domain": "claude-session-cost-observation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "costs.jsonl شامل snapshot تجمعی است و باید آخرین رکورد هر session_id را جمع زد؛ جمع همه رکوردها هزینه را چندبار می‌شمارد.",
+    "improvement_fa": "reader اختیاری telemetry با dedup نشست، timestamp و وضعیت missing اضافه شود؛ نصب hook تولید داده بخشی از این مهارت نباشد.",
+    "boundaries": [
+      "~/.claude/metrics/costs.jsonl فقط در صورت وجود",
+      "فرمت و semantics تولیدکننده باید تطبیق یابد",
+      "نبود log به‌معنای هزینه صفر نیست"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "council",
+    "domain": "multi-perspective-agent-deliberation",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "نقش‌های author، sceptic، pragmatist و critic به subagentهای مستقل تقسیم می‌شوند؛ برای تصمیم مبهم مفید است اما خود یک شیوه orchestration است.",
+    "improvement_fa": "سؤال‌های نقد و ثبت dissent به planning SAGE اضافه شوند؛ تعداد عامل، dispatch و رأی‌گیری جایگزین مرجع تصمیم نشوند.",
+    "boundaries": [
+      "توانایی subagent میزبان",
+      "هزینه چند اجرای مدل",
+      "اجماع یا رأی کیفیت اجرایی را ثابت نمی‌کند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "council-multi-model",
+    "domain": "external-model-critique",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "interface-audit"
+    ],
+    "rationale_fa": "پس از council یک نقد optional از Codex با packet محدود، probe و toolless invocation می‌گیرد؛ same/cross/unknown provider را جدا می‌کند ولی همچنان coordinator دوم است.",
+    "improvement_fa": "الگوی redaction، capability probe و ثبت منشأ نظر خارجی حفظ شود؛ انتخاب و dispatch مدل زیر حاکمیت SAGE بماند.",
+    "boundaries": [
+      "Codex CLI و نسخه/features قابل بررسی",
+      "انتقال packet به provider خارجی",
+      "helper از spawnSync و فایل موقت استفاده می‌کند",
+      "هیچ رأی خارجی اختیار اقدام نمی‌دهد"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "counterparty-channel-discipline",
+    "domain": "messaging-channel-contracts",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "قرارداد audience، شناسه معتبر، mention، participation و send را تفکیک و هر send/edit/stream را جدا طبقه‌بندی می‌کند؛ ابزار مناسبی برای connectorهای ارتباطی است.",
+    "improvement_fa": "پروفایل عملیات ارتباطی با وضعیت draft/sent و آزمون suppression و delivery اضافه شود؛ policy نمونه صرفاً ورودی طراحی باشد.",
+    "boundaries": [
+      "شناسه دقیق حساب/کانال و connector",
+      "ارسال، ویرایش یا stream نیازمند اختیار مستقل",
+      "policy مثال اجرایی نیست و default auto آن بر SAGE مقدم نمی‌شود"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "cpp-coding-standards",
+    "domain": "cpp-core-guidelines",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "cpp-native"
+    ],
+    "rationale_fa": "راهنمای C++17/20/23، RAII، Rule of Zero/Five، ownership و concurrency جزئیات عملی بیشتری از مهارت عمومی native دارد.",
+    "improvement_fa": "چک‌لیست کد و review متناسب standard و محیط embedded/desktop اضافه شود؛ ابزار و محدودیت runtime پروژه معیار انتخاب باشند.",
+    "boundaries": [
+      "نسخه standard و compiler",
+      "کتابخانه و محدودیت embedded",
+      "نمونه جدیدتر نباید baseline قدیمی را بی‌اجازه بالا ببرد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "cpp-testing",
+    "domain": "cpp-test-infrastructure",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "cpp-native",
+      "engineering-qa"
+    ],
+    "rationale_fa": "GoogleTest/GoogleMock، CMake/CTest، sanitizer و fuzzing را به معیارهای قابل اجرا برای C++ تبدیل می‌کند.",
+    "improvement_fa": "نمونه targetهای test و ثبت result به QA افزوده شود؛ sanitizer/fuzzer فقط با toolchain و threat مربوط فعال شوند.",
+    "boundaries": [
+      "CMake/CTest و framework موجود",
+      "پشتیبانی sanitizer/fuzzer وابسته به platform",
+      "نصب dependency جدید خودکار نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "crosspost",
+    "domain": "social-content-publication",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تبدیل محتوا به X، LinkedIn، Threads و Bluesky را با صدای یکسان و copy متفاوت تعریف می‌کند و متن منبع را برای حساب، زمان و publish نامعتبر می‌شمارد.",
+    "improvement_fa": "پروفایل انتشار با preview هر کانال، شناسه مقصد و receipt واقعی اضافه شود؛ draft مرحله پیش‌فرض باشد.",
+    "boundaries": [
+      "connector و حساب دقیق هر شبکه",
+      "متن ورودی منبع اختیار نیست",
+      "انتشار و زمان‌بندی با مجوز صریح و نتیجه قابل تأیید انجام شوند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "csharp-testing",
+    "domain": "dotnet-test-engineering",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "csharp-dotnet",
+      "engineering-qa"
+    ],
+    "rationale_fa": "xUnit، FluentAssertions، mocking، WebApplicationFactory و Testcontainers برای آزمون async، cancellation و integration پوشش عملی می‌آورند.",
+    "improvement_fa": "الگوی test متناسب نسخه .NET و dependencyهای موجود اضافه شود؛ آزمون واحد و سرویس container واقعی در گزارش جدا باشند.",
+    "boundaries": [
+      ".NET و test framework سازگار",
+      "نسخه و مجوز packageها باید بررسی شود",
+      "Testcontainers به daemon و تصویرهای Docker نیاز دارد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "customer-billing-ops",
+    "domain": "customer-subscription-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "وضعیت واقعی مشتری، subscription تکراری، refund، churn و portal را در Stripe از روی داده حساب تشخیص می‌دهد؛ قابلیت عملیاتی تازه‌ای است.",
+    "improvement_fa": "workflow تشخیص، preview remedy و receipt بعد از اقدام اضافه شود؛ draft پاسخ مشتری از ارسال مستقل بماند.",
+    "boundaries": [
+      "Stripe و scope حساب",
+      "هویت مشتری و subscription دقیق",
+      "refund، لغو اشتراک و ارسال پیام مجوز اقدام مستقل می‌خواهند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "customs-trade-compliance",
+    "domain": "customs-and-trade-analysis",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "HS/GRI، Incoterms، FTA، FTZ، drawback و restricted parties را پوشش می‌دهد؛ مجموعه فعلی مهارت تخصصی تجارت بین‌الملل ندارد.",
+    "improvement_fa": "پروفایل مشورتی با کشور، تاریخ، کالا و اسناد اولیه تعرفه ایجاد شود؛ تجربه شخصی ادعایی متن به عنوان صلاحیت سیستم منتقل نشود.",
+    "boundaries": [
+      "منابع رسمی و جاری حوزه قضایی",
+      "مشخصات کالا، مبدا و مقصد",
+      "filing، امضا و تصمیم حقوقی نهایی به بررسی متخصص و اختیار جدا نیاز دارند"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "dart-flutter-patterns",
+    "domain": "dart-flutter-engineering",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "null safety، freezed، مدیریت state، routing، Dio و context پس از await دانش Dart/Flutter را پوشش می‌دهند؛ معادل اختصاصی در SAGE نیست.",
+    "improvement_fa": "پروفایل مهندسی Flutter با انتخاب framework موجود، disposal، آزمون widget و targetهای واقعی اضافه شود.",
+    "boundaries": [
+      "Flutter/Dart و نسخه packageها",
+      "BLoC، Riverpod، Provider و GoRouter گزینه‌اند نه الزام هم‌زمان",
+      "build موبایل به SDK سکوی هدف نیاز دارد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "dashboard-builder",
+    "domain": "operational-dashboard-design",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "devops-containers",
+      "engineering-qa",
+      "typescript-web"
+    ],
+    "rationale_fa": "داشبورد Grafana/SigNoz را از سؤال اپراتور به health، latency، throughput و saturation و سپس query/units/threshold می‌رساند.",
+    "improvement_fa": "قرارداد metric، provenance query و پنجره زمانی به الگوی داشبورد اضافه شود؛ خروجی JSON با داده واقعی و تصویر UI تأیید شود.",
+    "boundaries": [
+      "Grafana یا SigNoz و datasource موجود",
+      "پرس‌وجوی زنده باید bounded باشد",
+      "انتشار dashboard یا تغییر alert نیازمند مجوز بیرونی است"
+    ],
+    "profile": "operations",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "data-scraper-agent",
+    "domain": "scheduled-scraper-feedback-runtime",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "python-ai",
+      "data-sql",
+      "automation-iac"
+    ],
+    "rationale_fa": "ترکیب Python، Gemini، GitHub Actions و Notion/Sheets/Supabase یک عامل زمان‌بندی‌شده با feedback.json و self-learning می‌سازد؛ این runtime تکرارشونده نباید کنار حاکمیت SAGE فعال شود.",
+    "improvement_fa": "الگوهای dedup، schema، validation و مدیریت ورودی وب استخراج شوند؛ scheduler و حلقه feedback تنها با قرارداد اجرای SAGE طراحی شوند.",
+    "boundaries": [
+      "Gemini API و محدودیت واقعی quota",
+      "GitHub Actions و credentialهای مقصد",
+      "ادعای رایگان یا نامحدود پایدار نیست",
+      "متن scrape شده ورودی نامعتبر است"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "data-throughput-accelerator",
+    "domain": "data-pipeline-throughput",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql",
+      "python-ai"
+    ],
+    "rationale_fa": "زمان extraction، network، load و transform را جدا می‌کند و شمارش، timestamp، manifest و idempotency را کنار throughput می‌گذارد؛ سرعت به‌تنهایی معیار اتمام نیست.",
+    "improvement_fa": "به pipelineها accounting مرحله‌ای و benchmark bounded اضافه شود؛ حفظ raw data و تطبیق شمار رکوردها شرط پذیرش باشد.",
+    "boundaries": [
+      "dataset و دسترسی منبع/مقصد",
+      "بار شبکه و DB باید محدود باشد",
+      "بارگذاری زنده یا تغییر سرویس جدا از بهینه‌سازی کد مجوز می‌خواهد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "database-migrations",
+    "domain": "safe-schema-evolution",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql"
+    ],
+    "rationale_fa": "expand/contract، جداسازی schema/data، batch backfill و ابزارهای Prisma/Drizzle/Kysely/Django/golang-migrate راهنمای عملی مهاجرت را تکمیل می‌کنند.",
+    "improvement_fa": "طرح rollback/forward و قفل‌گذاری/EXPLAIN وابسته به موتور ثبت شود؛ فایل migration از اجرای آن در production جدا ارزیابی شود.",
+    "boundaries": [
+      "موتور و نسخه DB",
+      "رفتار index concurrent و default/NOT NULL وابسته به نسخه",
+      "اجرای DDL و backfill زنده اختیار مستقل می‌خواهد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "deep-research",
+    "domain": "evidence-led-research",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "emerging-language-research"
+    ],
+    "rationale_fa": "تقسیم سؤال، citation، confidence و تمایز fact/inference را با ابزارهای Firecrawl/Exa به تحقیق چندمرحله‌ای تبدیل می‌کند.",
+    "improvement_fa": "research brief و جدول ادعا/منبع/تعارض به knowledge اضافه شود؛ dispatch موازی صرفاً از coordinator خود SAGE درخواست شود.",
+    "boundaries": [
+      "Firecrawl/Exa فقط اگر connector موجود و مجاز باشد",
+      "پارامترها و quota نسخه‌پذیرند",
+      "اطلاعات خصوصی در query خارجی حذف شوند"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "deepseek-harness-setup",
+    "domain": "deepseek-host-adapter-setup",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "interface-audit",
+      "sage-discover"
+    ],
+    "rationale_fa": "مسیرهای DSH و bridge hooks کلود، matcherهای lowercase و eventهای پشتیبانی‌نشده را تنظیم می‌کند؛ پشتیبانی agent dispatch را اثبات‌شده نمی‌داند.",
+    "improvement_fa": "ماتریس سازگاری و smoke test provider استخراج شود؛ فایل host و bridge بدون فرایند نصب مستقل SAGE تغییر نکند.",
+    "boundaries": [
+      "DeepSeek DSH و @deepseek-ai/dsh-hooks-claude-code",
+      "مسیر .agents/skills یا ~/.dsh",
+      "PreCompact/PostToolUseFailure/SessionEnd همسان نیستند",
+      "exit 0 به‌تنهایی تحویل event را ثابت نمی‌کند"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "defi-amm-security",
+    "domain": "defi-smart-contract-security",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "CEI، reentrancy، donation/inflation، TWAP، slippage و حساب mulDiv دانش امنیت AMM/Solidity را پوشش می‌دهند؛ این حوزه در SAGE مهارت اختصاصی ندارد.",
+    "improvement_fa": "پروفایل اختیاری بازبینی قرارداد با threat model، invariant و آزمون fuzz محلی اضافه شود؛ audit ایستا از امنیت اثبات‌شده تفکیک شود.",
+    "boundaries": [
+      "Solidity و toolchain قرارداد",
+      "Slither/fuzzer فقط در sandbox مناسب",
+      "کلید، معامله و deploy زنجیره‌ای در این review مجاز فرض نمی‌شوند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "delivery-gate",
+    "domain": "hook-delivery-policy",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "Stop hook بر اساس regex، mtime و رشد فایل‌ها block می‌کند؛ این قواعد gate اجرایی جدید و شاخص‌هایی ضعیف‌تر از evidence واقعی SAGE می‌سازند.",
+    "improvement_fa": "ایده گزارش drift و evidence کمبود حفظ شود؛ معیار اتمام از قرارداد SAGE بیاید و mtime به‌عنوان کیفیت یا قبولی تفسیر نشود.",
+    "boundaries": [
+      "Python 3.8+ و hook Stop",
+      "فایل growth-log و timestampها",
+      "script stdlib است ولی نصب آن رفتار میزبان را تغییر می‌دهد"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "deployment-patterns",
+    "domain": "application-deployment",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "devops-containers",
+      "automation-iac"
+    ],
+    "rationale_fa": "rolling، blue/green، canary، health probe و rollback در Docker و CI الگوهای اجرایی مشخص به مهارت‌های عملیات می‌دهند.",
+    "improvement_fa": "طرح deploy با health معیارمند، window، rollback و receipt محیط واقعی اضافه شود؛ هر تغییر مرحله‌بندی و قابل توقف باشد.",
+    "boundaries": [
+      "Docker/CI و محیط مقصد",
+      "پروژه‌های Node/Go/Python نمونه‌اند",
+      "deploy، image push، تغییر traffic و اجرای rollback روی سرویس زنده مجوز می‌خواهند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "design-system",
+    "domain": "design-system-extraction",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "DESIGN.md، design-tokens.json و design-preview.html را از یک نظام طراحی استخراج می‌کند و rubric بصری می‌دهد؛ برای خروجی رابط قابل استفاده است.",
+    "improvement_fa": "توکن‌ها، حالت‌های component، RTL و a11y به خروجی طراحی افزوده و preview واقعاً render شود؛ rubric نباید جای خواست بصری کاربر را بگیرد.",
+    "boundaries": [
+      "منبع بصری یا طراحی موجود",
+      "browser rendering برای ارزیابی واقعی",
+      "امتیاز زیبایی یا AI-slop heuristic اثبات کیفیت نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "dev-team",
+    "domain": "fixed-role-agent-team",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "چهار نقش PM، architect، developer و QA را موازی dispatch می‌کند و برای packet محدود قواعد می‌دهد؛ یک coordinator اجرایی جدا تعریف می‌شود.",
+    "improvement_fa": "تقسیم مسئولیت و قالب handoff برای متخصص‌های SAGE اقتباس شود؛ topology، dispatch و merge تحت کنترل خود SAGE بمانند.",
+    "boundaries": [
+      "توانایی subagent و هزینه چند نشست",
+      "ورودی packet باید redacted و محدود باشد",
+      "تعداد نقش ثابت برای همه پروژه‌ها الزام نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "django-celery",
+    "domain": "django-background-jobs",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "retry/idempotency، محدودیت task، Beat تک‌رهبر، canvas و تفاوت eager test با broker واقعی Celery را پوشش می‌دهد.",
+    "improvement_fa": "زیرپروفایل worker برنامه با cancellation، backoff، dead-letter و شواهد integration اضافه شود؛ scheduler برنامه مالک چرخه عامل SAGE نباشد.",
+    "boundaries": [
+      "Django/Celery و Redis یا RabbitMQ",
+      "Flower/Sentry اختیاری",
+      "راه‌اندازی worker، Beat و queue زنده مجوز و بودجه جدا دارد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "django-patterns",
+    "domain": "django-application-architecture",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "data-sql"
+    ],
+    "rationale_fa": "DRF، تنظیمات تفکیک‌شده، QuerySet/manager/service، cache، signal و N+1/bulk جزئیات Django را به Python و SQL SAGE اضافه می‌کنند.",
+    "improvement_fa": "راهنمای Django متناسب نسخه با مرز transaction، query count و تنظیمات محیط اضافه شود؛ convention فعلی پروژه حفظ شود.",
+    "boundaries": [
+      "Django/DRF و database backend",
+      "cache و signal به semantics واقعی برنامه وابسته‌اند",
+      "نمونه تنظیمات نباید secrets تولیدی را وارد repository کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "django-security",
+    "domain": "django-security-review",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "CSRF، نقش و مجوز، ORM، XSS، upload، session و HTTPS را به بررسی اختصاصی Django تبدیل می‌کند.",
+    "improvement_fa": "معیارهای احراز هویت در برابر authorization، file validation و تنظیمات deploy به بازبینی افزوده و با آزمون منفی سنجیده شوند.",
+    "boundaries": [
+      "نسخه Django و middleware پروژه",
+      "سیاست CSP/HTTPS وابسته به استقرار",
+      "security checklist معادل audit کامل نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "django-tdd",
+    "domain": "django-test-development",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "pytest-django، factory_boy و آزمون مدل، view، serializer، permissions و email پوشش عملی تست Django می‌دهند.",
+    "improvement_fa": "نمونه fixture و آزمون رفتار مرزی اضافه شود؛ coverage هدف پیشنهادی بماند و assertion معنادار معیار پذیرش باشد.",
+    "boundaries": [
+      "pytest-django و DB تست",
+      "factory_boy و mocking با dependency موجود هماهنگ شوند",
+      "تست ارسال email باید backend آزمایشی داشته باشد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "django-verification",
+    "domain": "django-verification-workflow",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "lint/type/test، migration، dependency audit، تنظیمات و diff را یکجا بررسی می‌کند؛ بعضی فرمان‌های collectstatic یا migration در این مسیر فایل یا DB را تغییر می‌دهند.",
+    "improvement_fa": "receiptهای pass/fail/not-run با تفکیک command خواندنی و تغییردهنده اضافه شود؛ پیش از migration مقصد DB تأیید شود.",
+    "boundaries": [
+      "ruff/black/mypy/pytest و audit tools در صورت نصب",
+      "collectstatic روی فایل می‌نویسد",
+      "migration و دسترسی DB زنده صرفاً به نام verification مجاز نمی‌شوند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "dmux-workflows",
+    "domain": "terminal-agent-multiplexing",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "interface-audit"
+    ],
+    "rationale_fa": "dmux و tmux، نشست‌های harness را در pane و worktree تقسیم و بعد merge می‌کنند؛ کنترل چرخه اجرا و ادغام مستقل می‌سازند.",
+    "improvement_fa": "ایده مشاهده نشست، worktree isolation و handoff ثبت‌شده حفظ شود؛ runtime چندعامل بیرونی از مسیر عادی SAGE فعال نشود.",
+    "boundaries": [
+      "dmux و tmux و پشتیبانی سیستم‌عامل",
+      "نصب ابزار و اجرای harnessهای متعدد",
+      "merge و هزینه API باید زیر قرارداد SAGE باشند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "docker-patterns",
+    "domain": "container-development",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "devops-containers",
+      "cli-harness-review"
+    ],
+    "rationale_fa": "Compose، شبکه، volume، hardening و جداسازی نصب را با هشدار درست درباره تفاوت Linux container و native Windows/macOS پوشش می‌دهد.",
+    "improvement_fa": "الگوهای build reproducible، read-only source mount و smoke واقعی سکو اضافه شوند؛ نتیجه container به‌عنوان اثبات native گزارش نشود.",
+    "boundaries": [
+      "Docker daemon و image registry",
+      "network/download، mount و privilege باید محدود باشند",
+      "احراز هویت networked Codex داخل container قرارداد مستقل دارد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "docs-governance",
+    "domain": "documentation-routing-and-audit",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "نقش‌های اسناد، router و audit لینک/ADR/evidence را تعریف می‌کند و خود را جایگزین PM نمی‌داند؛ ابزارهای Python بررسی ساختار می‌کنند، نه صحت اجرا.",
+    "improvement_fa": "نقش constitution به سند حاکم SAGE نگاشت شود، نه اینکه CLAUDE.md مرجع تازه شود؛ audit پیوند و evidence به knowledge اضافه شود.",
+    "boundaries": [
+      "Python و Git برای audit خواندنی",
+      "قالب docs-map و قرارداد نقش اسناد",
+      "عبور audit فایل به‌معنای اثبات رفتار یا کامل‌بودن evidence نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "documentation-lookup",
+    "domain": "versioned-library-documentation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "emerging-language-research"
+    ],
+    "rationale_fa": "Context7 را با resolve-library-id و query-docs برای انتخاب کتابخانه و نسخه درست به کار می‌گیرد؛ به سیاست منبع رسمی SAGE کمک می‌کند.",
+    "improvement_fa": "adapter اختیاری lookup با ثبت library ID، نسخه، URL و claim اضافه شود؛ متن پاسخ همچنان منبع قابل ارزیابی باشد.",
+    "boundaries": [
+      "Context7 MCP از پیش مجاز و موجود",
+      "ارسال query خارجی با redaction",
+      "نصب connector یا استفاده از نسخه latest بدون تطبیق مجاز فرض نشود"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "dotnet-patterns",
+    "domain": "dotnet-application-patterns",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "csharp-dotnet"
+    ],
+    "rationale_fa": "record/init، nullable، DI، cancellation، options، Result، EF Core و minimal API دستورالعمل اختصاصی .NET را تقویت می‌کنند.",
+    "improvement_fa": "مرز DI و transaction، propagation cancellation و typed error به راهنمای C# افزوده شود؛ APIها با نسخه SDK مخزن تطبیق یابند.",
+    "boundaries": [
+      "نسخه .NET/C# و packageها",
+      "ASP.NET/EF Core فقط برای پروژه متناظر",
+      "ارتقای SDK یا framework از روی مثال خودکار نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "dynamic-workflow-mode",
+    "domain": "adaptive-agent-workflow",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "control pane، checkpoint، harness مخصوص task و استخراج skill از نتیجه یک جریان تطبیقی اجرا تعریف می‌کند؛ می‌تواند هماهنگی و حافظه SAGE را دور بزند.",
+    "improvement_fa": "مفهوم checkpoint و جداکردن معیار eval از تولید راه‌حل حفظ شود؛ تغییر workflow و استخراج skill تحت review حاکمیتی SAGE بمانند.",
+    "boundaries": [
+      "harness و قابلیت subagent میزبان",
+      "هزینه اجرای تکراری",
+      "ساخت یا promotion مهارت مجوز تغییر authority ایجاد نمی‌کند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "e2e-testing",
+    "domain": "browser-end-to-end-testing",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "typescript-web"
+    ],
+    "rationale_fa": "Playwright POM، trace/video/screenshot، CI و رسیدگی به flake را پوشش می‌دهد؛ برای مسیرهای wallet یا مالی باید محیط و حساب آزمون جدا باشند.",
+    "improvement_fa": "E2E معیارمند با artifact شکست و علت quarantine اضافه شود؛ pass تنها پس از اجرای واقعی مرورگر ثبت شود.",
+    "boundaries": [
+      "Playwright و browser binary",
+      "حساب تست و مقصد مجاز",
+      "checkout، transfer یا ارسال واقعی از سناریوی نمونه مجاز استنباط نمی‌شود"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "ecc-guide",
+    "domain": "ecc-capability-navigation",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "تأکید دارد شمار و قابلیت ECC از فایل‌های واقعی خوانده شوند و agent/skill/command/install plan از هم جدا شوند؛ این برای catalog واردشده لازم است.",
+    "improvement_fa": "راهنمای کشف با revision منبع، قابلیت واقعی و وضعیت نصب SAGE بازنویسی شود؛ شمار hardcoded به شمارش ساخت وصل شود.",
+    "boundaries": [
+      "checkout یا manifest pinned ECC",
+      "فرمان نصب در راهنما صرفاً توضیح است",
+      "وجود فایل به‌معنای نصب یا قابل اجرا بودن adapter نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ecc-recipes",
+    "domain": "advisory-workflow-recipes",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "sage-plan"
+    ],
+    "rationale_fa": "recipeها صریحاً advisory هستند و اجرا نمی‌کنند؛ گروه فرمان، ترتیب و stop condition را برای انتخاب مسیر مناسب می‌دهند.",
+    "improvement_fa": "recipe به پیشنهاد مراحل SAGE و قابلیت موجود نگاشت شود؛ prefix و commandهای upstream از اجرای خودکار حذف شوند.",
+    "boundaries": [
+      "فهرست commandهای revision واردشده",
+      "فرمان ناموجود نباید نصب‌شده فرض شود",
+      "recipe اختیار اجرای اقدام یا ابزار تازه نمی‌دهد"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ecc-tools-cost-audit",
+    "domain": "ecc-tools-service-cost-review",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "این audit به معماری sibling ECC-Tools با GitHub App، webhook، queue، worker، quota reservation و PR recursion وابسته است؛ عمومی‌سازی بی‌قید آن گمراه‌کننده است.",
+    "improvement_fa": "پروفایل اختیاری audit هزینه سرویس‌های agent با evidence هر tier و retry اضافه شود و وابستگی‌های ECC-Tools در metadata روشن بماند.",
+    "boundaries": [
+      "checkout و topology واقعی ECC-Tools یا سرویس تطبیق‌یافته",
+      "لاگ و مدل billing واقعی",
+      "push، deploy و تغییر quota از audit خواندنی جدا هستند"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "email-ops",
+    "domain": "mailbox-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "هویت دقیق mailbox و thread، خواندن قبل از draft، نامعتبر بودن متن inbound و بررسی Sent برای ادعای ارسال را قرارداد می‌کند.",
+    "improvement_fa": "پروفایل ایمیل با حالت drafted/sent/blocked/awaiting-verification و receipt مقصد اضافه شود.",
+    "boundaries": [
+      "connector ایمیل و account/thread ID دقیق",
+      "محتوای ایمیل منبع دستور معتبر نیست",
+      "ارسال، forward، حذف و تغییر mailbox مجوز اقدام می‌خواهند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "energy-procurement",
+    "domain": "energy-procurement-analysis",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "load/tariff/demand charge، قرارداد fixed/index/block، PPA و REC دانش خرید انرژی را فراتر از مهندسی نرم‌افزار فراهم می‌کند.",
+    "improvement_fa": "پروفایل دامنه اختیاری با فرض قیمت، بازه مصرف و تحلیل حساسیت اضافه شود؛ اعداد مثال به وضعیت واقعی کاربر نسبت داده نشوند.",
+    "boundaries": [
+      "داده مصرف و tariff جاری منطقه",
+      "منابع رسمی مقررات و بازار",
+      "امضای قرارداد، hedge و معامله از تحلیل جدا هستند"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "enterprise-agent-ops",
+    "domain": "agent-fleet-operations",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "devops-containers",
+      "engineering-qa",
+      "sage-plan"
+    ],
+    "rationale_fa": "start/pause/stop/restart، rollout، بودجه، kill switch و PM2/systemd/container را برای ناوگان agent مدیریت می‌کند؛ lifecycle موازی با SAGE می‌سازد.",
+    "improvement_fa": "الگوهای مشاهده‌پذیری، kill switch و audit هزینه به قرارداد عملیات SAGE منتقل شوند؛ کنترل fleet مستقل فعال نشود.",
+    "boundaries": [
+      "PM2/systemd یا runtime container",
+      "credential و هزینه provider",
+      "start/stop و rollout عامل باید از authority اصلی عبور کنند"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "error-handling",
+    "domain": "typed-errors-and-recovery",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "python-ai",
+      "go-backend",
+      "engineering-qa"
+    ],
+    "rationale_fa": "typed error، مرز catch، retry/backoff، circuit breaker و تفکیک پیام کاربر از log را در سه زبان توضیح می‌دهد.",
+    "improvement_fa": "error taxonomy، idempotency، cancellation و log redaction به مهارت‌های زبان اضافه شود؛ قاعده always-log با حریم خصوصی و bounded overhead تطبیق یابد.",
+    "boundaries": [
+      "semantics خطا و retry هر SDK",
+      "داده حساس در log حذف شود",
+      "retry روی عملیات غیر idempotent نیازمند طرح مشخص است"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "esign-field-placement",
+    "domain": "electronic-signature-preparation",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "origin/frame/document identity و بازبینی بعد از تغییر را برای جای‌گذاری فیلد امضا تعریف می‌کند؛ خود متن تصریح می‌کند قرارداد نوشتاری است و guard اجرایی مرورگر نیست.",
+    "improvement_fa": "پروفایل آماده‌سازی envelope با recipient واقعی، preview و digest دقیق بعد از review اضافه شود؛ draft مرحله پیش‌فرض بماند.",
+    "boundaries": [
+      "سرویس امضا و browser مجاز",
+      "rotation و مختصات صفحه باید تأیید شوند",
+      "شماره recipient مثال قاعده عمومی نیست",
+      "ارسال envelope یا امضا مجوز صریح و binding به نسخه بازبینی‌شده می‌خواهد"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "eval-harness",
+    "domain": "agent-evaluation-methods",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "capability/regression eval، code/model/human judge و pass@k/pass^k را جدا می‌کند؛ gate.isolation_required اجازه promotion بدون جداسازی را نمی‌دهد.",
+    "improvement_fa": "تعریف eval و receipt مستقل candidate به QA اضافه شود؛ metric تخمینی از تضمین رفتار جدا و معیارها پیش از اجرا ثابت شوند.",
+    "boundaries": [
+      "dataset و rubric معتبر",
+      "مدل judge ممکن است هزینه و نوسان داشته باشد",
+      "promotion باید isolation و authority SAGE را حفظ کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "evm-token-decimals",
+    "domain": "evm-token-unit-normalization",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "خواندن decimals در runtime، کلید cache chain/address و Decimal/BigInt خطاهای پولی ناشی از فرض 18 یا float را هدف می‌گیرد.",
+    "improvement_fa": "پروفایل واحدهای EVM با raw/human amount، chain ID و fallback آشکار اضافه شود؛ تبدیل واحد با آزمون مرزی بررسی شود.",
+    "boundaries": [
+      "RPC و آدرس token/chain واقعی",
+      "metadata token ممکن است غیرمعمول یا خطادار باشد",
+      "fallback هرگز مجوز transfer یا حدس مبلغ نمی‌دهد"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "exa-search",
+    "domain": "exa-search-provider",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-discover"
+    ],
+    "rationale_fa": "ابزار Exa برای وب، کد و شرکت/افراد عمومی مسیر retrieval دیگری می‌دهد؛ نام ابزار و پارامتر به سرویس و revision MCP وابسته‌اند.",
+    "improvement_fa": "adapter اختیاری با provenance URL، تاریخ retrieval و redaction query اضافه شود؛ snippet کد داده نامعتبر تلقی شود.",
+    "boundaries": [
+      "Exa MCP و EXA_API_KEY در scope مجاز",
+      "quota و schema جاری سرویس",
+      "جست‌وجوی اشخاص باید در داده عمومی و هدف مجاز بماند"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "fal-ai-media",
+    "domain": "generative-media-services",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Fal برای تصویر، ویدیو و صوت و اتصال‌های اختیاری ElevenLabs/VideoDB ابزار تولید رسانه‌ای تازه‌ای می‌دهد.",
+    "improvement_fa": "پروفایل رسانه اختیاری با انتخاب endpoint واقعی، اندازه/مدت، برآورد هزینه و receipt خروجی اضافه شود.",
+    "boundaries": [
+      "Fal MCP و FAL_KEY",
+      "مدل و قیمت جاری باید بررسی شوند",
+      "آپلود ورودی و generation هزینه‌دار action بیرونی‌اند",
+      "ElevenLabs و VideoDB احراز هویت مستقل دارند"
+    ],
+    "profile": "domain",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "fastapi-patterns",
+    "domain": "fastapi-service-engineering",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "data-sql"
+    ],
+    "rationale_fa": "Pydantic v2، lifespan/DI، response type، SQLAlchemy async، transaction، unique constraint و authz الگوی عملی FastAPI را کامل می‌کنند.",
+    "improvement_fa": "راهنمای API async با constraint سطح DB، صفحه‌بندی پایدار و تست httpx اضافه شود؛ auth و permission جدا بررسی شوند.",
+    "boundaries": [
+      "FastAPI/Pydantic/SQLAlchemy سازگار",
+      "database async driver",
+      "شروع سرویس و تغییر DB زنده جدا از تولید کد مجوز می‌خواهند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "finance-billing-ops",
+    "domain": "billing-business-analysis",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "درآمد، قیمت و seat را از backend واقعی و snapshot زمان‌دار استخراج می‌کند و ادعای بازاریابی را از حقیقت billing جدا می‌گذارد؛ با remedy مشتری فرق دارد.",
+    "improvement_fa": "پروفایل تحلیل عملیات مالی با منبع هر عدد، timestamp و reconcile اختلاف dashboard/ledger اضافه شود.",
+    "boundaries": [
+      "دسترسی مجاز به billing و داده مالی",
+      "تعریف metric و ارز/دوره روشن",
+      "تغییر قیمت، صورت‌حساب یا مجوز مشتری بخشی از تحلیل خواندنی نیست"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "flox-environments",
+    "domain": "reproducible-development-environments",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "automation-iac",
+      "devops-containers"
+    ],
+    "rationale_fa": "manifest پروژه Flox/Nix و hook/serviceهای محیط توسعه را تعریف می‌کند؛ فایل پروژه می‌تواند reproducibility را تقویت کند بدون نصب global ضمنی.",
+    "improvement_fa": "adapter اختیاری برای .flox با packageهای pinned و smoke shell اضافه شود؛ ادعای رفع محدودیت sandbox نباید به دورزدن کنترل host تبدیل شود.",
+    "boundaries": [
+      "Flox/Nix از پیش مجاز روی macOS/Linux",
+      "activation hook می‌تواند کد اجرا کند",
+      "نصب Flox، remote FloxHub و service/network action جداگانه‌اند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "flutter-dart-code-review",
+    "domain": "flutter-dart-review",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "بازبینی Dart/Flutter را مستقل از state library با تمرکز بر rebuild، disposal، null safety، a11y و permissionهای سکو ارائه می‌کند.",
+    "improvement_fa": "پروفایل review Flutter با checklist تطبیقی برای Riverpod/BLoC/GetX/signals و evidence هر target اضافه شود.",
+    "boundaries": [
+      "کد و نسخه Flutter/Dart پروژه",
+      "افزونه و permission سکوی هدف",
+      "بازبینی ایستا جای build و آزمون device را نمی‌گیرد"
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "foundation-models-on-device",
+    "domain": "apple-on-device-language-models",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Swift FoundationModels، availability، @Generable، Tool، session و streaming SwiftUI تخصص جدیدی برای مدل on-device اپل فراهم می‌کنند.",
+    "improvement_fa": "پروفایل Apple FoundationModels با fallback availability، schema خروجی و ارزیابی واقعی device اضافه شود.",
+    "boundaries": [
+      "Swift و SDK سیستم‌عامل پشتیبان",
+      "Apple Intelligence و سخت‌افزار/زبان مجاز",
+      "حد context و APIها نسخه‌پذیرند",
+      "local model لزوماً Toolهای شبکه‌ای را محلی نمی‌کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "frontend-a11y",
+    "domain": "react-accessibility",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "label/error، semantic role، live region، focus restoration و reduced motion را به مثال‌های React/Next مرتبط می‌کند.",
+    "improvement_fa": "چک‌لیست keyboard/screen-reader و stateهای فرم/مودال اضافه شود و نتیجه ابزار خودکار از آزمون دستی جدا ثبت شود.",
+    "boundaries": [
+      "React/Next و componentهای واقعی",
+      "browser و فناوری کمکی برای اثبات تعامل",
+      "نمونه aria به‌تنهایی انطباق کامل را ثابت نمی‌کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "frontend-design-direction",
+    "domain": "frontend-design-contracts",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "design contract و حالت‌های loading/empty/error/permission را به viewport و evidence مرورگر وصل می‌کند؛ check-evidence.js فقط ساختار JSON را بررسی می‌کند.",
+    "improvement_fa": "قرارداد طراحی با RTL، accessibility و screenshot واقعی به delivery افزوده شود؛ JSON معتبر به‌جای مشاهده واقعی UI گزارش نشود.",
+    "boundaries": [
+      "browser واقعی برای evidence",
+      "UIZZE optional و نیازمند ابزار/احراز هویت خودش",
+      "انتقال brief به سرویس خارجی باید حداقلی و مجاز باشد"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "frontend-patterns",
+    "domain": "react-next-frontend-engineering",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "composition، custom hook، reducer/context، فرم Zod، lazy loading، virtualization، motion و a11y جزئیات اجرایی React/Next را گسترش می‌دهند.",
+    "improvement_fa": "الگوها با state ownership و lifecycle فعلی پروژه ترکیب شوند؛ performance با profiler و تعامل واقعی سنجیده شود.",
+    "boundaries": [
+      "نسخه React/Next و packageهای پروژه",
+      "library جدید برای فرم/animation از مثال الزام نمی‌شود",
+      "تغییر render strategy نیازمند معیار پروژه است"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "frontend-slides",
+    "domain": "html-presentations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "deck HTML، presetهای بصری، استخراج PPTX و خروجی PDF قابلیت ارائه جدیدی می‌دهند؛ template فونت خارجی دارد و export helper مرورگر نصب می‌کند، پس ادعای بدون وابستگی مطلق نیست.",
+    "improvement_fa": "پروفایل ارائه با asset محلی، RTL، کنترل overflow و preview همه اسلایدها اضافه شود؛ export فقط در محیط مجاز اجرا شود.",
+    "boundaries": [
+      "Node/npm و Playwright/Chromium برای PDF",
+      "python-pptx برای ورودی PPTX",
+      "فونت خارجی و download نیاز به دسترسی شبکه دارند",
+      "اسکریپت export سرور loopback و فایل موقت ایجاد می‌کند"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "fsharp-testing",
+    "domain": "fsharp-test-engineering",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "xUnit، FsUnit/Unquote، FsCheck و stub تابعی به همراه WebApplicationFactory/Testcontainers پوشش F# را فراهم می‌کنند؛ مهارت C# به‌تنهایی معادل این الگوها نیست.",
+    "improvement_fa": "پروفایل F# با property testing و shrinking و قرارداد async اضافه شود؛ integration container از unit test جدا ثبت شود.",
+    "boundaries": [
+      "F#/.NET و frameworkهای انتخابی",
+      "نسخه package و SDK سازگار",
+      "Testcontainers نیازمند Docker و network مجاز است"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "gan-style-harness",
+    "domain": "generator-evaluator-agent-loop",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "planner/generator/evaluator را با حلقه تکرار و Playwright مستقل ترکیب می‌کند و runtime shell/Claude جدید می‌سازد؛ برتری ادعایی آن در مرور ایستا تأیید نمی‌شود.",
+    "improvement_fa": "اصل جداسازی ارزیاب، baseline بصری و سقف تکرار به verification SAGE منتقل شود؛ harness و حلقه چندعامل نصب نشوند.",
+    "boundaries": [
+      "Claude CLI و Playwright",
+      "چند اجرای مدل و هزینه/زمان",
+      "استقلال evaluator نیازمند اجرای واقعی و evidence است"
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "gateguard",
+    "domain": "pretool-context-enforcement",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-discover",
+      "engineering-qa"
+    ],
+    "rationale_fa": "PreToolUse روی نخستین Edit/Write/Bash تا جمع‌آوری facts block می‌کند و exemption/config خود را دارد؛ gate رفتاری host و معیار تازه‌ای کنار SAGE می‌گذارد.",
+    "improvement_fa": "ایده شواهد پیش از تغییر و bounded reconnaissance به intake/discovery اضافه شود؛ hook deny/retry و ادعای افزایش کیفیت به‌صورت اثبات‌شده منتقل نشوند.",
+    "boundaries": [
+      "hook PreToolUse و schema میزبان",
+      "matcher مسیر/فرمان و exemptionهای محیطی",
+      "claim امتیاز کیفیت در این مرور بازتولید نشده است"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "generating-python-installer",
+    "domain": "windows-python-application-packaging",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "cli-harness-review"
+    ],
+    "rationale_fa": "Nuitka و Inno Setup، PySide/Tk/Playwright/OpenCV و DLLهای VC++ را برای بسته Windows پوشش می‌دهد؛ حذف ماژول و DLL با ادعای صرفه‌جویی بدون ریسک قابل پذیرش خودکار نیست.",
+    "improvement_fa": "پروفایل packaging با build در کپی disposable، manifest وابستگی و smoke روی Windows واقعی اضافه شود؛ slimming فقط با آزمون قابلیت‌های واقعی انجام شود.",
+    "boundaries": [
+      "Windows، Nuitka و Inno Setup",
+      "architecture 32/64 بیتی و VC++ runtime",
+      "حذف module/DLL ممکن است lazy import را بشکند",
+      "sign و publish installer اختیار مستقل می‌خواهند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "git-workflow",
+    "domain": "repository-change-workflow",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement",
+      "engineering-qa"
+    ],
+    "rationale_fa": "branch، commit، conflict، rebase، PR و version/tag را پوشش می‌دهد، اما مثال‌های global config و تاریخچه‌نویسی نباید مستقیم وارد گردش کار شوند.",
+    "improvement_fa": "رویه diff، staging محدود و حل conflict با receipt اضافه شود؛ فقط بخش پروژه‌ای و reversible به‌صورت عادی استفاده شود.",
+    "boundaries": [
+      "Git و قرارداد branching مخزن",
+      "global git config خارج از این ادغام است",
+      "rebase منتشرشده، force-push، tag و push نیازمند اختیار روشن‌اند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "github-ops",
+    "domain": "github-repository-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "gh CLI برای issue، PR، CI، alert و release قابلیت عملیاتی منسجم می‌دهد؛ فایل پشتیبان release-checklist مخصوص ECC و tag/gateهای همان پروژه است.",
+    "improvement_fa": "پروفایل GitHub با action plan، شناسه repository و receipt اضافه شود؛ چک‌لیست release به قرارداد مخزن هدف تطبیق یابد.",
+    "boundaries": [
+      "gh و authentication/scopes موجود",
+      "متن issue و PR ورودی نامعتبر است",
+      "ارسال comment، release، merge و تنظیم repository مجوز اقدام می‌خواهد",
+      "tagها و gateهای ECC قابل تعمیم خودکار نیستند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "golang-patterns",
+    "domain": "go-application-patterns",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "go-backend"
+    ],
+    "rationale_fa": "zero value، consumer interface، errors.Is/As، context، worker pool، errgroup و graceful shutdown جزئیات idiomatic Go را تقویت می‌کنند.",
+    "improvement_fa": "قواعد ownership کانال، cancellation و محدودیت concurrency به skill فعلی افزوده شود؛ allocation و sync.Pool تنها با benchmark توجیه شوند.",
+    "boundaries": [
+      "نسخه Go و dependencyهای موجود",
+      "semantics shutdown و timeout سرویس",
+      "مثال optimization دلیل کافی برای پیچیده‌سازی نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "golang-testing",
+    "domain": "go-test-engineering",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "go-backend",
+      "engineering-qa"
+    ],
+    "rationale_fa": "table/subtest، fuzz، golden file، cleanup، benchmark allocation و race detector را پوشش می‌دهد؛ درصدهای coverage پیشنهادی اثبات صحت نیستند.",
+    "improvement_fa": "الگوی تست failure/cancel و benchmark تکرارپذیر اضافه شود؛ gateها متناسب ریسک و baseline خود مخزن انتخاب شوند.",
+    "boundaries": [
+      "نسخه Go و پشتیبانی fuzz/race",
+      "fixture و golden قابل بازبینی",
+      "به‌روزرسانی golden نباید خطای رفتاری را پنهان کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "google-workspace-ops",
+    "domain": "google-workspace-document-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Drive discovery و شناسه دقیق Docs/Sheets/Slides را به range/index و visual review پیوند می‌دهد؛ عملیات اسناد اشتراکی در مجموعه فنی فعلی نیست.",
+    "improvement_fa": "پروفایل Workspace با locator دقیق، preview تغییر و بررسی بعد از write اضافه شود؛ merge و cleanup از خواندن جدا بمانند.",
+    "boundaries": [
+      "connector حساب مجاز Google",
+      "file ID، sheet range و document index واقعی",
+      "اشتراک‌گذاری، حذف و تغییر سند مشترک نیازمند اختیار مربوط‌اند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "growth-log",
+    "domain": "retrospective-lessons",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "lesson کوتاه مبتنی بر root cause، signal و rule قابل انتقال را پیشنهاد و duplicate را ادغام می‌کند؛ نوشتن lesson به‌خودی‌خود observer یا promotion بازگشتی نیست.",
+    "improvement_fa": "یادداشت lesson با لینک رخداد و وضعیت اعتبار به knowledge افزوده شود؛ فایل یا mtime اجباری برای DONE ایجاد نشود.",
+    "boundaries": [
+      "شواهد رخداد واقعی",
+      "پیوند optional به delivery-gate وارد policy اجرایی SAGE نشود",
+      "lesson معادل تغییر خودکار مهارت یا مدل نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "healthcare-cdss-patterns",
+    "domain": "clinical-decision-support-design",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "drug interaction، dose/weight و NEWS2/qSOFA الگوهای خاص CDSS هستند؛ مهارت مهندسی فعلی این domain و failureهای clinical را پوشش نمی‌دهد.",
+    "improvement_fa": "پروفایل طراحی اختیاری با رفرنس بالینی جاری، missing-data block و آزمون synthetic تحت review متخصص اضافه شود؛ ادعای zero false negative به معیار آزمون محدود شود.",
+    "boundaries": [
+      "دستورالعمل بالینی و دارویی معتبر و جاری",
+      "جمعیت/سن/وزن/واحدهای صحیح",
+      "نمونه کد تأیید پزشکی یا مجوز تصمیم بالینی واقعی نیست"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "healthcare-emr-patterns",
+    "domain": "electronic-medical-record-design",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "encounter، note/prescription، locked-record addendum و audit رویداد با PHI دانش EMR اختصاصی ارائه می‌کنند.",
+    "improvement_fa": "پروفایل EMR با state machine encounter، permission و audit immutable اضافه شود و نمونه‌ها با داده synthetic آزموده شوند.",
+    "boundaries": [
+      "الزامات حوزه قضایی و workflow مرکز درمانی",
+      "هویت و مجوز واقعی بیمار/کاربر",
+      "کد نمونه مجوز نسخه‌نویسی یا ویرایش پرونده واقعی ایجاد نمی‌کند"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "healthcare-eval-harness",
+    "domain": "clinical-software-evaluation",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "آزمون منطق بالینی، PHI، workflow و integration را با شدت critical/high و مثال Jest/CI جدا می‌کند؛ معیار عمومی QA برای این دامنه کافی نیست.",
+    "improvement_fa": "پروفایل eval دامنه‌ای با fixture تأییدشده و traceability به clinical requirement اضافه شود؛ آستانه‌های درصدی به تصمیم متخصص و حاکمیت SAGE متصل شوند.",
+    "boundaries": [
+      "مرجع clinical معتبر و fixture synthetic/deidentified",
+      "Jest/CI مطابق پروژه",
+      "عبور تست یا درصد پیشنهادی گواهی ایمنی بالینی و اختیار release نیست"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "healthcare-phi-compliance",
+    "domain": "patient-data-protection-design",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "طبقه‌بندی PHI، row-level access، audit و جلوگیری از نشت در log/URL/browser را با سناریوهای healthcare مرتبط می‌کند.",
+    "improvement_fa": "پروفایل privacy مهندسی با data flow، retention و آزمون منفی دسترسی اضافه شود؛ ادعاهای HIPAA/DISHA/GDPR با وضعیت حقوقی واقعی تطبیق یابند.",
+    "boundaries": [
+      "قانون و نقش covered entity/controller در حوزه واقعی",
+      "داده بیمار فقط با دسترسی مجاز",
+      "هیچ checklist به‌تنهایی compliance یا مجوز انتقال PHI را ثابت نمی‌کند"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "hermes-imports",
+    "domain": "operator-workflow-sanitization",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-discover"
+    ],
+    "rationale_fa": "workflow اپراتور را با حذف نام حساب، مسیر خصوصی، token و جزئیات CRM/سلامت/مالی به مهارت قابل اشتراک تبدیل می‌کند؛ انتقال runtime Hermes نیست.",
+    "improvement_fa": "مرحله sanitization و provenance پیش از واردکردن تجربه اپراتور اضافه شود؛ متن خروجی باید در review مستقل برای نشت دوباره بررسی شود.",
+    "boundaries": [
+      "workflow و artifact مجاز کاربر",
+      "حذف identifierها و داده حساس",
+      "خروجی مهارت به‌معنای نصب global یا انتقال credential نیست"
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "hexagonal-architecture",
+    "domain": "ports-and-adapters-application-design",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan",
+      "interface-audit"
+    ],
+    "rationale_fa": "domain/use-case و inbound/outbound port، adapter و composition root را با vertical slice و تست رفتار توضیح می‌دهد؛ با ADOPT/ADAPT/BUILD سازگار است.",
+    "improvement_fa": "مرز interface و adapter و migration مرحله‌ای به planning اضافه شود؛ orchestration use-case برنامه با coordinator عامل SAGE اشتباه نشود.",
+    "boundaries": [
+      "ساختار و زبان فعلی برنامه",
+      "TS/Java/Kotlin/Go نمونه‌اند",
+      "refactor باید رفتار observable را با آزمون حفظ کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "hipaa-compliance",
+    "domain": "hipaa-engineering-entrypoint",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "entrypoint نازک برای PHI، reviewer و security است و استفاده سرویس ثالث را تا بررسی BAA محدود می‌کند؛ فاقد اثبات مستقل انطباق است.",
+    "improvement_fa": "پروفایل اختیاری راهبری الزامات داده سلامت با لینک به کنترل‌های اجرایی و review حقوقی اضافه شود؛ وضعیت applicability صریح ثبت شود.",
+    "boundaries": [
+      "قانون جاری و نقش covered entity/business associate",
+      "قرارداد BAA و سرویس‌های واقعی",
+      "مرور ایستا گواهی HIPAA یا مشاوره حقوقی قطعی نیست"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "homelab-network-readiness",
+    "domain": "network-change-readiness",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "trust zone، DHCP/DNS/VPN، مسیر مدیریت، console و rollback را پیش از هر تغییر شبکه می‌سنجد و خود read-only است.",
+    "improvement_fa": "پروفایل اختیاری ارزیابی آمادگی شبکه با topology و برنامه بازگشت اضافه شود؛ از ارائه paste-and-run بدون وضعیت واقعی پرهیز شود.",
+    "boundaries": [
+      "inventory و توپولوژی واقعی",
+      "دسترسی out-of-band و پنجره تغییر",
+      "این ارزیابی مجوز اعمال تنظیمات router یا host نیست"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "homelab-network-setup",
+    "domain": "home-network-planning",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "gateway/switch/AP، آدرس‌دهی، رزرو DHCP، DNS، double NAT و Wi-Fi را به طرح شبکه قابل بررسی تبدیل می‌کند؛ مکمل IaC عمومی است.",
+    "improvement_fa": "پروفایل برنامه‌ریزی شبکه با addressing table، dependency و migration plan اضافه شود و مرحله apply جدا بماند.",
+    "boundaries": [
+      "مدل/firmware تجهیزات و وضعیت ISP",
+      "کابل‌کشی و پوشش بی‌سیم واقعی",
+      "تغییر DHCP، route یا AP از طرح خواندنی اختیار نمی‌گیرد"
+    ],
+    "profile": "operations",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "homelab-pihole-dns",
+    "domain": "host-dns-service-configuration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "automation-iac",
+      "devops-containers"
+    ],
+    "rationale_fa": "نصب Pi-hole، IP ثابت، DHCP، upstream DNS و cloudflared تنظیمات میزبان و resolver سراسری را تغییر می‌دهد؛ طبق مرز ادغام نباید به مهارت فعال خودکار تبدیل شود.",
+    "improvement_fa": "الگوی topology DNS، آزمون resolution و rollback به reference عملیات منتقل شود؛ هر نصب یا تغییر resolver با برنامه SAGE اجرا شود.",
+    "boundaries": [
+      "Pi-hole در Docker یا bare metal",
+      "static IP و DHCP/DNS شبکه",
+      "cloudflared/DoH اختیاری",
+      "خرابی DNS می‌تواند دسترسی مدیریت را قطع کند"
+    ],
+    "profile": "operations",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "homelab-vlan-segmentation",
+    "domain": "network-segmentation-configuration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "automation-iac"
+    ],
+    "rationale_fa": "trunk/access، SSID و firewall روی UniFi/pfSense/OPNsense/MikroTik تغییرات host/network واقعی و ریسک قفل مدیریت دارند؛ این سطح تنظیم مستقیم وارد dispatcher SAGE نمی‌شود.",
+    "improvement_fa": "matrix دسترسی بین zoneها و طرح rollback حفظ شود؛ تولید config فقط پس از مدل/نسخه و مسیر مدیریت معتبر انجام گیرد.",
+    "boundaries": [
+      "vendor و firmware تجهیزات",
+      "پورت مدیریت و console/out-of-band",
+      "اعمال VLAN/firewall action مدیریتی مستقل است"
+    ],
+    "profile": "operations",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "homelab-wireguard-vpn",
+    "domain": "vpn-host-configuration",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "automation-iac"
+    ],
+    "rationale_fa": "key pair، peer، route، iptables و DDNS را روی Linux/router تنظیم می‌کند و مسیر ترافیک میزبان را تغییر می‌دهد؛ مرز پیکربندی حاکمیتی است.",
+    "improvement_fa": "طرح split/full tunnel، حداقل route و آزمون دسترسی به reference منتقل شود؛ تنظیم واقعی تحت برنامه و rollback SAGE بماند.",
+    "boundaries": [
+      "WireGuard و پشتیبانی kernel/router",
+      "کلید خصوصی با دسترسی محدود و بدون چاپ",
+      "iptables/route/DDNS و peer زنده مجوز مدیریتی می‌خواهند"
+    ],
+    "profile": "operations",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "hookify-rules",
+    "domain": "host-tool-event-policies",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "engineering-qa",
+      "interface-audit"
+    ],
+    "rationale_fa": "قواعد .claude/hookify با regex و warn/block روی Bash/Write/Stop سیاست اجرایی host می‌سازند؛ با authority و gateهای SAGE هم‌پوشانی مستقیم دارند.",
+    "improvement_fa": "ایده مثال مثبت/منفی matcher و پیام خطای روشن به آزمون policy SAGE منتقل شود؛ فایل rule و hook تازه نصب نشوند.",
+    "boundaries": [
+      "ECC Node hooks و eventهای میزبان",
+      "matcher regex محدودیت دارد",
+      "policy project یا global باید تنها از مرجع مصوب SAGE بیاید"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "i18n-sync",
+    "domain": "translation-catalog-consistency",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "کلیدهای JSON، usage، اصطلاحات و placeholder را با حفظ serializer و engine فعلی همگام می‌کند؛ برای تکمیل کیفیت i18n مناسب است.",
+    "improvement_fa": "گزارش missing/unused key و consistency به skill وب اضافه شود؛ فارسی/RTL و layout با render مستقل بررسی شوند.",
+    "boundaries": [
+      "ساختار locale و i18n engine موجود",
+      "Locakit optional با نسخه و connector مجاز",
+      "ارسال رشته خصوصی به سرویس خارجی نیازمند scope روشن",
+      "sync کلید اثبات visual QA نیست"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "inherit-legacy-style",
+    "domain": "persistent-style-injection",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-discover",
+      "sage-plan"
+    ],
+    "rationale_fa": "Golden files و چهار بُعد convention را استخراج می‌کند ولی .ai-style-rules.md و soft hook در CLAUDE و اعلان هر نوبت سازوکار دستور پایدار می‌سازند.",
+    "improvement_fa": "روش استخراج convention با نمونه مسیر واقعی وارد discovery شود؛ قواعد در plan تأییدشده ثبت شوند و hook یا مرجع دستور موازی ایجاد نشود.",
+    "boundaries": [
+      "کد واقعی و نمونه‌های نماینده",
+      "ویرایش فایل‌های دستور host",
+      "سبک قدیمی نباید خطا یا الزام امنیتی روشن را تثبیت کند"
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "intent-driven-development",
+    "domain": "intent-and-acceptance-planning",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-intake",
+      "sage-plan",
+      "sage-verify"
+    ],
+    "rationale_fa": "ابهام پراثر، acceptance criterion ID و مسیر quick/full/existing را متناسب task می‌کند؛ با contract-first intake موجود هم‌راستاست.",
+    "improvement_fa": "پیوند هدف→معیار→evidence و پرسش فقط برای ابهام مؤثر اضافه شود؛ برای تغییر کوچک تشریفات ثابت تحمیل نشود.",
+    "boundaries": [
+      "هدف و محدودیت واقعی کاربر",
+      "معیار پذیرش پیش از تغییر تثبیت شود",
+      "قالب سند مجوز توسعه scope ایجاد نمی‌کند"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "inventory-demand-planning",
+    "domain": "inventory-and-demand-analysis",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "ABC/XYZ، forecast، safety stock، reorder، promo/seasonality و WAPE دانش زنجیره تأمین مستقل از مهندسی فعلی است.",
+    "improvement_fa": "پروفایل تحلیل اختیاری با تاریخچه SKU، backtest زمانی و سناریوی service level اضافه شود؛ درصد بهبود ML متن نتیجه تضمینی تلقی نشود.",
+    "boundaries": [
+      "داده واقعی فروش، stockout و lead time",
+      "واحد/تقویم/seasonality معتبر",
+      "ثبت سفارش، قیمت‌گذاری یا تغییر ERP از تحلیل جدا هستند"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "investor-materials",
+    "domain": "fundraising-material-production",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "deck، memo، مدل و use-of-funds را بر یک منبع اعداد مشترک بنا می‌کند و assumptions را از واقعیت جدا می‌گذارد؛ این قابلیت در SAGE مهندسی نیست.",
+    "improvement_fa": "پروفایل اختیاری تهیه بسته سرمایه‌گذاری با reconciliation اعداد و claim provenance اضافه شود.",
+    "boundaries": [
+      "داده مالی و ادعاهای تأییدشده شرکت",
+      "پیش‌بینی سناریو است نه وعده",
+      "ارائه/ارسال به سرمایه‌گذار یا تصمیم مالی مجوز جدا می‌خواهد"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "investor-outreach",
+    "domain": "fundraising-outreach-drafting",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "cold/warm email، follow-up و investor update را با fit و proof شخصی‌سازی می‌کند؛ ارزش آن در draft قابل بازبینی است.",
+    "improvement_fa": "پروفایل اختیاری متن جذب سرمایه با منبع برای investor-fit و cadence پیشنهادی اضافه شود.",
+    "boundaries": [
+      "اطلاعات عمومی معتبر سرمایه‌گذار و داده مجاز شرکت",
+      "ساخت آشنایی یا traction جعلی مجاز نیست",
+      "draft هیچ مجوزی برای ارسال یا follow-up خودکار نمی‌دهد"
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "ios-icon-gen",
+    "domain": "ios-icon-asset-production",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "از SF Symbols با Swift/AppKit یا Iconify با curl/sips خروجی imageset در اندازه‌های 1x/2x/3x می‌سازد؛ تخصص asset iOS جدیدی است.",
+    "improvement_fa": "پروفایل تولید asset با manifest نام/مقیاس، preview واقعی و بررسی مجوز icon اضافه شود.",
+    "boundaries": [
+      "macOS، Swift/AppKit و sips برای مسیر native",
+      "Iconify API و Python در helper دیگر",
+      "مجوز SF Symbols/Iconify و شرایط سکو باید رعایت شوند",
+      "download خارجی و بسته asset نیازمند بررسی ورودی‌اند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "iterative-retrieval",
+    "domain": "bounded-context-retrieval",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "docs-knowledge"
+    ],
+    "rationale_fa": "dispatch/evaluate/refine را با حداکثر سه دور، relevance و context gap تعریف می‌کند؛ یک الگوی retrieval محدود است و لزوماً runtime مستقل ندارد.",
+    "improvement_fa": "جست‌وجوی مرحله‌ای با stop condition و ثبت پوشش منبع به discovery اضافه شود؛ dispatch هر subagent توسط coordinator خود SAGE انجام شود.",
+    "boundaries": [
+      "منابع و ابزار retrieval مجاز",
+      "score relevance heuristic است نه confidence علمی",
+      "سقف دور و بودجه باید صریح بماند"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ito-baskets",
+    "domain": "compute-market-basket-research",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "چهار حالت index/compare/brief/worksheet را فقط خواندنی می‌دهد و Node client به GET، origin مشخص و اندازه پاسخ محدود است؛ خرید یا رزرو انجام نمی‌دهد.",
+    "improvement_fa": "پروفایل پژوهش compute-market با timestamp، freshness، محاسبات قابل بازتولید و URL منبع اضافه شود.",
+    "boundaries": [
+      "endpointهای واقعی Itô Markets",
+      "ITO_API_KEY فقط برای مسیر keyed read",
+      "public و keyed read جدا هستند",
+      "داده بازار مشاوره معامله و مجوز reserve/purchase نیست"
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ito-compute",
+    "domain": "compute-market-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "قرارداد CLI احراز هویت دستگاه، RFQ/status/revoke و qualification محدود را تعریف می‌کند؛ فایل agents/openai.yaml برخلاف بدنه quote acceptance می‌گوید و باید این اختلاف رفع شود.",
+    "improvement_fa": "adapter اختیاری فقط با executable صریح و قابلیت‌های اثبات‌شده تعریف شود؛ متن manifest به رفتار محدود SKILL اصلاح و هر action با receipt ثبت شود.",
+    "boundaries": [
+      "CLI canonical در متن هنوز منتشرنشده و نیازمند build بازبینی‌شده است",
+      "استفاده از binary تصادفی PATH مجاز نیست",
+      "auth و RFQ/eval ممکن است action و هزینه داشته باشند",
+      "checkout/purchase/reservation در این bridge مجاز نیست"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "ito-inference",
+    "domain": "future-compute-inference-contract",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "python-ai",
+      "interface-audit"
+    ],
+    "rationale_fa": "متن صریحاً scaffold و managed serving را unavailable می‌داند و serve را پیش از spawn ممنوع می‌کند؛ قابلیت اجرایی قابل افزودن فعلی وجود ندارد.",
+    "improvement_fa": "قرارداد پیشنهادی entitlement، cost، booking و status به reference آینده نگهداری شود و در catalog با وضعیت unavailable نمایش داده شود.",
+    "boundaries": [
+      "endpoint و CLI inference قابل استفاده در این منبع اثبات نشده‌اند",
+      "booking/credential و budget برای آینده لازم‌اند",
+      "نباید SSH، انتقال weights یا سروینگ موجود ادعا شود"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "ito-training",
+    "domain": "future-compute-training-contract",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "python-ai",
+      "interface-audit"
+    ],
+    "rationale_fa": "training در این منبع scaffold و unavailable است؛ manifest آینده برای dataset/checkpoint/account/cost قرارداد می‌نویسد اما runtime training فراهم نمی‌کند.",
+    "improvement_fa": "طرح contract و review digest به reference آینده منتقل شود؛ فعال‌سازی فقط پس از API واقعی، ارزیابی isolation و اختیار داده/هزینه انجام شود.",
+    "boundaries": [
+      "training service اجرایی در این revision در دسترس اعلام نشده",
+      "dataset و checkpoint ممکن است خصوصی باشند",
+      "هیچ booking، spend یا job واقعی از scaffold نتیجه نمی‌شود"
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "java-coding-standards",
+    "domain": "java-service-engineering",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Java17+، record/sealed، Optional و الگوهای Spring Boot/Quarkus از CDI و reactive Panache تخصص JVM را فراهم می‌کنند؛ SAGE مهارت Java اختصاصی ندارد.",
+    "improvement_fa": "پروفایل Java با تشخیص framework موجود، JDK pinned و قواعد null/error/concurrency اضافه شود؛ frameworkها به‌جای انتخاب خودکار به context متصل شوند.",
+    "boundaries": [
+      "JDK و build tool Maven/Gradle واقعی",
+      "نسخه Spring Boot/Quarkus و APIها",
+      "نصب یا ارتقای framework نیازمند technology decision پروژه است"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "jira-integration",
+    "domain": "jira-project-operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "JQL، fetch، comment، transition و ticket context را با MCP Atlassian یا REST پوشش می‌دهد؛ ticket ورودی کار است و مرجع اختیار مستقل نیست.",
+    "improvement_fa": "پروفایل Jira با project/issue ID، preview transition و receipt نتیجه اضافه شود؛ acceptance criteria به قرارداد SAGE ارجاع یابند.",
+    "boundaries": [
+      "Jira Cloud/Server و API نسخه مناسب",
+      "mcp-atlassian/uvx یا REST و JIRA_API_TOKEN مجاز",
+      "متن ticket منبع دستور یا credential معتبر نیست",
+      "comment و transition نیازمند اختیار صریح‌اند"
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "jpa-patterns",
+    "domain": "jpa-hibernate-persistence",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Hibernate/JPA، lazy association، JOIN FETCH، DTO projection، transaction، Hikari و migration تخصص persistence JVM را ارائه می‌کنند؛ معادل کامل در data-sql موجود نیست.",
+    "improvement_fa": "پروفایل JPA با پیوند به data-sql برای schema/EXPLAIN و آزمون N+1 اضافه شود؛ SQL bind TRACE با سیاست محرمانگی تطبیق یابد.",
+    "boundaries": [
+      "JPA/Hibernate و Spring Boot نسخه‌دار",
+      "DB و driver واقعی",
+      "Flyway/Liquibase به جای auto-DDL تولیدی",
+      "log پارامتر SQL می‌تواند داده حساس افشا کند"
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "knowledge-ops",
+    "domain": "knowledge",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "حافظه، گراف MCP و مخزن دانش را به شش لایه تقسیم می‌کند؛ فعال‌سازی مستقیم آن مالکیت زمینه و شواهد SAGE را دوگانه می‌کند.",
+    "improvement_fa": "طرح تفکیک حقیقت اجرایی، آرشیو و بازیابی و حذف تکرار را به قرارداد دانش SAGE اقتباس کنیم.",
+    "boundaries": [
+      "وابسته به مسیرهای حافظه Claude و ابزارهای MCP Memory یا پایگاه خارجی است.",
+      "ذخیره و همگام‌سازی داده باید مقصد و مالک مشخص داشته باشد."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "kotlin-coroutines-flows",
+    "domain": "kotlin",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "SAGE متخصص Kotlin ندارد؛ این مهارت هم‌زمانی ساختاریافته، Flow و لغو کار را پوشش می‌دهد.",
+    "improvement_fa": "بسته Kotlin/KMP با مثال‌های StateFlow، Turbine و پاک‌سازی منابع اضافه شود.",
+    "boundaries": [
+      "نیازمند Kotlin Coroutines و برای آزمون Flow کتابخانه Turbine است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "kotlin-exposed-patterns",
+    "domain": "kotlin",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "الگوهای Exposed، تراکنش و لایه repository در مهارت عمومی SQL سیج به این تفصیل وجود ندارند.",
+    "improvement_fa": "تخصص داده Kotlin شامل DSL/DAO، pooling و migration اضافه شود.",
+    "boundaries": [
+      "Exposed، JDBC، HikariCP و Flyway باید با نسخه پروژه سازگار باشند.",
+      "نمونه migration مجوز تغییر پایگاه زنده نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "kotlin-ktor-patterns",
+    "domain": "kotlin",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Ktor، مسیریابی، JWT و testApplication یک تخصص backend جدید برای کاتالوگ است.",
+    "improvement_fa": "پروفایل Ktor با احراز هویت، خطای استاندارد و آزمون HTTP اضافه شود.",
+    "boundaries": [
+      "Ktor، Koin و kotlinx.serialization وابستگی‌های اختصاصی‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "kotlin-patterns",
+    "domain": "kotlin",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "قواعد null-safety، sealed types، DSL و delegation زبان Kotlin در سیج تعریف اختصاصی ندارند.",
+    "improvement_fa": "مرجع نگارش و بازبینی Kotlin به‌صورت مستقل و برحسب نیاز بارگذاری شود.",
+    "boundaries": [
+      "برخی قابلیت‌ها به نسخه Kotlin و Gradle پروژه وابسته‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "kotlin-testing",
+    "domain": "kotlin",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "آزمون Kotest/MockK، property-based testing و Kover مکمل تخصص Kotlin جدید هستند.",
+    "improvement_fa": "بسته آزمون Kotlin با ثبت فرمان و خروجی واقعی به گیت عمومی SAGE متصل شود.",
+    "boundaries": [
+      "Kotest، MockK، Kover و Gradle لازم‌اند.",
+      "درصد پوشش پیشنهادی ECC باید با ریسک و DoD سیج تطبیق یابد."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "kubernetes-patterns",
+    "domain": "kubernetes",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "devops-containers"
+    ],
+    "rationale_fa": "مهارت فعلی کانتینر Kubernetes را نام می‌برد اما الگوهای workload، probes، RBAC و HPA را جزئی نمی‌کند.",
+    "improvement_fa": "قالب‌های manifest و تشخیص خطای Kubernetes به متخصص کانتینر افزوده شوند.",
+    "boundaries": [
+      "kubectl و نسخه API خوشه باید مشخص باشند.",
+      "apply، دسترسی Secret و تغییر RBAC از اعتبارسنجی ایستا جدا هستند."
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "laravel-patterns",
+    "domain": "laravel",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "سیج برای PHP/Laravel متخصص مشخص ندارد؛ این بسته ساختار controller/service، Eloquent، queue و cache را می‌آورد.",
+    "improvement_fa": "پروفایل Laravel با migration، request validation و الگوهای جلوگیری از N+1 اضافه شود.",
+    "boundaries": [
+      "PHP، Laravel و Composer نسخه‌دار لازم‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "laravel-plugin-discovery",
+    "domain": "laravel",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "جست‌وجوی افزونه Laravel از طریق LaraPlugins.io قابلیت اختصاصی جدید است.",
+    "improvement_fa": "در کشف وابستگی Laravel، سلامت و سازگاری بسته از منبع بیرونی ثبت شود.",
+    "boundaries": [
+      "به MCP سرویس LaraPlugins.io وابسته است.",
+      "مثال تغییر ~/.claude.json خودکار اعمال نشود."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "laravel-security",
+    "domain": "laravel",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "قواعد Sanctum، Passport، policy و امنیت Eloquent جزئیات ویژه Laravel هستند.",
+    "improvement_fa": "چک‌لیست امنیت Laravel به خروجی reviewer عمومی امنیت متصل شود.",
+    "boundaries": [
+      "نیازمند شناسایی نسخه Laravel و روش واقعی احراز هویت پروژه است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "laravel-tdd",
+    "domain": "laravel",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "PHPUnit/Pest، factory و fakeهای Mail/Queue/Storage در کاتالوگ فعلی وجود ندارند.",
+    "improvement_fa": "آزمون Laravel با جداسازی پایگاه آزمایشی و شواهد failing-to-passing اضافه شود.",
+    "boundaries": [
+      "PHPUnit یا Pest و محیط آزمون Laravel لازم‌اند.",
+      "fixtureهای RefreshDatabase نباید به پایگاه واقعی متصل شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "laravel-verification",
+    "domain": "laravel",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "چرخه Laravel شامل Composer، lint، تحلیل ایستا، queue و migration یک verifier تخصصی تازه است.",
+    "improvement_fa": "نتایج این مراحل به قالب PASS/FAIL/NOT RUN سیج تبدیل شوند.",
+    "boundaries": [
+      "فرمان‌های artisan و Composer نیازمند پروژه و ابزار سازگارند.",
+      "اجرای migration و queue از بررسی آمادگی جدا شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "latency-critical-systems",
+    "domain": "performance",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "rust-engineering",
+      "go-backend"
+    ],
+    "rationale_fa": "سیج سنجش کارایی را الزام کرده ولی این مهارت latency، freshness و queue depth را جدا می‌کند.",
+    "improvement_fa": "اندازه‌گیری p50/p95/p99 و مسیر داغ در قرارداد آزمون کارایی ثبت شود.",
+    "boundaries": [
+      "سنجه و readback باید از محیط واقعی یا بار آزمایشی مشخص حاصل شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "lead-intelligence",
+    "domain": "marketing",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "ارزیابی سرنخ، امتیاز رابطه، مسیر معرفی و پیش‌نویس ارتباط دامنه جدیدی خارج از هسته مهندسی است.",
+    "improvement_fa": "به‌عنوان پروفایل اختیاری رشد با جداسازی پژوهش از ارسال پیام عرضه شود.",
+    "boundaries": [
+      "Exa MCP و X API وابستگی اصلی؛ GitHub MCP اختیاری است.",
+      "مجوز ارسال پیام و استفاده از داده تماس جدا از تحلیل است."
+    ],
+    "profile": "domain",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "liquid-glass-design",
+    "domain": "apple",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "SAGE در مخزن متخصص SwiftUI/UIKit و Liquid Glass ندارد.",
+    "improvement_fa": "پروفایل طراحی Apple شامل material، container و morphing با نسخه هدف اضافه شود.",
+    "boundaries": [
+      "نمونه‌ها iOS26 و SwiftUI/UIKit/WidgetKit را هدف می‌گیرند؛ قابلیت باید روی SDK واقعی احراز شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "living-docs-governance",
+    "domain": "governance",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-plan"
+    ],
+    "rationale_fa": "چهار نقش constitution، map، status و history با هدف ضدفرسودگی اسناد سیج هم‌پوشان است.",
+    "improvement_fa": "نقش اسناد موجود و تاریخچه حذف‌های عمدی ثبت شود تا عامل‌ها منابع متناقض نسازند.",
+    "boundaries": [
+      "پیشنهاد wiring به دستورالعمل میزبان باید با سیاست مرجع سیج تطبیق یابد."
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "llm-trading-agent-security",
+    "domain": "finance",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "امنیت عامل دارای wallet، محدودیت هزینه، simulation و circuit breaker تخصص تازه‌ای است.",
+    "improvement_fa": "فقط به‌عنوان لنز بازبینی مالی و طراحی حدود اجرا اضافه شود.",
+    "boundaries": [
+      "نمونه‌های wallet و معامله نیازمند provider و مجوز مالی مشخص‌اند.",
+      "داشتن این مهارت اجرای معامله یا نگهداری کلید را فعال نمی‌کند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "logistics-exception-management",
+    "domain": "logistics",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "طبقه‌بندی تأخیر، خسارت، مفقودی و اختلاف با حامل در SAGE موجود نیست.",
+    "improvement_fa": "پروفایل اختیاری عملیات لجستیک با شواهد، deadlines و مسیر escalation اضافه شود.",
+    "boundaries": [
+      "قواعد حامل و مهلت مطالبه باید با قرارداد و حوزه جغرافیایی واقعی اعتبارسنجی شوند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "loop-design-check",
+    "domain": "agents",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "بازبینی هدف قابل‌سنجش، حلقه بی‌پایان و بازی‌دادن verifier به طراحی و QA سیج کمک می‌کند.",
+    "improvement_fa": "معیار توقف، سقف تکرار و استقلال قاضی به بررسی workflow افزوده شود.",
+    "boundaries": [
+      "این مهارت طراحی حلقه است و runtime یا زمان‌بندی نصب نمی‌کند."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "mailtrap-email-integration",
+    "domain": "email",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "ادغام ایمیل تراکنشی و sandbox Mailtrap قابلیت محصولی تازه است.",
+    "improvement_fa": "بسته اتصال ایمیل با تفکیک sandbox، تأیید دامنه و آزمون تحویل اضافه شود.",
+    "boundaries": [
+      "Mailtrap API، credential و برای ارسال واقعی DNS تاییدشده لازم است."
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "make-interfaces-feel-better",
+    "domain": "ui",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "مهارت فعلی وب دسترس‌پذیری را ذکر می‌کند ولی جزئیات فاصله، سایه، target لمسی و optical alignment ندارد.",
+    "improvement_fa": "چک‌لیست polish بصری و حالت‌های تعامل به بازبینی رابط افزوده شود.",
+    "boundaries": [
+      "به مشاهده یا رندر واقعی برای ادعای کیفیت بصری نیاز دارد."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "manim-video",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game",
+      "python-ai"
+    ],
+    "rationale_fa": "تولید توضیح تصویری با Manim قابلیت ملموسی به گرافیک و Python سیج می‌افزاید.",
+    "improvement_fa": "قالب scene شبکه و تحویل رندر همراه سورس قابل‌ویرایش ثبت شود.",
+    "boundaries": [
+      "Manim و ابزارهای رندر محلی باید موجود باشند.",
+      "assets/network_graph_scene.py فقط قالب است؛ خروجی نهایی باید رندر شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "market-research",
+    "domain": "research",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "اندازه بازار، رقبا و due diligence از محدوده کنونی توسعه نرم‌افزار فراترند.",
+    "improvement_fa": "پروفایل پژوهش تجاری با منبع، فرضیه و نتیجه تصمیم‌محور اضافه شود.",
+    "boundaries": [
+      "اطلاعات بازار و قیمت نیازمند منبع تازه و حدود عدم‌قطعیت‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "marketing-campaign",
+    "domain": "marketing",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "برنامه‌ریزی کمپین، پیام و کانال‌ها حوزه تازه است و می‌تواند خروجی محصول SAGE را تکمیل کند.",
+    "improvement_fa": "پروفایل اختیاری بازاریابی با تولید پیش‌نویس landing/email/social اضافه شود.",
+    "boundaries": [
+      "تولید محتوا با انتشار و ارسال روی کانال‌های خارجی یکسان نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "master-agreement-generator",
+    "domain": "legal",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "ساخت پیش‌نویس توافق از قالب و JSON نمونه کاری جدید خارج از هسته کدنویسی است.",
+    "improvement_fa": "قالب بازتولیدپذیر قرارداد و هندسه امضا با بازبینی انسانی عرضه شود.",
+    "boundaries": [
+      "اسکریپت Node برای DOCX به pandoc وابسته است.",
+      "تولید پیش‌نویس به معنی اعتبار حقوقی، امضا یا ارسال نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "mcp-dependency-review",
+    "domain": "mcp",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "mcp-review",
+      "interface-audit"
+    ],
+    "rationale_fa": "SAGE provenance را بررسی می‌کند؛ این مهارت انتخابگرهای mutable بسته MCP را به‌طور دقیق طبقه‌بندی می‌کند.",
+    "improvement_fa": "گزارش نسخه ثابت، integrity و drift dependency به بررسی MCP افزوده شود.",
+    "boundaries": [
+      "بررسی ایستا است و نباید command سرورهای کشف‌شده اجرا شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "mcp-server-patterns",
+    "domain": "mcp",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "mcp-review",
+      "interface-audit",
+      "typescript-web"
+    ],
+    "rationale_fa": "قرارداد MCP موجود با مثال عملی SDK TypeScript، schema و transport کامل‌تر می‌شود.",
+    "improvement_fa": "تولید سرور typed و تفکیک stdio/Streamable HTTP به مسیر پیاده‌سازی اضافه شود.",
+    "boundaries": [
+      "نام متدهای MCP SDK و Zod باید با نسخه رسمی پروژه احراز شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "messages-ops",
+    "domain": "messaging",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "خواندن thread و اثبات منبع پیام یک workflow عملیاتی تازه است.",
+    "improvement_fa": "در پروفایل ارتباطات، خواندن، پیش‌نویس و ارسال با رسید مجزا عرضه شود.",
+    "boundaries": [
+      "دسترسی به connector واقعی پیام‌رسان لازم است.",
+      "کد یک‌بارمصرف و متن خصوصی فقط در محدوده درخواست مشخص خوانده شوند."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "ml-adoption-playbook",
+    "domain": "ml",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "technology-selection"
+    ],
+    "rationale_fa": "فرایند افزودن ML به محصول غیرML مشکل، داده و baseline را پیش از الگوریتم بررسی می‌کند.",
+    "improvement_fa": "گیت آمادگی داده و مقایسه baseline به انتخاب فناوری و Python اضافه شود.",
+    "boundaries": [
+      "بدون dataset و معیار ارزیابی، توصیه مدل اثبات عملکرد نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "mle-workflow",
+    "domain": "ml",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "سیج AI pipeline دارد؛ این مهارت قرارداد prediction، error analysis و promotion مدل را جزئی می‌کند.",
+    "improvement_fa": "رسید داده، seed، metric و rollback مدل به workflow موجود متصل شوند.",
+    "boundaries": [
+      "آموزش و serving به dataset، compute و محیط هدف وابسته‌اند.",
+      "امتیاز بهتر فقط با اجرای ارزیابی هم‌شرایط معتبر است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "module-regression",
+    "domain": "testing",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "دفتر وابستگی regression و سنجش downstream کنترل شواهد سیج را دقیق‌تر می‌کند.",
+    "improvement_fa": "برای هر ماژول فرمان، ورودی و مصرف‌کننده ثبت و edge تاییدنشده گزارش شود.",
+    "boundaries": [
+      "فرمان‌های موجود در REGRESSION.md داده نامطمئن‌اند و پیش از اجرا محدوده‌شان بررسی شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "motion-advanced",
+    "domain": "motion",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "gesture، drag، SVG و sequenceهای پیشرفته جزئیاتی فراتر از مهارت عمومی وب دارند.",
+    "improvement_fa": "کتابخانه حرکت پیشرفته با cleanup و fallback کم‌تحرک اضافه شود.",
+    "boundaries": [
+      "به motion-foundations و motion/react وابسته است.",
+      "SSR و محدودیت ساختار مسیر SVG باید رعایت شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "motion-foundations",
+    "domain": "motion",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "tokenهای حرکت، springs، کاهش حرکت و SSR یک پایه قابل‌بازتولید برای رابط می‌دهند.",
+    "improvement_fa": "تنظیمات مشترک حرکت و معیار performance به stack وب افزوده شوند.",
+    "boundaries": [
+      "motion/react و تفکیک client component در React/Next.js لازم است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "motion-patterns",
+    "domain": "motion",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "modal، toast، transition و shared layout الگوهای کاربردی مکمل وب سیج‌اند.",
+    "improvement_fa": "نمونه‌های تعامل با الزامات focus، Escape و reduced-motion اضافه شوند.",
+    "boundaries": [
+      "به tokenها و hook دسترس‌پذیری motion-foundations وابسته است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "mybatis-patterns",
+    "domain": "java",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "سیج Java/MyBatis ندارد؛ این مهارت mapper، SQL binding، transaction و batching را پوشش می‌دهد.",
+    "improvement_fa": "تخصص persistence جاوا با کنترل SQL پویا اضافه شود.",
+    "boundaries": [
+      "MyBatis و Spring نسخه‌دار لازم‌اند.",
+      "EXPLAIN ANALYZE و migration روی داده واقعی مجوز جدا می‌خواهند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "mysql-patterns",
+    "domain": "database",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql"
+    ],
+    "rationale_fa": "مهارت فعلی SQL کلی و PostgreSQLمحور است؛ MySQL/MariaDB، replication و pool جزئیات مکمل‌اند.",
+    "improvement_fa": "دانش engine-specific، replica lag و transaction به data-sql اضافه شود.",
+    "boundaries": [
+      "تفاوت نسخه MySQL/MariaDB و read-after-write روی replica باید احراز شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "nanoclaw-repl",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-discover"
+    ],
+    "rationale_fa": "NanoClaw یک REPL و حافظه مستقل ECC با model switching و session branching است.",
+    "improvement_fa": "ایده export و branch جلسه در طراحی adapter بررسی شود؛ runtime موازی خودکار وارد نشود.",
+    "boundaries": [
+      "به scripts/claw.js و layout نشست‌های ECC وابسته است."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "nasiko-control-plane",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "interface-audit",
+      "cli-harness-review"
+    ],
+    "rationale_fa": "این مهارت چرخه نصب Nasiko CLI را مدیریت می‌کند و جایگزین control plane SAGE نیست.",
+    "improvement_fa": "الگوی pin، digest، dry-run و مالکیت uninstall برای adapterهای سیج اقتباس شود.",
+    "boundaries": [
+      "به runtime ECC و artifactهای qualified Nasiko v0.1.0 وابسته است.",
+      "نصب CLI اثبات اتصال یا اداره عامل نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "nestjs-patterns",
+    "domain": "typescript",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "ساختار modules/providers، DTO و guards NestJS تخصص backend موجود را عمیق‌تر می‌کند.",
+    "improvement_fa": "پروفایل NestJS با validation سراسری، خطای یکدست و تست اضافه شود.",
+    "boundaries": [
+      "NestJS، TypeScript و framework adapter پروژه باید سازگار باشند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "netmiko-ssh-automation",
+    "domain": "networking",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "automation-iac"
+    ],
+    "rationale_fa": "خودکارسازی عمومی با الگوهای timeout، batch و parsing دستگاه شبکه تکمیل می‌شود.",
+    "improvement_fa": "Netmiko read-only به‌صورت قابلیت جدا از push config ثبت شود.",
+    "boundaries": [
+      "Netmiko، SSH و inventory معتبر لازم‌اند.",
+      "send_config_set و save config تغییر زنده محسوب می‌شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "network-bgp-diagnostics",
+    "domain": "networking",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تشخیص neighbor، route policy و AS path تخصص شبکه‌ای تازه در سیج است.",
+    "improvement_fa": "پروفایل BGP با جمع‌آوری شواهد read-only و تفکیک diagnosis از تغییر اضافه شود.",
+    "boundaries": [
+      "فرمان‌های vendor-specific باید با دستگاه و نسخه سیستم‌عامل تطبیق یابند."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "network-config-validation",
+    "domain": "networking",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پیش‌بررسی پیکربندی شبکه، subnet overlap و management-plane در کاتالوگ فعلی تعریف تخصصی ندارد.",
+    "improvement_fa": "verifier شبکه پیش از deploy با severity و rollback checklist اضافه شود.",
+    "boundaries": [
+      "regexهای IOS پوشش همه vendorها نیستند.",
+      "نتیجه ایستا به‌تنهایی مجوز deploy یا اثبات سلامت شبکه نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "network-interface-health",
+    "domain": "networking",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تفسیر CRC، drop، flapping و duplex به قابلیت تشخیص شبکه می‌افزاید.",
+    "improvement_fa": "گزارش trend و اختلاف شمارنده‌ها به جای قضاوت از یک snapshot اضافه شود.",
+    "boundaries": [
+      "نیازمند counters واقعی و بازه زمانی و semantics دستگاه است."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "nextjs-turbopack",
+    "domain": "typescript",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "Next.js16/Turbopack و تغییر middleware به proxy جزئیات نسخه‌ای مکمل وب هستند.",
+    "improvement_fa": "راهنمای migration و تشخیص startup/HMR با اندازه‌گیری قبل و بعد اضافه شود.",
+    "boundaries": [
+      "هدف Next.js16+ است؛ ادعای بهبود سرعت باید برای پروژه اندازه‌گیری شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "nodejs-keccak256",
+    "domain": "typescript",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "تفاوت Keccak اتریوم و SHA3 استاندارد خطای تخصصی مهمی در هش JavaScript است.",
+    "improvement_fa": "آزمون بردارهای ثابت برای selector، signature و derivation به QA اضافه شود.",
+    "boundaries": [
+      "ethers/viem/web3 نسخه‌دار لازم‌اند؛ نمونه صحیح هش مجوز تراکنش نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "nutrient-document-processing",
+    "domain": "documents",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "OCR، تبدیل، حذف اطلاعات و پرکردن اسناد با Nutrient قابلیت اسنادی تازه است.",
+    "improvement_fa": "adapter اختیاری پردازش سند با ثبت داده ارسالی و receipt خروجی اضافه شود.",
+    "boundaries": [
+      "Nutrient DWS API یا MCP و credential لازم است.",
+      "upload سند و امضای دیجیتال اقدام خارجی‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "nuxt4-patterns",
+    "domain": "vue",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "Nuxt4 با hydration، route rules و data fetching مکمل وب سیج است.",
+    "improvement_fa": "پروفایل Nuxt با SSR-safe fetch و کنترل freshness اضافه شود.",
+    "boundaries": [
+      "نمونه‌ها ویژه Nuxt4 و Vue ecosystem هستند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "openclaw-persona-forge",
+    "domain": "agents",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تولید شخصیت OpenClaw، SOUL.md، نام و avatar یک قابلیت خلاقه تازه است.",
+    "improvement_fa": "پروفایل اختیاری طراحی شخصیت با حفظ تفکیک شخصیت از permission اضافه شود.",
+    "boundaries": [
+      "اسکریپت gacha و referenceهای چینی همراه مهارت حفظ شوند.",
+      "تولید avatar به ابزار تصویر تاییدشده میزبان وابسته است."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "opensource-pipeline",
+    "domain": "governance",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "زنجیره fork/sanitize/package سه عامل را با publish gate هماهنگ می‌کند و با orchestration سیج هم‌پوشانی دارد.",
+    "improvement_fa": "چک‌لیست sanitization، staging و انتشار به workflow سیج اقتباس شود.",
+    "boundaries": [
+      "به سه agent اختصاصی ECC و سطح GitHub وابسته است.",
+      "انتشار عمومی با صرف آماده‌سازی بسته مجاز نمی‌شود."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "operator-approval-loop",
+    "domain": "governance",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-implement"
+    ],
+    "rationale_fa": "دفتر draft، hash، epoch و claim ایده ارزشمند دارد اما مالک مجوز دوم و گزینه auto-TTL ایجاد می‌کند.",
+    "improvement_fa": "binding مجوز به متن و مقصد و رفتار unknown outcome در قرارداد SAGE بازطراحی شود.",
+    "boundaries": [
+      "SQLite reference transport واقعی ندارد.",
+      "auto_send_after نباید مجوز خودکار جدیدی وارد SAGE کند.",
+      "دفتر ECC جای authentication و مجوز معتبر SAGE نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "orch-add-feature",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "گردش‌کار research/plan/TDD/review/commit هم‌پوشان با چرخه حاکم سیج است.",
+    "improvement_fa": "قالب feature جدید به برنامه SAGE نگاشت شود و شواهد TDD حفظ شوند.",
+    "boundaries": [
+      "به orch-pipeline، agentهای ECC و slash commandهای آن متکی است."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "orch-build-mvp",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-intake",
+      "sage-plan",
+      "sage-implement"
+    ],
+    "rationale_fa": "تبدیل PRD به vertical slice و loop تولید/ارزیابی با هدف محصول‌سازی سیج هم‌راستاست.",
+    "improvement_fa": "تفکیک MVP به برش‌های باریک و acceptance قابل‌مشاهده اقتباس شود.",
+    "boundaries": [
+      "اجرای generator/evaluator و commit از موتور orchestration خود ECC می‌آید."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "orch-change-feature",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "تغییر رفتار موجود با آزمون به‌روز workflow موازی با چرخه SAGE ایجاد می‌کند.",
+    "improvement_fa": "تمایز تغییر خواسته با رفع defect در intake و برنامه آزمون سیج ثبت شود.",
+    "boundaries": [
+      "وابسته به orch-pipeline و Gateهای ECC است؛ مجوزها باید از SAGE بیایند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "orch-fix-defect",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "زنجیره بازتولید، تست شکست‌خورده و اصلاح ایده مکمل است اما اجرای مستقل تکراری است.",
+    "improvement_fa": "recipe رفع باگ با regression receipt در workflow سیج نگهداری شود.",
+    "boundaries": [
+      "delegation و commit باید از adapter و policy سیج اجرا شوند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "orch-pipeline",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-intake",
+      "sage-plan",
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "این مهارت صریحاً موتور orchestration و طبقه‌بندی اندازه با دو gate انسانی است.",
+    "improvement_fa": "right-sizing، handoff و mapping فازها به عنوان الگو بررسی شوند؛ موتور SAGE حفظ شود.",
+    "boundaries": [
+      "قواعد Gate1/Gate2 نباید R0–R4 و approval معتبر سیج را بازتعریف کنند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "orch-refine-code",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "refactor رفتارثابت و تست سبز با pipeline سیج هم‌پوشان است.",
+    "improvement_fa": "receipt عدم تغییر رفتار و regression قبل و بعد به recipe بازآرایی افزوده شود.",
+    "boundaries": [
+      "وابسته به orch-pipeline و agentهای ECC است."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "osint-investigation",
+    "domain": "osint",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "تحلیل سرنخ‌های پراکنده، geolocation و lineage شواهد تخصص پژوهشی جدید است.",
+    "improvement_fa": "پروفایل اختیاری تحقیق منبع‌باز با جداسازی مشاهده و فرضیه اضافه شود.",
+    "boundaries": [
+      "مجوز اختصاصی CC BY-SA4.0 در LICENSE.txt باید با attribution حفظ شود؛ MIT ریشه جایگزین آن نیست.",
+      "حریم خصوصی، دسترسی مجاز و هزینه/آپلود خارج از اجازه تحقیق عمومی است."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "parallel-execution-optimizer",
+    "domain": "agents",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "ماتریس lane، وابستگی و سطح نوشتن مکمل برنامه‌ریزی چندعامله سیج است.",
+    "improvement_fa": "در برنامه SAGE استقلال نوشتن، گیت ادغام و receipt هر lane ثبت شود.",
+    "boundaries": [
+      "ظرفیت هم‌زمانی و worktree به قابلیت واقعی میزبان وابسته‌اند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "perl-patterns",
+    "domain": "perl",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Perl5.36+، context sensitivity و postfix dereference در سیج بسته اختصاصی ندارند.",
+    "improvement_fa": "تخصص Perl مدرن با IO ایمن و idiomهای نسخه‌دار اضافه شود.",
+    "boundaries": [
+      "نمونه‌های class و try/catch به نسخه‌های جدیدتر Perl وابسته‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "perl-security",
+    "domain": "perl",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "taint mode، DBI placeholders و list-form system بررسی امنیتی ویژه Perl هستند.",
+    "improvement_fa": "پروفایل امنیت Perl با ReDoS، path و dependency review اضافه شود.",
+    "boundaries": [
+      "Perl/DBI/perlcritic و moduleهای پروژه باید مشخص باشند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "perl-testing",
+    "domain": "perl",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Test2/Test::More و Devel::Cover تخصص آزمون زبانی تازه‌اند.",
+    "improvement_fa": "runner و fixtureهای Perl با گزارش محدودیت coverage به سیج متصل شوند.",
+    "boundaries": [
+      "prove، Test2 یا Test::More و Devel::Cover وابستگی‌های واقعی‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "plan-canvas",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan"
+    ],
+    "rationale_fa": "canvas مرور انسانی، annotation و listener اجرای سرویس محلی مستقل ECC می‌خواهد.",
+    "improvement_fa": "ایده بازبینی بصری و binding طرح به تایید در UI سیج اقتباس شود.",
+    "boundaries": [
+      "به scripts/plan-canvas.js یا binary نصب‌شده ECC و مرورگر وابسته است.",
+      "شروع listener و ادامه کار آن نیازمند lifecycle تحت مالکیت SAGE است."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "plan-orchestrate",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-discover"
+    ],
+    "rationale_fa": "مولد slash command برای مراحل طرح است؛ نام‌ها و حمل scope به ECC وابسته‌اند.",
+    "improvement_fa": "نگاشت گام به capability و بررسی انتقال scope به task envelope سیج اقتباس شود.",
+    "boundaries": [
+      "این مهارت فقط فرمان پیشنهاد می‌کند و کنترل اجرای آن را تضمین نمی‌کند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "plankton-code-quality",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "auto-format و اصلاح مبتنی بر Claude بعد از هر edit به hook و ابزار خارج از SAGE وابسته است.",
+    "improvement_fa": "تفکیک format/lint/fix و جلوگیری از دستکاری config برای QA اقتباس شود.",
+    "boundaries": [
+      "نصب دستی Plankton، Bash/jaq/ruff/uv و lintهای زبان لازم است.",
+      "hookهای write-time با hookهای موجود ممکن است دوباره اجرا شوند."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "postgres-patterns",
+    "domain": "database",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql"
+    ],
+    "rationale_fa": "ایندکس، datatype، RLS و anti-patternهای PostgreSQL مهارت موجود SQL را عمیق‌تر می‌کند.",
+    "improvement_fa": "مرجع query/index و security با receipt EXPLAIN به data-sql افزوده شود.",
+    "boundaries": [
+      "پیشنهاد تنظیمات باید با نسخه PostgreSQL و بار واقعی اعتبارسنجی شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "prediction-market-oracle-research",
+    "domain": "finance",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "کاربرد probability بازار به‌عنوان oracle اطلاعاتی در سیج پوشش اختصاصی ندارد.",
+    "improvement_fa": "پروفایل پژوهش بازار پیش‌بینی با کیفیت داده و محدودیت تفسیر اضافه شود.",
+    "boundaries": [
+      "احراز قیمت/زمان/نقدشوندگی لازم است؛ خروجی توصیه سرمایه‌گذاری یا مجوز معامله نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "prediction-market-risk-review",
+    "domain": "finance",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "بازبینی auth، portfolio، کیفیت oracle و حریم مالی قابلیت تخصصی تازه است.",
+    "improvement_fa": "گزارش risk gate برای محصولات داده مالی به‌صورت اختیاری اضافه شود.",
+    "boundaries": [
+      "قوانین venue و حوزه قضایی باید تازه بررسی شوند.",
+      "اجرای معامله قرارداد اجرایی و approval جدا دارد."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "prisma-patterns",
+    "domain": "database",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "data-sql"
+    ],
+    "rationale_fa": "تله‌های transaction، migrate dev، updateMany و pooling serverless جزئیات مکمل‌اند.",
+    "improvement_fa": "پروفایل Prisma با version preflight و تست migration غیرتولیدی اضافه شود.",
+    "boundaries": [
+      "Prisma/driver adapter با نسخه پروژه تطبیق یابد.",
+      "migrate dev می‌تواند داده را reset کند؛ فرمان خواندنی تلقی نشود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "product-capability",
+    "domain": "product",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-intake",
+      "sage-plan"
+    ],
+    "rationale_fa": "تبدیل PRD به constraint، invariant و interface دقیق با Spec-Driven سیج هم‌پوشان است.",
+    "improvement_fa": "قالب capability به task envelope و architecture ID موجود نگاشت شود.",
+    "boundaries": [
+      "artifact جدید نباید با specification مرجع سیج منبع حقیقت دوم بسازد."
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "product-lens",
+    "domain": "product",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-intake",
+      "technology-selection"
+    ],
+    "rationale_fa": "تشخیص نیاز محصول، time-to-value و اولویت ویژگی به intake قبل از ساخت عمق می‌دهد.",
+    "improvement_fa": "لنز اختیاری محصول با شواهد و فرضیه در تصمیم ساخت وارد شود.",
+    "boundaries": [
+      "امتیاز ICE یا product-market-fit برآورد است و بدون داده واقعیت محسوب نمی‌شود."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "production-audit",
+    "domain": "operations",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "بررسی آماده‌سازی انتشار از شواهد محلی، auth، پرداخت و داده با QA سیج هم‌پوشان است.",
+    "improvement_fa": "گیت آمادگی محصول با coverage و محدودیت‌های تست واقعی تکمیل شود.",
+    "boundaries": [
+      "audit محلی جای smoke test تولید یا تایید امنیت قطعی نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "production-scheduling",
+    "domain": "manufacturing",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "TOC، SMED، OEE و برنامه خطوط تولید دامنه صنعتی تازه‌ای می‌افزاید.",
+    "improvement_fa": "پروفایل اختیاری زمان‌بندی تولید با محدودیت ظرفیت و سناریوی اختلال اضافه شود.",
+    "boundaries": [
+      "ERP/MES، نرخ واقعی و شرایط کارخانه ورودی لازم‌اند.",
+      "تغییر برنامه واقعی تولید یا فرمان تجهیزات جدا از تحلیل است."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "project-flow-ops",
+    "domain": "operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "هماهنگی GitHub و Linear، triage و پیوند کار فعال یک workflow عملیاتی تازه است.",
+    "improvement_fa": "adapter اختیاری backlog با receipt و mapping شناسه‌ها اضافه شود.",
+    "boundaries": [
+      "نیازمند دسترسی واقعی GitHub/Linear است.",
+      "فرض عمومی‌بودن GitHub و داخلی‌بودن Linear باید با پروژه تطبیق یابد."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "prompt-caching-strategy",
+    "domain": "llm",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "حفظ prefix پایدار و سنجش cache hit/cost مکمل طراحی pipeline مدل است.",
+    "improvement_fa": "قواعد تفکیک tenant/permission و محاسبه هزینه از usage واقعی افزوده شوند.",
+    "boundaries": [
+      "سازوکار cache و قیمت به provider/model وابسته و نیازمند سند روز است."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "prompt-optimizer",
+    "domain": "agents",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-intake",
+      "sage-discover"
+    ],
+    "rationale_fa": "تشخیص intent و context مفقود با intake سیج هم‌پوشان است و صرفاً پیشنهاد می‌دهد.",
+    "improvement_fa": "تطبیق prompt با capabilityهای SAGE جای نام‌های ثابت ECC را بگیرد.",
+    "boundaries": [
+      "خروجی به‌تنهایی وظیفه را اجرا نمی‌کند.",
+      "catalog و مدل پیشنهادی ECC باید به registry واقعی سیج نگاشت شوند."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "python-patterns",
+    "domain": "python",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "type hints، context manager، generator و protocolها مرجع تخصصی مهارت Python موجود را کامل می‌کنند.",
+    "improvement_fa": "الگوهای idiomatic به بارگذاری موضوعی متخصص Python افزوده شوند.",
+    "boundaries": [
+      "syntax باید با requires-python پروژه تطبیق یابد."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "python-testing",
+    "domain": "python",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "engineering-qa"
+    ],
+    "rationale_fa": "pytest fixture، mocking و parametrization در مهارت فعلی فقط کلی نام برده شده‌اند.",
+    "improvement_fa": "recipeهای آزمون و isolation با receipt واقعی به Python افزوده شوند.",
+    "boundaries": [
+      "pytest و pluginهای coverage باید در lockfile باشند.",
+      "الزام پوشش ثابت ECC جای Dynamic DoD سیج را نمی‌گیرد."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "pytorch-patterns",
+    "domain": "ml",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "seed، shape، checkpoint و device-aware training جزئیات عملی مکمل Python AI هستند.",
+    "improvement_fa": "پروفایل PyTorch با reproducibility و ارزیابی حافظه/GPU اضافه شود.",
+    "boundaries": [
+      "PyTorch، CUDA/device و dataset واقعی لازم‌اند.",
+      "تنظیم seed به‌تنهایی تضمین deterministic بودن همه عملگرها نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "quality-nonconformance",
+    "domain": "manufacturing",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "NCR، CAPA، SPC و 8D تخصص کیفیت صنعتی جدا از QA نرم‌افزار است.",
+    "improvement_fa": "پروفایل اختیاری عدم‌انطباق با traceability و ارزیابی اقدام اصلاحی اضافه شود.",
+    "boundaries": [
+      "ارجاعات FDA/IATF/AS9100 باید در زمان استفاده به‌روز و حوزه کاربردشان احراز شوند.",
+      "disposition و concession اختیار مهندسی/کیفیت واقعی می‌خواهد."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "quarkus-patterns",
+    "domain": "quarkus",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Java Quarkus/Camel/Panache در SAGE تخصص مستقلی ندارد.",
+    "improvement_fa": "پروفایل Java event-driven با CDI، route و persistence اضافه شود.",
+    "boundaries": [
+      "Quarkus3 LTS، Camel، Panache و Maven باید با نسخه پروژه تطبیق یابند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "quarkus-security",
+    "domain": "quarkus",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "JWT/OIDC، RBAC و Panache security تخصص Java تازه‌ای برای سیج است.",
+    "improvement_fa": "بازبین امنیت Quarkus به گیت عمومی امنیت متصل شود.",
+    "boundaries": [
+      "Quarkus Security، OIDC provider و تنظیمات واقعی Vault باید احراز شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "quarkus-tdd",
+    "domain": "quarkus",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "JUnit، REST Assured و آزمون Camel برای سرویس رویدادمحور در بسته فعلی وجود ندارند.",
+    "improvement_fa": "آزمون async و route با timeouts و fixture مستقل اضافه شود.",
+    "boundaries": [
+      "JUnit5، Mockito، Camel test و JaCoCo ابزارهای اختصاصی‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "quarkus-verification",
+    "domain": "quarkus",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "ساخت native، static analysis و container scan یک verifier اختصاصی Quarkus فراهم می‌کنند.",
+    "improvement_fa": "نتایج Maven/GraalVM و testها به receipt استاندارد سیج تبدیل شوند.",
+    "boundaries": [
+      "GraalVM، Docker و ابزارهای OWASP/ZAP در همه میزبان‌ها موجود نیستند.",
+      "load test و اسکن API به هدف مجاز و محیط مناسب وابسته‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "rails-patterns",
+    "domain": "ruby",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Rails7.1/8، ActiveRecord، Hotwire و Solid stack تخصص جدیدی است.",
+    "improvement_fa": "پروفایل Ruby/Rails با service/form/query object و background job اضافه شود.",
+    "boundaries": [
+      "Ruby/Rails و rules/ruby/patterns.md در مثال‌های upstream مرجع‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "ralphinho-rfc-pipeline",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-implement",
+      "sage-verify"
+    ],
+    "rationale_fa": "تبدیل RFC به DAG و merge queue یک orchestration کامل موازی SAGE است.",
+    "improvement_fa": "work unit، acceptance و recovery queue به معماری سیج اقتباس شود.",
+    "boundaries": [
+      "به agent runtime، branch isolation و merge queue واقعی نیاز دارد."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "react-native-patterns",
+    "domain": "react",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "Expo و React Native قابلیت موبایل را به متخصص TypeScript موجود می‌افزایند.",
+    "improvement_fa": "stateهای server/client/route/form و secure storage به پروفایل موبایل اضافه شوند.",
+    "boundaries": [
+      "Expo Router، TanStack Query، Zod و APIهای دستگاه لازم‌اند.",
+      "مجوز location و storage دستگاه باید مستقل رعایت شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "react-patterns",
+    "domain": "react",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "React18/19، RSC، Suspense و form actions مهارت عمومی وب را جزئی‌تر می‌کنند.",
+    "improvement_fa": "درخت تصمیم state/data fetching و discipline hookها به مرجع وب افزوده شود.",
+    "boundaries": [
+      "قابلیت‌های React19 و server component به framework و نسخه بستگی دارند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "react-performance",
+    "domain": "react",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "ترتیب اصلاح waterfall، bundle و re-render یک راهنمای کارایی مشخص فراهم می‌کند.",
+    "improvement_fa": "priority سنجش performance با baseline و receipt به QA وب افزوده شود.",
+    "boundaries": [
+      "متن از Vercel Engineering الهام گرفته و attribution upstream حفظ شود.",
+      "بهبود performance بدون profiler یا benchmark ادعا نشود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "react-testing",
+    "domain": "react",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "engineering-qa"
+    ],
+    "rationale_fa": "Testing Library، MSW و axe دستورالعمل عمومی تست وب را کامل می‌کنند.",
+    "improvement_fa": "معیار تفکیک unit/component/E2E و آزمون رفتار کاربر اضافه شود.",
+    "boundaries": [
+      "Vitest/Jest، Testing Library و MSW با نسخه پروژه سازگار باشند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "recsys-pipeline-architect",
+    "domain": "ml",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai",
+      "sage-plan"
+    ],
+    "rationale_fa": "خط لوله source/hydrator/filter/scorer/selector تخصص توصیه‌گر را به AI اضافه می‌کند.",
+    "improvement_fa": "قرارداد مرحله‌ها و داده لازم، candidate isolation و online/offline tradeoff ثبت شوند.",
+    "boundaries": [
+      "مهارت به upstream مستقل mturac ارجاع دارد؛ نصب پیشنهادشده بخشی از import نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "recursive-decision-ledger",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "engineering-qa"
+    ],
+    "rationale_fa": "rollout تکراری و دفتر تصمیم append-only با حافظه و کنترل کیفیت سیج هم‌پوشان است.",
+    "improvement_fa": "promotion بر پایه metric، replay و سقف تکرار در workflow سیج اقتباس شود.",
+    "boundaries": [
+      "اعتماد بازگشتی یا امتیاز coherence جای مجوز live/deploy/trade نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "redis-patterns",
+    "domain": "database",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "data-sql",
+      "typescript-web",
+      "python-ai"
+    ],
+    "rationale_fa": "cache، lock، stream و rate limit Redis در بسته داده موجود جزئی نشده‌اند.",
+    "improvement_fa": "الگوهای TTL، atomic operation و failover با آزمون race اضافه شوند.",
+    "boundaries": [
+      "Redis topology، client و persistence باید معلوم باشند.",
+      "نمونه قفل تک‌گره تضمین قفل توزیع‌شده چندگره نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "regex-vs-llm-structured-text",
+    "domain": "llm",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "python-ai"
+    ],
+    "rationale_fa": "تصمیم regex-first و fallback مدل به parsing کم‌هزینه کمک می‌کند.",
+    "improvement_fa": "confidence و نمونه خطا برای تعیین مرز parser و LLM به pipeline افزوده شود.",
+    "boundaries": [
+      "ادعای 95درصد پوشش در متن، تضمین dataset ما نیست؛ باید مستقل ارزیابی شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "remotion-video-creation",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game",
+      "typescript-web"
+    ],
+    "rationale_fa": "قواعد Remotion، caption، audio و timeline قابلیت ویدئوی کدنویسی‌شده می‌افزایند.",
+    "improvement_fa": "بسته قواعد و assetهای TSX همراه مهارت وارد و موضوعی بارگذاری شوند.",
+    "boundaries": [
+      "Remotion، React و ابزار رندر لازم‌اند.",
+      "پشتیبانی فایل‌های مرجع rules برای کارکرد مهارت ضروری است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "repo-scan",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-discover",
+      "interface-audit"
+    ],
+    "rationale_fa": "این فایل فقط نصب‌کننده مهارت خارجی repo-scan است و خود audit را پیاده نمی‌کند.",
+    "improvement_fa": "در discovery به‌عنوان وابستگی خارجی ثبت شود، نه قابلیت نصب‌شده یا آزموده.",
+    "boundaries": [
+      "installer به checkout commit ثابت خارجی و مسیر مهارت Claude وابسته است."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "research-ops",
+    "domain": "research",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-discover"
+    ],
+    "rationale_fa": "پژوهش current-state با وزن‌دهی شواهد و مرز عدم‌اطمینان با دانش سیج هم‌پوشان است.",
+    "improvement_fa": "سبک گزارش واقعیت تازه و محدودیت مشاهده به دریافت evidence اضافه شود.",
+    "boundaries": [
+      "نیازمند ابزار پژوهش واقعی و ثبت تاریخ/منبع است."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "returns-reverse-logistics",
+    "domain": "logistics",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "مرجوعی، grading، warranty و recovery از vendor دامنه تجاری تازه است.",
+    "improvement_fa": "پروفایل اختیاری عملیات بازگشت با evidence و هزینه disposition اضافه شود.",
+    "boundaries": [
+      "پنجره‌های زمانی و سیاست مرجوعی متن عمومی‌اند و باید با قرارداد کسب‌وکار تطبیق یابند.",
+      "refund یا تغییر سفارش اقدام خارجی جداست."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "rules-distill",
+    "domain": "governance",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-plan"
+    ],
+    "rationale_fa": "استخراج اصل مشترک از مهارت‌ها می‌تواند قواعد حاکم را تغییر دهد و نباید خودکار فعال شود.",
+    "improvement_fa": "گزارش پیشنهاد قاعده با دو منبع و conflict review وارد چرخه تغییر سیاست SAGE شود.",
+    "boundaries": [
+      "Bash، Node/jq و فایل‌های rules upstream لازم‌اند.",
+      "نتیجه استخراج مجوز تغییر Constitution یا policy نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "rust-patterns",
+    "domain": "rust",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "rust-engineering"
+    ],
+    "rationale_fa": "ownership، Cow، enum state و error handling محتوای تخصص Rust سیج را گسترش می‌دهند.",
+    "improvement_fa": "الگوهای جزئی به متخصص موجود افزوده شوند و راهنمای رسمی نسخه‌دار همچنان مرجع باشد.",
+    "boundaries": [
+      "مثال‌های thiserror/anyhow و async باید با crateهای pinشده تطبیق یابند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "rust-testing",
+    "domain": "rust",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "rust-engineering",
+      "engineering-qa"
+    ],
+    "rationale_fa": "proptest، rstest و mockall از آزمون‌های عمومی Rust سیج فراتر می‌روند.",
+    "improvement_fa": "property-based و concurrency regression به برنامه تست Rust افزوده شود.",
+    "boundaries": [
+      "cargo-llvm-cov ابزار جداست و نصب‌شده فرض نشود.",
+      "هدف coverage ثابت جای گیت مبتنی بر ریسک سیج را نمی‌گیرد."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "safety-guard",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-implement",
+      "interface-audit"
+    ],
+    "rationale_fa": "Careful/Freeze/Guard از PreToolUse برای کنترل command و مسیر استفاده می‌کنند.",
+    "improvement_fa": "ایده boundary محدود مسیر و پیش‌نمایش command به adapter سیج منتقل شود.",
+    "boundaries": [
+      "به hookهای Claude و فایل state آن وابسته است.",
+      "guard لفظی یا regex به‌تنهایی sandbox یا authority معتبر نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "santa-method",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "دو reviewer مستقل و fix/re-review روش قابل‌استفاده‌ای دارد اما گیت حاکم تازه می‌سازد.",
+    "improvement_fa": "برای ریسک بالا rubric مشترک و سقف همگرایی در QA سیج اقتباس شود.",
+    "boundaries": [
+      "پشتیبانی subagent، هزینه مدل و استقلال زمینه باید واقعی باشد.",
+      "الزام دو reviewer نباید بی‌تناسب برای تمام R0/R1 فعال شود."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "scientific-db-pubmed-database",
+    "domain": "research",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "جست‌وجوی MeSH/PMID و NCBI E-utilities قابلیت علمی اختصاصی جدید است.",
+    "improvement_fa": "adapter پژوهش زیست‌پزشکی با query log و citation معتبر اضافه شود.",
+    "boundaries": [
+      "NCBI rate limits و API key برای مصرف تولیدی باید رعایت شوند.",
+      "نتیجه جست‌وجو به‌تنهایی توصیه پزشکی نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "scientific-db-uspto-database",
+    "domain": "research",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "پژوهش رسمی patent/trademark و assignment از USPTO در سیج وجود ندارد.",
+    "improvement_fa": "پروفایل IP research با شناسه پرونده، وضعیت و زمان بازیابی اضافه شود.",
+    "boundaries": [
+      "PatentSearch/TSDR و بسیاری APIها credential می‌خواهند.",
+      "تفسیر حقوقی یا احراز مالکیت نیازمند بررسی مستقل است."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "scientific-pkg-gget",
+    "domain": "bioinformatics",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "lookup ژنومی، BLAST و enrichment با gget دامنه علمی تازه است.",
+    "improvement_fa": "پروفایل زیست‌اطلاعاتی با version، database و provenance نتایج اضافه شود.",
+    "boundaries": [
+      "gget و دسترسی شبکه لازم‌اند.",
+      "فرمان نصب --upgrade باید به محیط جدا و نسخه ثابت تبدیل شود."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "scientific-thinking-literature-review",
+    "domain": "research",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "جست‌وجوی نظام‌مند، screening و deduplication به دانش مستند سیج عمق می‌دهند.",
+    "improvement_fa": "search log، معیار ورود/خروج و جداسازی ادعا از شواهد اضافه شوند.",
+    "boundaries": [
+      "پوشش ادبیات به پایگاه‌های قابل‌دسترسی وابسته است و کامل‌بودن باید محدود شود."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "scientific-thinking-scholar-evaluation",
+    "domain": "research",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "engineering-qa"
+    ],
+    "rationale_fa": "rubric روش، داده، استنباط و citation برای بررسی منابع علمی مکمل شواهد سیج است.",
+    "improvement_fa": "کیفیت evidence پیش از ورود به تصمیم معماری با rubric ثبت شود.",
+    "boundaries": [
+      "امتیاز rubric قضاوت بازبین است و حقیقت آماری یا peer-review رسمی نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "search-first",
+    "domain": "research",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "interface-audit"
+    ],
+    "rationale_fa": "adopt/extend/build و جست‌وجوی پیش از پیاده‌سازی با سیاست استفاده مجدد سیج هم‌پوشان است.",
+    "improvement_fa": "ماتریس انتخاب بسته، MCP یا توسعه داخلی به discovery افزوده شود.",
+    "boundaries": [
+      "جست‌وجو و metadata مجوز نصب یا اجرای کد پیدا‌شده نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "security-bounty-hunter",
+    "domain": "security",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa"
+    ],
+    "rationale_fa": "اولویت آسیب‌پذیری قابل‌دسترسی واقعی و کاهش یافته noisy به QA امنیت کمک می‌کند.",
+    "improvement_fa": "گزارش affected version، reachability و proof محدود به بررسی امنیت افزوده شود.",
+    "boundaries": [
+      "PoC و probing باید به مخزن و محیط مجاز محدود شوند.",
+      "پیشنهاد bounty مدرک پذیرش یا اثرگذاری آسیب‌پذیری نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "security-review",
+    "domain": "security",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "چک‌لیست auth، input، SQLi، XSS و وابستگی‌ها مرجع عملی QA عمومی را تکمیل می‌کند.",
+    "improvement_fa": "کنترل‌های مرتبط با ریسک به گیت سیج نگاشت و receipt تست/بازبینی ثبت شوند.",
+    "boundaries": [
+      "cloud-infrastructure-security.md مرجع شرطی همراه حفظ شود.",
+      "چک‌لیست کامل به معنی اسکن امنیت یا تضمین نبود آسیب‌پذیری نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "security-scan",
+    "domain": "security",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "mcp-review"
+    ],
+    "rationale_fa": "AgentShield تنظیمات Claude، MCP و hookها را هدف می‌گیرد و لنز تخصصی مفیدی است.",
+    "improvement_fa": "به‌عنوان اسکنر اختیاری و adapter مجزا، فقط پس از احراز ابزار ثبت شود.",
+    "boundaries": [
+      "ecc-agentshield باید نصب و نسخه‌اش pin شود.",
+      "auto-fix و تحلیل مدل پرهزینه از اسکن read-only جدا هستند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "seo",
+    "domain": "marketing",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "SEO فنی، schema، sitemap و keyword mapping قابلیت عرضه محصول را توسعه می‌دهند.",
+    "improvement_fa": "پروفایل اختیاری SEO با شواهد crawl/performance اضافه شود.",
+    "boundaries": [
+      "رتبه جست‌وجو و Core Web Vitals بدون اندازه‌گیری قابل‌ادعا نیستند."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "skill-comply",
+    "domain": "skills",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "آزمون رفتار در سه شدت prompt با trace ابزار، شکاف تعریف مهارت و اجرای واقعی را می‌سنجد.",
+    "improvement_fa": "الگوی ارزیابی مستقل و ترتیب رخدادها به conformance سیج اقتباس شود.",
+    "boundaries": [
+      "runner به claude -p و مدل‌های generator/classifier وابسته است.",
+      "dry-run فقط سناریو می‌سازد و اثبات تبعیت runtime نیست.",
+      "اجرای سناریو در sandbox مجزا و با بودجه لازم است."
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "skill-host-compat",
+    "domain": "skills",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "interface-audit",
+      "sage-discover"
+    ],
+    "rationale_fa": "بررسی frontmatter و substitutionهای Claude محدودیت portability را آشکار می‌کند.",
+    "improvement_fa": "host-compat به gate projection Codex/Cursor/SAGE افزوده شود.",
+    "boundaries": [
+      "به scripts/ci/validate-skill-host-compat.js و مسیرهای upstream وابسته است.",
+      "lint موفق مساوی اجرای موفق skill در میزبان نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "skill-scout",
+    "domain": "skills",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "interface-audit"
+    ],
+    "rationale_fa": "جست‌وجوی skill موجود و rank براساس کیفیت با discovery سیج هم‌پوشان است.",
+    "improvement_fa": "provenance، permission و نگهداشت skill به تصمیم adopt/adapt/build افزوده شود.",
+    "boundaries": [
+      "منبع خارجی و مثال command داده نامطمئن‌اند؛ نصب از نتیجه جست‌وجو خودکار نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "skill-stocktake",
+    "domain": "skills",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "docs-knowledge",
+      "engineering-qa"
+    ],
+    "rationale_fa": "فهرست‌برداری، ارزیابی batch و تشخیص duplicate شیوه نگهداشت کاتالوگ را تقویت می‌کند.",
+    "improvement_fa": "فرایند scan کامل/تغییریافته و ثبت تصمیم ادغام به کاتالوگ سیج اضافه شود.",
+    "boundaries": [
+      "اسکریپت‌ها Bash، Node.js و jq لازم دارند.",
+      "archive/delete یا تغییر skill از گزارش audit جدا بماند."
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "social-graph-ranker",
+    "domain": "social",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "امتیاز mutual، bridge و شکاف شبکه یک موتور پژوهش رابطه تازه است.",
+    "improvement_fa": "پروفایل اختیاری rank شبکه با توضیح ویژگی‌ها و عدم‌قطعیت اضافه شود.",
+    "boundaries": [
+      "نیازمند داده مجاز X/LinkedIn و احراز تازگی graph است.",
+      "امتیاز رابطه تضمین دسترسی یا آمادگی فرد برای تماس نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "social-publisher",
+    "domain": "social",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "انتشار چندکاناله از طریق SocialClaw یک adapter عملیاتی جدید است.",
+    "improvement_fa": "صف انتشار با validation، preview و رسید provider به‌صورت اختیاری اضافه شود.",
+    "boundaries": [
+      "SocialClaw0.1.12 و workspace API key لازم‌اند.",
+      "TweetClaw اختیاری وابستگی جداست.",
+      "ارسال، upload و schedule نیازمند مجوز معتبر کانال‌اند."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "springboot-patterns",
+    "domain": "springboot",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Java/Spring Boot در SAGE متخصص مستقیم ندارد.",
+    "improvement_fa": "پروفایل backend جاوا با service، repository، cache و async اضافه شود.",
+    "boundaries": [
+      "Spring Boot، JPA و extensionهای caching/async باید با نسخه پروژه احراز شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "springboot-security",
+    "domain": "springboot",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Spring Security، CSRF، RBAC و secret configuration تخصص امنیت جاوا می‌افزایند.",
+    "improvement_fa": "بازبین امنیت Spring به evidence gate عمومی متصل شود.",
+    "boundaries": [
+      "Spring Security API و policy واقعی سرویس وابستگی نسخه‌ای دارند."
+    ],
+    "profile": "engineering",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "springboot-tdd",
+    "domain": "springboot",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "JUnit/MockMvc، Testcontainers و JaCoCo مکمل تخصص Spring جدیدند.",
+    "improvement_fa": "آزمون لایه وب، persistence و integration به‌صورت recipe جاوا اضافه شود.",
+    "boundaries": [
+      "Maven/Gradle و برای Testcontainers دسترسی Docker لازم است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "springboot-verification",
+    "domain": "springboot",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "چرخه build/static analysis/test/security یک verifier نسخه‌دار Spring می‌افزاید.",
+    "improvement_fa": "خروجی هر مرحله به PASS/FAIL/NOT RUN و receiptهای سیج نگاشت شود.",
+    "boundaries": [
+      "SpotBugs/PMD/Checkstyle/OWASP باید واقعاً نصب و اجرا شوند.",
+      "نمونه grep جای آزمون جامع امنیت نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "story-lifecycle",
+    "domain": "governance",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-intake",
+      "sage-plan",
+      "sage-implement"
+    ],
+    "rationale_fa": "دفتر epic/story/sprint و state machine مستقل با Task Envelope و workflow سیج هم‌پوشان است.",
+    "improvement_fa": "stable ID، acceptance و انطباق story با commit/evidence به سیج اقتباس شود.",
+    "boundaries": [
+      "scripts/ledger.js به فایل‌های .stories و تضمین‌های filesystem/hardlink وابسته است.",
+      "چرخه story نباید مرجع وضعیت دوم و ناسازگار ایجاد کند."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "strategic-compact",
+    "domain": "host",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge",
+      "sage-plan"
+    ],
+    "rationale_fa": "پیشنهاد compaction و signal context روی hookهای Claude تکیه دارد.",
+    "improvement_fa": "ثبت checkpoint در مرز فاز و بارگذاری تدریجی به Context Engine سیج اقتباس شود.",
+    "boundaries": [
+      "scripts/hooks/suggest-compact.js و profile hookهای ECC پیش‌نیازند.",
+      "خودکار بودن حفظ context بدون wiring واقعی قابل‌ادعا نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "swift-actor-persistence",
+    "domain": "swift",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "actor repository و file-backed cache تخصص Swift جدیدی برای سیج است.",
+    "improvement_fa": "بسته persistence Swift با failure handling و آزمون concurrency اضافه شود.",
+    "boundaries": [
+      "Swift concurrency و فایل‌سیستم هدف باید در محیط build واقعی آزموده شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "swift-concurrency-6-2",
+    "domain": "swift",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Approachable Concurrency و isolated conformance جزئیات Swift6.2 هستند که سیج ندارد.",
+    "improvement_fa": "پروفایل migration با تنظیمات isolation و offload آگاهانه اضافه شود.",
+    "boundaries": [
+      "مثال‌ها به SE-0466 و SE-0461 و build setting مربوط نیاز دارند.",
+      "بدون این تنظیمات بعضی مثال‌ها data race خواهند داشت."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "swift-protocol-di-testing",
+    "domain": "swift",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "mock فایل، شبکه و API با protocol و Swift Testing تخصص جدید است.",
+    "improvement_fa": "بسته آزمون Swift با dependency injection کوچک و Sendable اضافه شود.",
+    "boundaries": [
+      "Swift Testing و toolchain سازگار لازم‌اند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "swiftui-patterns",
+    "domain": "swift",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "Observable، composition و NavigationStack مهارت UI بومی Apple را می‌افزایند.",
+    "improvement_fa": "پروفایل SwiftUI با state ownership، preview و performance واقعی اضافه شود.",
+    "boundaries": [
+      "نیازمند SDK iOS/macOS و Swift/Xcode متناسب با APIهای نمونه است."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "taste",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game"
+    ],
+    "rationale_fa": "واژگان سبک، palette، نور و تدوین روی beat بخش کارگردانی خلاق را به گرافیک اضافه می‌کند.",
+    "improvement_fa": "پروفایل اختیاری music video با shot plan و تصمیم‌های قابل‌تغییر اضافه شود.",
+    "boundaries": [
+      "سلیقه angelcore/cloud-trance قالب اختیاری است و نباید پیش‌فرض همه خروجی‌ها شود.",
+      "generation یا distribution به ابزار و مجوز جدا وابسته‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "taste-application",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game",
+      "python-ai"
+    ],
+    "rationale_fa": "style pack را به تولید take، grading، تدوین و assetسه‌بعدی متصل می‌کند و کد پشتیبان واقعی دارد.",
+    "improvement_fa": "workflow خلاق با dry-run، receipt asset و خروجی قابل‌ویرایش اضافه شود.",
+    "boundaries": [
+      "اسکریپت‌های محلی و requirements باید کامل حفظ شوند.",
+      "fal generation نیازمند credential و TASTE_FORGE_ALLOW_LIVE=1 است.",
+      "Blender/Resolve و رندر واقعی باید جدا احراز شوند؛ fixture اثبات کیفیت هنری نیست."
+    ],
+    "profile": "domain",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "taste-distillation",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game",
+      "python-ai"
+    ],
+    "rationale_fa": "اندازه‌گیری رنگ، ریتم برش و LUT از ویدئوی مرجع مکمل تولید رسانه است.",
+    "improvement_fa": "پروفایل تحلیل سبک قابل‌بازتولید با median/MAD و provenance اضافه شود.",
+    "boundaries": [
+      "requirements پردازش محلی و FFmpeg باید موجود باشند.",
+      "live provider حتی با موجودبودن credential نیازمند فعال‌سازی صریح است."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "tasteforge-video",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game",
+      "python-ai"
+    ],
+    "rationale_fa": "قرارداد file-driven، provenance، EDL/FCPXML و offline planning به تحویل قابل‌ویرایش کمک می‌کند.",
+    "improvement_fa": "موتور اختیاری workflow رسانه با تفاوت روشن placeholder و asset واقعی اضافه شود.",
+    "boundaries": [
+      "پیاده‌سازی canonical در taste-application/scripts/tasteforge قرار دارد.",
+      "بدون dependency closure این مهارت به‌تنهایی runtime ندارد."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "tdd-workflow",
+    "domain": "testing",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement",
+      "engineering-qa"
+    ],
+    "rationale_fa": "چرخه red/green/refactor و گزارش شواهد تفصیلی به اجرای مهندسی سیج کمک می‌کند.",
+    "improvement_fa": "recipe آزمون با runner کشف‌شده و معیار پذیرش task به جای تست نمایشی اضافه شود.",
+    "boundaries": [
+      "سیاست 80درصد ECC باید با Dynamic DoD و ریسک سیج تطبیق یابد.",
+      "فرمان‌های اعتبارسنجی داخل plan داده نامطمئن‌اند و خودکار اجرا نمی‌شوند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "team-agent-orchestration",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-plan",
+      "sage-discover",
+      "sage-verify"
+    ],
+    "rationale_fa": "Kanban عامل، branch isolation و merge gate یک روش ارکستراسیون موازی است.",
+    "improvement_fa": "lane ownership و نمایش حالت‌ها در داشبورد SAGE اقتباس شود.",
+    "boundaries": [
+      "نیازمند host agent spawning، branch/worktree و control pane واقعی است."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "team-builder",
+    "domain": "agents",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-discover",
+      "sage-plan"
+    ],
+    "rationale_fa": "کشف persona با claude agents و dispatch پنج متخصص به runtime خاص Claude وابسته است.",
+    "improvement_fa": "منوی انتخاب نقش و نمایش توافق/تعارض به Capability Router سیج اقتباس شود.",
+    "boundaries": [
+      "دستور claude agents و API subagent باید در adapter میزبان موجود باشند.",
+      "وجود فایل agent معادل متخصص فعال نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "orchestration"
+  },
+  {
+    "name": "terminal-opener",
+    "domain": "host",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "automation-iac",
+      "cli-harness-review"
+    ],
+    "rationale_fa": "launch plan بدون shell و آرایه argv قابلیت کاربردی برای CLIهای تعاملی می‌دهد.",
+    "improvement_fa": "adapter بازکردن ترمینال با dry-run، JSON و fallback قابل‌تشخیص اضافه شود.",
+    "boundaries": [
+      "Node و ترمینال/GUI سیستم هدف لازم‌اند.",
+      "اجرای executable به محدوده مجاز بستگی دارد؛ نمایش plan مجوز ایجاد نمی‌کند."
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "terminal-ops",
+    "domain": "operations",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-implement",
+      "engineering-qa"
+    ],
+    "rationale_fa": "گزارش فرمان دقیق، exit code و دامنه اصلاح با evidence-driven سیج هم‌پوشان است.",
+    "improvement_fa": "receipt محیط، فرمان، diff و وضعیت push در مسیر اجرای مخزن یکدست شود.",
+    "boundaries": [
+      "دسترسی shell/Git باید واقعی و در scope task باشد.",
+      "push یا اجرای اسکریپت repo از صرف audit نتیجه نمی‌شود."
+    ],
+    "profile": "operations",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "test-collaboration",
+    "domain": "testing",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "engineering-qa",
+      "sage-verify"
+    ],
+    "rationale_fa": "پیوند requirement/risk/bug به TEST-ID و receipt با هدف traceability سیج هم‌پوشان قوی دارد.",
+    "improvement_fa": "registry تست موجود با gap، duplicate candidate و contractهای مرزی تکمیل شود.",
+    "boundaries": [
+      "قالب TESTS.md نباید registry موجود را بدون migration جایگزین کند.",
+      "گزارش stale/duplicate مجوز حذف آزمون نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "tinystruct-patterns",
+    "domain": "java",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "tinystruct و dispatcher، action، SSE و MCP در سیج تخصص مستقیم ندارند.",
+    "improvement_fa": "پروفایل framework جاوا با sourceهای موضوعی و contract آزمون اضافه شود.",
+    "boundaries": [
+      "bin/dispatcher و نسخه tinystruct وابستگی عملی‌اند.",
+      "اولویت ابزار این framework محدود به همان پروژه است، نه سیاست عمومی SAGE."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "token-budget-advisor",
+    "domain": "tokens",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "sage-intake"
+    ],
+    "rationale_fa": "کنترل عمق پاسخ مفید است ولی intercept کردن پاسخ و درصد دقت برآورد اثبات‌نشده را تحمیل می‌کند.",
+    "improvement_fa": "انتخاب اختیاری depth با ترجیح موجود کاربر و داده usage واقعی اقتباس شود.",
+    "boundaries": [
+      "heuristic کلمه/کاراکتر شمارش واقعی tokenizer نیست.",
+      "ادعای دقت85–90درصد در متن بدون benchmark همراه است."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "token-card",
+    "domain": "tokens",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "کارت usage از لاگ Claude/Codex/Gemini/OpenCode قابلیت ارائه و سنجش تازه است.",
+    "improvement_fa": "ابزار اختیاری گزارش مصرف با تجمیع و حذف داده حساس اضافه شود.",
+    "boundaries": [
+      "وابسته به @tokenchit/cli@0.10.0 و دسترسی مجاز لاگ نشست‌هاست.",
+      "اجرای npx می‌تواند دانلود شبکه داشته باشد؛ commit کارت اقدام جداست."
+    ],
+    "profile": "operations",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "ui-demo",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web",
+      "graphics-game"
+    ],
+    "rationale_fa": "رکورد گردش رابط با Playwright، rehearsal و cursor خروجی ارائه محصول را کامل می‌کند.",
+    "improvement_fa": "workflow demo با سه مرحله کشف، تمرین و ضبط و حفظ WebM اضافه شود.",
+    "boundaries": [
+      "Playwright و مرورگر لازم‌اند.",
+      "rehearsal فرم می‌تواند side effect داشته باشد و باید روی محیط نمونه اجرا شود."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "ui-to-vue",
+    "domain": "vue",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "تبدیل batch screenshot به Vue3 قابلیت راه‌اندازی UI را توسعه می‌دهد.",
+    "improvement_fa": "adapter اختیاری تولید component با بازبینی layout، a11y و code اضافه شود.",
+    "boundaries": [
+      "به ui-to-vue-converter@1.0.2 و API مدل متصل است.",
+      "screenshot ممکن است به provider ارسال شود؛ مجوز upload لازم است."
+    ],
+    "profile": "engineering",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "uncloud",
+    "domain": "operations",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "devops-containers",
+      "automation-iac"
+    ],
+    "rationale_fa": "deploy، Caddy ingress و مدیریت ماشین Uncloud تخصص عملیات کانتینر را گسترش می‌دهند.",
+    "improvement_fa": "adapter uc با plan/readback/rollback و جداسازی logs از mutation اضافه شود.",
+    "boundaries": [
+      "uc CLI و اتصال خوشه واقعی لازم‌اند.",
+      "publish port، deploy و volume change اقدام زنده‌اند."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "unified-memory",
+    "domain": "knowledge",
+    "decision": "REFERENCE_ONLY",
+    "sage_targets": [
+      "docs-knowledge"
+    ],
+    "rationale_fa": "Memory Vault مشترک بین providerها می‌تواند مرجع حافظه موازی با SAGE بسازد.",
+    "improvement_fa": "ایده handoff نسخه‌دار و جست‌وجوی provenance-aware در قرارداد حافظه سیج اقتباس شود.",
+    "boundaries": [
+      "runtime ecc-universal و ecc-memory-mcp جداگانه لازم‌اند.",
+      "skill-only install فرمان‌ها را روی PATH قرار نمی‌دهد."
+    ],
+    "profile": "meta",
+    "execution_class": "host_configuration"
+  },
+  {
+    "name": "unified-notifications-ops",
+    "domain": "operations",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "dedup، escalation و routing اعلان‌ها قابلیت عملیاتی مشخصی است.",
+    "improvement_fa": "پروفایل اختیاری اعلان با اولویت، منبع و رسید کانال به SAGE متصل شود.",
+    "boundaries": [
+      "به connector/hook موجود هر محیط وابسته است.",
+      "مالکیت ECC-native باید به سیاست SAGE/SENS تبدیل شود؛ کانال جدید خودکار فعال نشود."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "verification-loop",
+    "domain": "testing",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-verify",
+      "engineering-qa"
+    ],
+    "rationale_fa": "شش مرحله build/type/lint/test/security/diff اجرای گیت‌های سیج را مشخص‌تر می‌کند.",
+    "improvement_fa": "هر مرحله با فرمان واقعی و exit code به evidence ledger متصل شود.",
+    "boundaries": [
+      "فرمان‌های نمونه JavaScript و Python با stack واقعی تطبیق یابند.",
+      "خروجی truncateشده یا grep خالی جای نتیجه کامل ابزار نیست."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "video-editing",
+    "domain": "video",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "graphics-game"
+    ],
+    "rationale_fa": "FFmpeg/Remotion و تحویل پروژه editable دامنه رسانه سیج را کامل می‌کنند.",
+    "improvement_fa": "recipeهای تدوین deterministic و مسیر optional generation اضافه شوند.",
+    "boundaries": [
+      "FFmpeg، Remotion و در شاخه‌های اختیاری ElevenLabs/fal/Resolve ابزار مستقل‌اند.",
+      "assetهای Fusion نمونه فنی‌اند و تایید هنری خروجی محسوب نمی‌شوند."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "videodb",
+    "domain": "video",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "ingest/index/search و live video/desktop capture با VideoDB یک backend رسانه تازه است.",
+    "improvement_fa": "adapter اختیاری جست‌وجوی timestampدار و timeline با receipt اضافه شود.",
+    "boundaries": [
+      "VideoDB SDK و API key لازم‌اند؛ capture روی همه OSها یکسان نیست.",
+      "upload، RTSP و desktop capture نیازمند محدوده و مجوز صریح‌اند."
+    ],
+    "profile": "domain",
+    "execution_class": "external_action"
+  },
+  {
+    "name": "visa-doc-translate",
+    "domain": "documents",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "OCR و PDF دوزبانه اسناد ویزا قابلیت سندی تازه است.",
+    "improvement_fa": "workflow ترجمه با حفظ تصویر اصل، بازبینی OCR و خروجی قابل‌بررسی اضافه شود.",
+    "boundaries": [
+      "EasyOCR یا Tesseract، Pillow و ReportLab وابستگی‌اند.",
+      "ظاهر certified-style تایید رسمی یا اعتبار حقوقی ترجمه نیست.",
+      "اسناد مالی/هویتی باید در محدوده مجاز پردازش شوند."
+    ],
+    "profile": "domain",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "vite-patterns",
+    "domain": "typescript",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "config، HMR، SSR و env security ویت جزئیات مکمل ابزار ساخت وب هستند.",
+    "improvement_fa": "راهنمای VITE_ exposure، plugin و bundle optimization به متخصص وب اضافه شود.",
+    "boundaries": [
+      "Vite و pluginها باید با lockfile پروژه سازگار باشند.",
+      "متغیرهای VITE_ عمومی‌اند و محل نگهداری secret نیستند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "vue-patterns",
+    "domain": "vue",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "typescript-web"
+    ],
+    "rationale_fa": "Composition API، Pinia، Router و reactivity قابلیت Vue را عمیق‌تر می‌کنند.",
+    "improvement_fa": "پروفایل Vue3 با component/composable و تست رفتار اضافه شود.",
+    "boundaries": [
+      "Vue3، Pinia و Vue Router وابستگی نسخه‌ای دارند."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "windows-desktop-e2e",
+    "domain": "windows",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "csharp-dotnet",
+      "engineering-qa"
+    ],
+    "rationale_fa": "WPF/WinForms/Win32/Qt با pywinauto گپ آزمون GUI بومی سیج را پر می‌کنند.",
+    "improvement_fa": "پروفایل E2E دسکتاپ با isolation، artifact و redaction اضافه شود.",
+    "boundaries": [
+      "Windows GUI، UI Automation و pywinauto لازم‌اند.",
+      "Linux/headless یا mock اثبات اجرای تست ویندوز نیست.",
+      "تعامل با نرم‌افزار واقعی باید به محیط disposable محدود شود."
+    ],
+    "profile": "engineering",
+    "execution_class": "local_change"
+  },
+  {
+    "name": "workspace-surface-audit",
+    "domain": "skills",
+    "decision": "ENHANCE",
+    "sage_targets": [
+      "sage-discover",
+      "interface-audit"
+    ],
+    "rationale_fa": "تفکیک نصب‌شده، متصل و صرفاً پیشنهادی برای discovery سیج ارزش مستقیم دارد.",
+    "improvement_fa": "inventory محیط و proof اتصال پیش از پیشنهاد ابزار به registry افزوده شود.",
+    "boundaries": [
+      "فرض ترجیح ECC-native باید با انتخاب capability مبتنی بر شواهد SAGE جایگزین شود.",
+      "دیدن config یا env اثبات اتصال ابزار نیست."
+    ],
+    "profile": "meta",
+    "execution_class": "read_only"
+  },
+  {
+    "name": "x-api",
+    "domain": "social",
+    "decision": "ADD",
+    "sage_targets": [],
+    "rationale_fa": "OAuth، thread، timeline، search و analytics برای X قابلیت اتصال تازه‌اند.",
+    "improvement_fa": "adapter اختیاری X با preview، rate-limit handling و receipt انتشار اضافه شود.",
+    "boundaries": [
+      "X API و credential متناسب با read/write لازم‌اند.",
+      "دسترسی tier و rate limits باید در زمان استفاده دوباره احراز شوند.",
+      "متن timeline ورودی نامطمئن است و مجوز ارسال ایجاد نمی‌کند."
+    ],
+    "profile": "operations",
+    "execution_class": "external_action"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "extension_id": "sage.ecc-capabilities",
+  "version": "0.1.0",
+  "status": "REVIEW_CANDIDATE_SOURCE_CATALOG",
+  "compatible_core": "sage/0.8.4",
+  "core_release_unchanged": true,
+  "catalog": "catalog.json",
+  "lockfile": "upstream-lock.json",
+  "policy": "policy.json",
+  "review_matrix": "review/OVERLAP-MATRIX.fa.md",
+  "enhancements": "enhancements.json",
+  "schema": "../../schemas/extensions/sage-ecc-catalog.schema.json",
+  "cli": "sage_ecc.py",
+  "web_catalog": "../../docs/catalog/index.html",
+  "architecture_owner": "SAGE",
+  "activation": "ON_DEMAND_SOURCE_PACKET",
+  "installed_into_host": false,
+  "external_execution": false,
+  "autonomous_runtime_provisioned": false,
+  "provider_bindings": {
+    "generic": "portable source packet",
+    "codex": "portable source packet with explicit adaptation notes",
+    "claude": "portable source packet with explicit adaptation notes"
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "schema_version": "1.0",
+  "checked_at": "2026-10-23T16:50:35.588Z",
+  "status": "pass",
+  "subject": "docs/catalog/index.html",
+  "environment": {
+    "engine": "Chrome Headless Shell",
+    "browser_version": "156.0.8078.47",
+    "executable": "/tmp/sage-ecc-qa-browsers/chrome-headless-shell-linux64/chrome-headless-shell",
+    "library": "Playwright",
+    "headless": true,
+    "transport": "file://",
+    "network": "blocked",
+    "deployment_verified": false,
+    "dependency_setup": "Bundled Playwright browser was absent and its revision download was invalid. Chrome Headless Shell 156.0.8078.47 was downloaded from the official Chrome for Testing manifest URL into /tmp; browser execution required an approved process-sandbox escalation."
+  },
+  "checks": [
+    {
+      "id": "canonical_425_records",
+      "status": "pass",
+      "observed": {
+        "embedded": 425,
+        "canonical": 425,
+        "ids_unique": 425,
+        "comparison": "All canonical entry metadata matches exactly; the web projection intentionally omits supporting resources lists."
+      },
+      "expected": {
+        "definitions": 425,
+        "exact_canonical_metadata": true
+      }
+    },
+    {
+      "id": "summary_counts",
+      "status": "pass",
+      "observed": {
+        "skills": "۳۱۱",
+        "agents": "۷۱",
+        "native": "۴۳",
+        "enhance": "۱۹۰"
+      }
+    },
+    {
+      "id": "initial_page_50",
+      "status": "pass",
+      "observed": {
+        "shown": 50,
+        "count": "۴۲۵ از ۴۲۵ تعریف"
+      }
+    },
+    {
+      "id": "pagination_100",
+      "status": "pass",
+      "observed": {
+        "shown": 100,
+        "count": "نمایش ۱۰۰ مورد"
+      }
+    },
+    {
+      "id": "rust_search_native_and_ecc",
+      "status": "pass",
+      "observed": {
+        "names": [
+          "build-error-resolver",
+          "rust-build-resolver",
+          "rust-reviewer",
+          "agent-security-hardening",
+          "homelab-network-readiness",
+          "homelab-vlan-segmentation",
+          "latency-critical-systems",
+          "nextjs-turbopack",
+          "rust-patterns",
+          "rust-testing",
+          "rust-engineer",
+          "embedded-iot",
+          "rust-engineering"
+        ],
+        "count": "۱۳ از ۴۲۵ تعریف"
+      }
+    },
+    {
+      "id": "combined_filters",
+      "status": "pass",
+      "observed": {
+        "names": [
+          "agent-security-hardening",
+          "latency-critical-systems",
+          "nextjs-turbopack",
+          "rust-patterns",
+          "rust-testing"
+        ],
+        "count": "۵ از ۴۲۵ تعریف"
+      }
+    },
+    {
+      "id": "reference_filter",
+      "status": "pass",
+      "observed": {
+        "shown": 50,
+        "all": 63,
+        "text": "۶۳ از ۴۲۵ تعریف"
+      }
+    },
+    {
+      "id": "reference_selection_disabled",
+      "status": "pass",
+      "observed": {
+        "enabled": 0,
+        "disabled": 63
+      }
+    },
+    {
+      "id": "details_provenance_and_boundaries",
+      "status": "pass",
+      "observed": {
+        "name": "chief-of-staff",
+        "source": "https://github.com/affaan-m/ECC/blob/90606c8315ee09cafc303515c5f33024db6b9882/agents/chief-of-staff.md",
+        "runtime_limit_present": true
+      }
+    },
+    {
+      "id": "details_escape_closes",
+      "status": "pass",
+      "observed": {
+        "visible": false
+      }
+    },
+    {
+      "id": "chief_of_staff_reference_routing_and_constraints",
+      "status": "pass",
+      "observed": {
+        "id": "ecc.agent.chief-of-staff",
+        "decision": "REFERENCE_ONLY",
+        "checkbox_disabled": true,
+        "badge": "مرجع اقتباس",
+        "boundaries": [
+          "نام مدل و ابزارهای Claude در فایل منبع، فقط راهنما است؛ میزبان واقعی و مجوز وظیفه تعیین‌کننده‌اند.",
+          "خطوط ۱۰۲ تا ۱۱۲ منبع، پس از هر ارسال تغییر تقویم و حافظه، archive و Git commit/push را الزامی می‌کنند؛ این دنباله فعال نمی‌شود.",
+          "PostToolUse، فایل‌های روابط و کارها و قواعد خودکار .claude/rules جزء معماری بومی‌اند و با ورود کاتالوگ نصب یا پذیرفته نمی‌شوند."
+        ],
+        "boundaries_rendered": true
+      }
+    },
+    {
+      "id": "selection_maximum_32",
+      "status": "pass",
+      "observed": {
+        "checked": 32,
+        "selection_text": "۳۲ قابلیت انتخاب شده",
+        "toast": "در هر بسته حداکثر ۳۲ قابلیت انتخاب کنید."
+      }
+    },
+    {
+      "id": "selection_persists_across_search",
+      "status": "pass",
+      "observed": {
+        "selection_text": "۳۲ قابلیت انتخاب شده"
+      }
+    },
+    {
+      "id": "clear_selection",
+      "status": "pass",
+      "observed": {
+        "bar_visible": false,
+        "checked": 0
+      }
+    },
+    {
+      "id": "copy_command_fallback",
+      "status": "pass",
+      "observed": {
+        "command": "python extensions/ecc/sage_ecc.py bundle --provider generic --ids sage.skill.rust-engineering --output \"REPLACE_WITH_NEW_ABSOLUTE_OUTPUT_PATH\" --json",
+        "fallback_visible": true
+      },
+      "expected": {
+        "command": "python extensions/ecc/sage_ecc.py bundle --provider generic --ids sage.skill.rust-engineering --output \"REPLACE_WITH_NEW_ABSOLUTE_OUTPUT_PATH\" --json"
+      }
+    },
+    {
+      "id": "copied_command_real_cli_bundle",
+      "status": "pass",
+      "observed": {
+        "exit_code": 0,
+        "receipt": {
+          "ok": true,
+          "schema_version": "sage-ecc/0.1",
+          "command": "bundle",
+          "execution_authorized": false,
+          "data": {
+            "output": "/tmp/sage-web-qa-yncEg2/packet",
+            "selected_ids": [
+              "sage.skill.rust-engineering"
+            ],
+            "files_written": 5,
+            "source_bytes": 4474,
+            "provider": "generic",
+            "execution_performed": false,
+            "authority_granted": false,
+            "verification": {
+              "source_hashes_checked": true,
+              "commit_metadata_matches_catalog_pins": true,
+              "upstream_authenticity_verified": false,
+              "execution_verified": false
+            }
+          }
+        },
+        "packet_ids": [
+          "sage.skill.rust-engineering"
+        ],
+        "execution_performed": false,
+        "native_installation_performed": false,
+        "stderr": ""
+      }
+    },
+    {
+      "id": "empty_search_state",
+      "status": "pass",
+      "observed": {
+        "message": "موردی با این جست‌وجو پیدا نشد. عبارت یا فیلتر را تغییر دهید.",
+        "load_visible": false
+      }
+    },
+    {
+      "id": "desktop_no_horizontal_overflow",
+      "status": "pass",
+      "observed": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "overflow": []
+      }
+    },
+    {
+      "id": "mobile390_no_horizontal_overflow",
+      "status": "pass",
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390,
+        "overflow": []
+      }
+    },
+    {
+      "id": "mobile390_details_fit",
+      "status": "pass",
+      "observed": {
+        "page": {
+          "viewport": 390,
+          "document": 390,
+          "body": 390,
+          "overflow": []
+        },
+        "dialog": {
+          "clientWidth": 356,
+          "scrollWidth": 356,
+          "height": 759.59375,
+          "viewport": 844
+        }
+      }
+    },
+    {
+      "id": "mobile_copy_fallback_fit",
+      "status": "pass",
+      "observed": {
+        "command": "python extensions/ecc/sage_ecc.py bundle --provider generic --ids ecc.skill.accessibility --output \"REPLACE_WITH_NEW_ABSOLUTE_OUTPUT_PATH\" --json",
+        "dialog": {
+          "clientWidth": 356,
+          "scrollWidth": 356
+        }
+      }
+    },
+    {
+      "id": "responsive_640_no_horizontal_overflow",
+      "status": "pass",
+      "observed": {
+        "viewport": 640,
+        "document": 640,
+        "body": 640,
+        "overflow": []
+      }
+    },
+    {
+      "id": "responsive_768_no_horizontal_overflow",
+      "status": "pass",
+      "observed": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "overflow": []
+      }
+    },
+    {
+      "id": "responsive_1024_no_horizontal_overflow",
+      "status": "pass",
+      "observed": {
+        "viewport": 1024,
+        "document": 1024,
+        "body": 1024,
+        "overflow": []
+      }
+    },
+    {
+      "id": "no_browser_errors",
+      "status": "pass",
+      "observed": {
+        "console_errors": [],
+        "page_errors": []
+      }
+    },
+    {
+      "id": "offline_page_no_network_requests",
+      "status": "pass",
+      "observed": {
+        "requests": []
+      }
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "network_requests": [],
+  "screenshots": [
+    "tmp/ecc-qa/detail.png",
+    "tmp/ecc-qa/chief-of-staff-detail.png",
+    "tmp/ecc-qa/desktop-independent.png",
+    "tmp/ecc-qa/mobile.png",
+    "tmp/ecc-qa/mobile-results.png",
+    "tmp/ecc-qa/mobile-detail.png",
+    "tmp/ecc-qa/mobile-command.png"
+  ],
+  "limitations": [
+    "Local browser verification only; no deployment, remote source availability or upstream skill execution is asserted.",
+    "Clipboard fallback is deliberately exercised; OS clipboard permission and platform-specific native paste were not tested.",
+    "Source links were displayed and pinned but not followed. This is representative local UI validation, not an accessibility certification or cross-browser guarantee."
+  ],
+  "subject_sha256": "7636d96b96bce221f46cf86647ac781fe3c4b40a70e3a07c30a9eaa49f5a39e3",
+  "subject_bytes": 785362,
+  "catalog_decisions": {
+    "KEEP": 43,
+    "ENHANCE": 190,
+    "ADD": 129,
+    "REFERENCE_ONLY": 63
+  },
+  "visual_review": {
+    "method": "All seven screenshots opened and visually inspected after the final-mapping Playwright run.",
+    "status": "pass",
+    "viewports_reviewed": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "images_reviewed": [
+      "tmp/ecc-qa/detail.png",
+      "tmp/ecc-qa/chief-of-staff-detail.png",
+      "tmp/ecc-qa/desktop-independent.png",
+      "tmp/ecc-qa/mobile.png",
+      "tmp/ecc-qa/mobile-results.png",
+      "tmp/ecc-qa/mobile-detail.png",
+      "tmp/ecc-qa/mobile-command.png"
+    ],
+    "findings": [
+      "Persian headings, summaries and row text render legibly in RTL without observed clipping or control overlap.",
+      "At 390px the statistics become two columns and entries become readable cards; labels, checkboxes and detail controls remain inside the viewport.",
+      "Detail and copy-command dialogs fit the mobile viewport; long details require vertical reading and the command textarea wraps inside its dialog.",
+      "The fallback command is left-to-right while Persian instructions remain right-to-left.",
+      "The updated chief-of-staff dialog visibly shows the reference-only badge and the memory, PostToolUse, archive and Git commit/push constraints."
+    ],
+    "blocking_findings": []
+  }
+}

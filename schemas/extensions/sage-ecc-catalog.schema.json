@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sage:schema:ecc-catalog:0.1",
+  "title": "SAGE ECC capability catalog",
+  "type": "object",
+  "required": ["schema_version", "catalog_id", "version", "sources", "entries", "summary", "authority_granted", "external_execution"],
+  "properties": {
+    "schema_version": {"const": "sage-ecc/0.1"},
+    "catalog_id": {"const": "sage.ecc-capabilities"},
+    "version": {"type": "string"},
+    "sources": {"type": "object", "required": ["ECC", "SAGE"]},
+    "authority_granted": {"const": false},
+    "external_execution": {"const": false},
+    "summary": {"type": "object"},
+    "entries": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/entry"}}
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["repository", "commit", "path", "url", "sha256"],
+      "properties": {
+        "repository": {"type": "string"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "path": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "entry": {
+      "type": "object",
+      "required": ["id", "kind", "name", "description", "origin", "domain", "profile", "decision", "sage_targets", "rationale_fa", "improvement_fa", "execution_class", "source", "local_path", "review", "dependency_flags", "resources"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^(ecc|sage)\\.(skill|agent)\\.[a-z0-9][a-z0-9-]*$"},
+        "kind": {"enum": ["skill", "agent"]},
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "origin": {"enum": ["ECC", "SAGE"]},
+        "domain": {"type": "string"},
+        "profile": {"enum": ["engineering", "domain", "operations", "meta"]},
+        "decision": {"enum": ["ADD", "ENHANCE", "REFERENCE_ONLY", "KEEP"]},
+        "sage_targets": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "rationale_fa": {"type": "string", "minLength": 1},
+        "improvement_fa": {"type": "string"},
+        "execution_class": {"enum": ["read_only", "local_change", "external_action", "orchestration", "host_configuration"]},
+        "source": {"$ref": "#/$defs/source"},
+        "local_path": {"type": "string", "minLength": 1},
+        "review": {"type": "object", "required": ["method", "execution_verified"], "properties": {"method": {"const": "STATIC"}, "execution_verified": {"type": "boolean"}}},
+        "dependency_flags": {"type": "array", "items": {"type": "string"}},
+        "resources": {"type": "array", "items": {"type": "object", "required": ["local_path", "source_path", "sha256"]}}
+      }
+    }
+  }
+}
