@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent
-PROTOCOL = "2025-06-18"
+PROTOCOL = "2025-11-25"
 MAX_MESSAGE = 1024 * 1024
 MAX_TOOL_PAGES = 30
 DEFAULT_COMMAND = ["npx", "--no-install", "ruflo@3.61.1", "mcp", "start"]
