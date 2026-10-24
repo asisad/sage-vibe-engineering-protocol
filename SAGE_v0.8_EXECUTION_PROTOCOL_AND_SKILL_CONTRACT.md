@@ -21,6 +21,12 @@ profiles. This does not replace the baseline or republish the v0.8.4 release.
 `SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md` adds a disabled metadata/proposal
 interface for the independently built SENS project, not a deployed service.
 
+Optional development execution composition (2026-10-24):
+`SAGE_AUTONOMOUS_RUNTIME_DELTA.md` defines a separate, opt-in, bounded local
+runtime and concrete provider/sandbox adapters. It preserves baseline authority,
+exact plan approval, evidence and stop conditions. The reference lifecycle and
+historical SDK/tag remain unchanged; installing source does not grant live authority.
+
 Source Baseline: SAGE_v0.7_MASTER_BASELINE.md  
 Baseline SHA-256: DC0C6BAF80465E1F2CF63A2ACA96F3578153A898D55752DEB9A936E506FD6C0D  
 Handoff Source: SAGE_HANDOFF_v0.7_to_v0.8.md  
@@ -2821,3 +2827,23 @@ INTENT
 اصل نهایی v0.8:
 
 > SAGE must make the safe path explicit, the required evidence computable, and unnecessary ceremony removable.
+
+---
+
+## پیوست اجرایی 2026-10-24 — اتصال کنترل‌شدهٔ Ruflo
+
+بستهٔ افزایشی `sage-runtime 0.2.0`، Ruflo را به‌عنوان هماهنگ‌کنندهٔ واقعی Task
+و Codex را به‌عنوان Worker خارجی متصل می‌کند. این پیوست تعریف منجمد Baseline
+و نسخهٔ هستهٔ `0.8.4` را تغییر نمی‌دهد. قرارداد اجرایی در
+`runtime/autonomous/DESIGN.md`، راهنمای دوزبانه در
+`extensions/ruflo/LIVE_BINDING.fa-en.md` و مدرک پذیرش محدود محلی در
+`extensions/ruflo/live-acceptance.json` قرار دارد.
+
+فعال‌سازی به Approval اختصاصی، حالت صریح Live، ایمیج ثابت و فضای metadata
+جدا نیاز دارد. Ruflo فقط پنج ابزار lifecycle کار را دریافت می‌کند؛ prompt،
+کد پروژه و اعتبارنامهٔ مدل وارد آن نمی‌شوند. ثبت `completed` در صف معادل
+پذیرش محصول نیست. اختیار Scope، تغییر سورس، VERIFY و DONE متعلق به SAGE است؛
+خرابی هماهنگ‌کننده موجب fallback مستقیم نمی‌شود. SENS مشاهده‌گر می‌ماند.
+
+پذیرش این مسیر، اجرای داخلی LLM در Ruflo، فعال‌سازی همهٔ تعریف‌های کاتالوگ،
+استقرار production، Push یا قبولی اسکن Strix را اثبات یا مجاز نمی‌کند.

@@ -1,6 +1,28 @@
 # SAGE — Vibe Engineering Protocol & Runtime Kit
 
-SAGE is a provider-neutral protocol and runtime kit for turning vibe-coding intent into scoped, reviewable, evidence-backed engineering work. It is not a code generator or a domain-specific application.
+SAGE is a provider-neutral protocol and runtime kit for turning vibe-coding intent into scoped, reviewable, evidence-backed engineering work. Its core governs the lifecycle; an optional bounded runtime generates and checks code for supported local profiles. It is not a domain-specific application or a universal software factory.
+
+## Development branch: bounded autonomous execution
+
+The additive [`sage-runtime` package](runtime/autonomous/README.fa-en.md) connects
+the protocol to actual, authorized local work: structured planning, on-demand
+SAGE/ECC sources, exact plan approval, controller-applied files, sandbox checks,
+fresh-session review and bounded repair/resume. It starts **non-live by default**.
+The preserved reference lifecycle below remains Dry-Run; installation does not
+activate hooks, deploy software or publish anything. This development addition
+is not part of the historical `v0.8.4` tag or a security certification.
+
+```powershell
+python -m pip install ./runtime/autonomous
+sage doctor
+sage build "Build a small Python stdlib library with unittest tests" --output C:\SageWork\new-project
+# Add --live --approval-id TASK-ID only for your explicitly authorized task.
+```
+
+نسخهٔ توسعه، چرخهٔ اجرایی واقعی و محدود دارد؛ فایل تولیدی ابتدا داده است و فقط
+کنترل‌کنندهٔ SAGE آن را پس از بررسی محدوده می‌نویسد. آزمون واقعی به محیط ایزوله
+نیاز دارد. پروژهٔ قدیمی را می‌توان با `--source` به خروجی تازه کپی و اصلاح کرد؛
+اصل پروژه تغییر نمی‌کند. [معماری و مرزها](SAGE_AUTONOMOUS_RUNTIME_DELTA.md).
 
 ## فارسی
 
@@ -39,6 +61,17 @@ python extensions/ecc/sage_ecc.py show ecc.agent.code-reviewer --json
 [تصمیم معماری](SAGE_v0.8_ECC_CAPABILITY_DELTA.md) جزئیات را ثبت می‌کنند.
 
 ## Optional Ruflo real MCP runtime
+
+The development `sage-runtime 0.2.0` additionally has a real, isolated Ruflo
+task-coordinated **external Codex worker** binding. It is opt-in per run,
+preserves SAGE ownership and does not enable native Ruflo LLMs or its whole
+catalog. See [live binding and setup](extensions/ruflo/LIVE_BINDING.fa-en.md)
+and [observed acceptance](extensions/ruflo/live-acceptance.json), with a
+[bilingual local delivery report](docs/RUFLO_LIVE_ACCEPTANCE.fa-en.md).
+
+در نسخهٔ توسعهٔ ۰٫۲٫۰، هماهنگی کار با Ruflo و اجرای واقعی عامل Codex زیر کنترل
+SAGE متصل شده‌اند؛ این با فعال‌کردن تمام عامل‌ها یا `agent_execute` داخلی Ruflo
+یکسان نیست. راهنما و شواهدِ بالا مرز دقیق این اتصال را نشان می‌دهند.
 
 The Ruflo integration is a separately gated, version-pinned executable MCP
 adapter. It **does not** automatically install or start upstream services.

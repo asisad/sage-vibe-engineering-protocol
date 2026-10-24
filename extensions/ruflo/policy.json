@@ -9,6 +9,16 @@
   "allowed_transport": "STDIO_ONLY",
   "protocol_version": "2025-11-25",
   "execution": {
+    "controlled_worker_binding": {
+      "activation": ["explicit --ruflo-config", "--live", "task approval identifier", "persisted SAGE run binding"],
+      "scope": "TASK_METADATA_ONLY_NO_SOURCE_MOUNT",
+      "allowed_tools": ["task_create", "task_assign", "task_status", "task_complete", "task_cancel"],
+      "requires": ["immutable local image", "actual container isolation readback", "time-limited native Approval and RunContract", "matching persisted task result"],
+      "credentials_to_coordinator": false,
+      "direct_provider_fallback": false,
+      "product_acceptance_owner": "SAGE"
+    },
+    "mutation_flag_rules_apply_to": "RAW_MCP_INVOKE_AND_BATCH; controlled binding has its own stricter isolated metadata grant",
     "requires": [
       "--live",
       "explicit absolute workspace",

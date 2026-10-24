@@ -1,0 +1,7 @@
+{
+  "name": "sage-ruflo-isolated-coordinator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pinned coordination-only Ruflo runtime; no host hooks or model credentials",
+  "dependencies": { "ruflo": "3.61.1" }
+}

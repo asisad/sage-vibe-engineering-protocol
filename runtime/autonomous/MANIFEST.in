@@ -1,0 +1,7 @@
+include README.fa-en.md
+include DESIGN.md
+include setup.py
+recursive-include src/sage_runtime *.py
+recursive-include src/sage_runtime/_kit *
+recursive-include tests *.py
+global-exclude __pycache__ *.py[cod]

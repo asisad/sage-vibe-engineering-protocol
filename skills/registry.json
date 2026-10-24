@@ -6,6 +6,7 @@
   "optional_extensions": [
     "extensions/technology-engineering/manifest.json",
     "extensions/ecc/manifest.json",
+    "extensions/autonomous-runtime/manifest.json",
     "extensions/ruflo/manifest.json"
   ],
   "skills": [

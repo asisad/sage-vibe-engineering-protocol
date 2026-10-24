@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased — Controlled Ruflo worker binding 0.2 — 2026-10-24
+
+- Reconciled published Ruflo source integration with the existing bounded runtime.
+- Added opt-in real MCP task creation/assignment/completion in a pinned, non-root,
+  network-disabled Docker coordinator; no source/auth mount or native hooks.
+- Actual Codex workers execute structured jobs; SAGE still owns all source
+  writes, budgets, independent checks and product acceptance. No direct fallback.
+- Added persisted task readback, pure configuration/authority gates, setup/probe
+  commands, bilingual guide and separate source/build/repair acceptance evidence.
+- Preserved core SDK 0.8.4, release tags, ECC pins and source-only catalog semantics.
+
+## Unreleased — Bounded autonomous runtime 0.1 — 2026-10-24
+
+- Added an installable opt-in `sage-runtime` package with structured planning,
+  SAGE/ECC source discovery, exact plan approval, file-scope enforcement,
+  sandboxed checks, independent-session review and bounded repair.
+- Added durable checkpoint/ledger state, conservative interrupted-call budgets,
+  cancellation and exact before/after source-intent recovery.
+- Added read-only snapshot import for repairing an existing project in a new
+  isolated output, without modifying the original.
+- Added Codex CLI adapter with no host-tool activation and fail-closed native or
+  hardened local-image Docker checks; no unsandboxed execution fallback.
+- Added offline policy/controller/process/transport/package regressions and a
+  separate live acceptance harness with a shared twelve-invocation ceiling.
+- Preserved source pins, core SDK/tag and eight core Skills; no deployment,
+  GitHub push, new release or live Strix scan is implied by this development work.
+
 ## Unreleased — ECC capability catalog 0.1 — 2026-10-23
 
 - Reviewed and mapped all 311 canonical Skills and 71 agent definitions in ECC

@@ -5,6 +5,29 @@ on:
   pull_request:
 
 jobs:
+  autonomous-runtime-offline:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Provision packaging tools (no provider credentials)
+        run: python -m pip install setuptools wheel
+      - name: Offline bounded runtime regression
+        run: python tools/Test-SageAutonomousRuntime.py --evidence-path tmp/autonomous-offline.json
+      - name: Build installable runtime without authenticated models
+        run: python -m pip wheel --no-deps --no-build-isolation ./runtime/autonomous --wheel-dir tmp/runtime-wheel
+      - name: Preserve offline evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sage-autonomous-offline-${{ matrix.os }}
+          path: tmp/autonomous-offline.json
+          if-no-files-found: error
   ruflo-mcp-transport:
     name: Ruflo MCP boundary (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
