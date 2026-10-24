@@ -1,0 +1,41 @@
+name: SAGE Ruflo upstream smoke
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'extensions/ruflo/**'
+      - 'schemas/extensions/sage-ruflo-approval.schema.json'
+      - '.github/workflows/ruflo-upstream-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  real-ruflo-mcp-handshake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Create disposable workspace and install pinned Ruflo (no lifecycle scripts)
+        shell: bash
+        run: |
+          mkdir -p tmp/ruflo-smoke
+          npm install --prefix tmp/ruflo-smoke --ignore-scripts --no-save --no-audit --no-fund --save-exact ruflo@3.61.1
+      - name: Real MCP protocol negotiation and dynamic tool discovery
+        shell: bash
+        run: |
+          python extensions/ruflo/sage_ruflo.py probe --workspace "${{ github.workspace }}/tmp/ruflo-smoke" --live
+      - name: Archive limited non-secret handshake receipts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ruflo-upstream-mcp-smoke
+          path: tmp/ruflo-smoke/.sage/ruflo-receipts/*.json
+          if-no-files-found: ignore
