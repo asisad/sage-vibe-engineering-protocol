@@ -108,6 +108,32 @@ class RufloAdapterTests(unittest.TestCase):
         self.assertFalse(response["model_task_verified"])
         self.assertNotIn("fake response", json.dumps(response))
 
+    def test_batch_calls_share_one_mcp_session_and_receipt(self):
+        self.approve()
+        plan = Path(self.workspace) / "plan.json"
+        plan.write_text(json.dumps({"steps": [
+            {"tool": "memory_search", "arguments": {"query": "one"}},
+            {"tool": "memory_search", "arguments": {"query": "two"}},
+        ]}))
+        code, reply = self.server("batch", "--batch-file", str(plan),
+                                  "--approval-file", str(self.approval))
+        self.assertEqual(code, 0, reply)
+        self.assertEqual(reply["result"]["completed_steps"], 2)
+        self.assertEqual(reply["result"]["planned_steps"], 2)
+        self.assertEqual(reply["status"], "EXECUTED_UNVERIFIED")
+
+    def test_untrusted_preview_requires_ack_and_is_not_persisted(self):
+        self.approve()
+        code, result = self.invoke("memory_search", "--show-result")
+        self.assertEqual(code, 2)
+        self.assertEqual(result["error_code"], "UNAUTHORIZED")
+        code, result = self.invoke("memory_search", "--show-result",
+                                   "--ack-result-disclosure")
+        self.assertEqual(code, 0, result)
+        self.assertIn("fake response", json.dumps(result["untrusted_redacted_previews"]))
+        receipt = Path(result["receipt_path"]).read_text(encoding="utf-8")
+        self.assertNotIn("fake response", receipt)
+
     def test_nonapproved_tool_blocked_before_server(self):
         self.approve("memory_search")
         code, response = self.invoke("agent_execute")
