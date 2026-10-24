@@ -1,7 +1,7 @@
 {
   "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24+ruflo",
   "schema_version": "sage-source-manifest/0.1",
-  "recorded_at": "2026-10-24T18:09:39Z",
+  "recorded_at": "2026-10-24T19:30:13Z",
   "hash_algorithm": "SHA-256",
   "upstream_pins": {
     "HKUDS/CLI-Anything": {
@@ -140,7 +140,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "aef56bab518709da5b7416a653ca2224cecf73145d4a2a1e853bc240f9981020"
+      "sha256": "a50938de5377175dd156c1f66170b2532c829e54ff118a4f725e52b917b6063b"
     },
     {
       "path": "RELEASE_MANIFEST_v0.8.2.json",
@@ -275,12 +275,24 @@
       "sha256": "c8fc9a3005caa95e3ae0410202af5097d7a8531de7b22af2978b2101f308502c"
     },
     {
+      "path": "docs/decisions/ADR-openhands-sdk-optional-engine.md",
+      "sha256": "e35f1973630cb64bd14bd343ed99584b3e64f73e4c5e4eeb8282e428492cc3a7"
+    },
+    {
       "path": "docs/diagrams/README.md",
       "sha256": "e8570a4e13d57f25cac38f952b71fc7e081a6958254cb31e38ec13eb4fa5dafe"
     },
     {
       "path": "docs/diagrams/sage-architecture.mmd",
       "sha256": "7f636e043e096bc0e30a62ac9dd9b933aa9b0e2d870e7baeb8c213f4810df801"
+    },
+    {
+      "path": "docs/verification/OPENHANDS_SDK_v1.58.1_EVALUATION.fa-en.md",
+      "sha256": "2723f1bc7808b203ddbace0b723db11c6bed866237247124d76f5127bdbba72c"
+    },
+    {
+      "path": "docs/verification/OPENHANDS_SDK_v1.58.1_RESULTS.json",
+      "sha256": "3414e461c59d142dfa3aca7a0c853c624795d58f5c088d48d3ea2d13e003e040"
     },
     {
       "path": "docs/verification/RUFLO_LIVE_ACCEPTANCE.fa-en.md",
@@ -6760,7 +6772,7 @@
     },
     {
       "path": "tools/test_ruflo_live_acceptance.py",
-      "sha256": "01de04502f54a04440166f63b96c502155c2c804441ccdf966d752ea48e81511"
+      "sha256": "dbec9c47b85eca8434620390869719f0a2f6f21ba514b0654940f91b382b9c88"
     },
     {
       "path": "tools/test_sage_ecc.py",
@@ -6776,7 +6788,7 @@
     },
     {
       "path": "tools/verify_ruflo_live_acceptance.py",
-      "sha256": "67ea968eaee67d5e337fe0a9cf07db1a4d4a6ba025e2bf1694b77c25d35a9880"
+      "sha256": "0ee50a6023fd177507a771c95137b72d1116011f7ed68d513148f84d5d58288c"
     }
   ]
 }
