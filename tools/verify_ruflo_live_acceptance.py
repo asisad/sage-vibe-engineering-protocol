@@ -13,6 +13,25 @@ import subprocess
 import sys
 import tempfile
 
+
+# Read unittest's structured result; exit code 0 also includes all-skipped runs.
+_TEST_RUNNER = """
+import json
+import pathlib
+import sys
+import unittest
+
+result_path = pathlib.Path(sys.argv[1])
+suite = unittest.defaultTestLoader.discover('tests', pattern='test_calc.py')
+result = unittest.TextTestRunner().run(suite)
+result_path.write_text(json.dumps({
+    'tests_run': result.testsRun,
+    'tests_skipped': len(result.skipped),
+    'successful': result.wasSuccessful(),
+}), encoding='utf-8')
+raise SystemExit(0 if result.wasSuccessful() else 1)
+"""
+
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
@@ -55,11 +74,27 @@ def main():
         if a.test!="tests/test_calc.py" or a.target!="src/calc.py":
             raise ValueError("Only the bounded calculator fixture is supported")
         with tempfile.TemporaryDirectory(prefix="sage-acceptance-pycache-") as cache:
-            run=subprocess.run([sys.executable,"-X",f"pycache_prefix={cache}","-m","unittest","discover","-s","tests","-p","test_calc.py"],
+            result_path=pathlib.Path(cache)/"unittest-result.json"
+            run=subprocess.run([sys.executable,"-X",f"pycache_prefix={cache}","-c",_TEST_RUNNER,str(result_path)],
                 cwd=root,timeout=45,capture_output=True,text=True)
-        report["checks"]["test_exit_code"]=run.returncode
-        report["checks"]["test_output_sha256"]=sha((run.stdout+"\n"+run.stderr).encode())
-        report["checks"]["test_passed"]=run.returncode==0
+            report["checks"]["test_exit_code"]=run.returncode
+            report["checks"]["test_output_sha256"]=sha((run.stdout+"\n"+run.stderr).encode())
+            report["checks"]["test_passed"]=False
+            result=json.loads(result_path.read_text(encoding="utf-8"))
+        if not isinstance(result,dict):
+            raise ValueError("Invalid unittest result")
+        tests_run=result.get("tests_run")
+        tests_skipped=result.get("tests_skipped")
+        successful=result.get("successful")
+        if (type(tests_run) is not int or type(tests_skipped) is not int
+                or not 0 <= tests_skipped <= tests_run
+                or type(successful) is not bool):
+            raise ValueError("Invalid unittest result")
+        report["checks"]["tests_run"]=tests_run
+        report["checks"]["tests_skipped"]=tests_skipped
+        report["checks"]["tests_executed"]=tests_run-tests_skipped
+        report["checks"]["test_passed"]=bool(
+            run.returncode==0 and successful and tests_run>tests_skipped)
         report["verified"]=bool(report["checks"]["target_changed"] and report["checks"]["test_passed"])
         report["status"]="PASS" if report["verified"] else "FAIL"
     except (ValueError,OSError,subprocess.TimeoutExpired) as e:

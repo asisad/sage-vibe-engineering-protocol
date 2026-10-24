@@ -339,35 +339,6 @@ class DeliveryBudgetOfflineTests(unittest.TestCase):
         self.assertEqual(caught.exception.code, "DELIVERY_BUDGET")
         self.assertEqual(provider.calls, [])
 
-    def test_explicit_evaluation_limit_uses_same_durable_reservations(self):
-        budget = self.live.DeliveryBudget(None, self.folder, limit=30)
-        for _ in range(29):
-            budget.reserve("sdk-real-request")
-        reopened = self.live.DeliveryBudget(None, self.folder, limit=30)
-        reopened.reserve("sdk-real-request")
-        with self.assertRaises(SageError):
-            reopened.reserve("sdk-real-request")
-        self.assertEqual(json.loads(budget.path.read_text())["reserved_calls"], 30)
-
-    def test_a_delivery_cannot_silently_change_its_existing_limit(self):
-        old = self.live.DeliveryBudget(None, self.folder)
-        old.reserve("planner")
-        changed = self.live.DeliveryBudget(None, self.folder, limit=30)
-        with self.assertRaises(SageError):
-            changed.reserve("sdk-real-request")
-        self.assertEqual(json.loads(old.path.read_text())["limit"], 12)
-        self.assertEqual(json.loads(old.path.read_text())["reserved_calls"], 1)
-
-    def test_evaluation_limits_and_reservation_labels_are_bounded(self):
-        for limit in (0, 31, True, 2.5):
-            with self.subTest(limit=limit), self.assertRaises(SageError):
-                self.live.DeliveryBudget(None, self.folder, limit=limit)
-        budget = self.live.DeliveryBudget(None, self.folder, limit=30)
-        for label in ("", "x"*81, None):
-            with self.subTest(label=label), self.assertRaises(SageError):
-                budget.reserve(label)
-        self.assertEqual(json.loads(budget.path.read_text())["reserved_calls"], 0)
-
     def test_ambiguous_resume_all_is_rejected_before_provider_instantiation(self):
         argv = ["Run-SageAutonomousLive.py", "--live", "--approval-id", "offline-parser-test",
                 "--evidence-root", str(self.folder), "--docker-image", "offline-unused",

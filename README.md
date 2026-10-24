@@ -26,6 +26,15 @@ sage build "Build a small Python stdlib library with unittest tests" --output C:
 
 ## فارسی
 
+OpenHands SDK `1.58.1` was evaluated as a second coding engine. Two isolated
+SAGE deliveries passed, but incremental value under the current worker contract
+was not demonstrated, so no SDK dependency or production adapter was added.
+The default and Ruflo binding remain unchanged.
+[Decision and evidence](docs/verification/OPENHANDS_SDK_v1.58.1_EVALUATION.fa-en.md).
+
+بررسی OpenHands پایان یافت؛ اتصال آزمایشی موفق بود، اما فایدهٔ افزودهٔ کافی
+اثبات نشد و به محصول اضافه نشد. جزئیات و محدودیت‌ها در گزارش بالاست.
+
 SAGE یک پروتکل و کیت Runtime برای تبدیل وایب‌کدینگ به کار مهندسیِ دارای Scope، تست، امنیت، شواهد و قابلیت Rollback است.
 
 ## What it provides

@@ -1,0 +1,862 @@
+{
+  "schema": "sage-openhands-evaluation/1",
+  "date": "2026-10-24",
+  "issue": 4,
+  "decision": "NOT_ADOPTED_IN_CURRENT_CONTRACT",
+  "default_engine_changed": false,
+  "authority_owner": "SAGE",
+  "production_sdk_dependency": false,
+  "production_sdk_adapter": false,
+  "temporary_environment_cleanup": "REMOVAL_REJECTED_BY_AUTOMATIC_APPROVAL_REVIEW: blocked by policy; isolated environment retained, not registered or activated",
+  "experimental_source_commit": "58ff45b35de4014e0130bbf8c2da7fb3a7a4ed3b",
+  "synchronized_master_commit": "3c65765ef9c76115cd17d449d7e469739adf336a",
+  "source_tag_commit": "60192ed54db73ac658ac1a07462916126c32d3a0",
+  "sdk_version": "1.58.1",
+  "sdk_python": "3.13.15",
+  "main_python": "3.14.8",
+  "sdk_wheel_sha256": "eb8dfecd5edef95a073db29df2194388f3d59d345a54aa4adab6456484e6615e",
+  "isolated_distributions": 149,
+  "workspace_version": "1.58.1",
+  "transitive_agent_server_version": "1.49.5",
+  "agent_server_invoked": false,
+  "native_tools_installed": false,
+  "budget": {
+    "limit": 30,
+    "reserved_calls": 15,
+    "stages": [
+      {
+        "stage": "implementer",
+        "attempt": 1
+      },
+      {
+        "stage": "implementer",
+        "attempt": 2
+      },
+      {
+        "stage": "implementer",
+        "attempt": 3
+      },
+      {
+        "stage": "planner",
+        "attempt": 4
+      },
+      {
+        "stage": "planner",
+        "attempt": 5
+      },
+      {
+        "stage": "openhands-implementer",
+        "attempt": 6
+      },
+      {
+        "stage": "openhands-implementer",
+        "attempt": 7
+      },
+      {
+        "stage": "openhands-implementer",
+        "attempt": 8
+      },
+      {
+        "stage": "openhands-implementer",
+        "attempt": 9
+      },
+      {
+        "stage": "reviewer",
+        "attempt": 10
+      },
+      {
+        "stage": "planner",
+        "attempt": 11
+      },
+      {
+        "stage": "openhands-implementer",
+        "attempt": 12
+      },
+      {
+        "stage": "reviewer",
+        "attempt": 13
+      },
+      {
+        "stage": "planner",
+        "attempt": 14
+      },
+      {
+        "stage": "reviewer",
+        "attempt": 15
+      }
+    ]
+  },
+  "historical_budget_preserved": {
+    "reserved_calls": 6,
+    "limit": 12
+  },
+  "charged_bootstrap_failure_slots": [
+    6,
+    7,
+    8
+  ],
+  "failed_slots_refunded": false,
+  "actual_total_monetary_cost": null,
+  "paid_api_access": false,
+  "subscription_usage": "Existing ChatGPT account; no paid API key used",
+  "resource_peak": "NOT_MEASURED",
+  "configured_generated_check_limits": {
+    "cpus": 1,
+    "memory_mb": 256,
+    "pids": 64,
+    "network": "none"
+  },
+  "comparison_type": "DESCRIPTIVE_NOT_CONTROLLED_BENCHMARK",
+  "rows": [
+    {
+      "route": "direct",
+      "scenario": "slug",
+      "historical": false,
+      "status": "PASS_INDEPENDENT_CHECK",
+      "private_receipt_sha256": "16c4b1394b46fdcec121dc396e068e0820067413609d31300c92a6719325cef5",
+      "tests": 5,
+      "duration_seconds": 48.43911239999579,
+      "independent_check": "PASS",
+      "workflow_review": false,
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 43.187833,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "input_tokens": 8928,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1032,
+            "reasoning_output_tokens": 190
+          },
+          "prompt_sha256": "cc1e3c9403974b24e2945d9cd57520615718948150b9fed2730eeb331e772a56",
+          "response_sha256": "0569efd5201aa0b91ca8314cef9173f21ad8d212ac55be47ec5669cf3bc65a95"
+        }
+      ],
+      "source_manifest": [
+        {
+          "path": "README.md",
+          "sha256": "fe3e6c8a1e979abaa6f6722ebc2d3eb793de722a3398f3f3138ea3994153de23",
+          "size_bytes": 821
+        },
+        {
+          "path": "slug.py",
+          "sha256": "67ca24d8cfb429f354cbe6c7baa65610091732d9ed5f79f596dbf314aea3446b",
+          "size_bytes": 633
+        },
+        {
+          "path": "test_sage_acceptance_oracle.py",
+          "sha256": "1c874e5dbc88ec2d6c8d1c866d2cbd547f0b102779104c4b9e68592435fbe777",
+          "size_bytes": 538
+        },
+        {
+          "path": "test_slug.py",
+          "sha256": "d3955e933fc8201c496727ad17dcfca49f6f73fc50a8a539e2b56c07322f8f09",
+          "size_bytes": 1305
+        }
+      ]
+    },
+    {
+      "route": "direct",
+      "scenario": "divide",
+      "historical": false,
+      "status": "PASS_INDEPENDENT_CHECK",
+      "private_receipt_sha256": "edbd46b6ad8fd49d059a2af9da50a3e8c70ef2d90db6ee73102e2fae1b05e641",
+      "tests": 7,
+      "duration_seconds": 39.3424715000001,
+      "independent_check": "PASS",
+      "workflow_review": false,
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 34.122433,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "input_tokens": 8922,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 346,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "1bcea6057758a3ff6d8f442069544ce8dfcaeef6961aa793d03d353470d29df7",
+          "response_sha256": "b2207ef553b704217336fe3621937536ee2a4880546355fc4b3e5eb4ede70f1a"
+        }
+      ],
+      "source_manifest": [
+        {
+          "path": "README.md",
+          "sha256": "e32acfbd4fa5b0048fc08e27efdea56449a2daf4a91a76ac0d6966f759eccf44",
+          "size_bytes": 242
+        },
+        {
+          "path": "calc.py",
+          "sha256": "4f719d2b104c917e0ce623395e00e0c44dbf1940414d87fc2b66ede6e3d67b12",
+          "size_bytes": 35
+        },
+        {
+          "path": "test_calc.py",
+          "sha256": "fb41143046b39eabf6801ad229f64a7345cfd6299dd6af04cbf9c56af0d95216",
+          "size_bytes": 558
+        },
+        {
+          "path": "test_sage_acceptance_oracle.py",
+          "sha256": "2322e97b9f8da60e53e0b082497057320e3d405eaa67e95d90d46815b9bf3999",
+          "size_bytes": 327
+        }
+      ]
+    },
+    {
+      "route": "direct",
+      "scenario": "gate",
+      "historical": false,
+      "status": "PASS_INDEPENDENT_CHECK",
+      "private_receipt_sha256": "f5174077f497fc9677bfbf5c96f1ea1a215966bd4c03c3da26fd884b30bb55e2",
+      "tests": 6,
+      "duration_seconds": 58.731629999994766,
+      "independent_check": "PASS",
+      "workflow_review": false,
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 47.121253,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "input_tokens": 10448,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2166,
+            "reasoning_output_tokens": 77
+          },
+          "prompt_sha256": "3b6ed8850e7e6c7844af919889b514e8c41e9be2f14c3795d6e9bfa5c66bbdf7",
+          "response_sha256": "44e02b5a90bcf22e9486e9f67900fcf33368238d0a27cd65ccecf673e3db6063"
+        }
+      ],
+      "source_manifest": [
+        {
+          "path": "README.md",
+          "sha256": "5ba6204109be53bbe66489865e2dbf770e57d75fd3304967cea4454d100af6ac",
+          "size_bytes": 767
+        },
+        {
+          "path": "test_gate_contract.py",
+          "sha256": "c88b265a4649679a7b1b4cc05429240ca189fac07b7ea1055b4d3c954e12b931",
+          "size_bytes": 1689
+        },
+        {
+          "path": "test_sage_acceptance_oracle.py",
+          "sha256": "c88b265a4649679a7b1b4cc05429240ca189fac07b7ea1055b4d3c954e12b931",
+          "size_bytes": 1689
+        },
+        {
+          "path": "tools/verify_ruflo_live_acceptance.py",
+          "sha256": "58c3920acb2fd303b6f7df8bcef3af8c9d1f5c434a309c39d6b37007ceb5a491",
+          "size_bytes": 5184
+        }
+      ]
+    },
+    {
+      "route": "openhands",
+      "scenario": "slug",
+      "historical": false,
+      "status": "DONE",
+      "private_receipt_sha256": "a9faf428578d21988d75548a171608258633b8dced2794cb4fe15258c0a425e9",
+      "run_id": "afa7198f48fc4068995217c039a8b296",
+      "calls_used": 6,
+      "active_seconds": 357.8588404999755,
+      "risk": "R1",
+      "reason": null,
+      "tests": 9,
+      "workflow_review": true,
+      "ledger_verified": true,
+      "current_source_hashes_verified": true,
+      "snapshot_unchanged": false,
+      "source_manifest": [
+        {
+          "path": "README.md",
+          "sha256": "9c3c7c4e4cb7d5ef976bac7a8bd0c44303912c8bf5c7491590a2b01fe06a93ad",
+          "size_bytes": 1511
+        },
+        {
+          "path": "slug.py",
+          "sha256": "6c8ba7098fbeba6577cd7ad05b4777a0e1b3fae638ad3ce61e59acffc2f9c484",
+          "size_bytes": 774
+        },
+        {
+          "path": "test_slug.py",
+          "sha256": "17d0a76ce283b18289d9ee32cb61849956e3fc02a790e9ba7b4cd77991dc83be",
+          "size_bytes": 2255
+        }
+      ],
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "planner",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 39.130581,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 17209,
+            "output_tokens": 777,
+            "reasoning_output_tokens": 43
+          },
+          "prompt_sha256": "9da69233948d6641aadb01caaabdae04986f7e74372dd93b27753b336bbc36a0",
+          "response_sha256": "77c69d6d1746399d9c91f839bb19b72f46e10d1b8715d97b04f3c8e613ebe11f"
+        },
+        {
+          "provider": "openhands-sdk",
+          "status": "FAILED",
+          "duration_seconds": 59.177363,
+          "paid_api_access": false
+        },
+        {
+          "provider": "openhands-sdk",
+          "status": "FAILED",
+          "duration_seconds": 64.091254,
+          "sdk_model_jobs": 0,
+          "conversation_status": "finished",
+          "paid_api_access": false
+        },
+        {
+          "provider": "openhands-sdk",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "1.58.1",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 62.107059,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0,
+            "completion_tokens": 1575,
+            "context_window": 922000,
+            "model": "openai/gpt-6.1-sol",
+            "per_turn_token": 13312,
+            "prompt_tokens": 11737,
+            "reasoning_tokens": 137,
+            "response_id": ""
+          },
+          "sdk_model_jobs": 1,
+          "sdk_estimated_cost_not_billing": 0.039223999999999995,
+          "actual_monetary_cost": null,
+          "persistence_readback": true,
+          "conversation_status": "finished",
+          "credential_cached": false,
+          "credential_not_in_persistence": true,
+          "credential_transport": "MEMORY_ONLY_NO_REFRESH_TOKEN",
+          "native_login_unchanged": true,
+          "native_mutating_tools_executed": 0,
+          "response_format": "assistant_json",
+          "paid_api_access": false,
+          "endpoint_class": "CHATGPT_SUBSCRIPTION",
+          "prompt_sha256": "39ec85962fd836c7720128190206d9d56c96fd6155c5c7948f8f6506ac2285d8"
+        },
+        {
+          "provider": "codex-cli",
+          "stage": "reviewer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 26.988999,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 23925,
+            "output_tokens": 112,
+            "reasoning_output_tokens": 25
+          },
+          "prompt_sha256": "295858739c5c2385f2c60004fea3e0b24fd10d3736cd19db9f6a73ef85bc1342",
+          "response_sha256": "58fcf5db87c70db455e9021d9843dc360540787040d6df6ce4ed046d967184aa"
+        }
+      ]
+    },
+    {
+      "route": "openhands",
+      "scenario": "divide",
+      "historical": false,
+      "status": "DONE",
+      "private_receipt_sha256": "a62d38a71ccd23b8a7f396c6fc67e121d6d0cbf93674ffcbe429f7af60b1f536",
+      "run_id": "b39788504c444d1bbceebed1a7c0142e",
+      "calls_used": 3,
+      "active_seconds": 123.0953752999776,
+      "risk": "R1",
+      "reason": null,
+      "tests": 7,
+      "workflow_review": true,
+      "ledger_verified": true,
+      "current_source_hashes_verified": true,
+      "snapshot_unchanged": true,
+      "source_manifest": [
+        {
+          "path": "calc.py",
+          "sha256": "e2a8b918ebd91b39405a15e08b672c18cee31ca75f8b840cba89d3445f11dcba",
+          "size_bytes": 108
+        },
+        {
+          "path": "test_calc_regression.py",
+          "sha256": "244dc440b0ef2a0068d32a03ac2f7d403fd0d26075be411129d34dcb4316c68f",
+          "size_bytes": 852
+        }
+      ],
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "planner",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 42.429541,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 19113,
+            "output_tokens": 587,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "0a0035288e0d05b34318da15fc6ea168ec138104579143157519642e27f4a555",
+          "response_sha256": "df3d28bbd205b7608db84f681765d3ecfd19fa155f8783efa9e3096c1be838da"
+        },
+        {
+          "provider": "openhands-sdk",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "1.58.1",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 46.180462,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_read_tokens": 0,
+            "cache_write_tokens": 0,
+            "completion_tokens": 544,
+            "context_window": 922000,
+            "model": "openai/gpt-6.1-sol",
+            "per_turn_token": 14045,
+            "prompt_tokens": 13501,
+            "reasoning_tokens": 69,
+            "response_id": ""
+          },
+          "sdk_model_jobs": 1,
+          "sdk_estimated_cost_not_billing": 0.032442,
+          "actual_monetary_cost": null,
+          "persistence_readback": true,
+          "conversation_status": "finished",
+          "credential_cached": false,
+          "credential_not_in_persistence": true,
+          "credential_transport": "MEMORY_ONLY_NO_REFRESH_TOKEN",
+          "native_login_unchanged": true,
+          "native_mutating_tools_executed": 0,
+          "response_format": "assistant_json",
+          "paid_api_access": false,
+          "endpoint_class": "CHATGPT_SUBSCRIPTION",
+          "prompt_sha256": "99130bcd8a3da48b2ba919d420d7dd918786908d60763d913e072299d372039e"
+        },
+        {
+          "provider": "codex-cli",
+          "stage": "reviewer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 26.389568,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 24558,
+            "output_tokens": 166,
+            "reasoning_output_tokens": 29
+          },
+          "prompt_sha256": "c6b22246b654dab55967dccf2af5b27a7f46d09fa23a5f4de1fe7e95ab5410b6",
+          "response_sha256": "5576670b6f9f806b76ab1f505bac89f26bea5c1ab03578f5271497a396204ab4"
+        }
+      ]
+    },
+    {
+      "route": "openhands",
+      "scenario": "gate",
+      "historical": false,
+      "status": "BLOCKED",
+      "private_receipt_sha256": "f8e38ca753780531adde400b00478bb7084ac118bc621fca28d609521c80177a",
+      "run_id": "3717b3f0201c48a69eaaf8124d5878f7",
+      "calls_used": 1,
+      "active_seconds": 38.836742899991805,
+      "risk": "R2",
+      "reason": "REVIEW_REQUIRED: Only ready, low-risk local plans can execute automatically.",
+      "tests": null,
+      "workflow_review": null,
+      "ledger_verified": true,
+      "current_source_hashes_verified": true,
+      "snapshot_unchanged": true,
+      "source_manifest": [
+        {
+          "path": "test_gate_contract.py",
+          "sha256": "c88b265a4649679a7b1b4cc05429240ca189fac07b7ea1055b4d3c954e12b931",
+          "size_bytes": 1689
+        },
+        {
+          "path": "tools/verify_ruflo_live_acceptance.py",
+          "sha256": "67ea968eaee67d5e337fe0a9cf07db1a4d4a6ba025e2bf1694b77c25d35a9880",
+          "size_bytes": 3760
+        }
+      ],
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "planner",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 37.606929,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 26853,
+            "output_tokens": 845,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "6fc640b1b81b2227b5f2a53106cc0a7b8b75ba5092e6e87f3ffbdef679a7e6fc",
+          "response_sha256": "9edc8b7846d285f70930c5e6e82575920a36f17c13499c908a36cab248d01ffe"
+        }
+      ]
+    },
+    {
+      "route": "ruflo",
+      "scenario": "gate",
+      "historical": false,
+      "status": "BLOCKED",
+      "private_receipt_sha256": "65f8927a2be364d62e9b7d3dc07615e3430d92827a26815d41fac01716f89b4a",
+      "run_id": "3ef9a844ede6444588e16fe49b7de41d",
+      "calls_used": 1,
+      "active_seconds": 50.72951420000754,
+      "risk": "R2",
+      "reason": "REVIEW_REQUIRED: Only ready, low-risk local plans can execute automatically.",
+      "tests": null,
+      "workflow_review": null,
+      "ledger_verified": true,
+      "current_source_hashes_verified": true,
+      "snapshot_unchanged": true,
+      "source_manifest": [
+        {
+          "path": "test_gate_contract.py",
+          "sha256": "c88b265a4649679a7b1b4cc05429240ca189fac07b7ea1055b4d3c954e12b931",
+          "size_bytes": 1689
+        },
+        {
+          "path": "tools/verify_ruflo_live_acceptance.py",
+          "sha256": "67ea968eaee67d5e337fe0a9cf07db1a4d4a6ba025e2bf1694b77c25d35a9880",
+          "size_bytes": 3760
+        }
+      ],
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "planner",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "gpt-6.1-sol",
+          "duration_seconds": 44.40419,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 26851,
+            "output_tokens": 856,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "6fc640b1b81b2227b5f2a53106cc0a7b8b75ba5092e6e87f3ffbdef679a7e6fc",
+          "response_sha256": "7a0562385cc0a9640a95f545e62999db316dc4f997ab4296e562183afa65c59f"
+        }
+      ]
+    },
+    {
+      "route": "ruflo",
+      "scenario": "slug",
+      "historical": true,
+      "status": "DONE",
+      "private_receipt_sha256": "ce21b1a18a265bf0c9cfa6c40d45f017603737fd8a5704f8cfed9f541f79ac5e",
+      "run_id": "2f551500fa2d49a8a44ecea966649fba",
+      "calls_used": 3,
+      "active_seconds": 130.61012820000178,
+      "risk": "R1",
+      "reason": null,
+      "tests": 6,
+      "workflow_review": true,
+      "ledger_verified": true,
+      "current_source_hashes_verified": true,
+      "snapshot_unchanged": false,
+      "source_manifest": [
+        {
+          "path": "README.md",
+          "sha256": "89ae5ff421c506ca23215707871fb2e6357e155792cce4f691a471fa99673e48",
+          "size_bytes": 1610
+        },
+        {
+          "path": "slug.py",
+          "sha256": "bdf7a163c61eae6c7e8433fc2f8acd0abda6d7c449db3ecdefdc9253fce737a3",
+          "size_bytes": 762
+        },
+        {
+          "path": "test_slug.py",
+          "sha256": "fb4be370f298a3c5f1c0b0b2ad7c5a81935b5eee6d2419e30a6cdd2eb8d9b844",
+          "size_bytes": 1752
+        }
+      ],
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "planner",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "account-default",
+          "duration_seconds": 32.26096,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 17144,
+            "output_tokens": 732,
+            "reasoning_output_tokens": 32
+          },
+          "prompt_sha256": "9da69233948d6641aadb01caaabdae04986f7e74372dd93b27753b336bbc36a0",
+          "response_sha256": "171db749a87a98b8757f6f277c5d8320806047896d4238f536398efbabfed932"
+        },
+        {
+          "provider": "codex-cli",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "account-default",
+          "duration_seconds": 49.973661,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 16859,
+            "output_tokens": 1317,
+            "reasoning_output_tokens": 86
+          },
+          "prompt_sha256": "f6c476b376a05cdbad5372a297fcc16d4d4b6996b6e5f1a6b4a3bfdea4375af9",
+          "response_sha256": "1b4546885de330ff733ed537415f0b56a24da954ccf724fd73e864cca106b61b"
+        },
+        {
+          "provider": "codex-cli",
+          "stage": "reviewer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "account-default",
+          "duration_seconds": 26.505866,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 23469,
+            "output_tokens": 151,
+            "reasoning_output_tokens": 40
+          },
+          "prompt_sha256": "7d4c05857c2b569538df910a95edafd79eff8fd1e3ac9497b1fe664cefa7b015",
+          "response_sha256": "9143f8bcaa40ef2e0fc0f4f8d04875c86a925f01c55d5531427b62ca762580f0"
+        }
+      ]
+    },
+    {
+      "route": "ruflo",
+      "scenario": "divide",
+      "historical": true,
+      "status": "DONE",
+      "private_receipt_sha256": "7f5a42074c5deb496917fb71cf96e61c9e4681406dfd7c2fc37edfcb0a70838a",
+      "run_id": "d0ce5e5051254689a791f84babe3dffc",
+      "calls_used": 3,
+      "active_seconds": 132.9220544000127,
+      "risk": "R1",
+      "reason": null,
+      "tests": 7,
+      "workflow_review": true,
+      "ledger_verified": true,
+      "current_source_hashes_verified": true,
+      "snapshot_unchanged": true,
+      "source_manifest": [
+        {
+          "path": "README.md",
+          "sha256": "26d9f6b93072b4942a883a966a7501312120fca04e45531e2452698d920573ad",
+          "size_bytes": 535
+        },
+        {
+          "path": "calc.py",
+          "sha256": "4f719d2b104c917e0ce623395e00e0c44dbf1940414d87fc2b66ede6e3d67b12",
+          "size_bytes": 35
+        },
+        {
+          "path": "test_calc.py",
+          "sha256": "741a96c0744c7f302735f37fc54578cb6091992895db254a7b8fc188edb41b0a",
+          "size_bytes": 503
+        }
+      ],
+      "workers": [
+        {
+          "provider": "codex-cli",
+          "stage": "planner",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "account-default",
+          "duration_seconds": 35.205106,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 19110,
+            "output_tokens": 650,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "153de824948af9d14f3ec6a38c0a7355541bb86aa8bd4007ad20c3c58aa27786",
+          "response_sha256": "e8b1a245b3de3d59d51c8a3120f334135180c899d17cbbd50e92ad00519cb9e4"
+        },
+        {
+          "provider": "codex-cli",
+          "stage": "implementer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "account-default",
+          "duration_seconds": 46.66133,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 18774,
+            "output_tokens": 401,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "290bb64718f0bb503a1b1f182ef438f37532617fabfe0c4ab02b9c98fb37c076",
+          "response_sha256": "d0275366ade09a96e2cbfacd2085ed949300f7d82a8209f5a23f38f229993210"
+        },
+        {
+          "provider": "codex-cli",
+          "stage": "reviewer",
+          "status": "COMPLETED",
+          "version": "0.164.0",
+          "model": "account-default",
+          "duration_seconds": 23.858441,
+          "invocations": 1,
+          "tools_executed": 0,
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 24503,
+            "output_tokens": 149,
+            "reasoning_output_tokens": 27
+          },
+          "prompt_sha256": "ef0c66ebc0c0ab751bac55172df7303b15eec4b83983c280dd1c0637562e1671",
+          "response_sha256": "c0e7155d37e31457055ee47f19cff8325daf93f4f9e5009dd58c8f6e35bbab63"
+        }
+      ]
+    }
+  ],
+  "preserved_runtime_artifacts": [
+    {
+      "name": "sage_runtime-0.2.0-py3-none-any.whl",
+      "sha256": "5a95426663d315c4779b36838e73d6ccb18a15a7db2719e450f81736ff6d385e",
+      "bytes": 3328833
+    },
+    {
+      "name": "sage_runtime-0.2.0.tar.gz",
+      "sha256": "ae3991077c855f56632c24195945c6494d110afda91242f6ff2d271e9434fd3f",
+      "bytes": 2942280
+    },
+    {
+      "name": "sage_runtime-0.2.0-py3-none-any.whl",
+      "sha256": "0486fa588e342b406c4cb3392162fd9fb99909729566d5828059acd5c760b6ac",
+      "bytes": 3328833
+    }
+  ],
+  "gate_baseline": {
+    "status": "FAIL",
+    "summary": {
+      "coverage": "syntax-and-project-unittest",
+      "errors": 0,
+      "expected_failures": 0,
+      "failures": 1,
+      "limits": [
+        "Project tests are untrusted; independent review and task-specific external oracles remain required"
+      ],
+      "profile": "python-stdlib",
+      "skipped": 0,
+      "source_files_checked": 2,
+      "status": "FAIL",
+      "tests_run": 3,
+      "worker_completed": true
+    },
+    "sha256": "3a192aa34d23154b844933691db5c08feb5c8ad7914bd1b9bd98d44fc384ee93"
+  },
+  "divide_baseline_with_independent_oracle": {
+    "status": "FAIL",
+    "sha256": "f8925c08af2fb3d49dfd771769ea3645bcc5ac9896e51a0a6fdc4b14c779e51d"
+  },
+  "gate_change_independent_review": {
+    "accepted": true,
+    "worker": {
+      "provider": "codex-cli",
+      "stage": "reviewer",
+      "status": "COMPLETED",
+      "version": "0.164.0",
+      "model": "gpt-6.1-sol",
+      "duration_seconds": 26.913235,
+      "invocations": 1,
+      "tools_executed": 0,
+      "usage": {
+        "input_tokens": 10820,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 111,
+        "reasoning_output_tokens": 48
+      },
+      "prompt_sha256": "842074388de6195aa0761692994ab0b263cb7866eea92a5d5f9799489fb4a982",
+      "response_sha256": "489f0349d4e2a90ee5414bb2bc3a8d25f5709cbaf5ca73861ec928349c17b7c8"
+    },
+    "source_sha256": "58c3920acb2fd303b6f7df8bcef3af8c9d1f5c434a309c39d6b37007ceb5a491"
+  },
+  "limits": [
+    "Historical Ruflo successes were verified without repeating models; historical model identity is not attested.",
+    "Requested current model is gpt-6.1-sol; prompts, system envelopes, initial source and stage counts differ.",
+    "Codex direct results have independent checks, not SAGE workflow review.",
+    "Both SAGE gate cases stopped at R2 before coding; no policy override was performed.",
+    "SDK native Terminal, FileEditor, DockerWorkspace, remote Agent Server, REST/WebSocket and MCP not live-tested.",
+    "Native Conversation persistence readback uses a new object in the same process, not crash/restart recovery.",
+    "SAGE pause/resume and recovery use existing core; SDK receipt bootstrap failures were charged.",
+    "SDK price-map estimates are not subscription billing and do not cover failed jobs.",
+    "Measured active seconds exclude external pause/debugging wall time; peaks were not sampled.",
+    "No new Strix scan or security certification was performed."
+  ]
+}

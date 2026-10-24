@@ -57,39 +57,29 @@ def save_budget(path, value):
 
 
 class DeliveryBudget:
-    def __init__(self, provider, folder, *, limit=12):
-        if type(limit) is not int or not 1 <= limit <= 30:
-            raise SageError("DELIVERY_BUDGET", "An explicit finite delivery limit from 1 to 30 is required.")
+    def __init__(self, provider, folder):
         self.provider = provider
-        self.limit = limit
         self.path = folder / "live-budget.json"
         self.cancel_check = None
         with budget_lock(folder):
             if not self.path.exists():
-                if ((folder / "runs").exists() or any(folder.glob("*-run.json"))
-                        or (folder / "evaluation-authority.json").exists() or any(folder.glob("*-result.json"))):
+                if (folder / "runs").exists() or any(folder.glob("*-run.json")):
                     raise SageError("DELIVERY_BUDGET", "Previous runs exist but their shared budget is missing; no reset.")
-                save_budget(self.path, {"limit": self.limit, "reserved_calls": 0, "stages": []})
+                save_budget(self.path, {"limit": 12, "reserved_calls": 0, "stages": []})
 
-    def reserve(self, stage):
-        """Reuse the same durable delivery gate for an SDK's individual model jobs."""
-        if not isinstance(stage, str) or not stage or len(stage) > 80:
-            raise SageError("DELIVERY_BUDGET", "A bounded stage identifier is required.")
+    def generate(self, stage, prompt, schema, workspace, timeout_seconds):
         with budget_lock(self.path.parent):
             if self.path.is_symlink() or self.path.stat().st_size > 65536:
                 raise SageError("DELIVERY_BUDGET", "Budget state is invalid.")
             budget = json.loads(self.path.read_text(encoding="utf-8"))
             count = budget.get("reserved_calls")
-            if budget.get("limit") != self.limit or type(count) is not int or not 0 <= count <= self.limit or len(budget.get("stages", [])) != count:
+            if budget.get("limit") != 12 or type(count) is not int or not 0 <= count <= 12 or len(budget.get("stages", [])) != count:
                 raise SageError("DELIVERY_BUDGET", "Budget state is invalid; no automatic reset.")
-            if count >= self.limit:
-                raise SageError("DELIVERY_BUDGET", "The approved delivery model-job budget is exhausted.")
+            if count >= 12:
+                raise SageError("DELIVERY_BUDGET", "The approved twelve-call live acceptance budget is exhausted.")
             budget["reserved_calls"] += 1
             budget["stages"].append({"stage": stage, "attempt": budget["reserved_calls"]})
             save_budget(self.path, budget)  # Charge durably before the provider.
-
-    def generate(self, stage, prompt, schema, workspace, timeout_seconds):
-        self.reserve(stage)
         self.provider.cancel_check = self.cancel_check
         return self.provider.generate(stage, prompt, schema, workspace, timeout_seconds)
 
