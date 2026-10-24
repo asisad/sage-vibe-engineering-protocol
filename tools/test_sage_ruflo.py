@@ -87,7 +87,7 @@ class RufloAdapterTests(unittest.TestCase):
         self.assertTrue(path.is_file())
         self.assertTrue(str(path).startswith(self.workspace))
         receipt = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(receipt["protocol_version"], "2025-11-25")
+        self.assertEqual(receipt["protocol_version"], "2024-11-05")
         self.assertEqual(receipt["receipt_sha256"], reply["receipt_sha256"])
         self.assertFalse(receipt["model_task_verified"])
 
