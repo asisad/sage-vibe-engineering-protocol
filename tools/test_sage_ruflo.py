@@ -21,19 +21,32 @@ class RufloAdapterTests(unittest.TestCase):
         self.workspace = str(Path(self.temp.name).resolve())
         self.command = json.dumps([sys.executable, str(PEER)])
         self.approval = Path(self.workspace) / "approval.json"
+        self.run_contract = Path(self.workspace) / "sage-run.json"
 
     def approve(self, tool="memory_search", mode="READ_ONLY", expiry=None):
         doc = {
             "record_type": "sage_ruflo_approval", "schema_version": "sage-ruflo/0.1",
             "task_id": "test.ruflo.001", "workspace_root": self.workspace,
             "authority": {"status": "GRANTED", "approval_id": "a.test.001",
-                          "source": "test_operator", "scope": ["."]},
+                          "source": "test_operator", "scope": ["src"] if mode == "MUTATING" else ["."]},
             "allowed_tools": [tool], "mode": mode,
             "expires_at": expiry or (dt.datetime.now(dt.timezone.utc) +
                                     dt.timedelta(minutes=10)).isoformat(),
             "max_timeout_seconds": 1 if tool == "hang_tool" else 10,
         }
         self.approval.write_text(json.dumps(doc), encoding="utf-8")
+        if mode == "MUTATING":
+            contract = {
+                "record_type": "sage_run_contract", "schema_version": "sage-contracts/0.8",
+                "run_id": "run.test.001",
+                "task_packet": {"task_id": doc["task_id"],
+                    "authority": doc["authority"],
+                    "change_scope": {"allowed_paths": ["src"]}},
+                "risk_assessment": {"task_id": doc["task_id"]},
+                "gate_plan": {"task_id": doc["task_id"],
+                    "gates": [{"state": "ACTIVE", "blocking": True, "status": "PASS"}]},
+            }
+            self.run_contract.write_text(json.dumps(contract), encoding="utf-8")
 
     def cli(self, action, *args):
         proc = subprocess.run([sys.executable, str(CLIENT), action, *args],
@@ -47,8 +60,9 @@ class RufloAdapterTests(unittest.TestCase):
                         "--ack-custom-command", *args)
 
     def invoke(self, tool, *args):
+        run_args = ["--run-contract", str(self.run_contract)] if self.run_contract.exists() else []
         return self.server("invoke", "--tool", tool, "--approval-file",
-                           str(self.approval), *args)
+                           str(self.approval), *run_args, *args)
 
     def test_status_does_not_start_runtime(self):
         code, reply = self.cli("status")
@@ -111,6 +125,23 @@ class RufloAdapterTests(unittest.TestCase):
         self.assertEqual(code, 0, result)
         self.assertEqual(result["status"], "EXECUTED_UNVERIFIED")
         self.assertFalse(result["host_sandbox_verified"])
+
+    def test_native_run_contract_has_hard_gate(self):
+        self.approve("agent_execute", "MUTATING")
+        payload = json.loads(self.run_contract.read_text())
+        payload["gate_plan"]["gates"][0]["status"] = "PENDING"
+        self.run_contract.write_text(json.dumps(payload))
+        code, reply = self.invoke("agent_execute", "--allow-mutation", "--ack-host-access")
+        self.assertEqual(code, 2)
+        self.assertEqual(reply["error_code"], "GATE_BLOCKED")
+
+    def test_native_approval_identity_must_match(self):
+        self.approve("agent_execute", "MUTATING")
+        payload = json.loads(self.run_contract.read_text())
+        payload["task_packet"]["authority"]["approval_id"] = "wrong"
+        self.run_contract.write_text(json.dumps(payload))
+        code, reply = self.invoke("agent_execute", "--allow-mutation", "--ack-host-access")
+        self.assertEqual(reply["error_code"], "UNAUTHORIZED")
 
     def test_synthetic_worker_never_counts_as_evidence(self):
         self.approve("synthetic_test", "MUTATING")
