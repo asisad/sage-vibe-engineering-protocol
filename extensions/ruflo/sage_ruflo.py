@@ -340,7 +340,9 @@ def is_synthetic(value: Any, level: int = 0) -> bool:
     if level > 8:
         return False
     if isinstance(value, dict):
-        if value.get("synthetic") is True:
+        if (value.get("synthetic") is True or value.get("isSynthetic") is True
+                or value.get("simulated") is True
+                or str(value.get("backend", "")).lower() in ("mock", "synthetic", "fake")):
             return True
         return any(is_synthetic(v, level + 1) for v in value.values())
     if isinstance(value, list):
@@ -381,8 +383,14 @@ def preview(value: Any, depth: int = 0) -> Any:
     if isinstance(value, list):
         return [preview(v, depth + 1) for v in value[:100]]
     if isinstance(value, str):
+        if value[:1] in ("{", "[") and len(value) < 100000:
+            try:
+                return preview(json.loads(value), depth + 1)
+            except ValueError:
+                pass
         text = value[:4096]
         text = re.sub(r"(?i)\b(sk-[a-z0-9_-]{12,}|Bearer\s+\S{12,})", "[REDACTED]", text)
+        text = re.sub(r'(?i)(["\x27]?(?:api[_-]?key|password|secret|access[_-]?token|credential)["\x27]?\s*[:=]\s*["\x27]?)[^"\x27\s,}]+', r'\1[REDACTED]', text)
         return text
     return value
 
