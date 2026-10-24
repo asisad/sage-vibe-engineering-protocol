@@ -1,5 +1,5 @@
 {
-  "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog.2026-10-23",
+  "manifest_id": "sage.source-manifest.v0.8.4+ecc+ruflo.2026-10-24",
   "schema_version": "sage-source-manifest/0.1",
   "recorded_at": "2026-10-23T16:51:42Z",
   "hash_algorithm": "SHA-256",
@@ -24,6 +24,14 @@
       "commit": "90606c8315ee09cafc303515c5f33024db6b9882",
       "reuse": "ATTRIBUTED_SOURCE_CATALOG_WITH_PER_ITEM_DISPOSITIONS",
       "source_inventory": "extensions/ecc/upstream-lock.json"
+    },
+    "ruvnet/ruflo": {
+      "repository": "https://github.com/ruvnet/ruflo",
+      "tag": "v3.61.1",
+      "commit": "e6c3743ef1977b2cfa562210316ac8fd026139c4",
+      "license": "MIT",
+      "reuse": "PINNED_METADATA_CATALOG_AND_OPTIONAL_RUNTIME_ADAPTER",
+      "source_inventory": "extensions/ruflo/catalog.json"
     }
   },
   "source_extensions": {
@@ -41,6 +49,18 @@
       "channel": "SOURCE_BRANCH_REVIEW_CANDIDATE",
       "live_execution": false,
       "native_installation": false
+    },
+    "ruflo": {
+      "version": "0.1.0",
+      "channel": "SOURCE_BRANCH_REVIEW_CANDIDATE",
+      "pinned_upstream": "ruflo@3.61.1",
+      "listed_static_definitions": 863,
+      "real_mcp_tools_discovered": 374,
+      "real_mcp_read_only_tool_invoked": "agent_list",
+      "github_ci_evidence": "https://github.com/asisad/sage-vibe-engineering-protocol/actions/runs/40096318683",
+      "native_model_task_verified": false,
+      "user_pc_installed": false,
+      "live_by_default": false
     }
   },
   "entries": [
@@ -85,100 +105,24 @@
       "sha256": "68bcb3944ead7c8b3812bcecdfd34a9eaf14e660159deaeabf958a40bea3f43e"
     },
     {
+      "path": ".github/workflows/ruflo-upstream-smoke.yml",
+      "sha256": "f69675668fd605045c2f0258306afa81115f67816d1f7c9a3fa2ac586c508786"
+    },
+    {
       "path": ".github/workflows/sage-ci.yml",
-      "sha256": "50782afd104d79a7df514b65e5911cc12a53afc40e1a1beb9772c1efc18f26f7"
+      "sha256": "4746d29911589141facb4b21493dc5c4681a8ae62349ff29f92c763e4cebf4a8"
     },
     {
       "path": ".gitignore",
       "sha256": "d213379126d5b29b75b797e184e149dbcf0cceb1755326d1eccb4c79981b6e43"
     },
     {
+      "path": "bundles/v0.8/core-engineering/bundle.json",
+      "sha256": "40467d6427f3783966a8bcbed89af306afc5083aece05023fafd98fc7751e8ca"
+    },
+    {
       "path": "CHANGELOG.md",
       "sha256": "bebacb3c74f14cbd43c9b8c228c4510977b8d3762240f1e954e188ff79b2940e"
-    },
-    {
-      "path": "CONTRIBUTING.md",
-      "sha256": "ab241f69b793b97ff0e4d17e0d176c63bec01020896d279222f073d0c9673655"
-    },
-    {
-      "path": "LICENSE",
-      "sha256": "d9b0df4276b3288a852a8346a4f9a7f28c6187cd5eed119c97dafee29d9e0657"
-    },
-    {
-      "path": "PROJECT_COMPLETION_STATUS.md",
-      "sha256": "d641d5c76f2d150c41a7ab2fa1c77904ff8be3f7c96ad3f1b2c7071ebd3058dc"
-    },
-    {
-      "path": "README.md",
-      "sha256": "a70683105a03fed11be034e34c6f081f5db65958d7c07ff646a1c2c7614783a6"
-    },
-    {
-      "path": "RELEASE_MANIFEST_v0.8.2.json",
-      "sha256": "936e80a56b7260a22163af45afb937e3742b0eea9ddbcd698a67108a66a71691"
-    },
-    {
-      "path": "RELEASE_MANIFEST_v0.8.3.json",
-      "sha256": "1d600540f85176203daf49d451230bce854e0ba0a35a42af4489d297566bffd3"
-    },
-    {
-      "path": "RELEASE_MANIFEST_v0.8.4.json",
-      "sha256": "1f930069e3136e3c4e9dbf18537c43d48abf95ac4482c0285a167e895bd508b5"
-    },
-    {
-      "path": "SAGE_HANDOFF_v0.7_to_v0.8.md",
-      "sha256": "867adab8787b00aa25024dc293c850a5d58e4b1132aa7a2f06762d179679cd5e"
-    },
-    {
-      "path": "SAGE_v0.7_MASTER_BASELINE.md",
-      "sha256": "dc0c6baf80465e1f2cf63a2aca96f3578153a898d55752deb9a936e506fd6c0d"
-    },
-    {
-      "path": "SAGE_v0.8.1_AGENTIC_ENGINEERING_ENHANCEMENTS_DELTA.md",
-      "sha256": "c6838070e31419f9cf12c84ac268b95dd6c3c790dff00f6cd8fe27eeb7de6e9f"
-    },
-    {
-      "path": "SAGE_v0.8.2_PRODUCTION_DELIVERY_OPERATIONS_DELTA.md",
-      "sha256": "35d2eee39912c210d90e3617ca959395274e4b860754fdfabc6cacf3c4a04302"
-    },
-    {
-      "path": "SAGE_v0.8.3_STABLE_RELEASE.md",
-      "sha256": "35eab34549a17aeadd3c726b9c66a7ac2ffc55e8be542b89411b038e49591c8e"
-    },
-    {
-      "path": "SAGE_v0.8.4_AGENT_NATIVE_INTERFACE_DELTA.md",
-      "sha256": "df58595954d7f951de9887cd4520fd676d5d880dba16932428268d1c6816804b"
-    },
-    {
-      "path": "SAGE_v0.8.4_AGENT_NATIVE_RELEASE.md",
-      "sha256": "e1445d5a66221a991fbe24689d048bbc9146813988df3b66ade8694aa52bcdb3"
-    },
-    {
-      "path": "SAGE_v0.8_ECC_CAPABILITY_DELTA.md",
-      "sha256": "1ef5c3110983f6d8607dee7863a224438a537361641e338d160e546d7e207ee2"
-    },
-    {
-      "path": "SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT.md",
-      "sha256": "c827c84414aa571907eb804ab046e9ac054ff50f68fe7e4143a3c49eadf0753d"
-    },
-    {
-      "path": "SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md",
-      "sha256": "1c1817523db0c5f962abd6a668728ff01a7a8a9391329d76cc25fab126b676fd"
-    },
-    {
-      "path": "SAGE_v0.8_TECHNOLOGY_ENGINEERING_DELTA.md",
-      "sha256": "72214ef6d9d49d6d3f4dc3a97174c4bd88199b1093398cfe15f61fb42235f2df"
-    },
-    {
-      "path": "SECURITY.md",
-      "sha256": "6cd8524c46213015172c5e119470269a72c384d9506055a6b869ae650630fb8d"
-    },
-    {
-      "path": "SOURCE_REGISTRY.md",
-      "sha256": "93aff4a2c0b7d6e1d2979f1fac725157564cc28cae6c359ed615e66694f500d6"
-    },
-    {
-      "path": "bundles/v0.8/core-engineering/bundle.json",
-      "sha256": "fd4c28e83f0551add457e98376b20d37feb8ba147d260f87aa38883f5466cbd6"
     },
     {
       "path": "config/security/default-local-scope.json",
@@ -189,16 +133,8 @@
       "sha256": "93823eb2055f79d3dca225ad2d1ad4e683eab3deaa1853d5a88ee5fc72d67327"
     },
     {
-      "path": "docs/INFOGRAPHIC_HANDOFF.fa-en.md",
-      "sha256": "00c5f507961c0d768744a311c13ed026126db71dde61371e7a3ab2645c7b7882"
-    },
-    {
-      "path": "docs/QUICKSTART.fa-en.md",
-      "sha256": "1587104200677d9c52fe97363b1283e30e62c937167467ee3c7d319a9d9a4496"
-    },
-    {
-      "path": "docs/RELEASE_READINESS.fa-en.md",
-      "sha256": "0d4807bd2fbd6a6a9208aa2292d7a59c5498b9f185368e5722ba36ffd8d429c8"
+      "path": "CONTRIBUTING.md",
+      "sha256": "ab241f69b793b97ff0e4d17e0d176c63bec01020896d279222f073d0c9673655"
     },
     {
       "path": "docs/architecture/agent-native-interfaces.md",
@@ -241,16 +177,20 @@
       "sha256": "7f636e043e096bc0e30a62ac9dd9b933aa9b0e2d870e7baeb8c213f4810df801"
     },
     {
+      "path": "docs/INFOGRAPHIC_HANDOFF.fa-en.md",
+      "sha256": "00c5f507961c0d768744a311c13ed026126db71dde61371e7a3ab2645c7b7882"
+    },
+    {
+      "path": "docs/QUICKSTART.fa-en.md",
+      "sha256": "1587104200677d9c52fe97363b1283e30e62c937167467ee3c7d319a9d9a4496"
+    },
+    {
+      "path": "docs/RELEASE_READINESS.fa-en.md",
+      "sha256": "0d4807bd2fbd6a6a9208aa2292d7a59c5498b9f185368e5722ba36ffd8d429c8"
+    },
+    {
       "path": "examples/gps-map/README.md",
       "sha256": "bb4eb40139a18d980c1b140ab23f480c2220776c35f60df1caa4cf93480705e2"
-    },
-    {
-      "path": "extensions/ecc/README.fa-en.md",
-      "sha256": "29e95c42d0445bb31bbc11682627cbba9cddf017a04334d5247e1ebeb3c86818"
-    },
-    {
-      "path": "extensions/ecc/THIRD_PARTY_NOTICES.md",
-      "sha256": "5c81839c3c90d0472b606731fd3bd38360539e5bb718475832773c2335d64d39"
     },
     {
       "path": "extensions/ecc/catalog.json",
@@ -281,12 +221,8 @@
       "sha256": "801868eee3b78f1dfa0e2d64a0e30ca524d9a02e4829063834b1bd4737314548"
     },
     {
-      "path": "extensions/ecc/review/OVERLAP-MATRIX.fa.md",
-      "sha256": "2a11b95d1901dac91cecd985c2b850020cda7284d69746a415fd8525a6c50c9a"
-    },
-    {
-      "path": "extensions/ecc/review/REVIEW-SCOPE.fa.md",
-      "sha256": "5fe08483ead501ff3eff3883966f3fa9d7d2cca6f7952f08c84708032ed310cd"
+      "path": "extensions/ecc/README.fa-en.md",
+      "sha256": "29e95c42d0445bb31bbc11682627cbba9cddf017a04334d5247e1ebeb3c86818"
     },
     {
       "path": "extensions/ecc/review/agents.json",
@@ -305,6 +241,14 @@
       "sha256": "bca21fe9ffe8b3132f4ddb15df78149c3be711098f453e29be11962465c0aa0e"
     },
     {
+      "path": "extensions/ecc/review/OVERLAP-MATRIX.fa.md",
+      "sha256": "2a11b95d1901dac91cecd985c2b850020cda7284d69746a415fd8525a6c50c9a"
+    },
+    {
+      "path": "extensions/ecc/review/REVIEW-SCOPE.fa.md",
+      "sha256": "5fe08483ead501ff3eff3883966f3fa9d7d2cca6f7952f08c84708032ed310cd"
+    },
+    {
       "path": "extensions/ecc/review/skills.json",
       "sha256": "1bed6e462eb1f8efe2526e4749746dbec6714f063f0b90b0080afbbd76d00c55"
     },
@@ -321,12 +265,44 @@
       "sha256": "6df1d896aae66e1488d2606395d752c48d88a0b9982c4465eb02ec078f9ffb2b"
     },
     {
+      "path": "extensions/ecc/THIRD_PARTY_NOTICES.md",
+      "sha256": "5c81839c3c90d0472b606731fd3bd38360539e5bb718475832773c2335d64d39"
+    },
+    {
       "path": "extensions/ecc/upstream-lock.json",
       "sha256": "4017031b37c3fbf15da8af9e10d16d3f4976c97064af76734e478191bc62a362"
     },
     {
-      "path": "extensions/technology-engineering/README.fa-en.md",
-      "sha256": "d39319c1e2f8bdf04e61c95f3496bb34ce54b70e9a6aad415dbdb97aa08308b7"
+      "path": "extensions/ruflo/CAPABILITY-MAP.fa.md",
+      "sha256": "1627d2c4badfababf5a4e57a0c61da39fb388d5c67935a0156a2b80f6ddb0e23"
+    },
+    {
+      "path": "extensions/ruflo/catalog.json",
+      "sha256": "9e3697b1118b4e63dbb4c9da5d0cb9c075073f1db9a16ba59543e180fe87fc53"
+    },
+    {
+      "path": "extensions/ruflo/examples/approval.template.json",
+      "sha256": "0dcc0e6cff4724a8b1b1f333bcf5e4724be9c7a4c6bc117ed86c5dbaf913d82d"
+    },
+    {
+      "path": "extensions/ruflo/manifest.json",
+      "sha256": "0fdcdf45c1bd56b152c8d761e5ed25b5c28512220d3f7a11c1a919e3150459ce"
+    },
+    {
+      "path": "extensions/ruflo/policy.json",
+      "sha256": "3e17aa3016916f24926195c1230092da2cd6d3da1ab83a7ed376374b826ac2bd"
+    },
+    {
+      "path": "extensions/ruflo/README.fa-en.md",
+      "sha256": "1d5f63faa962d5a66b810196e654eb3ac637e0810e95a33b91e0847b20bde17e"
+    },
+    {
+      "path": "extensions/ruflo/sage_ruflo_catalog.py",
+      "sha256": "c1a297a57a65576c23c18b8ed7c6575540e3c97c1069ab72c3e6ed2edb3671be"
+    },
+    {
+      "path": "extensions/ruflo/sage_ruflo.py",
+      "sha256": "a255ecb83fcb23c59b4282bc4b0359df000eb41d5f8b3f207892a3b213ce93a9"
     },
     {
       "path": "extensions/technology-engineering/docs/specialist-contract.md",
@@ -339,6 +315,10 @@
     {
       "path": "extensions/technology-engineering/policy.json",
       "sha256": "3348ff6208d320ce104c3a00860bbe86be14f79fba316829f8ab30dd5dd19ccd"
+    },
+    {
+      "path": "extensions/technology-engineering/README.fa-en.md",
+      "sha256": "d39319c1e2f8bdf04e61c95f3496bb34ce54b70e9a6aad415dbdb97aa08308b7"
     },
     {
       "path": "extensions/technology-engineering/skills/automation-iac/SKILL.md",
@@ -529,14 +509,6 @@
       "sha256": "d83a7948a540d84052a032d4406b53f4e4c59f68254b1050c7a0fe49e23dc56b"
     },
     {
-      "path": "integrations/sens/README.fa-en.md",
-      "sha256": "0e96a640c1479833c6b7baed0f920ee5b56f54d9fe0ea6e23cadc9bc8a11dccd"
-    },
-    {
-      "path": "integrations/sens/SageSens.psm1",
-      "sha256": "e57f4f0c5e5e4abe5f00351ddf80c245b13e373807f3abb4408124c2fb135f96"
-    },
-    {
       "path": "integrations/sens/config.example.json",
       "sha256": "461c9ed15a62b3671c56ebbc554da16ec15f67a3c9c7367889cda803d8a190b8"
     },
@@ -557,6 +529,10 @@
       "sha256": "15646d0e9495576b986e02546373ddd93c421f3dd333d3ff17218832069cedf6"
     },
     {
+      "path": "integrations/sens/README.fa-en.md",
+      "sha256": "0e96a640c1479833c6b7baed0f920ee5b56f54d9fe0ea6e23cadc9bc8a11dccd"
+    },
+    {
       "path": "integrations/sens/registration.example.json",
       "sha256": "f793e37797da892f1bb65713d1f85632606290e5fc0b1d0d1c1ae5d1a4a46724"
     },
@@ -569,8 +545,16 @@
       "sha256": "81f542485e1408382e325ba35efabfb67d6194d916c2aed963668831d8983a9a"
     },
     {
+      "path": "integrations/sens/SageSens.psm1",
+      "sha256": "e57f4f0c5e5e4abe5f00351ddf80c245b13e373807f3abb4408124c2fb135f96"
+    },
+    {
       "path": "integrations/sens/schemas/sage-sens.schema.json",
       "sha256": "b619d245686d6065e6966d3e6ae043655fc5a6d17d62461238c0b67673b64d2c"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "d9b0df4276b3288a852a8346a4f9a7f28c6187cd5eed119c97dafee29d9e0657"
     },
     {
       "path": "policies/v0.8.1/agentic-engineering-policy.json",
@@ -597,6 +581,26 @@
       "sha256": "adb04098e794ba239388454b63a5c7063282daa0a56f751ad4a918fd6cc4cae8"
     },
     {
+      "path": "PROJECT_COMPLETION_STATUS.md",
+      "sha256": "d641d5c76f2d150c41a7ab2fa1c77904ff8be3f7c96ad3f1b2c7071ebd3058dc"
+    },
+    {
+      "path": "README.md",
+      "sha256": "27a494a66ef70f4f600666df1503572bdc7c964a62d9d056b737ac70d665fb1d"
+    },
+    {
+      "path": "RELEASE_MANIFEST_v0.8.2.json",
+      "sha256": "936e80a56b7260a22163af45afb937e3742b0eea9ddbcd698a67108a66a71691"
+    },
+    {
+      "path": "RELEASE_MANIFEST_v0.8.3.json",
+      "sha256": "1d600540f85176203daf49d451230bce854e0ba0a35a42af4489d297566bffd3"
+    },
+    {
+      "path": "RELEASE_MANIFEST_v0.8.4.json",
+      "sha256": "1f930069e3136e3c4e9dbf18537c43d48abf95ac4482c0285a167e895bd508b5"
+    },
+    {
       "path": "reports/SAGE_SENS_SOURCE_INTEGRATION_2026-10-14.md",
       "sha256": "5900399cef8a18f1bff8c52593ee2dcc972ce04c1e29e4e4dc2e601e328ccc10"
     },
@@ -609,6 +613,14 @@
       "sha256": "b613f68afdc91f94f73fe6c9b2b3602be969a4f3204dc27436a0511c0a5432dd"
     },
     {
+      "path": "reports/SAGE_v0.8_RELEASE_READINESS.md",
+      "sha256": "5304e8bcc73e9933835c36cf39874227ae147b5813b15f9903602287228a2063"
+    },
+    {
+      "path": "reports/SAGE_v0.8_VALIDATION_REPORT.md",
+      "sha256": "391d875ccc241a5506e2a9eb8cd6f2bee90e1ec0152eb6b071a0a780ee3829fb"
+    },
+    {
       "path": "reports/SAGE_v0.8.4_PHASE_PLAN.md",
       "sha256": "d75cb87654e9e2fa09bc22bef4e44ef38ccdd06543a8c8204cd5b3cf35a5ed5f"
     },
@@ -619,14 +631,6 @@
     {
       "path": "reports/SAGE_v0.8.4_VERIFICATION.md",
       "sha256": "d4f221eeaa966b40f5f1f296fef128b80bddd6258eb57cccbd3a22e3fee233d2"
-    },
-    {
-      "path": "reports/SAGE_v0.8_RELEASE_READINESS.md",
-      "sha256": "5304e8bcc73e9933835c36cf39874227ae147b5813b15f9903602287228a2063"
-    },
-    {
-      "path": "reports/SAGE_v0.8_VALIDATION_REPORT.md",
-      "sha256": "391d875ccc241a5506e2a9eb8cd6f2bee90e1ec0152eb6b071a0a780ee3829fb"
     },
     {
       "path": "reviews/SAGE_v0.8_SOURCE_INTEGRATION_AUDIT.md",
@@ -677,12 +681,60 @@
       "sha256": "71fe2d0aeebe452f94afbe58777062375caa1eb2146faacc1e0368923be66b66"
     },
     {
+      "path": "SAGE_HANDOFF_v0.7_to_v0.8.md",
+      "sha256": "867adab8787b00aa25024dc293c850a5d58e4b1132aa7a2f06762d179679cd5e"
+    },
+    {
+      "path": "SAGE_v0.7_MASTER_BASELINE.md",
+      "sha256": "dc0c6baf80465e1f2cf63a2aca96f3578153a898d55752deb9a936e506fd6c0d"
+    },
+    {
+      "path": "SAGE_v0.8_ECC_CAPABILITY_DELTA.md",
+      "sha256": "1ef5c3110983f6d8607dee7863a224438a537361641e338d160e546d7e207ee2"
+    },
+    {
+      "path": "SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT.md",
+      "sha256": "c827c84414aa571907eb804ab046e9ac054ff50f68fe7e4143a3c49eadf0753d"
+    },
+    {
+      "path": "SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md",
+      "sha256": "1c1817523db0c5f962abd6a668728ff01a7a8a9391329d76cc25fab126b676fd"
+    },
+    {
+      "path": "SAGE_v0.8_TECHNOLOGY_ENGINEERING_DELTA.md",
+      "sha256": "72214ef6d9d49d6d3f4dc3a97174c4bd88199b1093398cfe15f61fb42235f2df"
+    },
+    {
+      "path": "SAGE_v0.8.1_AGENTIC_ENGINEERING_ENHANCEMENTS_DELTA.md",
+      "sha256": "c6838070e31419f9cf12c84ac268b95dd6c3c790dff00f6cd8fe27eeb7de6e9f"
+    },
+    {
+      "path": "SAGE_v0.8.2_PRODUCTION_DELIVERY_OPERATIONS_DELTA.md",
+      "sha256": "35d2eee39912c210d90e3617ca959395274e4b860754fdfabc6cacf3c4a04302"
+    },
+    {
+      "path": "SAGE_v0.8.3_STABLE_RELEASE.md",
+      "sha256": "35eab34549a17aeadd3c726b9c66a7ac2ffc55e8be542b89411b038e49591c8e"
+    },
+    {
+      "path": "SAGE_v0.8.4_AGENT_NATIVE_INTERFACE_DELTA.md",
+      "sha256": "df58595954d7f951de9887cd4520fd676d5d880dba16932428268d1c6816804b"
+    },
+    {
+      "path": "SAGE_v0.8.4_AGENT_NATIVE_RELEASE.md",
+      "sha256": "e1445d5a66221a991fbe24689d048bbc9146813988df3b66ade8694aa52bcdb3"
+    },
+    {
       "path": "sage.ps1",
-      "sha256": "36bb3a0d81e941bdf0d076c31f291da002e4820d34a8809b9083e79ea661a73c"
+      "sha256": "5993a8032d97512f7e59a24447fc702519c7c167abfcd40cd3d4a88a35a12a58"
     },
     {
       "path": "schemas/extensions/sage-ecc-catalog.schema.json",
       "sha256": "97739facf1d82a5a66491345bd3ae263801f6f124a1d4e0de94eee453048520f"
+    },
+    {
+      "path": "schemas/extensions/sage-ruflo-approval.schema.json",
+      "sha256": "996d5f0fcfa768b4777c317df875e31bdcd4ec41351c8bf937379aa6b34ace1e"
     },
     {
       "path": "schemas/extensions/sage-technology-engineering.schema.json",
@@ -721,12 +773,12 @@
       "sha256": "4c1586229e9e4e1a1cea22f5ca1c8d42c88887d54096d80c0a8376b6b1775383"
     },
     {
-      "path": "sdk/python/README.md",
-      "sha256": "773bd6f35a3b7e9b1caa66bdf7cd845e8a8cc70e1ee02bf67dd8d8cfc94d8443"
-    },
-    {
       "path": "sdk/python/pyproject.toml",
       "sha256": "996269662b199aac6906538a16a7f821ecfc5c4eecb2f3b2dd535e5e10b0fada"
+    },
+    {
+      "path": "sdk/python/README.md",
+      "sha256": "773bd6f35a3b7e9b1caa66bdf7cd845e8a8cc70e1ee02bf67dd8d8cfc94d8443"
     },
     {
       "path": "sdk/python/src/sage_sdk/__init__.py",
@@ -743,6 +795,10 @@
     {
       "path": "sdk/python/src/sage_sdk/contracts.py",
       "sha256": "c680a00bb525e60a8029d427f371ec6a130642de8df39e663f7c971a26fa8afe"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "6cd8524c46213015172c5e119470269a72c384d9506055a6b869ae650630fb8d"
     },
     {
       "path": "skills-lock.json",
@@ -762,7 +818,7 @@
     },
     {
       "path": "skills/registry.json",
-      "sha256": "bba30a33d3b97fc0bf27c5b27f3d8a3bde78dfde94e90809df4ddf8946878a40"
+      "sha256": "2ce825f77bd09d6cb16a1747fd3ba6e9d5d53d9ff7ac4a63c3be651156165dc0"
     },
     {
       "path": "skills/sage-discover/SKILL.md",
@@ -783,6 +839,10 @@
     {
       "path": "skills/sage-verify/SKILL.md",
       "sha256": "7bd739345df7be04f069b0e418e343e59f94b433c17f230eaf31fad53bc7e8ef"
+    },
+    {
+      "path": "SOURCE_REGISTRY.md",
+      "sha256": "93aff4a2c0b7d6e1d2979f1fac725157564cc28cae6c359ed615e66694f500d6"
     },
     {
       "path": "sources/integration-deltas/SAGE_v0.8_ARCHITECTURE_MODELING_DIAGRAM_AS_CODE_FINAL_DELTA.md",
@@ -833,12 +893,12 @@
       "sha256": "26bf6a0ef50483005570ba9d6d16f58f258f4d75ad47537ec6d19867a5aac94e"
     },
     {
-      "path": "sources/upstream/ecc/.codex-plugin/README.md",
-      "sha256": "905789be9498d1442fad88e12befb4e527653970b18bf44565fb83e93b764fa2"
-    },
-    {
       "path": "sources/upstream/ecc/.codex-plugin/plugin.json",
       "sha256": "09d1f838f55e4463aa9da6673f812edc33952572e3425eb77dee9ec31280d424"
+    },
+    {
+      "path": "sources/upstream/ecc/.codex-plugin/README.md",
+      "sha256": "905789be9498d1442fad88e12befb4e527653970b18bf44565fb83e93b764fa2"
     },
     {
       "path": "sources/upstream/ecc/.codex/AGENTS.md",
@@ -875,30 +935,6 @@
     {
       "path": "sources/upstream/ecc/.mcp.json",
       "sha256": "dcba600bfb519438e259c9670bd465157418bcb85bc71abb3f586d8c27dbb288"
-    },
-    {
-      "path": "sources/upstream/ecc/CHANGELOG.md",
-      "sha256": "9e9e1102a69e114e9530a0d79f6493e605404a2296d63d916db2ac8854fed22f"
-    },
-    {
-      "path": "sources/upstream/ecc/COMMANDS-QUICK-REF.md",
-      "sha256": "9861738dcce17ec8962ff5e15970502e6c4e5699a116ecc3caa2207d661b43ec"
-    },
-    {
-      "path": "sources/upstream/ecc/LICENSE",
-      "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2"
-    },
-    {
-      "path": "sources/upstream/ecc/README.md",
-      "sha256": "891c1db3e717d893e625c9a87194a2dda07185911019a6e0e8b4c4bfd5d3b92c"
-    },
-    {
-      "path": "sources/upstream/ecc/SECURITY.md",
-      "sha256": "8219a7d180168e182db033ccfe0473b89f920868bc30bdb718ab2d150d8facc2"
-    },
-    {
-      "path": "sources/upstream/ecc/VERSION",
-      "sha256": "4d66ce434c5ffb80f286227e918f77e14a9bc80e7bcc445353c02d484c33b699"
     },
     {
       "path": "sources/upstream/ecc/agent.yaml",
@@ -1187,6 +1223,14 @@
     {
       "path": "sources/upstream/ecc/agents/vue-reviewer.md",
       "sha256": "c675814544f06703cf34347c24c630267073d6ee605e70820fc1c1a74e71358a"
+    },
+    {
+      "path": "sources/upstream/ecc/CHANGELOG.md",
+      "sha256": "9e9e1102a69e114e9530a0d79f6493e605404a2296d63d916db2ac8854fed22f"
+    },
+    {
+      "path": "sources/upstream/ecc/COMMANDS-QUICK-REF.md",
+      "sha256": "9861738dcce17ec8962ff5e15970502e6c4e5699a116ecc3caa2207d661b43ec"
     },
     {
       "path": "sources/upstream/ecc/commands/aside.md",
@@ -1605,10 +1649,6 @@
       "sha256": "4302bbba0f7fbf545670153ea999ac85640b4fdda3d3cc626306f0ddb66bd1a3"
     },
     {
-      "path": "sources/upstream/ecc/hooks/README.md",
-      "sha256": "bb7400ce341c526c06c42096469c5c99f2c830ea3cd0f2d38cb0225acba0744a"
-    },
-    {
       "path": "sources/upstream/ecc/hooks/codex-hooks.json",
       "sha256": "b534b7aeb02527dd97664e037d12721a429f112cd54711815925af65f0aca091"
     },
@@ -1629,24 +1669,20 @@
       "sha256": "b32658e85a9151aaf5639189da1de26d197efb81435c6ac4c682ad99f55c205b"
     },
     {
-      "path": "sources/upstream/ecc/hooks/memory-persistence/README.md",
-      "sha256": "020dc83bf19a4d0a887ee0683c087ebf14fc77f01d178e271277d6912a31bdf5"
-    },
-    {
       "path": "sources/upstream/ecc/hooks/memory-persistence/hooks.json",
       "sha256": "f5361a21a63fc9258920c4ab9fe9d57adcb52e9d6bdd22e7a94eb9349be86c7a"
+    },
+    {
+      "path": "sources/upstream/ecc/hooks/memory-persistence/README.md",
+      "sha256": "020dc83bf19a4d0a887ee0683c087ebf14fc77f01d178e271277d6912a31bdf5"
     },
     {
       "path": "sources/upstream/ecc/hooks/qoder-hooks.json",
       "sha256": "99ef3043bd4308e823bcd60cb50537f20241283f45e7ed337b5df7f099d1f2e0"
     },
     {
-      "path": "sources/upstream/ecc/integrations/aura/README.md",
-      "sha256": "5145127276209cc433a5465b47af0a4a1c5b31ceefcfc144c75799bd2a8d0ec0"
-    },
-    {
-      "path": "sources/upstream/ecc/integrations/aura/THREAT_MODEL.md",
-      "sha256": "63588c676a09a1abcabbae66392d7ccb2615436f312178a24b5d20aba39ca7a7"
+      "path": "sources/upstream/ecc/hooks/README.md",
+      "sha256": "bb7400ce341c526c06c42096469c5c99f2c830ea3cd0f2d38cb0225acba0744a"
     },
     {
       "path": "sources/upstream/ecc/integrations/aura/__init__.py",
@@ -1655,6 +1691,10 @@
     {
       "path": "sources/upstream/ecc/integrations/aura/adapter.py",
       "sha256": "299703f0b644df4946564aae82593fb169ddb111fab7ff060362d89c05aaebd7"
+    },
+    {
+      "path": "sources/upstream/ecc/integrations/aura/README.md",
+      "sha256": "5145127276209cc433a5465b47af0a4a1c5b31ceefcfc144c75799bd2a8d0ec0"
     },
     {
       "path": "sources/upstream/ecc/integrations/aura/tests/__init__.py",
@@ -1667,6 +1707,14 @@
     {
       "path": "sources/upstream/ecc/integrations/aura/tests/test_adapter.py",
       "sha256": "7275dc452f81d9adc3bf91a7703ac63cb597ef9dbf9e6ecdc284ba640fce6365"
+    },
+    {
+      "path": "sources/upstream/ecc/integrations/aura/THREAT_MODEL.md",
+      "sha256": "63588c676a09a1abcabbae66392d7ccb2615436f312178a24b5d20aba39ca7a7"
+    },
+    {
+      "path": "sources/upstream/ecc/LICENSE",
+      "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2"
     },
     {
       "path": "sources/upstream/ecc/manifests/context-packs/skill-registry@1.json",
@@ -1721,10 +1769,6 @@
       "sha256": "8908ad4e0233ff25875151e12b21e29f84dab2916ff658927dc9f8525b831f86"
     },
     {
-      "path": "sources/upstream/ecc/plugins/README.md",
-      "sha256": "d6a7f4b325642c3ab5edb2317e099ba791fd6d6ec1ec40caeda5f79dcbdd4a11"
-    },
-    {
       "path": "sources/upstream/ecc/plugins/ecc/.codex-plugin/plugin.json",
       "sha256": "67807f403e275b4fb4af660e5214a4f5418b6613cd8e680d713bce60e7bc105f"
     },
@@ -1733,8 +1777,12 @@
       "sha256": "7911a45416470922d0d57a0165d63bf38d8374ba6d40ec3ca88bf88a943fc747"
     },
     {
-      "path": "sources/upstream/ecc/rules/README.md",
-      "sha256": "b105cab4c71eaf7986dce93d4b2e098efbc9487c01617e300f5c17a2ede6f797"
+      "path": "sources/upstream/ecc/plugins/README.md",
+      "sha256": "d6a7f4b325642c3ab5edb2317e099ba791fd6d6ec1ec40caeda5f79dcbdd4a11"
+    },
+    {
+      "path": "sources/upstream/ecc/README.md",
+      "sha256": "891c1db3e717d893e625c9a87194a2dda07185911019a6e0e8b4c4bfd5d3b92c"
     },
     {
       "path": "sources/upstream/ecc/rules/angular/coding-style.md",
@@ -2091,6 +2139,10 @@
     {
       "path": "sources/upstream/ecc/rules/react/testing.md",
       "sha256": "ae5d05b9e4f706f73f741c3591e880b873da49a7efd02253a381960245bf655f"
+    },
+    {
+      "path": "sources/upstream/ecc/rules/README.md",
+      "sha256": "b105cab4c71eaf7986dce93d4b2e098efbc9487c01617e300f5c17a2ede6f797"
     },
     {
       "path": "sources/upstream/ecc/rules/ruby/coding-style.md",
@@ -3769,6 +3821,10 @@
       "sha256": "49ad1ad1c8fe8cecdc9d3d5fa7e46042ab3220c814b91945252ae2e69895d6b5"
     },
     {
+      "path": "sources/upstream/ecc/SECURITY.md",
+      "sha256": "8219a7d180168e182db033ccfe0473b89f920868bc30bdb718ab2d150d8facc2"
+    },
+    {
       "path": "sources/upstream/ecc/skills/accessibility/SKILL.md",
       "sha256": "2762f21d09d199009ed4f95b28c911436b367c30963dc5ddb48b8e1ad7fc1585"
     },
@@ -3801,10 +3857,6 @@
       "sha256": "0e0895ada90aa8fa085e4257961ebe15f2dff43b843785b1533d4c731186ad81"
     },
     {
-      "path": "sources/upstream/ecc/skills/agent-self-evaluation/SKILL.md",
-      "sha256": "96bb21eb37760f596789f84ec0a5dad4ef92fc2255e35cd7b88dc4234062b8c1"
-    },
-    {
       "path": "sources/upstream/ecc/skills/agent-self-evaluation/examples/high-score-example.md",
       "sha256": "59467219aaaa41365953f904d7ffebb46b55c13d497e3646b0561a9ef5f56b0e"
     },
@@ -3823,6 +3875,10 @@
     {
       "path": "sources/upstream/ecc/skills/agent-self-evaluation/scripts/evaluate.py",
       "sha256": "04b2a9460a7baba2a8d86993c8aecb068380ee72c5de8ca07d996c4055dcaf5c"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/agent-self-evaluation/SKILL.md",
+      "sha256": "96bb21eb37760f596789f84ec0a5dad4ef92fc2255e35cd7b88dc4234062b8c1"
     },
     {
       "path": "sources/upstream/ecc/skills/agent-self-evaluation/templates/evaluation-report.md",
@@ -3851,10 +3907,6 @@
     {
       "path": "sources/upstream/ecc/skills/android-clean-architecture/SKILL.md",
       "sha256": "20cbb9d7778462c549ccd32c830c0004fc7b92cfa009db99900d773373115f12"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/angular-developer/SKILL.md",
-      "sha256": "28ee37a8cf63add48fffc7c8676c6368aee35f3042525e79769b5a3d4e01aed1"
     },
     {
       "path": "sources/upstream/ecc/skills/angular-developer/references/angular-animations.md",
@@ -3997,6 +4049,10 @@
       "sha256": "94fe1a3b42f4cc299d71d3dcc12190485913bba00fc1d0757097c91306084356"
     },
     {
+      "path": "sources/upstream/ecc/skills/angular-developer/SKILL.md",
+      "sha256": "28ee37a8cf63add48fffc7c8676c6368aee35f3042525e79769b5a3d4e01aed1"
+    },
+    {
       "path": "sources/upstream/ecc/skills/api-connector-builder/SKILL.md",
       "sha256": "00a0d01e234f213d343f0040bbebd56e042978768ce5bb7117776a75bd9547e8"
     },
@@ -4053,10 +4109,6 @@
       "sha256": "878eae8ed0ea4d46d21c8f88d471f6ffce7b0815202a43501060a163e7f446f3"
     },
     {
-      "path": "sources/upstream/ecc/skills/brand-discovery/SKILL.md",
-      "sha256": "e6b9999ef722a42e0a01cd663072608609f69acc6bfd558fa3d4a14fcc3650b9"
-    },
-    {
       "path": "sources/upstream/ecc/skills/brand-discovery/references/10_purpose-why.md",
       "sha256": "d70beb1dcf73512e235a377c59ca43f544de084dd555701f99a65574b17939ea"
     },
@@ -4089,12 +4141,16 @@
       "sha256": "04d0215bb054685ab8f6956f8369a7eb9d39e16acd1f7ae5ffe46725f2c00c61"
     },
     {
-      "path": "sources/upstream/ecc/skills/brand-voice/SKILL.md",
-      "sha256": "57c7f8440b7bd4c91c0d325640b5c6fb7a3dc7fc05595946c7bc705761a987a7"
+      "path": "sources/upstream/ecc/skills/brand-discovery/SKILL.md",
+      "sha256": "e6b9999ef722a42e0a01cd663072608609f69acc6bfd558fa3d4a14fcc3650b9"
     },
     {
       "path": "sources/upstream/ecc/skills/brand-voice/references/voice-profile-schema.md",
       "sha256": "3c5c2b04fd4b68642d2d3279829541bc56d211fdefc3498e86c1486abee8261b"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/brand-voice/SKILL.md",
+      "sha256": "57c7f8440b7bd4c91c0d325640b5c6fb7a3dc7fc05595946c7bc705761a987a7"
     },
     {
       "path": "sources/upstream/ecc/skills/brownfield-retrospective/SKILL.md",
@@ -4123,10 +4179,6 @@
     {
       "path": "sources/upstream/ecc/skills/cisco-ios-patterns/SKILL.md",
       "sha256": "85b6a97574cc236d4a9336b1c74b42aaf4386338417e787cbed0c88677bf1179"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/ck/SKILL.md",
-      "sha256": "4759d9f4959fbec9afc7bc4b06c33d5644fb059e4d74a6c94200d29112b71bf5"
     },
     {
       "path": "sources/upstream/ecc/skills/ck/commands/forget.mjs",
@@ -4163,6 +4215,10 @@
     {
       "path": "sources/upstream/ecc/skills/ck/hooks/session-start.mjs",
       "sha256": "4ad0b843a0e1256e72d3b371e126ce1dbdf1baf45819fb3f55f614d1c386bf29"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/ck/SKILL.md",
+      "sha256": "4759d9f4959fbec9afc7bc4b06c33d5644fb059e4d74a6c94200d29112b71bf5"
     },
     {
       "path": "sources/upstream/ecc/skills/claude-devfleet/SKILL.md",
@@ -4241,10 +4297,6 @@
       "sha256": "f228cd383a9063b3a0116c5aea02565e859992f63fae5e799adf9c9e44e2454d"
     },
     {
-      "path": "sources/upstream/ecc/skills/continuous-learning-v2/SKILL.md",
-      "sha256": "ddad12451a0d582c6ef1b197b7be193bef613cbc74eba4117fcb74fc7a4ecd00"
-    },
-    {
       "path": "sources/upstream/ecc/skills/continuous-learning-v2/agents/observer-loop.sh",
       "sha256": "a6d119252c8ff2eda7aa7b345c2254fd6bdaf14056f6b5bf54835a2738ff310d"
     },
@@ -4289,8 +4341,8 @@
       "sha256": "5f3eea08474da2d3ea8b435fd14ff885531e3c6c69cf0168c417eecce4371363"
     },
     {
-      "path": "sources/upstream/ecc/skills/continuous-learning/SKILL.md",
-      "sha256": "d494867b456999cad53c51c89fa2cf8da101f76ea875286987f52e5d45f72221"
+      "path": "sources/upstream/ecc/skills/continuous-learning-v2/SKILL.md",
+      "sha256": "ddad12451a0d582c6ef1b197b7be193bef613cbc74eba4117fcb74fc7a4ecd00"
     },
     {
       "path": "sources/upstream/ecc/skills/continuous-learning/config.json",
@@ -4299,6 +4351,10 @@
     {
       "path": "sources/upstream/ecc/skills/continuous-learning/evaluate-session.sh",
       "sha256": "3e07e0b2916fbcdd7670648548d418ee87bdce0c6548c48e298965e5db387fcd"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/continuous-learning/SKILL.md",
+      "sha256": "d494867b456999cad53c51c89fa2cf8da101f76ea875286987f52e5d45f72221"
     },
     {
       "path": "sources/upstream/ecc/skills/contract-first/SKILL.md",
@@ -4317,20 +4373,16 @@
       "sha256": "f868207abd550308bc18902ecdfd2c51ad1ea85ba692dbe95cd9c3561da2a8bb"
     },
     {
-      "path": "sources/upstream/ecc/skills/council-multi-model/SKILL.md",
-      "sha256": "3c67816efdab97c89f8433b8a88d720ca736871467f7d6d1ff344fee59f18ce5"
-    },
-    {
       "path": "sources/upstream/ecc/skills/council-multi-model/scripts/review-with-codex.js",
       "sha256": "af1af9e76f89a321a7148077c5cae6ca62fc0d912329195c49c264359d3becdf"
     },
     {
-      "path": "sources/upstream/ecc/skills/council/SKILL.md",
-      "sha256": "2104d002d301a061a16d21ea2e00292f80b66b20c9883a33525a7de404153502"
+      "path": "sources/upstream/ecc/skills/council-multi-model/SKILL.md",
+      "sha256": "3c67816efdab97c89f8433b8a88d720ca736871467f7d6d1ff344fee59f18ce5"
     },
     {
-      "path": "sources/upstream/ecc/skills/counterparty-channel-discipline/SKILL.md",
-      "sha256": "51f719cf28a6d3c43e511a2c75e903a41d566205f8e93a2eeb276e0c1eb92463"
+      "path": "sources/upstream/ecc/skills/council/SKILL.md",
+      "sha256": "2104d002d301a061a16d21ea2e00292f80b66b20c9883a33525a7de404153502"
     },
     {
       "path": "sources/upstream/ecc/skills/counterparty-channel-discipline/references/channel-policy.example.yaml",
@@ -4339,6 +4391,10 @@
     {
       "path": "sources/upstream/ecc/skills/counterparty-channel-discipline/references/strict-prompt.template.md",
       "sha256": "e719cbb83dfcac4f572dc0544662e15a2d36eb9c995db72f0aac41ce308a8f92"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/counterparty-channel-discipline/SKILL.md",
+      "sha256": "51f719cf28a6d3c43e511a2c75e903a41d566205f8e93a2eeb276e0c1eb92463"
     },
     {
       "path": "sources/upstream/ecc/skills/cpp-coding-standards/SKILL.md",
@@ -4397,12 +4453,12 @@
       "sha256": "06f662a81b1faebb9930118302d88d649dbc5bcbf7dfe87c3780ddc72f2d6516"
     },
     {
-      "path": "sources/upstream/ecc/skills/delivery-gate/SKILL.md",
-      "sha256": "1f20dd3c7f10aa459fa025f2070bd9cb2d93028a71c01e46d2c60906da000b5b"
-    },
-    {
       "path": "sources/upstream/ecc/skills/delivery-gate/hooks/quality-gate.py",
       "sha256": "76aa0fe8c136be8a760ce74e614463ffb05fb16f1e165c5938daa86f516b87ef"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/delivery-gate/SKILL.md",
+      "sha256": "1f20dd3c7f10aa459fa025f2070bd9cb2d93028a71c01e46d2c60906da000b5b"
     },
     {
       "path": "sources/upstream/ecc/skills/deployment-patterns/SKILL.md",
@@ -4445,10 +4501,6 @@
       "sha256": "c0cedeb9b64d4468f5af3bb0a97659c654f0ceb916acbec867a29dc682dd633f"
     },
     {
-      "path": "sources/upstream/ecc/skills/docs-governance/SKILL.md",
-      "sha256": "499ac59071e6e2b8fb60f085e337a3a1ec16e200adb8f5b8bc027afb338cf3eb"
-    },
-    {
       "path": "sources/upstream/ecc/skills/docs-governance/references/artifact-role-contract.md",
       "sha256": "4c22a702c6b0c44659d7999d2cf0a706b7af064562025e28a425c753f0393183"
     },
@@ -4459,6 +4511,10 @@
     {
       "path": "sources/upstream/ecc/skills/docs-governance/scripts/markdown_links.py",
       "sha256": "148cc371d8143bd5070a9a5c5a1a7cc3e142acfad53c7dae4c4c5f9896ec0b20"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/docs-governance/SKILL.md",
+      "sha256": "499ac59071e6e2b8fb60f085e337a3a1ec16e200adb8f5b8bc027afb338cf3eb"
     },
     {
       "path": "sources/upstream/ecc/skills/documentation-lookup/SKILL.md",
@@ -4505,12 +4561,12 @@
       "sha256": "e8eec6756c950b570486493e64e3bf14c12baf6bf0858bf3928097fe2bfeaf79"
     },
     {
-      "path": "sources/upstream/ecc/skills/esign-field-placement/SKILL.md",
-      "sha256": "712e73679a640a521291db96ca7e8147f4d3252832c56ac91b8151cffb9aece5"
-    },
-    {
       "path": "sources/upstream/ecc/skills/esign-field-placement/references/placement-checklist.md",
       "sha256": "62fd7002b29d37120c2046342e72f343a1d2ed4d4eafa57472134318853b03ea"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/esign-field-placement/SKILL.md",
+      "sha256": "712e73679a640a521291db96ca7e8147f4d3252832c56ac91b8151cffb9aece5"
     },
     {
       "path": "sources/upstream/ecc/skills/eval-harness/SKILL.md",
@@ -4553,24 +4609,16 @@
       "sha256": "e00991a3f4d47fcf1529dd74a080afcf46137dc5061e70dc6e3da7b27f2ae3f3"
     },
     {
-      "path": "sources/upstream/ecc/skills/frontend-design-direction/SKILL.md",
-      "sha256": "71a40f7bc4a28da01b54527fe5590f6055c93adc630e6ceee8c892b35c980893"
-    },
-    {
       "path": "sources/upstream/ecc/skills/frontend-design-direction/scripts/check-evidence.js",
       "sha256": "f1cefbb0c2e15ea42b82f1b11d063c54cf949acc12b5574046025c62549b6db6"
     },
     {
+      "path": "sources/upstream/ecc/skills/frontend-design-direction/SKILL.md",
+      "sha256": "71a40f7bc4a28da01b54527fe5590f6055c93adc630e6ceee8c892b35c980893"
+    },
+    {
       "path": "sources/upstream/ecc/skills/frontend-patterns/SKILL.md",
       "sha256": "a5b971eb9e74cd763c7e3308bfd888e0d9cf69f8b88477659889d77182479740"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/frontend-slides/SKILL.md",
-      "sha256": "9d58ad7d4555a9d6ea1944a5084fd0428ee44276ac13ee8df02c1c4e63925291"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/frontend-slides/STYLE_PRESETS.md",
-      "sha256": "f3448493022f8fa3f858319b14c0c48a35d441864dc78a2411f7938c28e7a265"
     },
     {
       "path": "sources/upstream/ecc/skills/frontend-slides/animation-patterns.md",
@@ -4587,6 +4635,14 @@
     {
       "path": "sources/upstream/ecc/skills/frontend-slides/scripts/extract-pptx.py",
       "sha256": "4f5e7603c99b8b53e20c5b2a65abdf5edf9422b4c490dca9f2b872a752c17d2a"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/frontend-slides/SKILL.md",
+      "sha256": "9d58ad7d4555a9d6ea1944a5084fd0428ee44276ac13ee8df02c1c4e63925291"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/frontend-slides/STYLE_PRESETS.md",
+      "sha256": "f3448493022f8fa3f858319b14c0c48a35d441864dc78a2411f7938c28e7a265"
     },
     {
       "path": "sources/upstream/ecc/skills/frontend-slides/viewport-base.css",
@@ -4613,12 +4669,12 @@
       "sha256": "7094ab94802d7e839dc33c6ea230020327260518b1b1ce62b42d56d051c1d7c5"
     },
     {
-      "path": "sources/upstream/ecc/skills/github-ops/SKILL.md",
-      "sha256": "281e19fbf138c8d7ac7379864825721aa6f6efcf4008e976a6ea34b3c96e2b54"
-    },
-    {
       "path": "sources/upstream/ecc/skills/github-ops/references/ecc-release-checklist.md",
       "sha256": "abeda37b5364854c0b3610227d3029706d6f42ec287573397abe795f4af8a463"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/github-ops/SKILL.md",
+      "sha256": "281e19fbf138c8d7ac7379864825721aa6f6efcf4008e976a6ea34b3c96e2b54"
     },
     {
       "path": "sources/upstream/ecc/skills/golang-patterns/SKILL.md",
@@ -4713,10 +4769,6 @@
       "sha256": "e5d4918dcbc62eb25d42829b56683ae6befe3a623f7ce6ed66bef37ce1a57c65"
     },
     {
-      "path": "sources/upstream/ecc/skills/ios-icon-gen/SKILL.md",
-      "sha256": "893627c44e6d209f9b2e02de2f4879188649d22ae9723cd5b9445de6df3d6482"
-    },
-    {
       "path": "sources/upstream/ecc/skills/ios-icon-gen/scripts/generate_icons.swift",
       "sha256": "41efd2b2dc30a744e65252d7715b36ae951c489262262b42d96e06d42fd3ca2e"
     },
@@ -4725,12 +4777,12 @@
       "sha256": "5a0efeece4dfd4b60d345b5e2034ab152557793a4248ef6cba2f8fa4d6533c4a"
     },
     {
-      "path": "sources/upstream/ecc/skills/iterative-retrieval/SKILL.md",
-      "sha256": "b453b16d3e36174b8487c05ab807d0321a66c2d058812b2ae129d82824183725"
+      "path": "sources/upstream/ecc/skills/ios-icon-gen/SKILL.md",
+      "sha256": "893627c44e6d209f9b2e02de2f4879188649d22ae9723cd5b9445de6df3d6482"
     },
     {
-      "path": "sources/upstream/ecc/skills/ito-baskets/SKILL.md",
-      "sha256": "ef5e4353d1d90a75ad0b9c435d831c178187b4be407b9270e2d32b2bb64589bc"
+      "path": "sources/upstream/ecc/skills/iterative-retrieval/SKILL.md",
+      "sha256": "b453b16d3e36174b8487c05ab807d0321a66c2d058812b2ae129d82824183725"
     },
     {
       "path": "sources/upstream/ecc/skills/ito-baskets/agents/openai.yaml",
@@ -4741,12 +4793,16 @@
       "sha256": "696d05df7600ce3babcc5887a997b7e799e331015384bd5d6a0b4fd6a2ea51ee"
     },
     {
-      "path": "sources/upstream/ecc/skills/ito-compute/SKILL.md",
-      "sha256": "ed0664f44307b1243cd7fa7521b05ca3f50a1dd4460e93b55edb8bcda988e815"
+      "path": "sources/upstream/ecc/skills/ito-baskets/SKILL.md",
+      "sha256": "ef5e4353d1d90a75ad0b9c435d831c178187b4be407b9270e2d32b2bb64589bc"
     },
     {
       "path": "sources/upstream/ecc/skills/ito-compute/agents/openai.yaml",
       "sha256": "75e87ae788bd1431fb25c0a1e070313e4e4a5d2ea8cb5f85b228b7a22f969e08"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/ito-compute/SKILL.md",
+      "sha256": "ed0664f44307b1243cd7fa7521b05ca3f50a1dd4460e93b55edb8bcda988e815"
     },
     {
       "path": "sources/upstream/ecc/skills/ito-inference/SKILL.md",
@@ -4821,10 +4877,6 @@
       "sha256": "e533b86d34fe05f5db46365608e15df35386f4d9ad2b8d9d0a350cce5fa8b59d"
     },
     {
-      "path": "sources/upstream/ecc/skills/lead-intelligence/SKILL.md",
-      "sha256": "1b24027c5ef0ebfb046990433905b80d8df63d93f83fff9fdef4f74ad883a5f2"
-    },
-    {
       "path": "sources/upstream/ecc/skills/lead-intelligence/agents/enrichment-agent.md",
       "sha256": "ad0e369651b45f2ab82e9aa8b0419d551c918614ba70d84b43f3ca74faf57092"
     },
@@ -4839,6 +4891,10 @@
     {
       "path": "sources/upstream/ecc/skills/lead-intelligence/agents/signal-scorer.md",
       "sha256": "d6aa79f50c93259e37d20adc6cbe8cc6629b1ecde621cfa3e45508e8d53d20c5"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/lead-intelligence/SKILL.md",
+      "sha256": "1b24027c5ef0ebfb046990433905b80d8df63d93f83fff9fdef4f74ad883a5f2"
     },
     {
       "path": "sources/upstream/ecc/skills/liquid-glass-design/SKILL.md",
@@ -4869,12 +4925,12 @@
       "sha256": "aff91aef917cba9c65681ae77197cee93ce9b697ee8916ea684ef8537c99fb52"
     },
     {
-      "path": "sources/upstream/ecc/skills/manim-video/SKILL.md",
-      "sha256": "bb890b019664a995ca2bf6c08add444a85099caf4c0085de50e9ad6f62d62d5f"
-    },
-    {
       "path": "sources/upstream/ecc/skills/manim-video/assets/network_graph_scene.py",
       "sha256": "5d8ef9a5c55b244610a910229d195b10a5bb0b7d7e2add584b9915be6aa8a306"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/manim-video/SKILL.md",
+      "sha256": "bb890b019664a995ca2bf6c08add444a85099caf4c0085de50e9ad6f62d62d5f"
     },
     {
       "path": "sources/upstream/ecc/skills/market-research/SKILL.md",
@@ -4883,10 +4939,6 @@
     {
       "path": "sources/upstream/ecc/skills/marketing-campaign/SKILL.md",
       "sha256": "f4d2501b1abb19f7ef5f73b21afa5a7ea51c5dc3d766e8dbd239ec548899213f"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/master-agreement-generator/SKILL.md",
-      "sha256": "46f8c847b3fc406929a52c0064214715abb5412ecabb068730e6d4af50f89ac6"
     },
     {
       "path": "sources/upstream/ecc/skills/master-agreement-generator/references/master-template.example.md",
@@ -4899,6 +4951,10 @@
     {
       "path": "sources/upstream/ecc/skills/master-agreement-generator/scripts/build-agreement.js",
       "sha256": "6806f46261f3229857f7d9f3402c3712f9222eafebb412e5b9c524b4c13cab94"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/master-agreement-generator/SKILL.md",
+      "sha256": "46f8c847b3fc406929a52c0064214715abb5412ecabb068730e6d4af50f89ac6"
     },
     {
       "path": "sources/upstream/ecc/skills/mcp-dependency-review/SKILL.md",
@@ -4953,12 +5009,12 @@
       "sha256": "75786102fd1a49d1bbed11f75bc014a93e1bb2eed2cdc0088f1bad0e92d29291"
     },
     {
-      "path": "sources/upstream/ecc/skills/nasiko-control-plane/SKILL.md",
-      "sha256": "086650c5a5d797530086a1f7a5f6d853034a30c75c53e2e4aa80e8df7192b52b"
-    },
-    {
       "path": "sources/upstream/ecc/skills/nasiko-control-plane/agents/openai.yaml",
       "sha256": "765d863356ba7de108816a62247a3748c6878fee0ff018e8ab1ea07c6fa92b27"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/nasiko-control-plane/SKILL.md",
+      "sha256": "086650c5a5d797530086a1f7a5f6d853034a30c75c53e2e4aa80e8df7192b52b"
     },
     {
       "path": "sources/upstream/ecc/skills/nestjs-patterns/SKILL.md",
@@ -4997,10 +5053,6 @@
       "sha256": "8f99946d5aa8e11dae8ba1ade746a6a803efcba63ba8b618dbf7748331c14e47"
     },
     {
-      "path": "sources/upstream/ecc/skills/openclaw-persona-forge/SKILL.md",
-      "sha256": "3498442cf72ee7efbc4cc56553b48dbbb1a26d1d95eca4037aede69e164a9875"
-    },
-    {
       "path": "sources/upstream/ecc/skills/openclaw-persona-forge/gacha.py",
       "sha256": "032aed98c1c93ced971ac223357b2d3a4162f7e6ca8ecd7eb3e35a121fe5d5bc"
     },
@@ -5033,20 +5085,24 @@
       "sha256": "4a832227b34b69aec997ae2c4b08cc1df81abcbb048b03e80173ea3f97c8e202"
     },
     {
+      "path": "sources/upstream/ecc/skills/openclaw-persona-forge/SKILL.md",
+      "sha256": "3498442cf72ee7efbc4cc56553b48dbbb1a26d1d95eca4037aede69e164a9875"
+    },
+    {
       "path": "sources/upstream/ecc/skills/opensource-pipeline/SKILL.md",
       "sha256": "1d4ef417d0254893968f9e9479ac23fea3643b95e86fb42d98d3de3e020a1a33"
     },
     {
-      "path": "sources/upstream/ecc/skills/operator-approval-loop/SKILL.md",
-      "sha256": "6f79952c1498c2748ea13d74ca665c7508ae72068e014e848dee0754e3d650e5"
+      "path": "sources/upstream/ecc/skills/operator-approval-loop/references/approval_claims.py",
+      "sha256": "cf30d615cf8fc4e69dbc279952de11cc0df2a6881380cf759ba607f85e9f1505"
     },
     {
       "path": "sources/upstream/ecc/skills/operator-approval-loop/references/approval-ledger.sql",
       "sha256": "511f41e804d7c1f80849a33860ab8d242048c8cebfbf28833ce2d95d26d516cc"
     },
     {
-      "path": "sources/upstream/ecc/skills/operator-approval-loop/references/approval_claims.py",
-      "sha256": "cf30d615cf8fc4e69dbc279952de11cc0df2a6881380cf759ba607f85e9f1505"
+      "path": "sources/upstream/ecc/skills/operator-approval-loop/SKILL.md",
+      "sha256": "6f79952c1498c2748ea13d74ca665c7508ae72068e014e848dee0754e3d650e5"
     },
     {
       "path": "sources/upstream/ecc/skills/orch-add-feature/SKILL.md",
@@ -5225,10 +5281,6 @@
       "sha256": "5d7d04591ad656ba7b8064b2fa25e83936f8bd077449dac6cc599b4c41ce662a"
     },
     {
-      "path": "sources/upstream/ecc/skills/remotion-video-creation/SKILL.md",
-      "sha256": "dd727cadc4c1e179932b9736955ff3e537f75eeb759c038345ad9fe7d1bc55a9"
-    },
-    {
       "path": "sources/upstream/ecc/skills/remotion-video-creation/rules/3d.md",
       "sha256": "d5f3f412ba540d10a98f330dea3cd949d4fc4f9a6bf0d9788cf3f2b21a90f3f4"
     },
@@ -5353,6 +5405,10 @@
       "sha256": "6c663a2325df97483c123cc7f26c4db3eca3fcd38135bf7719d2969ce942c489"
     },
     {
+      "path": "sources/upstream/ecc/skills/remotion-video-creation/SKILL.md",
+      "sha256": "dd727cadc4c1e179932b9736955ff3e537f75eeb759c038345ad9fe7d1bc55a9"
+    },
+    {
       "path": "sources/upstream/ecc/skills/repo-scan/SKILL.md",
       "sha256": "b3318f6263629467d895d71a281cb64575d9d5de12c96d97cd1d19c66734e98e"
     },
@@ -5365,16 +5421,16 @@
       "sha256": "e5091d29cedd093a80321615d9670ebdb3c15856f3a99da644e07335167c86df"
     },
     {
-      "path": "sources/upstream/ecc/skills/rules-distill/SKILL.md",
-      "sha256": "c451a63f96077f92ef6b40c4310f5a470a5d05103a181af518b115c4e828292c"
-    },
-    {
       "path": "sources/upstream/ecc/skills/rules-distill/scripts/scan-rules.sh",
       "sha256": "0cfac69aff6c6ea37eeb914639625b4f6d3d3dacbcaef99c6e0ab4a7d376ed9d"
     },
     {
       "path": "sources/upstream/ecc/skills/rules-distill/scripts/scan-skills.sh",
       "sha256": "de6a938e14ce44d45e37fff24442ff3276b3cf1446cd2025e565426fb33d5cb5"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/rules-distill/SKILL.md",
+      "sha256": "c451a63f96077f92ef6b40c4310f5a470a5d05103a181af518b115c4e828292c"
     },
     {
       "path": "sources/upstream/ecc/skills/rust-patterns/SKILL.md",
@@ -5421,12 +5477,12 @@
       "sha256": "c94945165ca16ec06a04727dcbcf7a7593810d83fe168247c9c2d88c5a078611"
     },
     {
-      "path": "sources/upstream/ecc/skills/security-review/SKILL.md",
-      "sha256": "b9eb6416eebc8dda046674f0a2dbb3be88aff526d182b60a0f55998d3d6d0d8d"
-    },
-    {
       "path": "sources/upstream/ecc/skills/security-review/cloud-infrastructure-security.md",
       "sha256": "7d9a83852475a9396e04c59c73df84ac24ee0f41322016de7c11c62138c2a8ca"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/security-review/SKILL.md",
+      "sha256": "b9eb6416eebc8dda046674f0a2dbb3be88aff526d182b60a0f55998d3d6d0d8d"
     },
     {
       "path": "sources/upstream/ecc/skills/security-scan/SKILL.md",
@@ -5435,10 +5491,6 @@
     {
       "path": "sources/upstream/ecc/skills/seo/SKILL.md",
       "sha256": "4b744d2ff5c9313e903e4e5139322cc98adb9f9778a7231d4826216ab0f6873a"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/skill-comply/SKILL.md",
-      "sha256": "e26cbbc30a32ea8c76c56d09ba9a3a921e82ad6e2360f825ec63d3f8df6b1f5a"
     },
     {
       "path": "sources/upstream/ecc/skills/skill-comply/fixtures/compliant_trace.jsonl",
@@ -5509,6 +5561,10 @@
       "sha256": "7a5b1509ac0785f330314e0b59f57dd495ca83e8111738e30169ed49e85d0d22"
     },
     {
+      "path": "sources/upstream/ecc/skills/skill-comply/SKILL.md",
+      "sha256": "e26cbbc30a32ea8c76c56d09ba9a3a921e82ad6e2360f825ec63d3f8df6b1f5a"
+    },
+    {
       "path": "sources/upstream/ecc/skills/skill-comply/tests/test_classifier.py",
       "sha256": "45af41b56627d4a55cdc285e97691da1b12a92e8619b7b03220e0566520d7bd0"
     },
@@ -5533,10 +5589,6 @@
       "sha256": "73ac14373108c29e35f6f950b43762e3e50848d693b712f7c3e989ec21e7abe8"
     },
     {
-      "path": "sources/upstream/ecc/skills/skill-stocktake/SKILL.md",
-      "sha256": "3de326f8f87216b024bf524433b91607068d805286394d5ed8e293b4799b7314"
-    },
-    {
       "path": "sources/upstream/ecc/skills/skill-stocktake/scripts/quick-diff.sh",
       "sha256": "e856f6712e45c191976f7c2d45822d70aac30a95d86c3f20b23321b7f3254504"
     },
@@ -5547,6 +5599,10 @@
     {
       "path": "sources/upstream/ecc/skills/skill-stocktake/scripts/scan.sh",
       "sha256": "37b8fab1a078becd1621a1b09bc8947b6e3904f193822bf8afccae9383af05b9"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/skill-stocktake/SKILL.md",
+      "sha256": "3de326f8f87216b024bf524433b91607068d805286394d5ed8e293b4799b7314"
     },
     {
       "path": "sources/upstream/ecc/skills/social-graph-ranker/SKILL.md",
@@ -5573,12 +5629,12 @@
       "sha256": "c9449f169a3b920fd01875e3b2b2712c743c5fe8f469d2eabfe78886c590d04a"
     },
     {
-      "path": "sources/upstream/ecc/skills/story-lifecycle/SKILL.md",
-      "sha256": "1492a724d4df362d8e95a340fabd22423e20965b1d0f9ebc6d2d319aca843194"
-    },
-    {
       "path": "sources/upstream/ecc/skills/story-lifecycle/scripts/ledger.js",
       "sha256": "552d2059c3d29f7cbb71ac3d1a13b913a82549a4bc2fd5de998d3455fa33b32d"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/story-lifecycle/SKILL.md",
+      "sha256": "1492a724d4df362d8e95a340fabd22423e20965b1d0f9ebc6d2d319aca843194"
     },
     {
       "path": "sources/upstream/ecc/skills/strategic-compact/SKILL.md",
@@ -5601,24 +5657,8 @@
       "sha256": "79e3c8b5b7c38fa04778b1084cddc2f8db5f671e682b0e9c1d5bd2f95800f690"
     },
     {
-      "path": "sources/upstream/ecc/skills/taste-application/SKILL.md",
-      "sha256": "422a07f05e0dfc16a1bcc14895ff6f34891473ddec28981c4fa7986591165d2e"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/taste-application/SOURCE.md",
-      "sha256": "9fff1b35e4e191973af3b606929e2e10cd2b21d88ffd433b88d6d52726217608"
-    },
-    {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/.gitignore",
       "sha256": "12f2522494d1cf04cae13ba51336f3fa772264dba97a559a5a2695942cdb96cf"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/taste-application/scripts/HANDOFF-TEMPLATE.md",
-      "sha256": "dd3eb86bd8d05ff93e0fef1610f1ce9befd127036aa0283ba8413e0dba95a281"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/taste-application/scripts/LICENSE",
-      "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2"
     },
     {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/apply.py",
@@ -5639,6 +5679,14 @@
     {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/forge.py",
       "sha256": "39487ebfc0dd172946199969864711c5b50bd3ee64ebeaa0cb181d4091245179"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/taste-application/scripts/HANDOFF-TEMPLATE.md",
+      "sha256": "dd3eb86bd8d05ff93e0fef1610f1ce9befd127036aa0283ba8413e0dba95a281"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/taste-application/scripts/LICENSE",
+      "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2"
     },
     {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/mint.py",
@@ -5711,10 +5759,6 @@
     {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/taste/timeline.py",
       "sha256": "bbd8c53139dea08edecfd9fdf2c028b197097488fc1f57a7acef74536f0b2623"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/taste-application/scripts/tasteforge/README.md",
-      "sha256": "6e6d74188157f5d565715bbd7d839fb7540e2da7984b83f56878f45bbf71006e"
     },
     {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/tasteforge/__init__.py",
@@ -5817,6 +5861,10 @@
       "sha256": "3d5b7c604e53774f01fb0a5e51eb366fbf79915acc66b74f40860b96f089e915"
     },
     {
+      "path": "sources/upstream/ecc/skills/taste-application/scripts/tasteforge/README.md",
+      "sha256": "6e6d74188157f5d565715bbd7d839fb7540e2da7984b83f56878f45bbf71006e"
+    },
+    {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/tasteforge/resolve.py",
       "sha256": "e58b91e196fcc82cfcbb9d497ccf1bdc5fb2b0fac067233c684ac403a01755b6"
     },
@@ -5839,6 +5887,14 @@
     {
       "path": "sources/upstream/ecc/skills/taste-application/scripts/workflow_graphs.py",
       "sha256": "dbf2c85e7360388a8bd038f43f47162879c8a5cf259751fcfc8af8affecbe563"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/taste-application/SKILL.md",
+      "sha256": "422a07f05e0dfc16a1bcc14895ff6f34891473ddec28981c4fa7986591165d2e"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/taste-application/SOURCE.md",
+      "sha256": "9fff1b35e4e191973af3b606929e2e10cd2b21d88ffd433b88d6d52726217608"
     },
     {
       "path": "sources/upstream/ecc/skills/taste-application/tests/test_apply.py",
@@ -5925,10 +5981,6 @@
       "sha256": "ef16a86801696a9212ce2208d73d574712c3dda7ac64a574f56184f126930cd0"
     },
     {
-      "path": "sources/upstream/ecc/skills/taste-distillation/SKILL.md",
-      "sha256": "7aa53f4a4cc7a959da5b60d77a6f43e5541cb3a95aa982fea73a2b706d9cd408"
-    },
-    {
       "path": "sources/upstream/ecc/skills/taste-distillation/scripts/distill.py",
       "sha256": "a8e7f5b9077814b750719e4f98198f708d1c3eeddaf8ce6b73045467815400ea"
     },
@@ -5985,12 +6037,16 @@
       "sha256": "bbd8c53139dea08edecfd9fdf2c028b197097488fc1f57a7acef74536f0b2623"
     },
     {
-      "path": "sources/upstream/ecc/skills/taste/SKILL.md",
-      "sha256": "c0aa611b4d150d2d8356fb29d0cc437e48a4e5ceeb870c609229b9afa78bb9cf"
+      "path": "sources/upstream/ecc/skills/taste-distillation/SKILL.md",
+      "sha256": "7aa53f4a4cc7a959da5b60d77a6f43e5541cb3a95aa982fea73a2b706d9cd408"
     },
     {
       "path": "sources/upstream/ecc/skills/taste/references/genre-taxonomy.md",
       "sha256": "56b0a37d643c79b0b18f67053e4733ffc383f82c7c9e1134f3c6e21e295d8c77"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/taste/SKILL.md",
+      "sha256": "c0aa611b4d150d2d8356fb29d0cc437e48a4e5ceeb870c609229b9afa78bb9cf"
     },
     {
       "path": "sources/upstream/ecc/skills/tasteforge-video/SKILL.md",
@@ -6009,16 +6065,16 @@
       "sha256": "23ce20d4d50be35d4b6cfe7facc01010983e18cb95c4aaf3d100338ca55e671b"
     },
     {
-      "path": "sources/upstream/ecc/skills/terminal-opener/SKILL.md",
-      "sha256": "679b8aca9af3f47450d437fed7a71ac9c1272b6196224ddad8fead218f5f16ab"
-    },
-    {
       "path": "sources/upstream/ecc/skills/terminal-opener/agents/openai.yaml",
       "sha256": "b48803241c40fec74ad08e209217b9ba4dd576643500e350072cb98bbb88da66"
     },
     {
       "path": "sources/upstream/ecc/skills/terminal-opener/scripts/open-terminal.js",
       "sha256": "d7dceb3d0fd1bdb7f7061dc7a78f1b74df172b56c9d78df943b4c18353a4be9f"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/terminal-opener/SKILL.md",
+      "sha256": "679b8aca9af3f47450d437fed7a71ac9c1272b6196224ddad8fead218f5f16ab"
     },
     {
       "path": "sources/upstream/ecc/skills/terminal-ops/SKILL.md",
@@ -6031,10 +6087,6 @@
     {
       "path": "sources/upstream/ecc/skills/test-collaboration/templates/TESTS.example.md",
       "sha256": "0f8fc6bbffa386f5901055ab86598ae38ef0a9026542a22d0be93b865c5d31a8"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/tinystruct-patterns/SKILL.md",
-      "sha256": "ee23f46cbdf7d0a8fd9fe2e50df2e29d9acab6913459cf293a7ecd77173a3369"
     },
     {
       "path": "sources/upstream/ecc/skills/tinystruct-patterns/references/architecture.md",
@@ -6059,6 +6111,10 @@
     {
       "path": "sources/upstream/ecc/skills/tinystruct-patterns/references/testing.md",
       "sha256": "a4c82b7b9b9877049dcba49b8dbfd88e2713e32ad90ac37f598f9be6b2b864f4"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/tinystruct-patterns/SKILL.md",
+      "sha256": "ee23f46cbdf7d0a8fd9fe2e50df2e29d9acab6913459cf293a7ecd77173a3369"
     },
     {
       "path": "sources/upstream/ecc/skills/token-budget-advisor/SKILL.md",
@@ -6093,8 +6149,8 @@
       "sha256": "5b06be54d4852f60e6cf1b04c6e9a4748554334eb3e41af6c0959b544e6464ae"
     },
     {
-      "path": "sources/upstream/ecc/skills/video-editing/SKILL.md",
-      "sha256": "4ab8c9ef5a511e8a0de9ed375b9edbbfa74f23a0881519d2aceea67e7252b197"
+      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-production-v1/install_ito_production_v1.lua",
+      "sha256": "fcde297435ac97ae7b9f01b65615ed7b0cd6622774a9952b1a041d642808d2b8"
     },
     {
       "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-production-v1/ITO_PROD_HighlightBloom.setting",
@@ -6109,16 +6165,16 @@
       "sha256": "81aa1cde3412782d6ec4e0ca815ba52f1eaca1065df96d813a0885f72a9add9b"
     },
     {
+      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-production-v1/provenance.json",
+      "sha256": "04f255db2e35f3bf062faf183a0ac1cfadede5c5a8b9fbcb1b813b7f600c06c6"
+    },
+    {
       "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-production-v1/README.md",
       "sha256": "fbae2d79d7f0ac1bdf0ac5c8b2ffb969f7737321e3e8f87faa5d7d12b9e3181e"
     },
     {
-      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-production-v1/install_ito_production_v1.lua",
-      "sha256": "fcde297435ac97ae7b9f01b65615ed7b0cd6622774a9952b1a041d642808d2b8"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-production-v1/provenance.json",
-      "sha256": "04f255db2e35f3bf062faf183a0ac1cfadede5c5a8b9fbcb1b813b7f600c06c6"
+      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-v28/install_ito_v28.lua",
+      "sha256": "b111d9ed0773e29682a8e426fa9f65099022cfac3de4330db187e9303d4a0dd4"
     },
     {
       "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-v28/ITO_V28_FlashEtherealBloom.setting",
@@ -6133,20 +6189,16 @@
       "sha256": "ac70fca7f622da29ad34963a737f668c73b526a7852c2504f66b719d2c14b638"
     },
     {
-      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-v28/README.md",
-      "sha256": "b24ba1f873aa5f4bb178719995b0f06af6c6d5a46c5e48daaa79e4d562fff2f1"
-    },
-    {
-      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-v28/install_ito_v28.lua",
-      "sha256": "b111d9ed0773e29682a8e426fa9f65099022cfac3de4330db187e9303d4a0dd4"
-    },
-    {
       "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-v28/provenance.json",
       "sha256": "9306a1b61b1c4b1b4c28b2e2a223894558e3dfa8da53b5f884c6e0fcf81c7594"
     },
     {
-      "path": "sources/upstream/ecc/skills/videodb/SKILL.md",
-      "sha256": "4509fd09f659314f8cec19bf8d9593e4907f244b576b36d83b2259064cae4da4"
+      "path": "sources/upstream/ecc/skills/video-editing/assets/fusion/ito-v28/README.md",
+      "sha256": "b24ba1f873aa5f4bb178719995b0f06af6c6d5a46c5e48daaa79e4d562fff2f1"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/video-editing/SKILL.md",
+      "sha256": "4ab8c9ef5a511e8a0de9ed375b9edbbfa74f23a0881519d2aceea67e7252b197"
     },
     {
       "path": "sources/upstream/ecc/skills/videodb/reference/api-reference.md",
@@ -6191,6 +6243,10 @@
     {
       "path": "sources/upstream/ecc/skills/videodb/scripts/ws_listener.py",
       "sha256": "1b8867e19cca1509993a9136554e3330b4a0d7942bf1b01c3b9469bfe5da06cd"
+    },
+    {
+      "path": "sources/upstream/ecc/skills/videodb/SKILL.md",
+      "sha256": "4509fd09f659314f8cec19bf8d9593e4907f244b576b36d83b2259064cae4da4"
     },
     {
       "path": "sources/upstream/ecc/skills/visa-doc-translate/README.md",
@@ -6289,12 +6345,12 @@
       "sha256": "ff2f592b663399db4125b3de5d6c713025d241ea19830f7d0abc7a958274174d"
     },
     {
-      "path": "sources/upstream/ecc/src/llm/providers/openai.py",
-      "sha256": "59e6d0d567f9a3ac707d1587c015158068f001c5604556b702bd34dec3253489"
-    },
-    {
       "path": "sources/upstream/ecc/src/llm/providers/openai_compat.py",
       "sha256": "2ea93f378fe598c939878b9933bf81e67c25231589ba6dfe011dc8e6390eee2c"
+    },
+    {
+      "path": "sources/upstream/ecc/src/llm/providers/openai.py",
+      "sha256": "59e6d0d567f9a3ac707d1587c015158068f001c5604556b702bd34dec3253489"
     },
     {
       "path": "sources/upstream/ecc/src/llm/providers/reasoning.py",
@@ -6325,32 +6381,20 @@
       "sha256": "07bf2de8acc742b523c9dea29f6837aabb54507dc045416d25aff97aca5dfd76"
     },
     {
-      "path": "sources/upstream/ecc/workflows/README.md",
-      "sha256": "0abec58a3874782541a8cb298447df712d4282f1f30cb8eb8de04aa26c7316a3"
+      "path": "sources/upstream/ecc/VERSION",
+      "sha256": "4d66ce434c5ffb80f286227e918f77e14a9bc80e7bcc445353c02d484c33b699"
     },
     {
       "path": "sources/upstream/ecc/workflows/orch-review.workflow.js",
       "sha256": "022d135de2ad3d82b42aafc9e243f64d0e8e72a0208ebd47ff45e81ee140c38d"
     },
     {
-      "path": "sources/upstream/spec-kit/LICENSE",
-      "sha256": "2510b446bc1f0cf9702453075d20cd88631e20e5642658edb7325d9c1eb534f7"
-    },
-    {
-      "path": "sources/upstream/spec-kit/README.md",
-      "sha256": "cba3c17953bd9453e8f53d378ed4fa4c5272c3633ad313ad600de5bb4979a17a"
+      "path": "sources/upstream/ecc/workflows/README.md",
+      "sha256": "0abec58a3874782541a8cb298447df712d4282f1f30cb8eb8de04aa26c7316a3"
     },
     {
       "path": "sources/upstream/spec-kit/docs/reference/bundles.md",
       "sha256": "1a7283663e7065052d78ee0ad5c74441a835ef4303a4197ebfa18d25f39a80dc"
-    },
-    {
-      "path": "sources/upstream/spec-kit/extensions/EXTENSION-USER-GUIDE.md",
-      "sha256": "a4767facca660ac3eac08765f91aba2cafb9bca8abada20323e58631f87d26ce"
-    },
-    {
-      "path": "sources/upstream/spec-kit/extensions/README.md",
-      "sha256": "9e99093d9f5967a3a7d40864b7b65fb30864d79048025e65fe891d537309898f"
     },
     {
       "path": "sources/upstream/spec-kit/extensions/agent-context/README.md",
@@ -6365,12 +6409,28 @@
       "sha256": "1d0da5458f3c18ff08cf1602d88cecc33fad07068208951fb7128090cfa90c90"
     },
     {
+      "path": "sources/upstream/spec-kit/extensions/EXTENSION-USER-GUIDE.md",
+      "sha256": "a4767facca660ac3eac08765f91aba2cafb9bca8abada20323e58631f87d26ce"
+    },
+    {
+      "path": "sources/upstream/spec-kit/extensions/README.md",
+      "sha256": "9e99093d9f5967a3a7d40864b7b65fb30864d79048025e65fe891d537309898f"
+    },
+    {
+      "path": "sources/upstream/spec-kit/LICENSE",
+      "sha256": "2510b446bc1f0cf9702453075d20cd88631e20e5642658edb7325d9c1eb534f7"
+    },
+    {
       "path": "sources/upstream/spec-kit/presets/ARCHITECTURE.md",
       "sha256": "9d9fef8bec48d026b910f62f0f9e341b61af02b901d198ff34286adbe3831f79"
     },
     {
       "path": "sources/upstream/spec-kit/presets/README.md",
       "sha256": "c0f520c5ec455e989c85ab92d5ef40d75815f6a373f5c5787353c93904d85270"
+    },
+    {
+      "path": "sources/upstream/spec-kit/README.md",
+      "sha256": "cba3c17953bd9453e8f53d378ed4fa4c5272c3633ad313ad600de5bb4979a17a"
     },
     {
       "path": "sources/upstream/spec-kit/workflows/ARCHITECTURE.md",
@@ -6389,14 +6449,6 @@
       "sha256": "a7e5215dbc174e5c5ea368f99bd53d546d389fc10e3fea4598c571d99eeb4442"
     },
     {
-      "path": "sources/upstream/strix/LICENSE",
-      "sha256": "3d15a63bfa775d9c92b8c375663e9e905801f8a2679c4348747752d3bcf6c8ea"
-    },
-    {
-      "path": "sources/upstream/strix/README.md",
-      "sha256": "b2a14d7727ce9f56daf4c1826893b3dccdd7be52bc2a8e658ce3c0b6c08704b5"
-    },
-    {
       "path": "sources/upstream/strix/docs/advanced/skills.mdx",
       "sha256": "7f080016e67f6714ee7cd7a3d39c5e772ee9d4c109f48d1ca927de876b4c4afc"
     },
@@ -6413,8 +6465,16 @@
       "sha256": "30a6d66857765fb44832b36bceeb5b5b33157a1ece8d553cdc28ae2df339fb40"
     },
     {
+      "path": "sources/upstream/strix/LICENSE",
+      "sha256": "3d15a63bfa775d9c92b8c375663e9e905801f8a2679c4348747752d3bcf6c8ea"
+    },
+    {
       "path": "sources/upstream/strix/pyproject.toml",
       "sha256": "f86af109842206d492ddcd853bf38852d08a745a48109000f7262025a4e8d410"
+    },
+    {
+      "path": "sources/upstream/strix/README.md",
+      "sha256": "b2a14d7727ce9f56daf4c1826893b3dccdd7be52bc2a8e658ce3c0b6c08704b5"
     },
     {
       "path": "sources/upstream/strix/scripts/install.sh",
@@ -6425,8 +6485,24 @@
       "sha256": "585c08fe421f629bd60b50bedfc4c41b67cce0a83c138993dfa1c8cf343d6e95"
     },
     {
+      "path": "tools/fixtures/fake_ruflo_mcp.py",
+      "sha256": "7f2f01bfbd4fbd789c801d99e1e8cc095f4586c647a182aa572a86054f78dbbe"
+    },
+    {
       "path": "tools/Invoke-SageReferenceCI.ps1",
       "sha256": "c8dd01925c95f15f5042710cbeb142636fff59918b5b27d79ce2067e505a0f21"
+    },
+    {
+      "path": "tools/test_sage_ecc_integration.py",
+      "sha256": "d061dcc337c9c08f747bd55b2028ca921d8acb90c2cd3f32ef94b31911617f9f"
+    },
+    {
+      "path": "tools/test_sage_ecc.py",
+      "sha256": "91fe082e3e2d833ecf9a2723f0a7b1122eae8dca001cd8b68469e68508febc53"
+    },
+    {
+      "path": "tools/test_sage_ruflo.py",
+      "sha256": "53de0f3de6c6a224c15736527e170dff25114c36383ea9f9336946520a0d4b35"
     },
     {
       "path": "tools/Test-SageAgentInterfaces.ps1",
@@ -6519,14 +6595,6 @@
     {
       "path": "tools/Verify-SageEccCatalog.py",
       "sha256": "e42252fdd2985806ca940b663e3b6d5b2cefb5b6b92d140429ba7c9149ba6288"
-    },
-    {
-      "path": "tools/test_sage_ecc.py",
-      "sha256": "91fe082e3e2d833ecf9a2723f0a7b1122eae8dca001cd8b68469e68508febc53"
-    },
-    {
-      "path": "tools/test_sage_ecc_integration.py",
-      "sha256": "d061dcc337c9c08f747bd55b2028ca921d8acb90c2cd3f32ef94b31911617f9f"
     }
   ]
 }
