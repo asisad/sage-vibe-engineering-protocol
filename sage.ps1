@@ -1,10 +1,24 @@
 [CmdletBinding()]
-param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','specialists','technology','sens','operations','lifecycle','catalog','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath,[string]$DecisionPath,[ValidateSet('PLAN','VERIFY')][string]$Phase='PLAN',[switch]$RequireTechnologyDecision,[string]$ArchitecturePath,[switch]$View,[string]$InputPath,[string]$ConfigPath,[switch]$Preview,[ValidateSet('list','search','show','plan')][string]$CatalogAction='list',[string]$Query,[string]$EntryId)
+param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','specialists','technology','sens','operations','lifecycle','catalog','ruflo','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath,[string]$DecisionPath,[ValidateSet('PLAN','VERIFY')][string]$Phase='PLAN',[switch]$RequireTechnologyDecision,[string]$ArchitecturePath,[switch]$View,[string]$InputPath,[string]$ConfigPath,[switch]$Preview,[ValidateSet('list','search','show','plan')][string]$CatalogAction='list',[string]$Query,[string]$EntryId,[ValidateSet('status','probe','list','invoke')][string]$RufloAction='status',[string]$RufloWorkspace,[string]$RufloTool,[string]$RufloArgsJson='{}',[string]$RufloApprovalFile,[string]$RufloCommandJson,[switch]$RufloLive,[switch]$RufloAllowMutation,[switch]$RufloAckHostAccess,[switch]$RufloAckCustomCommand)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
 $pwsh=(Get-Command pwsh -ErrorAction Stop).Source
 switch ($Command) {
+  'ruflo' {
+    $python=(Get-Command python -ErrorAction Stop).Source
+    $argsList=@((Join-Path $root 'extensions\ruflo\sage_ruflo.py'),$RufloAction)
+    if ($RufloWorkspace) { $argsList+=@('--workspace',$RufloWorkspace) }
+    if ($RufloLive) { $argsList+='--live' }
+    if ($RufloTool) { $argsList+=@('--tool',$RufloTool) }
+    if ($RufloArgsJson) { $argsList+=@('--args-json',$RufloArgsJson) }
+    if ($RufloApprovalFile) { $argsList+=@('--approval-file',$RufloApprovalFile) }
+    if ($RufloCommandJson) { $argsList+=@('--command-json',$RufloCommandJson) }
+    if ($RufloAllowMutation) { $argsList+='--allow-mutation' }
+    if ($RufloAckHostAccess) { $argsList+='--ack-host-access' }
+    if ($RufloAckCustomCommand) { $argsList+='--ack-custom-command' }
+    & $python @argsList
+  }
   'catalog' {
     $python=(Get-Command python -ErrorAction Stop).Source
     $catalogArgs=@((Join-Path $root 'extensions\ecc\sage_ecc.py'),$CatalogAction)
