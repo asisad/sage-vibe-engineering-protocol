@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','specialists','technology','sens','operations','lifecycle','catalog','ruflo','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath,[string]$DecisionPath,[ValidateSet('PLAN','VERIFY')][string]$Phase='PLAN',[switch]$RequireTechnologyDecision,[string]$ArchitecturePath,[switch]$View,[string]$InputPath,[string]$ConfigPath,[switch]$Preview,[ValidateSet('list','search','show','plan')][string]$CatalogAction='list',[string]$Query,[string]$EntryId,[ValidateSet('status','probe','list','invoke','batch')][string]$RufloAction='status',[string]$RufloWorkspace,[string]$RufloTool,[string]$RufloArgsJson='{}',[string]$RufloApprovalFile,[string]$RufloCommandJson,[switch]$RufloLive,[switch]$RufloAllowMutation,[switch]$RufloAckHostAccess,[switch]$RufloAckCustomCommand,[string]$RufloRunContract,[string]$RufloBatchFile,[switch]$RufloShowResult,[switch]$RufloAckResultDisclosure)
+param([Parameter(Position=0)][ValidateSet('validate','demo','discover','interfaces','specialists','technology','sens','operations','lifecycle','catalog','ruflo','ci')][string]$Command='validate',[string]$Capability,[string]$RunPath,[string]$RegistryPath,[string]$LedgerPath,[string]$DecisionPath,[ValidateSet('PLAN','VERIFY')][string]$Phase='PLAN',[switch]$RequireTechnologyDecision,[string]$ArchitecturePath,[switch]$View,[string]$InputPath,[string]$ConfigPath,[switch]$Preview,[ValidateSet('list','search','show','plan')][string]$CatalogAction='list',[string]$Query,[string]$EntryId,[ValidateSet('status','probe','list','invoke','batch','catalog')][string]$RufloAction='status',[string]$RufloWorkspace,[string]$RufloTool,[string]$RufloArgsJson='{}',[string]$RufloApprovalFile,[string]$RufloCommandJson,[switch]$RufloLive,[switch]$RufloAllowMutation,[switch]$RufloAckHostAccess,[switch]$RufloAckCustomCommand,[string]$RufloRunContract,[string]$RufloBatchFile,[switch]$RufloShowResult,[switch]$RufloAckResultDisclosure,[ValidateSet('stats','list','search','show','plan')][string]$RufloCatalogAction='stats',[string]$RufloQuery)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
@@ -7,6 +7,13 @@ $pwsh=(Get-Command pwsh -ErrorAction Stop).Source
 switch ($Command) {
   'ruflo' {
     $python=(Get-Command python -ErrorAction Stop).Source
+    if ($RufloAction -eq 'catalog') {
+      $catalogArgs=@((Join-Path $root 'extensions\ruflo\sage_ruflo_catalog.py'),$RufloCatalogAction)
+      if ($RufloQuery) { $catalogArgs+=@($RufloQuery) }
+      $catalogArgs+='--json'
+      & $python @catalogArgs
+      break
+    }
     $argsList=@((Join-Path $root 'extensions\ruflo\sage_ruflo.py'),$RufloAction)
     if ($RufloWorkspace) { $argsList+=@('--workspace',$RufloWorkspace) }
     if ($RufloLive) { $argsList+='--live' }
