@@ -100,8 +100,11 @@ def approval_for(path: str, workspace: Path, tool: str) -> dict[str, Any]:
     auth = data.get("authority")
     if not isinstance(auth, dict) or auth.get("status") != "GRANTED":
         fail("UNAUTHORIZED", "Authority is not GRANTED.")
-    if not auth.get("approval_id") or not auth.get("source") or auth.get("scope") != ["."]:
-        fail("UNAUTHORIZED", "Approval ID, source and exact workspace scope are required.")
+    if not auth.get("approval_id") or not auth.get("source") or not isinstance(auth.get("scope"), list) or not auth["scope"]:
+        fail("UNAUTHORIZED", "Approval ID, source and workspace-relative scope are required.")
+    for p in auth["scope"]:
+        if not isinstance(p, str) or not p or p.startswith(("/", "\\\\")) or ":" in p or ".." in p.replace("\\\\", "/").split("/"):
+            fail("INVALID_SCOPE", "Authority scope must contain only relative paths.")
     if data.get("workspace_root") != str(workspace):
         fail("SCOPE_MISMATCH", "Approval workspace does not match --workspace.")
     allow = data.get("allowed_tools")
@@ -123,6 +126,41 @@ def approval_for(path: str, workspace: Path, tool: str) -> dict[str, Any]:
     if type(timeout) is not int or timeout < 1 or timeout > 300:
         fail("INVALID_APPROVAL", "max_timeout_seconds must be 1..300.")
     return data
+
+
+def validate_run_contract(path: str | None, approval: dict[str, Any]) -> str:
+    """Bind mutation to the approved native SAGE task/risk/gate triad."""
+    if not path:
+        fail("RUN_CONTRACT_REQUIRED", "Mutation requires an approved SAGE --run-contract.")
+    try:
+        contract = json.loads(Path(path).read_text(encoding="utf-8"))
+        packet = contract["task_packet"]
+        risk = contract["risk_assessment"]
+        gates = contract["gate_plan"]
+        authority = packet["authority"]
+        scope = packet["change_scope"]["allowed_paths"]
+    except (OSError, KeyError, TypeError, ValueError):
+        fail("INVALID_RUN_CONTRACT", "SAGE run contract is incomplete or unreadable.")
+    task_id = approval["task_id"]
+    if contract.get("record_type") != "sage_run_contract" or contract.get("schema_version") != "sage-contracts/0.8":
+        fail("INVALID_RUN_CONTRACT", "Unsupported SAGE run contract version.")
+    if any(item.get("task_id") != task_id for item in (packet, risk, gates)):
+        fail("RUN_IDENTITY_MISMATCH", "Task, risk and gate plan must share approved task ID.")
+    if authority.get("status") != "GRANTED" or authority.get("approval_id") != approval["authority"]["approval_id"]:
+        fail("UNAUTHORIZED", "Task Packet does not contain matching GRANTED authority.")
+    if (authority.get("scope") != approval["authority"]["scope"]
+            or not isinstance(scope, list)
+            or not set(authority["scope"]).issubset(set(scope))
+            or "." in scope):
+        fail("SCOPE_MISMATCH", "Native SAGE scope must match the narrow approved paths.")
+    gate_list = gates.get("gates")
+    if (not isinstance(gate_list, list) or not gate_list or
+        any(not isinstance(g, dict) for g in gate_list)):
+        fail("INVALID_RUN_CONTRACT", "A nonempty gate plan is required.")
+    if any(g.get("state") == "ACTIVE" and g.get("blocking") is True
+           and g.get("status") != "PASS" for g in gate_list):
+        fail("GATE_BLOCKED", "SAGE blocking gates are not PASS.")
+    return digest(contract)
 
 
 def command_for(raw: str | None) -> list[str]:
@@ -334,6 +372,10 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
     if not options.live:
         fail("LIVE_OPT_IN_REQUIRED", "No Ruflo process is started without --live.")
     cmd = command_for(options.command_json)
+    if options.command_json is None:
+        executable = shutil.which(cmd[0])
+        if executable:
+            cmd[0] = executable
     if options.command_json is not None and not options.ack_custom_command:
         fail("UNAUTHORIZED", "Custom executable requires --ack-custom-command.")
     if options.action == "invoke":
@@ -345,6 +387,7 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
             fail("UNAUTHORIZED", "Unknown/mutating tools require MUTATING authority.")
         if mutating and not (options.allow_mutation and options.ack_host_access):
             fail("UNAUTHORIZED", "Mutation requires --allow-mutation and --ack-host-access.")
+        contract_digest = validate_run_contract(options.run_contract, approval) if mutating else None
         try:
             arguments = json.loads(options.args_json)
         except ValueError:
@@ -354,7 +397,7 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
         timeout = approval["max_timeout_seconds"]
         task_id = approval["task_id"]
     else:
-        arguments, timeout, task_id, mutating, approval = {}, 20, None, False, None
+        arguments, timeout, task_id, mutating, approval, contract_digest = {}, 20, None, False, None, None
     env = environment(options.pass_env)
     started = time.monotonic()
     with McpSession(cmd, workspace, env, timeout) as session:
@@ -391,6 +434,7 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
             "workspace_sha256": hashlib.sha256(str(workspace).encode()).hexdigest(),
             "command_sha256": digest(cmd), "mode": "MUTATING" if mutating else "READ_ONLY",
             "approval_id": approval["authority"]["approval_id"] if approval else None,
+            "run_contract_sha256": contract_digest,
             "elapsed_milliseconds": int((time.monotonic() - started) * 1000),
             "result": output, "host_sandbox_verified": False,
             "model_task_verified": False,
@@ -409,6 +453,7 @@ def main() -> int:
     parser.add_argument("--tool")
     parser.add_argument("--args-json", default="{}")
     parser.add_argument("--approval-file")
+    parser.add_argument("--run-contract")
     parser.add_argument("--allow-mutation", action="store_true")
     parser.add_argument("--ack-host-access", action="store_true")
     parser.add_argument("--command-json")
