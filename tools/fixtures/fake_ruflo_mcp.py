@@ -13,7 +13,7 @@ for raw in sys.stdin:
     if "id" not in message:
         continue
     if method == "initialize":
-        response = {"protocolVersion": "1900-01-01" if mode == "wrong-version" else "2025-06-18",
+        response = {"protocolVersion": "1900-01-01" if mode == "wrong-version" else "2025-11-25",
                     "capabilities": {"tools": {}},
                     "serverInfo": {"name": "fake-ruflo-mcp", "version": "0.0-test"}}
     elif method == "tools/list":
