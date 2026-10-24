@@ -49,8 +49,24 @@
   "automatic_global_install": false,
   "custom_model_credentials_required": "explicit allowlist opt-in",
   "runtime_connected": false,
-  "tested_against_real_ruflo_host": false,
+  "tested_against_real_ruflo_host": true,
   "installed_into_host": false,
-  "external_execution_proven": false,
-  "notes": "Tool discovery is not evidence of a working agent, vector RAG, sandbox, workflow or model connection. Mutating calls require an isolated trusted host plus independent verification."
+  "external_execution_proven": "READ_ONLY_MCP_TOOL_CALL_ONLY",
+  "notes": "Tool discovery is not evidence of a working agent, vector RAG, sandbox, workflow or model connection. Mutating calls require an isolated trusted host plus independent verification.",
+  "catalog": "catalog.json",
+  "catalog_cli": "sage_ruflo_catalog.py",
+  "static_definitions": 863,
+  "static_catalog_counts": {
+    "agents": 386,
+    "skills": 380,
+    "plugin_manifests": 54,
+    "runtime_modules": 43
+  },
+  "proof": {
+    "real_protocol_negotiated": "2024-11-05",
+    "real_upstream_probe": "https://github.com/asisad/sage-vibe-engineering-protocol/actions/runs/40096318683",
+    "real_tools_discovered": 374,
+    "real_read_only_tool_called": "agent_list",
+    "model_code_change_unverified": true
+  }
 }
