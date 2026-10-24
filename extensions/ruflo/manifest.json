@@ -24,7 +24,12 @@
       "ruflo@3.61.1",
       "mcp",
       "start"
-    ]
+    ],
+    "supported_negotiated_versions": [
+      "2024-11-05",
+      "2025-11-25"
+    ],
+    "actual_npm_runtime_version": "2024-11-05"
   },
   "integration_scope": [
     "agent/tool discovery",
