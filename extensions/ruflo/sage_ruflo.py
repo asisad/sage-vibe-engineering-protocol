@@ -103,7 +103,7 @@ def approval_for(path: str, workspace: Path, tool: str) -> dict[str, Any]:
     if not auth.get("approval_id") or not auth.get("source") or not isinstance(auth.get("scope"), list) or not auth["scope"]:
         fail("UNAUTHORIZED", "Approval ID, source and workspace-relative scope are required.")
     for p in auth["scope"]:
-        if not isinstance(p, str) or not p or p.startswith(("/", "\\\\")) or ":" in p or ".." in p.replace("\\\\", "/").split("/"):
+        if not isinstance(p, str) or not p or p.startswith(("/", "\\")) or ":" in p or ".." in p.replace("\\", "/").split("/"):
             fail("INVALID_SCOPE", "Authority scope must contain only relative paths.")
     if data.get("workspace_root") != str(workspace):
         fail("SCOPE_MISMATCH", "Approval workspace does not match --workspace.")
@@ -221,7 +221,7 @@ class McpSession:
                 fail("VERSION_MISMATCH", "Invalid MCP initialize response.")
             self.version = str(result.get("protocolVersion", ""))
             if self.version != PROTOCOL:
-                fail("VERSION_MISMATCH", "MCP protocol negotiation failed closed.")
+                fail("VERSION_MISMATCH", "MCP server selected protocol " + self.version + " (client offered " + PROTOCOL + ").")
             self.server = result.get("serverInfo") if isinstance(result.get("serverInfo"), dict) else {}
             self.notify("notifications/initialized")
             return self
