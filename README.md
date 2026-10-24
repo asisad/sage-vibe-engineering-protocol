@@ -38,6 +38,41 @@ python extensions/ecc/sage_ecc.py show ecc.agent.code-reviewer --json
 [ماتریس کامل تطبیق](extensions/ecc/review/OVERLAP-MATRIX.fa.md) و
 [تصمیم معماری](SAGE_v0.8_ECC_CAPABILITY_DELTA.md) جزئیات را ثبت می‌کنند.
 
+## Optional Ruflo real MCP runtime
+
+The Ruflo integration is a separately gated, version-pinned executable MCP
+adapter. It **does not** automatically install or start upstream services.
+It preserves SAGE's authority, scope, evidence and existing DRY_RUN baseline.
+Unlike the ECC static catalog, this integration can negotiate with an actual
+MCP server, discover available tools and invoke approved tools.
+
+Source/overlap/risks: [Ruflo integration guide](extensions/ruflo/README.fa-en.md),
+[capability mapping](extensions/ruflo/CAPABILITY-MAP.fa.md), and
+[explicit policy](extensions/ruflo/policy.json).
+
+Use Python 3.11+ (and Node 20+ for the real upstream runtime):
+
+    python extensions/ruflo/sage_ruflo.py status
+    python extensions/ruflo/sage_ruflo.py probe --workspace /absolute/disposable/workspace --live
+    python extensions/ruflo/sage_ruflo.py list --workspace /absolute/disposable/workspace --live
+
+PowerShell 7:
+
+    .\sage.ps1 ruflo -RufloAction status
+
+Tools/call and multi-step batches require exact tool allowlists, a time-limited
+approval document, and for mutating/unknown tools a matching approved native
+SAGE RunContract with passing gates, an explicit host-access acknowledgement
+and a separately isolated workspace. The adapter is **not an OS sandbox**.
+Returned execution is labeled EXECUTED_UNVERIFIED until an independent SAGE
+acceptance test proves the requested result. Synthetic and errored results
+cannot be accepted as evidence.
+
+The source extension and fake-server contract tests do not prove live Ruflo
+was installed on the user's PC, model credentials, or autonomous product
+creation. Host receipts and a real code-change acceptance run are separate
+release gates; see the integration guide.
+
 ## Quick start
 
 Use PowerShell 7:
