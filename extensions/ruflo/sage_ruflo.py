@@ -197,6 +197,7 @@ class McpSession:
         self.sequence = 0
         self.server: dict[str, Any] = {}
         self.version = ""
+        self.deadline = 0.0
 
     def __enter__(self) -> "McpSession":
         try:
@@ -209,6 +210,7 @@ class McpSession:
         except (OSError, ValueError):
             fail("SERVER_UNAVAILABLE", "Could not start the pinned MCP server executable.")
         threading.Thread(target=self._reader, daemon=True).start()
+        self.deadline = time.monotonic() + self.timeout
         try:
             result = self.rpc("initialize", {
                 "protocolVersion": PROTOCOL,
@@ -260,7 +262,7 @@ class McpSession:
         self.sequence += 1
         reqid = self.sequence
         self._send({"jsonrpc": "2.0", "id": reqid, "method": name, "params": arguments})
-        deadline = time.monotonic() + self.timeout
+        deadline = self.deadline
         while True:
             remain = deadline - time.monotonic()
             if remain <= 0:
@@ -363,6 +365,54 @@ def write_receipt(workspace: Path, data: dict[str, Any]) -> str:
     return str(dst)
 
 
+def preview(value: Any, depth: int = 0) -> Any:
+    """Best-effort display protection; never store previews in audit receipts."""
+    if depth > 6:
+        return "[DEPTH_LIMIT]"
+    if isinstance(value, dict):
+        out = {}
+        for k, v in list(value.items())[:100]:
+            if re.search(r"(token|secret|password|key|authorization|credential)", str(k), re.I):
+                out[k] = "[REDACTED]"
+            else:
+                out[k] = preview(v, depth + 1)
+        return out
+    if isinstance(value, list):
+        return [preview(v, depth + 1) for v in value[:100]]
+    if isinstance(value, str):
+        text = value[:4096]
+        text = re.sub(r"(?i)\b(sk-[a-z0-9_-]{12,}|Bearer\s+\S{12,})", "[REDACTED]", text)
+        return text
+    return value
+
+
+def planned_steps(options: argparse.Namespace) -> list[dict[str, Any]]:
+    if options.action == "invoke":
+        try:
+            value = json.loads(options.args_json)
+        except ValueError:
+            fail("INVALID_INPUT", "--args-json must contain valid JSON.")
+        result = [{"tool": options.tool, "arguments": value}]
+    else:
+        if not options.batch_file:
+            fail("INVALID_INPUT", "A --batch-file is required.")
+        try:
+            obj = json.loads(Path(options.batch_file).read_text(encoding="utf-8"))
+            result = obj["steps"]
+        except (OSError, KeyError, ValueError, TypeError):
+            fail("INVALID_INPUT", "Batch file must be JSON with a steps array.")
+    if not isinstance(result, list) or not 1 <= len(result) <= 12:
+        fail("INVALID_INPUT", "Batch contains an invalid number of steps (1..12).")
+    for item in result:
+        if (not isinstance(item, dict) or set(item) != {"tool", "arguments"}
+                or not isinstance(item["tool"], str) or not NAME.fullmatch(item["tool"])
+                or not isinstance(item["arguments"], dict)):
+            fail("INVALID_INPUT", "Every step needs a valid tool and object arguments.")
+    if len(json.dumps(result, ensure_ascii=False).encode()) > MAX_MESSAGE:
+        fail("PAYLOAD_TOO_LARGE", "Batch plan exceeds the size budget.")
+    return result
+
+
 def run(options: argparse.Namespace) -> dict[str, Any]:
     manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
     if options.action == "status":
@@ -378,28 +428,28 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
             cmd[0] = executable
     if options.command_json is not None and not options.ack_custom_command:
         fail("UNAUTHORIZED", "Custom executable requires --ack-custom-command.")
-    if options.action == "invoke":
-        if not NAME.fullmatch(options.tool or ""):
-            fail("INVALID_INPUT", "A valid --tool is required.")
-        approval = approval_for(options.approval_file, workspace, options.tool)
-        mutating = options.tool not in READ_ONLY
+    if options.show_result and not options.ack_result_disclosure:
+        fail("UNAUTHORIZED", "Displaying untrusted tool text requires --ack-result-disclosure.")
+
+    batch = options.action in ("invoke", "batch")
+    steps = planned_steps(options) if batch else []
+    if batch:
+        approval = approval_for(options.approval_file, workspace, steps[0]["tool"])
+        for step in steps[1:]:
+            approval_for(options.approval_file, workspace, step["tool"])
+        mutating = any(step["tool"] not in READ_ONLY for step in steps)
         if mutating and approval["mode"] != "MUTATING":
             fail("UNAUTHORIZED", "Unknown/mutating tools require MUTATING authority.")
         if mutating and not (options.allow_mutation and options.ack_host_access):
             fail("UNAUTHORIZED", "Mutation requires --allow-mutation and --ack-host-access.")
         contract_digest = validate_run_contract(options.run_contract, approval) if mutating else None
-        try:
-            arguments = json.loads(options.args_json)
-        except ValueError:
-            fail("INVALID_INPUT", "--args-json must contain valid JSON.")
-        if not isinstance(arguments, dict):
-            fail("INVALID_INPUT", "MCP tool arguments must be a JSON object.")
         timeout = approval["max_timeout_seconds"]
         task_id = approval["task_id"]
     else:
-        arguments, timeout, task_id, mutating, approval, contract_digest = {}, 20, None, False, None, None
+        timeout, task_id, mutating, approval, contract_digest = 20, None, False, None, None
     env = environment(options.pass_env)
     started = time.monotonic()
+    result_previews: list[dict[str, Any]] = []
     with McpSession(cmd, workspace, env, timeout) as session:
         if options.action == "probe":
             tools = session.tools()
@@ -410,19 +460,33 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
             output = {"tools": tools, "tool_count": len(tools)}
             state = "CONNECTED"
         else:
-            tools = session.tools()
-            if options.tool not in {t["name"] for t in tools}:
+            available = {t["name"] for t in session.tools()}
+            if any(step["tool"] not in available for step in steps):
                 fail("TOOL_NOT_FOUND", "Approved tool is not advertised by this MCP server.")
-            result = session.call(options.tool, arguments)
-            synthetic = is_synthetic(result)
-            upstream_error = isinstance(result, dict) and result.get("isError") is True
-            output = {
-                "tool": options.tool, "response_sha256": digest(result),
-                "response_bytes": len(json.dumps(result, ensure_ascii=False).encode()),
-                "synthetic": synthetic, "upstream_error": upstream_error,
-                "evidence_acceptable": not synthetic and not upstream_error,
-            }
-            state = "BLOCKED" if (synthetic or upstream_error) else "EXECUTED_UNVERIFIED"
+            replies: list[dict[str, Any]] = []
+            state = "EXECUTED_UNVERIFIED"
+            for index, step in enumerate(steps):
+                tool_result = session.call(step["tool"], step["arguments"])
+                synthetic = is_synthetic(tool_result)
+                upstream_error = (isinstance(tool_result, dict)
+                                  and tool_result.get("isError") is True)
+                replies.append({
+                    "index": index, "tool": step["tool"],
+                    "response_sha256": digest(tool_result),
+                    "response_bytes": len(json.dumps(tool_result, ensure_ascii=False).encode()),
+                    "synthetic": synthetic, "upstream_error": upstream_error,
+                    "evidence_acceptable": not synthetic and not upstream_error,
+                })
+                if options.show_result:
+                    result_previews.append({"index": index, "tool": step["tool"],
+                                            "preview": preview(tool_result)})
+                if synthetic or upstream_error:
+                    state = "BLOCKED"
+                    break
+            output = {"steps": replies, "completed_steps": len(replies),
+                      "planned_steps": len(steps), "evidence_acceptable": state != "BLOCKED"}
+            if len(steps) == 1:
+                output.update(replies[0])
         receipt = {
             "receipt_id": "ruflo." + uuid.uuid4().hex, "record_type": "sage_ruflo_receipt",
             "schema_version": "sage-ruflo/0.1", "task_id": task_id, "status": state,
@@ -440,18 +504,24 @@ def run(options: argparse.Namespace) -> dict[str, Any]:
             "model_task_verified": False,
         }
         location = write_receipt(workspace, receipt)
-        return {"status": state, "executed": True, "receipt_path": location,
-                "receipt_id": receipt["receipt_id"], "receipt_sha256": receipt["receipt_sha256"],
-                "result": output, "host_sandbox_verified": False, "model_task_verified": False}
+        response = {"status": state, "executed": True, "receipt_path": location,
+                    "receipt_id": receipt["receipt_id"], "receipt_sha256": receipt["receipt_sha256"],
+                    "result": output, "host_sandbox_verified": False, "model_task_verified": False}
+        if options.show_result:
+            response["untrusted_redacted_previews"] = result_previews
+        return response
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("status", "probe", "list", "invoke"))
+    parser.add_argument("action", choices=("status", "probe", "list", "invoke", "batch"))
     parser.add_argument("--workspace")
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--tool")
     parser.add_argument("--args-json", default="{}")
+    parser.add_argument("--batch-file")
+    parser.add_argument("--show-result", action="store_true")
+    parser.add_argument("--ack-result-disclosure", action="store_true")
     parser.add_argument("--approval-file")
     parser.add_argument("--run-contract")
     parser.add_argument("--allow-mutation", action="store_true")
