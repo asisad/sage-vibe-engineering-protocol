@@ -1,7 +1,7 @@
 {
   "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24+ruflo",
   "schema_version": "sage-source-manifest/0.1",
-  "recorded_at": "2026-10-24T15:47:39Z",
+  "recorded_at": "2026-10-24T18:04:24Z",
   "hash_algorithm": "SHA-256",
   "upstream_pins": {
     "HKUDS/CLI-Anything": {
@@ -105,6 +105,10 @@
     {
       "path": ".gitattributes",
       "sha256": "68bcb3944ead7c8b3812bcecdfd34a9eaf14e660159deaeabf958a40bea3f43e"
+    },
+    {
+      "path": ".github/workflows/ruflo-acceptance.yml",
+      "sha256": "c94e2d20473e240862e5bf3e058f7c19c7dd8acfe8ad87d4b215910b90474082"
     },
     {
       "path": ".github/workflows/ruflo-upstream-smoke.yml",
@@ -277,6 +281,10 @@
     {
       "path": "docs/diagrams/sage-architecture.mmd",
       "sha256": "7f636e043e096bc0e30a62ac9dd9b933aa9b0e2d870e7baeb8c213f4810df801"
+    },
+    {
+      "path": "docs/verification/RUFLO_LIVE_ACCEPTANCE.fa-en.md",
+      "sha256": "e3c6aaa37019f2d685f89f39fd176ed99591a83a68969107817f358fee15e92e"
     },
     {
       "path": "examples/gps-map/README.md",
@@ -6751,6 +6759,10 @@
       "sha256": "7f2f01bfbd4fbd789c801d99e1e8cc095f4586c647a182aa572a86054f78dbbe"
     },
     {
+      "path": "tools/test_ruflo_live_acceptance.py",
+      "sha256": "01de04502f54a04440166f63b96c502155c2c804441ccdf966d752ea48e81511"
+    },
+    {
       "path": "tools/test_sage_ecc.py",
       "sha256": "91fe082e3e2d833ecf9a2723f0a7b1122eae8dca001cd8b68469e68508febc53"
     },
@@ -6761,6 +6773,10 @@
     {
       "path": "tools/test_sage_ruflo.py",
       "sha256": "53de0f3de6c6a224c15736527e170dff25114c36383ea9f9336946520a0d4b35"
+    },
+    {
+      "path": "tools/verify_ruflo_live_acceptance.py",
+      "sha256": "67ea968eaee67d5e337fe0a9cf07db1a4d4a6ba025e2bf1694b77c25d35a9880"
     }
   ]
 }
