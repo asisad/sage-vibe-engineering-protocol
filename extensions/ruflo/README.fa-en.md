@@ -65,7 +65,7 @@ Release: https://github.com/ruvnet/ruflo/releases/tag/v3.61.1
 برای کلید مدل، آن را فقط در environment تنظیم کرده و نام متغیر را با --pass-env ANTHROPIC_API_KEY یا یکی از نام‌های مجاز صراحتاً انتخاب کن. مقدار کلید را در JSON، مخزن یا Approval ننویس.
 
 ## قرارداد اجرای واقعی و رسید
-فراخوانی شامل JSON-RPC initialize → notifications/initialized → tools/list → tools/call با پروتکل ثابت 2025-11-25 است. ناسازگاری نسخه، نبود ابزار، خطا، timeout و عدم مطابقت شناسه fail-closed می‌شود. هر اتصال/فراخوانی receipt دارای نسخه upstream، mode، شناسه تأیید، هش قرارداد SAGE، هش پاسخ، زمان و وضعیت verification می‌سازد:
+فراخوانی شامل JSON-RPC initialize → notifications/initialized → tools/list → tools/call با پیشنهاد نسخه 2025-11-25 و پذیرش نسخه‌های مشخص 2024-11-05 یا 2025-11-25 است. ناسازگاری نسخه، نبود ابزار، خطا، timeout و عدم مطابقت شناسه fail-closed می‌شود. هر اتصال/فراخوانی receipt دارای نسخه upstream، mode، شناسه تأیید، هش قرارداد SAGE، هش پاسخ، زمان و وضعیت verification می‌سازد:
 
     <workspace>/.sage/ruflo-receipts/ruflo.<uuid>.json
 
@@ -80,3 +80,6 @@ Receipt رکورد دارای هش است؛ به‌تنهایی امضای دی�
 
 ## English operational summary
 SAGE adds an optional, version-pinned, real MCP stdio client to Ruflo, with separate per-task authority, strict tool allowlists, timeouts, receipts, and a native SAGE run-contract gate for possible mutations. It does not install Ruflo in the host, initialize Claude Code hooks, start daemons, alter global configuration, or certify autonomous code-writing workflows. Upstream MCP tools can have broader OS permissions than this adapter can enforce: use external isolation and independent verification. The existing SAGE DRY_RUN production adapter is unchanged.
+
+
+بسته npm Ruflo 3.61.1 در آزمون اولیه GitHub پروتکل 2024-11-05 را برگرداند؛ تفاوت نسخه‌های کد upstream و خروجی بسته باید در رسید مذاکره ثبت شود. پذیرش فقط همین نسخه‌های مشخص مجاز است.
