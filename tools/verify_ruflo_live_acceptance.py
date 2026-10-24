@@ -11,6 +11,7 @@ import json
 import pathlib
 import subprocess
 import sys
+import tempfile
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
@@ -53,8 +54,7 @@ def main():
         # No shell, no arbitrary test runner or package installation.
         if a.test!="tests/test_calc.py" or a.target!="src/calc.py":
             raise ValueError("Only the bounded calculator fixture is supported")
-        run=subprocess.run([sys.executable,"-m","unittest","discover","-s","tests","-p","test_calc.py"],
-            cwd=root,timeout=45,capture_output=True,text=True)
+        with tempfile.TemporaryDirectory(prefix="sage-acceptance-pycache-") as cache:\n            run=subprocess.run([sys.executable,"-X",f"pycache_prefix={cache}","-m","unittest","discover","-s","tests","-p","test_calc.py"],\n                cwd=root,timeout=45,capture_output=True,text=True)
         report["checks"]["test_exit_code"]=run.returncode
         report["checks"]["test_output_sha256"]=sha((run.stdout+"\n"+run.stderr).encode())
         report["checks"]["test_passed"]=run.returncode==0
