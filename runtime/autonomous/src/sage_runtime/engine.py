@@ -61,10 +61,11 @@ class Engine:
         self.discovery = Discovery(self.kit_root)
         self.store = RunStore(self.state_root)
         self.provider = provider if provider is not None else CodexProvider()
+        self._plain_provider = self.provider
         self.runner = runner if runner is not None else SandboxRunner()
 
     def create(self, idea, workspace, approval_id, *, live=False, auto_approve_plan=False,
-               max_model_calls=12, max_repairs=2, max_seconds=900, profile=None, source=None):
+               max_model_calls=12, max_repairs=2, max_seconds=900, profile=None, source=None, coordinator=None):
         if not isinstance(idea, str) or not idea.strip() or len(idea.encode("utf-8")) > 16000:
             raise SageError("INVALID_IDEA", "Supply a non-empty idea below 16,000 UTF-8 bytes.")
         _reject_credentials(idea)
@@ -87,6 +88,9 @@ class Engine:
                 raise SageError("INVALID_WORKSPACE", "Project must be separate from kit and private state.")
         if output.exists() or not output.parent.is_dir():
             raise SageError("INVALID_WORKSPACE", "Output must not exist and its parent must already exist.")
+        if coordinator is not None:
+            from .ruflo import binding
+            coordinator = binding(coordinator, kit_root=self.kit_root, state_root=self.state_root, output=output, source=source)
         seed_files, source_provenance = [], None
         if source is not None:
             source_root = Path(source)
@@ -126,7 +130,7 @@ class Engine:
                  "receipts": [], "evidence": [], "inflight": None, "reason": None,
                  "recoverable": True, "pending_source": None,
                  "seed_files": seed_files, "seed_applied": not bool(seed_files),
-                 "source_provenance": source_provenance}
+                 "source_provenance": source_provenance, "coordinator": coordinator}
         run_id = self.store.create(state)
         state = self.store.load(run_id)
         state["run_id"] = run_id
@@ -221,6 +225,14 @@ class Engine:
                 return self._public(state)
             self._recover_inflight(state)
             cancel_check = lambda: (self.store.run_dir(run_id) / "cancel.request").exists()
+            self.provider = self._plain_provider
+            if state.get("coordinator"):
+                from .ruflo import RufloProvider, binding
+                configuration = binding(state["coordinator"], kit_root=self.kit_root,
+                                        state_root=self.state_root, output=state["workspace"],
+                                        source=(state.get("source_provenance") or {}).get("path"))
+                self.provider = RufloProvider(self._plain_provider, self.kit_root, configuration,
+                                              state["run_id"], state["approval_id"])
             self.provider.cancel_check = cancel_check
             self.runner.cancel_check = cancel_check
             try:
@@ -279,7 +291,7 @@ class Engine:
             except SageError as exc:
                 state.update(status="CANCELLED" if exc.code == "CANCELLED" else "BLOCKED",
                              reason=exc.code + ": " + str(exc), recoverable=exc.code in
-                             {"PROVIDER_UNAVAILABLE", "PROVIDER_FAILED", "PROVIDER_TIMEOUT", "SANDBOX_UNAVAILABLE", "IO_ERROR"})
+                             {"PROVIDER_UNAVAILABLE", "PROVIDER_FAILED", "PROVIDER_TIMEOUT", "SANDBOX_UNAVAILABLE", "IO_ERROR", "RUFLO_UNAVAILABLE"})
                 self.store.event(run_id, "stopped", {"code": exc.code})
                 self.store.save(run_id, state)
                 return self._public(state)
@@ -660,4 +672,5 @@ class Engine:
             "evidence_directory": str(self.store.run_dir(state["run_id"])),
             "artifacts": {entry.get("name", Path(entry["path"]).name): entry["path"]
                           for entry in state.get("evidence", [])},
+            "coordinator": "ruflo" if state.get("coordinator") else "none",
             "execution_authorized": False, "note": "A status response grants no new execution authority."}

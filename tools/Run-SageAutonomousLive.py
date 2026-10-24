@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "runtime/autonomous/src"))
 from sage_runtime.engine import Engine
 from sage_runtime.providers import CodexProvider, SandboxRunner
 from sage_runtime.safety import SageError, Policy, project_manifest, write_project_files
+from sage_runtime.ruflo import load_binding, DockerCoordinator
 
 
 @contextmanager
@@ -134,6 +135,27 @@ def assert_independent_acceptance(state, oracle):
         raise SageError("ACCEPTANCE_ORACLE", "DONE lacks the expected independent oracle bound to this source.")
 
 
+def assert_ruflo_acceptance(state):
+    """Fresh actual MCP process + persisted records, not self-reported success."""
+    configuration = state.get("coordinator")
+    if not configuration:
+        raise SageError("ACCEPTANCE_RUFLO", "This run did not use a Ruflo coordinator.")
+    receipts = [item["receipt"] for item in state["receipts"] if item["stage"] != "verification"]
+    if len(receipts) < 3 or any(not receipt.get("coordination") for receipt in receipts):
+        raise SageError("ACCEPTANCE_RUFLO", "Every successful worker job must have an actual Ruflo assignment.")
+    with DockerCoordinator(ROOT, configuration, state["run_id"], state["approval_id"], 45) as session:
+        for receipt in receipts:
+            coordination = receipt["coordination"]
+            expected = {"result_kind": "MODEL_RESPONSE_VALIDATED_NOT_PRODUCT_ACCEPTANCE",
+                        "worker_id": coordination["worker_id"], "payload_sha256": coordination["payload_sha256"],
+                        "model_provider": "codex-cli", "product_acceptance": False}
+            for record in (session.call("task_status", {"taskId": coordination["task_id"]}),
+                           session.persisted(coordination["task_id"])):
+                if (record.get("status") != "completed" or record.get("result") != expected
+                        or record.get("assignedTo") != [coordination["worker_id"]]):
+                    raise SageError("ACCEPTANCE_RUFLO", "Fresh Ruflo readback did not match model-worker receipts.")
+
+
 SLUG_IDEA = """Build a tiny dependency-free Python library in slug.py with function
 slugify(text: str)->str. Preserve Unicode letters/digits including Persian,
 lowercase Latin, strip whitespace, turn whitespace and underscore into a single
@@ -178,6 +200,7 @@ def main():
     parser.add_argument("--approval-id", required=True)
     parser.add_argument("--evidence-root", type=Path, required=True)
     parser.add_argument("--docker-image", required=True)
+    parser.add_argument("--ruflo-config", type=Path)
     parser.add_argument("--scenario", choices=("build", "repair", "all"), default="all")
     parser.add_argument("--resume-run")
     parser.add_argument("--restart-failed", action="store_true",
@@ -195,6 +218,7 @@ def main():
         parser.error("Acceptance evidence/projects must be outside the SAGE source checkout")
     folder.mkdir(parents=True, exist_ok=True)
     provider = DeliveryBudget(CodexProvider(), folder)
+    configuration = load_binding(args.ruflo_config) if args.ruflo_config else None
     runner = SandboxRunner(docker_image=args.docker_image)
     results = []
     scenarios = ("build", "repair") if args.scenario == "all" else (args.scenario,)
@@ -234,16 +258,20 @@ def main():
             created = engine.create(SLUG_IDEA if scenario == "build" else DIVIDE_IDEA,
                                     folder / (scenario + "-project"), args.approval_id,
                                     live=True, auto_approve_plan=True, max_model_calls=8,
-                                    max_repairs=2, max_seconds=900, profile="python-stdlib", source=source)
+                                    max_repairs=2, max_seconds=900, profile="python-stdlib", source=source,
+                                    coordinator=configuration)
             run_id = created["run_id"]
             run_pointer.write_text(json.dumps({"run_id": run_id}), encoding="utf-8")
         bound = engine.store.load(run_id)
         expected_idea = SLUG_IDEA if scenario == "build" else DIVIDE_IDEA
-        if bound["idea"] != expected_idea.strip() or Path(bound["workspace"]) != folder / (scenario + "-project"):
+        if (bound["idea"] != expected_idea.strip() or Path(bound["workspace"]) != folder / (scenario + "-project")
+                or bound.get("coordinator") != configuration):
             raise SageError("ACCEPTANCE_BINDING", "Run does not belong to the selected scenario/workspace.")
         result = engine.run(run_id, live=True, pause_after=args.pause_after)
         if result["status"] == "DONE":
             assert_independent_acceptance(engine.store.load(run_id), oracle)
+            if configuration:
+                assert_ruflo_acceptance(engine.store.load(run_id))
         if scenario == "repair":
             original = project_manifest(folder / "defective-snapshot")
             saved = json.loads((folder / "repair-source-before.json").read_text(encoding="utf-8"))

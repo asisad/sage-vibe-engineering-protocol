@@ -1,7 +1,7 @@
 {
-  "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24",
+  "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24+ruflo",
   "schema_version": "sage-source-manifest/0.1",
-  "recorded_at": "2026-10-23T23:03:28Z",
+  "recorded_at": "2026-10-24T15:47:39Z",
   "hash_algorithm": "SHA-256",
   "upstream_pins": {
     "HKUDS/CLI-Anything": {
@@ -24,6 +24,14 @@
       "commit": "90606c8315ee09cafc303515c5f33024db6b9882",
       "reuse": "ATTRIBUTED_SOURCE_CATALOG_WITH_PER_ITEM_DISPOSITIONS",
       "source_inventory": "extensions/ecc/upstream-lock.json"
+    },
+    "ruvnet/ruflo": {
+      "repository": "https://github.com/ruvnet/ruflo",
+      "tag": "v3.61.1",
+      "commit": "e6c3743ef1977b2cfa562210316ac8fd026139c4",
+      "npm_package": "ruflo@3.61.1",
+      "license": "MIT",
+      "node_minimum": "20"
     }
   },
   "source_extensions": {
@@ -43,12 +51,18 @@
       "native_installation": false
     },
     "bounded_autonomous_runtime": {
-      "version": "0.1.0",
-      "channel": "LOCAL_REFERENCE_ACCEPTANCE_PASSED_NOT_RELEASED",
+      "version": "0.2.0",
+      "channel": "CONTROLLED_RUFLO_WORKER_ACCEPTANCE_PASSED_NOT_RELEASED",
       "default_live_execution": false,
       "explicit_task_approval_required": true,
       "native_ecc_installation": false,
       "manifest": "extensions/autonomous-runtime/manifest.json"
+    },
+    "ruflo_runtime": {
+      "version": "0.2.0",
+      "channel": "CONTROLLED_LIVE_WORKER_ACCEPTANCE_PASSED",
+      "default_live_execution": false,
+      "manifest": "extensions/ruflo/manifest.json"
     }
   },
   "entries": [
@@ -93,8 +107,12 @@
       "sha256": "68bcb3944ead7c8b3812bcecdfd34a9eaf14e660159deaeabf958a40bea3f43e"
     },
     {
+      "path": ".github/workflows/ruflo-upstream-smoke.yml",
+      "sha256": "f69675668fd605045c2f0258306afa81115f67816d1f7c9a3fa2ac586c508786"
+    },
+    {
       "path": ".github/workflows/sage-ci.yml",
-      "sha256": "be430c2842ddc7b0bc4f1c4b311c904d9f72175272494da219fc104eb456907c"
+      "sha256": "16a81965f4b6d780c6ebe0b2ea1b7d002d1bc866ea56e56fee0c4b44077464d1"
     },
     {
       "path": ".gitignore",
@@ -102,7 +120,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "7507d464c585b814e6121b3e029799af51ed95645a4cb34ec4aa4b7ab32a06c3"
+      "sha256": "563cafbb3e8245310a6770c2d578f4f4900dfc5fc77bd806e38022f7e04bf21a"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -118,7 +136,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "9aa68efb5376d4f35015f6fccc4e953885d5f70701a950830392f283791571cc"
+      "sha256": "aef56bab518709da5b7416a653ca2224cecf73145d4a2a1e853bc240f9981020"
     },
     {
       "path": "RELEASE_MANIFEST_v0.8.2.json",
@@ -170,7 +188,7 @@
     },
     {
       "path": "SAGE_v0.8_EXECUTION_PROTOCOL_AND_SKILL_CONTRACT.md",
-      "sha256": "4edd9fb22c8cb8dad977835aeb3618d455ce0107fd501a8476a268cf8c29eb75"
+      "sha256": "e8baa005b070f4d3c399e1f5cb47c2722ab434c4e13c97524f0a8e3dbd8f59ff"
     },
     {
       "path": "SAGE_v0.8_SENS_INTEGRATION_SEAM_DELTA.md",
@@ -190,7 +208,7 @@
     },
     {
       "path": "bundles/v0.8/core-engineering/bundle.json",
-      "sha256": "6a478f3fc29192dd38f931c87625c3f7cdfc3d62f17e482a0439aa853d0937c5"
+      "sha256": "52f491905d30bfe67f8ff1365afc419813bde78ff34941f9f4db067a13708c69"
     },
     {
       "path": "config/security/default-local-scope.json",
@@ -215,6 +233,10 @@
     {
       "path": "docs/RELEASE_READINESS.fa-en.md",
       "sha256": "0d4807bd2fbd6a6a9208aa2292d7a59c5498b9f185368e5722ba36ffd8d429c8"
+    },
+    {
+      "path": "docs/RUFLO_LIVE_ACCEPTANCE.fa-en.md",
+      "sha256": "517a1cb4279f51f969d906a95dea00934e125381f8826842969a7866c48f7616"
     },
     {
       "path": "docs/architecture/agent-native-interfaces.md",
@@ -266,7 +288,7 @@
     },
     {
       "path": "extensions/autonomous-runtime/manifest.json",
-      "sha256": "fd135a5e43b4c67b05f6ff4f5ae1c98396da7aeedda2db9140f2590dcb22f8d1"
+      "sha256": "b097fdb3dc59c6815a5e3e793f3b52d883c3b30cd01752bc8526971e7df1b46e"
     },
     {
       "path": "extensions/ecc/README.fa-en.md",
@@ -347,6 +369,62 @@
     {
       "path": "extensions/ecc/upstream-lock.json",
       "sha256": "4017031b37c3fbf15da8af9e10d16d3f4976c97064af76734e478191bc62a362"
+    },
+    {
+      "path": "extensions/ruflo/CAPABILITY-MAP.fa.md",
+      "sha256": "1627d2c4badfababf5a4e57a0c61da39fb388d5c67935a0156a2b80f6ddb0e23"
+    },
+    {
+      "path": "extensions/ruflo/LIVE_BINDING.fa-en.md",
+      "sha256": "7aa4af3646ecc509c767c64c5cc88d7fbbc008cc62d1ae5b8211596223f20e78"
+    },
+    {
+      "path": "extensions/ruflo/README.fa-en.md",
+      "sha256": "7ec2bf49973fb86bffdf34b9df15f1f3b315b9548a09863f99dbb0e79433a0e0"
+    },
+    {
+      "path": "extensions/ruflo/catalog.json",
+      "sha256": "9e3697b1118b4e63dbb4c9da5d0cb9c075073f1db9a16ba59543e180fe87fc53"
+    },
+    {
+      "path": "extensions/ruflo/examples/approval.template.json",
+      "sha256": "0dcc0e6cff4724a8b1b1f333bcf5e4724be9c7a4c6bc117ed86c5dbaf913d82d"
+    },
+    {
+      "path": "extensions/ruflo/live-acceptance.json",
+      "sha256": "443a18b31043b29a8522daa447b7ff490ebf3168b9eecdbe5c5101760e2a6504"
+    },
+    {
+      "path": "extensions/ruflo/manifest.json",
+      "sha256": "9a82e0d0e8c188913a34847895312e25b041fc3013aa9f80704ab7e3ce2570b4"
+    },
+    {
+      "path": "extensions/ruflo/policy.json",
+      "sha256": "9a152c4ae21de35eff53575249cd837ec3a052a27132144a10d8e0d31e938ff0"
+    },
+    {
+      "path": "extensions/ruflo/runtime/.dockerignore",
+      "sha256": "8cc5daf90ea1d21ead0e8bbcd863dbde9387323a6fb9bc5cec7a6793e8b7ef48"
+    },
+    {
+      "path": "extensions/ruflo/runtime/Dockerfile",
+      "sha256": "a3423db265480e54d51abd5f36518f7e777a256fc8c03aa5c9aa83f302b06964"
+    },
+    {
+      "path": "extensions/ruflo/runtime/package-lock.json",
+      "sha256": "0d1f2db0162b0a13139c9d51b6579b539ef3d46740cc430d59ad5fcbbe4ae6b4"
+    },
+    {
+      "path": "extensions/ruflo/runtime/package.json",
+      "sha256": "111d6f650f21d6dc9f3a85c99d4839be9a715d8d976622a5da5cf70fe4f585fc"
+    },
+    {
+      "path": "extensions/ruflo/sage_ruflo.py",
+      "sha256": "a255ecb83fcb23c59b4282bc4b0359df000eb41d5f8b3f207892a3b213ce93a9"
+    },
+    {
+      "path": "extensions/ruflo/sage_ruflo_catalog.py",
+      "sha256": "c1a297a57a65576c23c18b8ed7c6575540e3c97c1069ab72c3e6ed2edb3671be"
     },
     {
       "path": "extensions/technology-engineering/README.fa-en.md",
@@ -658,7 +736,7 @@
     },
     {
       "path": "runtime/autonomous/DESIGN.md",
-      "sha256": "40ca8dc2d812760255ef29891814c7ab5caa28035ca614bb7e615b718aca85f6"
+      "sha256": "66aa1cde4ededfcf2a6d2ea5663635f898357bb1ef6d838a56e34bd4375429f0"
     },
     {
       "path": "runtime/autonomous/MANIFEST.in",
@@ -666,19 +744,19 @@
     },
     {
       "path": "runtime/autonomous/README.fa-en.md",
-      "sha256": "f4373194a003eca4251ee5e334989ca199f7600497c454bf363de7e5a856ddcd"
+      "sha256": "5ece9a2eb51e5e6238cea209b44dab7a6f2e4fbf9ea92a1f0ae10400903e3f9e"
     },
     {
       "path": "runtime/autonomous/pyproject.toml",
-      "sha256": "5afdd8046d810ee6c08fad4373b13694acd127c3b0fbb8943bf9f3b009b61f5c"
+      "sha256": "52e0bf3acec39b6d4bba9493664e2cdb299d7be64a7ca9ad8dccbdd6e0d4e884"
     },
     {
       "path": "runtime/autonomous/setup.py",
-      "sha256": "b32c17d8a70c4a4901764599261eb618efdb89cf4b706f2c93fd1021bb09540e"
+      "sha256": "46f2a0145e7d8edbbf1f8d51437b56090e72512070a7322a447c9a8a9ccde929"
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/__init__.py",
-      "sha256": "4f8ea4dacfa88f2ec4a18da396d715fcad3b82894af1cc9c16b75288ece4542c"
+      "sha256": "89fbd86af50dc67d47cce651b885c4ff19255ba23d6061fd49fc37f0a4baebe5"
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/__main__.py",
@@ -686,7 +764,7 @@
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/cli.py",
-      "sha256": "0cdb21826b1178088d4304a576ad952daa8cbfa1e74caa581bd3e58f34a95689"
+      "sha256": "e5b664ce2d63b20cc357cf855a455fa325e61a33f1a93dcb1311cda7f84c4683"
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/discovery.py",
@@ -694,7 +772,7 @@
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/engine.py",
-      "sha256": "b574e9f1e87a44593e64cdfd9940506a59e82d5a2a556e2647379524f902d26c"
+      "sha256": "a8e8f3f004921cf59722085573bc6541ff3bc6c52246639c9f94eb46eabe7821"
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/process.py",
@@ -703,6 +781,10 @@
     {
       "path": "runtime/autonomous/src/sage_runtime/providers.py",
       "sha256": "780f3b3399069a425030000dc66dea566c05f4bd0b2d0280ac4b10fa30acd654"
+    },
+    {
+      "path": "runtime/autonomous/src/sage_runtime/ruflo.py",
+      "sha256": "180fa6a65a8723d55278f111c8c317e59a92e88e79e2fc1a1d2feb25dd0e4e0c"
     },
     {
       "path": "runtime/autonomous/src/sage_runtime/safety.py",
@@ -722,7 +804,7 @@
     },
     {
       "path": "runtime/autonomous/tests/test_cli.py",
-      "sha256": "5b3b4587e87371117657b53394bd3fa7bad3d781ac22505b75030e827112127a"
+      "sha256": "b6e6942dec62628f24852865dedbafafce7b8a581a52019b6e10fc38086fd8d8"
     },
     {
       "path": "runtime/autonomous/tests/test_engine.py",
@@ -743,6 +825,10 @@
     {
       "path": "runtime/autonomous/tests/test_providers.py",
       "sha256": "aa57900089c4599f1a8536a43d076476a9180337604f728dbe2a7e986d8c0128"
+    },
+    {
+      "path": "runtime/autonomous/tests/test_ruflo.py",
+      "sha256": "a4d85a1c55c230924b5455b58bb4f4c31d5d218f04327cd2d987db23f3f170b4"
     },
     {
       "path": "runtime/autonomous/tests/test_safety_storage.py",
@@ -798,11 +884,15 @@
     },
     {
       "path": "sage.ps1",
-      "sha256": "36bb3a0d81e941bdf0d076c31f291da002e4820d34a8809b9083e79ea661a73c"
+      "sha256": "5993a8032d97512f7e59a24447fc702519c7c167abfcd40cd3d4a88a35a12a58"
     },
     {
       "path": "schemas/extensions/sage-ecc-catalog.schema.json",
       "sha256": "97739facf1d82a5a66491345bd3ae263801f6f124a1d4e0de94eee453048520f"
+    },
+    {
+      "path": "schemas/extensions/sage-ruflo-approval.schema.json",
+      "sha256": "996d5f0fcfa768b4777c317df875e31bdcd4ec41351c8bf937379aa6b34ace1e"
     },
     {
       "path": "schemas/extensions/sage-technology-engineering.schema.json",
@@ -882,7 +972,7 @@
     },
     {
       "path": "skills/registry.json",
-      "sha256": "b4a93f76c4ccdef3de101bedd4afd7b15c84695945f48e005a74ea70b164b432"
+      "sha256": "6fc0b6196a494d4f1aeef30aeb2f29df13e7cb1e2e8621765333db3a24980b8d"
     },
     {
       "path": "skills/sage-discover/SKILL.md",
@@ -6545,12 +6635,16 @@
       "sha256": "585c08fe421f629bd60b50bedfc4c41b67cce0a83c138993dfa1c8cf343d6e95"
     },
     {
+      "path": "tools/Initialize-SageRuflo.ps1",
+      "sha256": "4903027eed26fd7e4014cdbab2d782a4923ed09d8ce7ddb2176a6a714cd41e73"
+    },
+    {
       "path": "tools/Invoke-SageReferenceCI.ps1",
       "sha256": "c8dd01925c95f15f5042710cbeb142636fff59918b5b27d79ce2067e505a0f21"
     },
     {
       "path": "tools/Run-SageAutonomousLive.py",
-      "sha256": "51d80f61c8b53dd1fbfaab6d66f245cdb0cded37da77815e301fde557270dc35"
+      "sha256": "67bec6a797252cde0d990cf38a33acfdbf97c94ab97f2575c9230b328e2a03d4"
     },
     {
       "path": "tools/Test-SageAgentInterfaces.ps1",
@@ -6621,6 +6715,10 @@
       "sha256": "b9b234999eec2e452f6026561ee2c1c60cd135c5f74727d665e6320a13a83b19"
     },
     {
+      "path": "tools/Test-SageRufloIsolation.py",
+      "sha256": "f2ad4e5334cf334e9e035c9fe647fe606233cc110b3789e0441a2976ac31fa71"
+    },
+    {
       "path": "tools/Test-SageSdk.ps1",
       "sha256": "a358b6d3f5eff57d1da1024a1a2408d8beb92df77c0cb361d4cc7838ef3a4336"
     },
@@ -6642,11 +6740,15 @@
     },
     {
       "path": "tools/Update-SageSourceManifest.py",
-      "sha256": "defad87df36850bde5ec2325dfd04aba66942e8e3cd23395432fc0cc9a482cf6"
+      "sha256": "fa312577152b423af251ad3a41cc957fd9086a6f7fa816a732fab03bafb2979b"
     },
     {
       "path": "tools/Verify-SageEccCatalog.py",
       "sha256": "e42252fdd2985806ca940b663e3b6d5b2cefb5b6b92d140429ba7c9149ba6288"
+    },
+    {
+      "path": "tools/fixtures/fake_ruflo_mcp.py",
+      "sha256": "7f2f01bfbd4fbd789c801d99e1e8cc095f4586c647a182aa572a86054f78dbbe"
     },
     {
       "path": "tools/test_sage_ecc.py",
@@ -6655,6 +6757,10 @@
     {
       "path": "tools/test_sage_ecc_integration.py",
       "sha256": "d061dcc337c9c08f747bd55b2028ca921d8acb90c2cd3f32ef94b31911617f9f"
+    },
+    {
+      "path": "tools/test_sage_ruflo.py",
+      "sha256": "53de0f3de6c6a224c15736527e170dff25114c36383ea9f9336946520a0d4b35"
     }
   ]
 }

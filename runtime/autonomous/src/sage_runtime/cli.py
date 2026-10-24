@@ -56,10 +56,15 @@ def make_parser() -> Parser:
         return child
 
     command("doctor", "Inspect local provider and kit readiness; no model call")
+    ruflo_probe = command("ruflo-probe", "Probe the explicit isolated Ruflo binding; never invokes a model")
+    ruflo_probe.add_argument("--ruflo-config", type=Path, required=True)
+    ruflo_probe.add_argument("--approval-id", required=True)
+    ruflo_probe.add_argument("--live", action="store_true")
     build = command("build", "Create a durable bounded build; default does not invoke a model")
     build.add_argument("idea", help="Your software idea/requirements (not a shell command)")
     build.add_argument("--output", type=Path, required=True, help="Absolute path for a NEW generated project")
     build.add_argument("--source", type=Path, default=None, help="Existing local source snapshot; original remains unchanged, fixes go to NEW output")
+    build.add_argument("--ruflo-config", type=Path, default=None, help="Explicit isolated Ruflo metadata coordinator binding; persisted for resume")
     build.add_argument("--approval-id", default=None, help="Task-specific execution authorization record")
     build.add_argument("--live", action="store_true", help="Invoke the authorized provider and native sandbox checks")
     build.add_argument("--auto-approve-plan", action="store_true", help="Preauthorize only a low-risk R1 local plan; no external actions")
@@ -92,6 +97,11 @@ def dispatch(args: argparse.Namespace) -> dict:
 
     kit_root = (args.kit_root or default_kit_root()).absolute()
     state_root = (args.state_root or default_state_root()).absolute()
+    if args.command == "ruflo-probe":
+        if not args.live:
+            return {"status": "NEEDS_AUTHORIZATION", "model_invocations": 0, "executed": False}
+        from .ruflo import load_binding, probe
+        return probe(kit_root, load_binding(args.ruflo_config), args.approval_id)
     if args.command == "build":
         if args.live and (not args.approval_id or not args.approval_id.strip()):
             raise SageError("APPROVAL_REQUIRED", "Live build needs a task-specific --approval-id.")
@@ -119,6 +129,9 @@ def dispatch(args: argparse.Namespace) -> dict:
                    "max_seconds": args.max_seconds, "profile": args.profile}
         if args.source is not None:
             options["source"] = args.source
+        if args.ruflo_config is not None:
+            from .ruflo import load_binding
+            options["coordinator"] = load_binding(args.ruflo_config)
         state = engine.create(args.idea, args.output, args.approval_id, **options)
         return engine.run(state["run_id"], live=True, pause_after=args.pause_after) if args.live else state
     if args.command == "resume":

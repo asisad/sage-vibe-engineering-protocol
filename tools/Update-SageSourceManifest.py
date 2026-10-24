@@ -7,6 +7,7 @@ New files must be staged first; ignored runtime outputs are not enrolled.
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -17,7 +18,13 @@ PATH = ROOT / "SOURCE_MANIFEST.json"
 
 
 def main():
-    document = json.loads(PATH.read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--baseline-ref", help="Explicit Git baseline for regenerating this derived file during a reviewed merge")
+    args = parser.parse_args()
+    if args.baseline_ref:
+        document = json.loads(subprocess.check_output(["git", "-C", str(ROOT), "show", args.baseline_ref + ":SOURCE_MANIFEST.json"]))
+    else:
+        document = json.loads(PATH.read_text(encoding="utf-8"))
     catalog = json.loads((ROOT / "extensions/ecc/catalog.json").read_text(encoding="utf-8"))
     tracked = subprocess.check_output(["git", "-C", str(ROOT), "ls-files", "-z"])
     paths = sorted({p.decode("utf-8") for p in tracked.split(b"\0") if p})
@@ -51,6 +58,15 @@ def main():
             "version": autonomous["version"], "channel": autonomous["status"],
             "default_live_execution": False, "explicit_task_approval_required": True,
             "native_ecc_installation": False, "manifest": "extensions/autonomous-runtime/manifest.json",
+        }
+    ruflo_path = ROOT / "extensions/ruflo/manifest.json"
+    if ruflo_path.is_file():
+        ruflo = json.loads(ruflo_path.read_text(encoding="utf-8"))
+        document["manifest_id"] += "+ruflo"
+        document["upstream_pins"]["ruvnet/ruflo"] = ruflo["upstream"]
+        document["source_extensions"]["ruflo_runtime"] = {
+            "version": ruflo["version"], "channel": ruflo["status"],
+            "default_live_execution": False, "manifest": "extensions/ruflo/manifest.json",
         }
     document["entries"] = entries
     PATH.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

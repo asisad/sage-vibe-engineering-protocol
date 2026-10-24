@@ -158,7 +158,7 @@ class CliTests(unittest.TestCase):
         with redirect_stdout(out), self.assertRaises(SystemExit) as stopped:
             cli.main(["--version"])
         self.assertEqual(stopped.exception.code, 0)
-        self.assertEqual(out.getvalue().strip(), "sage-runtime 0.1.0")
+        self.assertEqual(out.getvalue().strip(), "sage-runtime 0.2.0")
 
 
 @unittest.skipUnless(importlib.util.find_spec("setuptools"), "Packaging backend is optional for direct source execution.")

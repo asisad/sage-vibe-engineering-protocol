@@ -46,6 +46,20 @@ AUTHORED_RESOURCES = (
     "SAGE_AUTONOMOUS_RUNTIME_DELTA.md",
     "runtime/autonomous/README.fa-en.md",
     "runtime/autonomous/DESIGN.md",
+    "extensions/ruflo/manifest.json",
+    "extensions/ruflo/policy.json",
+    "extensions/ruflo/catalog.json",
+    "extensions/ruflo/CAPABILITY-MAP.fa.md",
+    "extensions/ruflo/README.fa-en.md",
+    "extensions/ruflo/LIVE_BINDING.fa-en.md",
+    "extensions/ruflo/live-acceptance.json",
+    "extensions/ruflo/sage_ruflo.py",
+    "extensions/ruflo/sage_ruflo_catalog.py",
+    "schemas/extensions/sage-ruflo-approval.schema.json",
+    "extensions/ruflo/runtime/package.json",
+    "extensions/ruflo/runtime/package-lock.json",
+    "extensions/ruflo/runtime/Dockerfile",
+    "extensions/ruflo/runtime/.dockerignore",
 )
 
 

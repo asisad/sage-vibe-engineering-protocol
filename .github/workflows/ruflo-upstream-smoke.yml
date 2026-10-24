@@ -1,0 +1,76 @@
+name: SAGE Ruflo upstream smoke
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'extensions/ruflo/**'
+      - 'schemas/extensions/sage-ruflo-approval.schema.json'
+      - '.github/workflows/ruflo-upstream-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  real-ruflo-mcp-handshake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Create disposable workspace and install pinned Ruflo (no lifecycle scripts)
+        shell: bash
+        run: |
+          mkdir -p tmp/ruflo-smoke
+          npm install --prefix tmp/ruflo-smoke --ignore-scripts --no-save --no-audit --no-fund --save-exact ruflo@3.61.1
+      - name: Real MCP protocol negotiation and dynamic tool discovery
+        shell: bash
+        run: |
+          python extensions/ruflo/sage_ruflo.py probe --workspace "${{ github.workspace }}/tmp/ruflo-smoke" --live
+      - name: Discover and invoke one actual read-only Ruflo MCP tool
+        shell: bash
+        run: |
+          python extensions/ruflo/sage_ruflo.py list --workspace "$GITHUB_WORKSPACE/tmp/ruflo-smoke" --live > tmp/ruflo-smoke/tools.json
+          python - <<'PY'
+          import datetime as dt
+          import json
+          import os
+          from pathlib import Path
+          ws = str((Path(os.environ["GITHUB_WORKSPACE"]) / "tmp/ruflo-smoke").resolve())
+          data = json.loads((Path(ws) / "tools.json").read_text())
+          choices = ["agent_list", "swarm_status", "memory_stats", "task_list", "mcp_status"]
+          listed = {t["name"] for t in data["result"]["tools"] if t["read_only_policy"]}
+          selected = next((t for t in choices if t in listed), None)
+          if selected is None:
+              raise SystemExit("Ruflo did not expose a usable SAGE read-only probe tool.")
+          approval = {
+              "record_type": "sage_ruflo_approval",
+              "schema_version": "sage-ruflo/0.1",
+              "task_id": "ci.ruflo.001",
+              "authority": {"source": "CI user-approved integration smoke",
+                            "status": "GRANTED", "scope": ["."],
+                            "approval_id": "approval.ci.ruflo.001"},
+              "workspace_root": ws, "allowed_tools": [selected],
+              "mode": "READ_ONLY",
+              "expires_at": (dt.datetime.now(dt.timezone.utc) +
+                             dt.timedelta(minutes=10)).isoformat(),
+              "max_timeout_seconds": 30,
+          }
+          (Path(ws) / "read-only-approval.json").write_text(json.dumps(approval))
+          (Path(ws) / "tool-choice.txt").write_text(selected)
+          print("Approved read-only Ruflo tool for isolated CI:", selected)
+          PY
+          selected="$(cat tmp/ruflo-smoke/tool-choice.txt)"
+          python extensions/ruflo/sage_ruflo.py invoke --workspace "$GITHUB_WORKSPACE/tmp/ruflo-smoke" --live --tool "$selected" --args-json '{}' --approval-file "$GITHUB_WORKSPACE/tmp/ruflo-smoke/read-only-approval.json"
+      - name: Archive limited non-secret handshake receipts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ruflo-upstream-mcp-smoke
+          path: tmp/ruflo-smoke/.sage/ruflo-receipts/*.json
+          if-no-files-found: ignore

@@ -1,11 +1,11 @@
 # SAGE bounded autonomous runtime / اجرای خودکارِ محدود SAGE
 
-Version **0.1.0** is an additive development package, not a new release of the
+Version **0.2.0** is an additive development package, not a new release of the
 SAGE **0.8.4** SDK. It turns an authorized small software idea into a plan,
 architecture artifacts, generated source, observed checks and an independent
 model review. It does not guarantee arbitrary software or security certification.
 
-نسخهٔ **۰٫۱٫۰** یک بستهٔ توسعهٔ مستقل و افزوده است؛ نسخهٔ SDK و برچسب انتشار
+نسخهٔ **۰٫۲٫۰** یک بستهٔ توسعهٔ مستقل و افزوده است؛ نسخهٔ SDK و برچسب انتشار
 `v0.8.4` را تغییر نمی‌دهد. این اجراگر یک درخواست مجاز و محدود را از برنامه‌ریزی
 تا تولید کد، آزمون واقعی و بازبینی جداگانه پیش می‌برد. «خودکار» به معنای حذف
 مجوز، تضمین صحت هر نرم‌افزار یا صدور گواهی امنیت نیست.
@@ -36,6 +36,15 @@ Idea / ایده
 ```
 
 ## Installation / نصب
+
+Optional real Ruflo task coordination is now available through an explicit
+`--ruflo-config`; the model worker remains Codex and all final SAGE gates remain
+mandatory. This is not native Ruflo LLM execution or automatic activation of its
+catalog. See [the bilingual live-binding guide](../../extensions/ruflo/LIVE_BINDING.fa-en.md).
+
+هماهنگی واقعی کار با Ruflo اختیاری است؛ عامل مدل همچنان Codex است و SAGE
+اختیار و پذیرش نهایی را حفظ می‌کند. برای نصب جداگانه و فعال‌سازی صریح،
+[راهنمای فارسی/انگلیسی](../../extensions/ruflo/LIVE_BINDING.fa-en.md) را بخوانید.
 
 Python **3.11+**, an installed/authenticated Codex CLI, and a supported isolated
 check runner are needed for live work. Node is additionally required for the

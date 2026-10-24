@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased — Controlled Ruflo worker binding 0.2 — 2026-10-24
+
+- Reconciled published Ruflo source integration with the existing bounded runtime.
+- Added opt-in real MCP task creation/assignment/completion in a pinned, non-root,
+  network-disabled Docker coordinator; no source/auth mount or native hooks.
+- Actual Codex workers execute structured jobs; SAGE still owns all source
+  writes, budgets, independent checks and product acceptance. No direct fallback.
+- Added persisted task readback, pure configuration/authority gates, setup/probe
+  commands, bilingual guide and separate source/build/repair acceptance evidence.
+- Preserved core SDK 0.8.4, release tags, ECC pins and source-only catalog semantics.
+
 ## Unreleased — Bounded autonomous runtime 0.1 — 2026-10-24
 
 - Added an installable opt-in `sage-runtime` package with structured planning,

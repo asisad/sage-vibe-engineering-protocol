@@ -1,7 +1,9 @@
 # SAGE bounded autonomous execution — implementation contract
 
-Approved 2026-10-24: development branch only, no GitHub push/release, at most
-12 real model invocations for this delivery's live acceptance runs. Existing
+Approved 2026-10-24: development branch only, no GitHub push/release. The initial
+0.1 delivery and the separately approved 0.2 Ruflo delivery each have their own
+durable, non-resettable limit of 12 model jobs; this is not a permanent grant.
+The Ruflo acceptance consumed six new jobs. Existing
 0.8.4 baseline, ECC source pins, source-only semantics and Strix gates stay intact.
 
 This is an additive Python standard-library runtime. It does not replace the
@@ -32,6 +34,11 @@ must stop with a clear capability gap, not silently substitute a language.
 - packaging, `cli.py`, entrypoints, bilingual guide: packaging worker.
 - integration, regression, live acceptance and final reports: root integrator.
 
+The 0.2 addition is `ruflo.py`: a fixed-tool, metadata-only Ruflo MCP coordinator
+around the existing Codex worker. It does not delegate SAGE authority or enable
+native Ruflo `agent_execute`. See `extensions/ruflo/LIVE_BINDING.fa-en.md` and
+`extensions/ruflo/live-acceptance.json` for the exact mode and live proof.
+
 ## Shared Python interfaces
 
 `safety.SageError(code, message)` exposes `.code` and a safe human-readable text.
@@ -61,7 +68,7 @@ retry/fallback. The CLI's internal HTTP/SSE retries are not a spending guarantee
 with status PASS/FAIL/BLOCKED, actual argv, exit code, bounded stdout/stderr,
 duration and sandbox identity. No model-auth environment is forwarded to checks.
 Provider sessions never execute generated source; fixed checks do so in sandbox.
-The actual installed native CLI used for acceptance is Codex 0.163.0. Native
+Historical 0.1 acceptance used Codex 0.163.0; 0.2 Ruflo acceptance used 0.164.0. Native
 Windows isolation is unavailable on this host and fails closed. The approved
 Docker Python/static-web fallback uses a local immutable image, no network or
 auth mounts, read-only source/root, non-root execution and resource limits.
@@ -69,7 +76,8 @@ Node has no Docker fallback. Unsupported capabilities must fail closed.
 
 `engine.Engine(kit_root,state_root,provider=None,runner=None)` exposes:
 - `create(idea,workspace,approval_id,*,live=False,auto_approve_plan=False,
-  max_model_calls=12,max_repairs=2,max_seconds=900,profile=None,source=None)->dict`.
+  max_model_calls=12,max_repairs=2,max_seconds=900,profile=None,source=None,
+  coordinator=None)->dict`.
 - `run(run_id,*,live=False,pause_after=None)->dict` (resume from durable state).
 - `approve(run_id,plan_hash)->dict`, `status(run_id)->dict`, `cancel(run_id)->dict`.
 - `clarify(run_id,answer)->dict` (new input stays subject to the same policy).
@@ -79,6 +87,15 @@ with optional `--auto-approve-plan`; `sage status ID`, `sage resume ID --live`,
 `sage approve ID --plan-hash HASH`, `sage clarify ID --answer TEXT`, `sage cancel ID`.
 Shared `--kit-root` and `--state-root` options select explicit locations. The
 installed wheel includes the necessary attributed capability resources.
+
+An explicit `--ruflo-config` on a new build binds an immutable local Docker image
+and a separate private metadata tree to its checkpoint. Resume cannot silently
+remove that binding. Ruflo must create/assign/confirm each worker job before the
+model runs; completion is only a validated model-response hash. SAGE still owns
+source writes, isolated tests, review and DONE. Failure never routes around the
+coordinator. A hard container lifetime bounds orphaned processes. Under the
+exclusive run lock, resume cancels unfinished metadata from this same run before
+creating a new job; it does not replay or refund an uncertain model invocation.
 
 Budget is durable: reserve each model call before launch; failed/crashed calls
 remain charged, and resume cannot reset limits. Only a checked delivery at the

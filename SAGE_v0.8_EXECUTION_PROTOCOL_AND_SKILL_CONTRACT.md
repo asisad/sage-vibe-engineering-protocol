@@ -2827,3 +2827,23 @@ INTENT
 اصل نهایی v0.8:
 
 > SAGE must make the safe path explicit, the required evidence computable, and unnecessary ceremony removable.
+
+---
+
+## پیوست اجرایی 2026-10-24 — اتصال کنترل‌شدهٔ Ruflo
+
+بستهٔ افزایشی `sage-runtime 0.2.0`، Ruflo را به‌عنوان هماهنگ‌کنندهٔ واقعی Task
+و Codex را به‌عنوان Worker خارجی متصل می‌کند. این پیوست تعریف منجمد Baseline
+و نسخهٔ هستهٔ `0.8.4` را تغییر نمی‌دهد. قرارداد اجرایی در
+`runtime/autonomous/DESIGN.md`، راهنمای دوزبانه در
+`extensions/ruflo/LIVE_BINDING.fa-en.md` و مدرک پذیرش محدود محلی در
+`extensions/ruflo/live-acceptance.json` قرار دارد.
+
+فعال‌سازی به Approval اختصاصی، حالت صریح Live، ایمیج ثابت و فضای metadata
+جدا نیاز دارد. Ruflo فقط پنج ابزار lifecycle کار را دریافت می‌کند؛ prompt،
+کد پروژه و اعتبارنامهٔ مدل وارد آن نمی‌شوند. ثبت `completed` در صف معادل
+پذیرش محصول نیست. اختیار Scope، تغییر سورس، VERIFY و DONE متعلق به SAGE است؛
+خرابی هماهنگ‌کننده موجب fallback مستقیم نمی‌شود. SENS مشاهده‌گر می‌ماند.
+
+پذیرش این مسیر، اجرای داخلی LLM در Ruflo، فعال‌سازی همهٔ تعریف‌های کاتالوگ،
+استقرار production، Push یا قبولی اسکن Strix را اثبات یا مجاز نمی‌کند.
