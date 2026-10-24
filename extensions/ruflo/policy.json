@@ -7,7 +7,7 @@
   "installed_by_loading": false,
   "default": "OFFLINE_STATUS_ONLY",
   "allowed_transport": "STDIO_ONLY",
-  "protocol_version": "2025-06-18",
+  "protocol_version": "2025-11-25",
   "execution": {
     "requires": [
       "--live",
