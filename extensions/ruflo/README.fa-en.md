@@ -71,6 +71,23 @@ Release: https://github.com/ruvnet/ruflo/releases/tag/v3.61.1
 
 Receipt رکورد دارای هش است؛ به‌تنهایی امضای دیجیتال یا تضمین عدم تغییر در برابر فرد دارای دسترسی نوشتن نیست. برای حسابرسی قوی آن را با سیستم شواهد SAGE و ذخیره کنترل‌شده پیوند بده.
 
+## کتابخانهٔ قابلیت‌ها و منبع کامل (فهرست ساختاری)
+از چهار درخت .claude، .agents، plugins و v3 در نسخهٔ قفل‌شدهٔ Ruflo، ۶٬۸۶۵ فایل منبع شناسایی و ۸۶۳ تعریف agent / Skill / افزونه / ماژول در [کاتالوگ](catalog.json) وارد شدند:
+- ۳۸۶ تعریف agent، ۳۸۰ Skill، ۵۴ manifest افزونه و ۴۳ ماژول runtime.
+- هر تعریف شامل مسیر، Git blob SHA-1، دسته‌بندی، تصمیم اولیه و محدودیت است.
+- عنوان و تصمیم‌های اولیه از مسیر و نوع فایل استخراج شده‌اند؛ **این‌ها بازبینی محتوایی خط‌به‌خط، تأیید امنیتی یا ۸۶۳ Agent فعال نیستند.**
+- مسیرهای میزبان‌محور و فایل‌های آزمایشی به‌صورت REFERENCE_ONLY طبقه‌بندی شده‌اند و برای اجرای خودکار انتخاب نمی‌شوند.
+- برای مقایسه با ECC و SAGE، ابتدا نقشهٔ کلی CAPABILITY-MAP.fa.md و سپس بازبینی محتوایی هر گزینه هنگام انتخاب لازم است.
+
+آزمون کاتالوگ:
+
+    python extensions/ruflo/sage_ruflo_catalog.py stats
+    python extensions/ruflo/sage_ruflo_catalog.py search memory --limit 20
+    python extensions/ruflo/sage_ruflo_catalog.py plan agent --limit 10
+    .\sage.ps1 ruflo -RufloAction catalog -RufloCatalogAction search -RufloQuery memory
+
+کاتالوگ هیچ کد یا script upstream را دانلود یا اجرا نمی‌کند؛ اجرای واقعی تنها از sage_ruflo.py و با مجوز انجام می‌شود.
+
 ## آزمون و تأیید
 - python tools/test_sage_ruflo.py : آزمون واقعی انتقال JSON-RPC در فرآیند مجزا با سرور ساختگی؛ handshake، انقضا، scope، allowlist، synthetic، خطا و timeout. این آزمون به upstream یا کلید مدل نیاز ندارد.
 - sage.ps1 ruflo -RufloAction status : تأیید عدم فعال‌سازی پیش‌فرض.
