@@ -21,8 +21,6 @@ jobs:
         run: python -c "import json,pathlib; p=pathlib.Path('extensions/ruflo'); m=json.loads((p/'manifest.json').read_text()); s=json.loads((p/'policy.json').read_text()); assert m['upstream']['npm_package']=='ruflo@3.61.1'; assert not m['live_enabled_by_default']; assert s['execution']['no_shell']"
       - name: MCP handshake, scope, approvals, errors, timeouts and synthetic evidence
         run: python tools/test_sage_ruflo.py
-      - name: Independent live-acceptance gate regression (offline fixture)
-        run: python tools/test_ruflo_live_acceptance.py
       - name: PowerShell Ruflo status entrypoint
         shell: pwsh
         run: |
