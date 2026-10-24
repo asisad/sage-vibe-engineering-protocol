@@ -5,6 +5,28 @@ on:
   pull_request:
 
 jobs:
+  ruflo-mcp-transport:
+    name: Ruflo MCP boundary (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate optional runtime manifest and policy
+        run: python -c "import json,pathlib; p=pathlib.Path('extensions/ruflo'); m=json.loads((p/'manifest.json').read_text()); s=json.loads((p/'policy.json').read_text()); assert m['upstream']['npm_package']=='ruflo@3.61.1'; assert not m['live_enabled_by_default']; assert s['execution']['no_shell']"
+      - name: MCP handshake, scope, approvals, errors, timeouts and synthetic evidence
+        run: python tools/test_sage_ruflo.py
+      - name: PowerShell Ruflo status entrypoint
+        shell: pwsh
+        run: |
+          $out = ./sage.ps1 ruflo -RufloAction status | ConvertFrom-Json
+          if ($out.executed -or $out.runtime_connected -or $out.status -ne 'AVAILABLE_NOT_ACTIVATED') { throw 'Unexpected Ruflo autoactivation' }
+
   ecc-catalog-and-adapter:
     runs-on: ubuntu-latest
     steps:

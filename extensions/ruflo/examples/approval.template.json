@@ -1,0 +1,20 @@
+{
+  "record_type": "sage_ruflo_approval",
+  "schema_version": "sage-ruflo/0.1",
+  "task_id": "ruflo.test.001",
+  "authority": {
+    "status": "PROPOSED",
+    "approval_id": "REPLACE_WITH_APPROVED_ID",
+    "source": "REPLACE_WITH_USER_OR_AUTHORITY",
+    "scope": [
+      "."
+    ]
+  },
+  "workspace_root": "REPLACE_WITH_CANONICAL_ABSOLUTE_WORKSPACE_PATH",
+  "allowed_tools": [
+    "memory_search"
+  ],
+  "mode": "READ_ONLY",
+  "expires_at": "2026-10-25T00:00:00Z",
+  "max_timeout_seconds": 30
+}
