@@ -1,0 +1,45 @@
+{
+  "schema_version": "sage-ruflo/0.1",
+  "policy_id": "sage.ruflo.mcp",
+  "owner": "SAGE",
+  "activation": "EXPLICIT_PER_INVOCATION",
+  "source_instructions_as_authority": false,
+  "installed_by_loading": false,
+  "default": "OFFLINE_STATUS_ONLY",
+  "allowed_transport": "STDIO_ONLY",
+  "protocol_version": "2025-06-18",
+  "execution": {
+    "requires": [
+      "--live",
+      "explicit absolute workspace",
+      "exact tool allowlist",
+      "time-limited SAGE approval document",
+      "actual MCP negotiation",
+      "tool present in tools/list"
+    ],
+    "mutation_requires": [
+      "MUTATING mode approval",
+      "--allow-mutation",
+      "--ack-host-access",
+      "operator-provided OS-isolated environment"
+    ],
+    "no_shell": true,
+    "network_not_blocked_by_adapter": true,
+    "host_sandbox_provided_by_adapter": false,
+    "command_overrides_require": "--ack-custom-command",
+    "default_npm_install": false,
+    "credentials": "explicitly passed approved environment variable names only",
+    "synthetic_result_policy": "BLOCKED_NOT_EVIDENCE",
+    "error_result_policy": "BLOCKED",
+    "success_classification": "EXECUTED_UNVERIFIED",
+    "source_packets_from_ecc_are_non_executable": true
+  },
+  "evidence": {
+    "format": "sage-ruflo/0.1",
+    "dir": "<workspace>/.sage/ruflo-receipts",
+    "no_raw_model_or_secret_output": true,
+    "sha256": true,
+    "independent_acceptance_required": true
+  },
+  "rollback": "Disable calls/omit --live; no global modification is performed by the adapter. Revert source integration via Git."
+}
