@@ -1,0 +1,51 @@
+{
+  "extension_id": "sage.ruflo-runtime",
+  "version": "0.1.0",
+  "status": "SOURCE_INTEGRATION_PENDING_LIVE_HOST_PROOF",
+  "compatible_core": "sage/0.8.4",
+  "core_release_unchanged": true,
+  "architecture_owner": "SAGE",
+  "upstream": {
+    "repository": "https://github.com/ruvnet/ruflo",
+    "tag": "v3.61.1",
+    "commit": "e6c3743ef1977b2cfa562210316ac8fd026139c4",
+    "npm_package": "ruflo@3.61.1",
+    "license": "MIT",
+    "node_minimum": "20"
+  },
+  "transport": {
+    "kind": "MCP_STDIO",
+    "protocol_version": "2025-06-18",
+    "discovery": "tools/list",
+    "invoke": "tools/call",
+    "default_command": [
+      "npx",
+      "--no-install",
+      "ruflo@3.61.1",
+      "mcp",
+      "start"
+    ]
+  },
+  "integration_scope": [
+    "agent/tool discovery",
+    "read-only coordination and memory",
+    "approved tool invocation",
+    "swarm/workflow/agent tool surfaces as discovered",
+    "receipt normalization",
+    "SAGE authority and scope gates"
+  ],
+  "cli": "sage_ruflo.py",
+  "policy": "policy.json",
+  "review": "CAPABILITY-MAP.fa.md",
+  "live_enabled_by_default": false,
+  "automatic_npm_download": false,
+  "automatic_hook_execution": false,
+  "automatic_daemon_start": false,
+  "automatic_global_install": false,
+  "custom_model_credentials_required": "explicit allowlist opt-in",
+  "runtime_connected": false,
+  "tested_against_real_ruflo_host": false,
+  "installed_into_host": false,
+  "external_execution_proven": false,
+  "notes": "Tool discovery is not evidence of a working agent, vector RAG, sandbox, workflow or model connection. Mutating calls require an isolated trusted host plus independent verification."
+}
