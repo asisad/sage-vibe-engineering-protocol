@@ -26,6 +26,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 PROTOCOL = "2025-11-25"
+SUPPORTED_PROTOCOLS = frozenset({"2024-11-05", "2025-11-25"})
 MAX_MESSAGE = 1024 * 1024
 MAX_TOOL_PAGES = 30
 DEFAULT_COMMAND = ["npx", "--no-install", "ruflo@3.61.1", "mcp", "start"]
@@ -220,7 +221,7 @@ class McpSession:
             if not isinstance(result, dict):
                 fail("VERSION_MISMATCH", "Invalid MCP initialize response.")
             self.version = str(result.get("protocolVersion", ""))
-            if self.version != PROTOCOL:
+            if self.version not in SUPPORTED_PROTOCOLS:
                 fail("VERSION_MISMATCH", "MCP server selected protocol " + self.version + " (client offered " + PROTOCOL + ").")
             self.server = result.get("serverInfo") if isinstance(result.get("serverInfo"), dict) else {}
             self.notify("notifications/initialized")
