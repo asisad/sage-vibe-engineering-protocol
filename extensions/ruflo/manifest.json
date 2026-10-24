@@ -15,7 +15,7 @@
   },
   "transport": {
     "kind": "MCP_STDIO",
-    "protocol_version": "2025-06-18",
+    "protocol_version": "2025-11-25",
     "discovery": "tools/list",
     "invoke": "tools/call",
     "default_command": [
