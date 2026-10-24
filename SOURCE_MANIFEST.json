@@ -1,7 +1,7 @@
 {
   "manifest_id": "sage.source-manifest.v0.8.4+ecc-catalog+autonomous-runtime.2026-10-24+ruflo",
   "schema_version": "sage-source-manifest/0.1",
-  "recorded_at": "2026-10-24T18:04:24Z",
+  "recorded_at": "2026-10-24T18:09:39Z",
   "hash_algorithm": "SHA-256",
   "upstream_pins": {
     "HKUDS/CLI-Anything": {
@@ -116,7 +116,7 @@
     },
     {
       "path": ".github/workflows/sage-ci.yml",
-      "sha256": "16a81965f4b6d780c6ebe0b2ea1b7d002d1bc866ea56e56fee0c4b44077464d1"
+      "sha256": "caee54089930fef2bfcca8ca24bad218b51b57f225f00aeece2d943506a0261f"
     },
     {
       "path": ".gitignore",
@@ -836,7 +836,7 @@
     },
     {
       "path": "runtime/autonomous/tests/test_ruflo.py",
-      "sha256": "a4d85a1c55c230924b5455b58bb4f4c31d5d218f04327cd2d987db23f3f170b4"
+      "sha256": "947931ba757b50e91ea22a2916c3d2a09af54e2100f211dc88b3a27310dfa609"
     },
     {
       "path": "runtime/autonomous/tests/test_safety_storage.py",

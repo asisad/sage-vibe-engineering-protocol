@@ -60,7 +60,9 @@ class Worker(FakeProvider):
 class RufloTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
-        self.root = Path(self.temporary.name)
+        # Windows CI may spell the same temp directory through an 8.3 alias.
+        # Production bindings deliberately persist the canonical resolved path.
+        self.root = Path(self.temporary.name).resolve()
         self.config = {"schema_version": "sage-ruflo-worker/0.1", "image_id": "sha256:" + "a"*64,
                        "coordination_root": str(self.root / "coordination")}
         self.worker, self.sessions = Worker(), []
