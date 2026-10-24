@@ -1,0 +1,27 @@
+name: Ruflo independent coding acceptance regression
+
+on:
+  pull_request:
+    paths:
+      - 'tools/verify_ruflo_live_acceptance.py'
+      - 'tools/test_ruflo_live_acceptance.py'
+      - '.github/workflows/ruflo-acceptance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acceptance-boundary:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent acceptance negative and positive regression
+        run: python tools/test_ruflo_live_acceptance.py
