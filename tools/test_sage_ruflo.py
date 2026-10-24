@@ -108,6 +108,17 @@ class RufloAdapterTests(unittest.TestCase):
         self.assertFalse(response["model_task_verified"])
         self.assertNotIn("fake response", json.dumps(response))
 
+    def test_mock_backend_is_not_evidence_and_secrets_are_masked(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("sage_ruflo", CLIENT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.assertTrue(module.is_synthetic({"backend": "mock", "success": True}))
+        self.assertTrue(module.is_synthetic({"content": [{"text": '{"backend":"fake"}'}]}))
+        output = module.preview('{"api_key":"very-secret-value","value":"sk-0123456789abcdefghijk"}')
+        self.assertNotIn("very-secret-value", json.dumps(output))
+        self.assertNotIn("sk-0123456789abcdefghijk", json.dumps(output))
+
     def test_batch_calls_share_one_mcp_session_and_receipt(self):
         self.approve()
         plan = Path(self.workspace) / "plan.json"
