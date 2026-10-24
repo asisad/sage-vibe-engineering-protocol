@@ -41,5 +41,9 @@
     "sha256": true,
     "independent_acceptance_required": true
   },
-  "rollback": "Disable calls/omit --live; no global modification is performed by the adapter. Revert source integration via Git."
+  "rollback": "Disable calls/omit --live; no global modification is performed by the adapter. Revert source integration via Git.",
+  "negotiated_versions_allowlist": [
+    "2024-11-05",
+    "2025-11-25"
+  ]
 }
