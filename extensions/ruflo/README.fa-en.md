@@ -65,7 +65,7 @@ Release: https://github.com/ruvnet/ruflo/releases/tag/v3.61.1
 برای کلید مدل، آن را فقط در environment تنظیم کرده و نام متغیر را با --pass-env ANTHROPIC_API_KEY یا یکی از نام‌های مجاز صراحتاً انتخاب کن. مقدار کلید را در JSON، مخزن یا Approval ننویس.
 
 ## قرارداد اجرای واقعی و رسید
-فراخوانی شامل JSON-RPC initialize → notifications/initialized → tools/list → tools/call با پروتکل ثابت 2025-06-18 است. ناسازگاری نسخه، نبود ابزار، خطا، timeout و عدم مطابقت شناسه fail-closed می‌شود. هر اتصال/فراخوانی receipt دارای نسخه upstream، mode، شناسه تأیید، هش قرارداد SAGE، هش پاسخ، زمان و وضعیت verification می‌سازد:
+فراخوانی شامل JSON-RPC initialize → notifications/initialized → tools/list → tools/call با پروتکل ثابت 2025-11-25 است. ناسازگاری نسخه، نبود ابزار، خطا، timeout و عدم مطابقت شناسه fail-closed می‌شود. هر اتصال/فراخوانی receipt دارای نسخه upstream، mode، شناسه تأیید، هش قرارداد SAGE، هش پاسخ، زمان و وضعیت verification می‌سازد:
 
     <workspace>/.sage/ruflo-receipts/ruflo.<uuid>.json
 
