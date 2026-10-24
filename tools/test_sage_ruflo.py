@@ -64,6 +64,30 @@ class RufloAdapterTests(unittest.TestCase):
         return self.server("invoke", "--tool", tool, "--approval-file",
                            str(self.approval), *run_args, *args)
 
+    def test_source_catalog_complete_and_advisory(self):
+        cat = json.loads((CLIENT.parent / "catalog.json").read_text(encoding="utf-8"))
+        self.assertEqual(cat["inventory_definitions"], 863)
+        self.assertEqual(cat["counts_by_kind"], {
+            "agent_definition": 386, "skill": 380,
+            "plugin_manifest": 54, "runtime_module": 43,
+        })
+        self.assertEqual(len(cat["entries"]), 863)
+        ids = [e["id"] for e in cat["entries"]]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertTrue(all(len(e["source_blob_sha1"]) == 40
+                            and e["source_kind"] == "PINNED_METADATA_ONLY"
+                            and e["execution"] == "NOT_VERIFIED" for e in cat["entries"]))
+        program = CLIENT.parent / "sage_ruflo_catalog.py"
+        proc = subprocess.run([sys.executable, str(program), "stats"],
+                              capture_output=True, text=True, timeout=8)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        result = json.loads(proc.stdout)
+        self.assertEqual(result["data"]["inventory_definitions"], 863)
+        proc = subprocess.run([sys.executable, str(program), "search", "agent",
+                               "--limit", "5"], capture_output=True, text=True, timeout=8)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertFalse(json.loads(proc.stdout)["data"]["execution_authorized"])
+
     def test_status_does_not_start_runtime(self):
         code, reply = self.cli("status")
         self.assertEqual(code, 0)
