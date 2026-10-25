@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+data/*.sqlite3*
+*.db
+.env
+.env.*
+secrets*
+*.pem
+*.key
+*.p12
+credentials*
+exports/

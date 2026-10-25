@@ -1,0 +1,226 @@
+[
+  {
+    "name": "Open-Meteo",
+    "url": "https://open-meteo.com/en/docs",
+    "category": "Weather",
+    "description": "Weather forecast API; check limits and terms on official docs.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "OpenWeatherMap",
+    "url": "https://openweathermap.org/api",
+    "category": "Weather",
+    "description": "Weather data and forecasting API. Check current free and paid access.",
+    "auth": "apiKey",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "NASA Open APIs",
+    "url": "https://api.nasa.gov/",
+    "category": "Science & Math",
+    "description": "NASA data and imagery APIs; API keys vary by endpoint.",
+    "auth": "apiKey",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Open Library",
+    "url": "https://openlibrary.org/developers/api",
+    "category": "Books",
+    "description": "Book and catalog metadata APIs.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "PokeAPI",
+    "url": "https://pokeapi.co/docs/v2",
+    "category": "Games & Comics",
+    "description": "Pokémon data for learning and prototyping.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Agify",
+    "url": "https://agify.io/",
+    "category": "Development",
+    "description": "Age prediction based on first names; check request limits.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "APIs.guru",
+    "url": "https://apis.guru/api-doc",
+    "category": "Development",
+    "description": "Machine-readable OpenAPI discovery and definitions.",
+    "auth": "No",
+    "source_url": "https://github.com/APIs-guru/openapi-directory"
+  },
+  {
+    "name": "GBIF",
+    "url": "https://www.gbif.org/developer/summary",
+    "category": "Science & Math",
+    "description": "Biodiversity data APIs.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "arXiv",
+    "url": "https://info.arxiv.org/help/api/index.html",
+    "category": "Science & Math",
+    "description": "Search and metadata for preprints and research.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "World Bank",
+    "url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+    "category": "Government",
+    "description": "Global development indicators and time series.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "CoinGecko",
+    "url": "https://docs.coingecko.com/",
+    "category": "Cryptocurrency",
+    "description": "Crypto-market data, with variable tiers and authentication.",
+    "auth": "apiKey",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "OpenStreetMap Nominatim",
+    "url": "https://nominatim.org/release-docs/latest/api/Overview/",
+    "category": "Geocoding",
+    "description": "Geocoding and reverse geocoding. Public server has strict usage policy.",
+    "auth": "Unknown",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "REST Countries",
+    "url": "https://restcountries.com/",
+    "category": "Open Data",
+    "description": "Country names, currencies and languages.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Open Food Facts",
+    "url": "https://openfoodfacts.github.io/openfoodfacts-server/api/",
+    "category": "Food & Drink",
+    "description": "Open food product data API.",
+    "auth": "Unknown",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "GitHub REST API",
+    "url": "https://docs.github.com/en/rest",
+    "category": "Development",
+    "description": "Repository, issues and pull request automation under permissions.",
+    "auth": "OAuth",
+    "source_url": "https://github.com/APIs-guru/openapi-directory"
+  },
+  {
+    "name": "OpenAlex",
+    "url": "https://docs.openalex.org/",
+    "category": "Science & Math",
+    "description": "Scholarly publications, authors and institutional metadata.",
+    "auth": "Unknown",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Frankfurter",
+    "url": "https://frankfurter.dev/",
+    "category": "Currency Exchange",
+    "description": "Foreign exchange reference rates.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "SpaceX API",
+    "url": "https://github.com/r-spacex/SpaceX-API",
+    "category": "Science & Math",
+    "description": "SpaceX launch and vehicle data; independent API project.",
+    "auth": "No",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Hugging Face API",
+    "url": "https://huggingface.co/docs/api-inference/index",
+    "category": "Machine Learning",
+    "description": "Inference endpoint ecosystem and model API. Check quotas and current documentation.",
+    "auth": "apiKey",
+    "source_url": "https://github.com/marcelscruz/public-apis"
+  },
+  {
+    "name": "TMDb API",
+    "url": "https://developer.themoviedb.org/docs/getting-started",
+    "category": "Movies",
+    "description": "Movie and television metadata.",
+    "auth": "apiKey",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Aviationstack",
+    "url": "https://aviationstack.com/documentation",
+    "category": "Flight / Travel",
+    "description": "Flight status and aviation data; API key and plan required for many uses.",
+    "auth": "apiKey",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "OpenSky Network",
+    "url": "https://openskynetwork.github.io/opensky-api/rest.html",
+    "category": "Flight / Travel",
+    "description": "Air traffic research and aircraft state vectors. Check rate limits and account rules.",
+    "auth": "Unknown",
+    "source_url": "https://github.com/public-apis/public-apis"
+  },
+  {
+    "name": "Amadeus for Developers",
+    "url": "https://developers.amadeus.com/self-service",
+    "category": "Flight / Travel",
+    "description": "Travel booking, flight and destination API ecosystem; terms and access vary.",
+    "auth": "OAuth",
+    "source_url": "https://developers.amadeus.com/self-service"
+  },
+  {
+    "name": "OpenRouter",
+    "url": "https://openrouter.ai/docs",
+    "category": "AI Model Router",
+    "description": "Unified routing across LLM providers; check provider pricing and key requirements.",
+    "auth": "apiKey",
+    "source_url": "https://openrouter.ai/docs"
+  },
+  {
+    "name": "GroqCloud",
+    "url": "https://console.groq.com/docs/overview",
+    "category": "Machine Learning",
+    "description": "Low latency model inference APIs; check model and quota availability.",
+    "auth": "apiKey",
+    "source_url": "https://console.groq.com/docs/overview"
+  },
+  {
+    "name": "Gemini API",
+    "url": "https://ai.google.dev/gemini-api/docs",
+    "category": "Machine Learning",
+    "description": "Google multimodal model inference API and SDK documentation.",
+    "auth": "apiKey",
+    "source_url": "https://ai.google.dev/gemini-api/docs"
+  },
+  {
+    "name": "Together AI",
+    "url": "https://docs.together.ai/",
+    "category": "Machine Learning",
+    "description": "Inference APIs for hosted open models, with model and quota policies.",
+    "auth": "apiKey",
+    "source_url": "https://docs.together.ai/"
+  },
+  {
+    "name": "OpenAQ",
+    "url": "https://docs.openaq.org/",
+    "category": "Environment",
+    "description": "Environmental air quality measurement APIs; current tiers should be checked.",
+    "auth": "apiKey",
+    "source_url": "https://docs.openaq.org/"
+  }
+]

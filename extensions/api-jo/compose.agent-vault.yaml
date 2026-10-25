@@ -1,0 +1,15 @@
+# Run with: docker compose -f compose.agent-vault.yaml up -d
+# Supply AGENT_VAULT_MASTER_PASSWORD in the process environment, never git/.env.
+services:
+  agent-vault:
+    image: infisical/agent-vault:0.39.3
+    restart: unless-stopped
+    environment:
+      AGENT_VAULT_MASTER_PASSWORD: ${AGENT_VAULT_MASTER_PASSWORD:?Set password in your shell; never save it in Git}
+    ports:
+      - "127.0.0.1:14321:14321"
+      - "127.0.0.1:14322:14322"
+    volumes:
+      - agent_vault_data:/data
+volumes:
+  agent_vault_data:
