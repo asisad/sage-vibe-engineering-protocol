@@ -1,0 +1,28 @@
+{
+  "extension_id": "sage.agent-reach-research",
+  "version": "0.1.0",
+  "compatible_core": "sage/0.8.4",
+  "status": "SOURCE_BRANCH_LOCAL_TESTS_ONLY",
+  "architecture_owner": "SAGE",
+  "upstream": {
+    "repository": "https://github.com/Panniantong/Agent-Reach",
+    "release": "v1.6.0",
+    "license": "MIT",
+    "interface": "LOCAL_CLI_READ_ONLY",
+    "mcp_server_in_v1_6": false
+  },
+  "entrypoint": "sage_agent_reach.py",
+  "safety": {
+    "live_enabled_by_default": false,
+    "secrets_persisted": false,
+    "operates_as_sage_authority_engine": false,
+    "report_outbox_outside_public_repository": true,
+    "obsidian_destination_must_be_configured": true,
+    "background_daemon": false,
+    "retry_after_platform_block": false
+  },
+  "consumers": ["sage", "deep-research"],
+  "installed_on_user_host": false,
+  "live_host_acceptance": "NOT_RUN",
+  "obsidian_live_acceptance": "NOT_RUN"
+}
