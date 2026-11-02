@@ -22,7 +22,7 @@ $adapter = ".\extensions\agent-reach\sage_agent_reach.py"
 python $adapter status
 
 # مسیر واقعی Vault را از Obsidian پیدا کن؛ مقدار زیر فقط مثال است.
-python $adapter configure-vault --vault "C:\ABSOLUTE\PATH\Alireza-Brain" --folder "11-AI/Research/Agent-Reach"
+python $adapter configure-vault --vault "C:\ABSOLUTE\PATH\Alireza-Brain" --folder "02-Research/Agent-Reach"
 
 # فراخوانی خواندنی با شناسنامهٔ مجوز واقعیِ task بالادستی
 python $adapter invoke --task-id research-001 --agent sage --authority-ref approved-read-001 `
@@ -34,6 +34,8 @@ python $adapter finalize --task-id research-001 --agent sage `
 
 python $adapter sync --limit 100
 ```
+
+پوشهٔ `02-Research` در Vault واقعی `Alireza-Brain` تأیید شده؛ اما مسیر مطلق همان Vault در ویندوز از طریق اتصال MCP قابل‌تشخیص نیست و باید روی میزبان به‌صورت مستقل کشف شود.
 
 برای Deep Research، همان دستورات را با `--agent deep-research` و شناسهٔ task خود Deep Research صدا بزن. بستهٔ source را یک بار در مسیر مشترک نصب/در دسترس قرار بده، نه اینکه دو کپی ناسازگار ایجاد کنی. اگر اجرا روی host جداگانه است، مسیر CLI محلی به صورت خودکار قابل‌دسترس نیست؛ باید transport مجاز و ایمن با احراز هویت جداگانه برقرار باشد.
 
