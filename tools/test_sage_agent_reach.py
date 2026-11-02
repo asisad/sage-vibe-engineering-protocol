@@ -41,7 +41,12 @@ class AdapterTests(unittest.TestCase):
                         "text": "Some public text; api_key=SUPERSECRET_1234567",
                         "author": "author", "published_at": "2026-10-23"}]}
         fake = SimpleNamespace(stdout=json.dumps(raw), stderr="", returncode=0 if raw['ok'] else 1)
-        with mock.patch.object(ar.shutil, "which", return_value="/mock/agent-reach"), mock.patch.object(ar.subprocess, "run", return_value=fake) as run:
+        def simulate(command, **kwargs):
+            if command[-1] == "version":
+                return SimpleNamespace(stdout=json.dumps({"ok": True, "result": {"version": "1.6.0"}}),
+                                       stderr="", returncode=0)
+            return fake
+        with mock.patch.object(ar.shutil, "which", return_value="/mock/agent-reach"), mock.patch.object(ar.subprocess, "run", side_effect=simulate) as run:
             code, result = ar.invoke(self.invoke_args(**overrides), self.root)
             return code, result, run.call_count
 
@@ -70,7 +75,7 @@ class AdapterTests(unittest.TestCase):
 
     def test_default_report_queued_without_vault(self):
         code, output, calls = self.invoke()
-        self.assertEqual((code, calls), (0, 1))
+        self.assertEqual((code, calls), (0, 2))
         self.assertEqual(output["report"]["status"], "PENDING")
         docs = list((self.root / "tasks").glob("*.json"))
         self.assertEqual(len(docs), 1)
@@ -125,16 +130,30 @@ class AdapterTests(unittest.TestCase):
         raw = {"ok": False, "channel": "youtube", "action": "read", "backend": None,
                "items": [], "error": {"code": "PLATFORM_BLOCKED", "message": "Sign in to confirm not a bot"}}
         code, result, calls = self.invoke(raw, channel="youtube", action="read", params_json='["https://youtube.com/watch?v=example"]')
-        self.assertEqual((code, calls), (2, 1))
+        self.assertEqual((code, calls), (2, 2))
         self.assertEqual(result["status"], "BLOCKED")
         self.assertEqual(result["result"]["error"]["code"], "PLATFORM_BLOCKED")
 
     def test_tool_timeout_has_error_and_report(self):
-        with mock.patch.object(ar.shutil, "which", return_value="/mock/agent-reach"), mock.patch.object(ar.subprocess, "run", side_effect=subprocess.TimeoutExpired("agent-reach", 3)):
+        def timed(command, **kwargs):
+            if command[-1] == "version":
+                return SimpleNamespace(stdout=json.dumps({"ok": True, "result": {"version": "1.6.0"}}),
+                                       stderr="", returncode=0)
+            raise subprocess.TimeoutExpired("agent-reach", 3)
+        with mock.patch.object(ar.shutil, "which", return_value="/mock/agent-reach"), mock.patch.object(ar.subprocess, "run", side_effect=timed):
             code, response = ar.invoke(self.invoke_args(event_id="timeout-001"), self.root)
         self.assertEqual(code, 2)
         self.assertEqual(response["result"]["error"]["code"], "TIMEOUT")
         self.assertEqual(response["report"]["status"], "PENDING")
+
+    def test_version_mismatch_fails_closed_without_search(self):
+        version = SimpleNamespace(stdout=json.dumps({"ok": True, "result": {"version": "1.7.0"}}),
+                                  stderr="", returncode=0)
+        with mock.patch.object(ar.shutil, "which", return_value="/mock/agent-reach"), mock.patch.object(ar.subprocess, "run", return_value=version) as run:
+            with self.assertRaises(ar.AdapterError) as context:
+                ar.invoke(self.invoke_args(), self.root)
+        self.assertEqual(context.exception.code, "VERSION_MISMATCH")
+        self.assertEqual(run.call_count, 1)
 
     def test_block_private_link_and_mutating_action(self):
         with self.assertRaises(ar.AdapterError):
