@@ -449,6 +449,21 @@ def parse_params(raw: str, channel: str, action: str) -> list[str]:
     return params
 
 
+def verify_upstream_version(exe: str) -> None:
+    """Pin the v1.6 contract before using its declared read-only action list."""
+    try:
+        completed = subprocess.run([exe, "version"], capture_output=True, encoding="utf-8",
+                                   errors="replace", timeout=10, check=False)
+        if completed.returncode != 0 or len(completed.stdout) > 4096:
+            raise AdapterError("VERSION_MISMATCH", "Cannot verify the Agent Reach version.")
+        response = json.loads(completed.stdout)
+        version = (response.get("result") or {}).get("version") if isinstance(response, dict) else None
+        if response.get("ok") is not True or version != "1.6.0":
+            raise AdapterError("VERSION_MISMATCH", "This adapter requires Agent Reach 1.6.0.")
+    except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
+        raise AdapterError("VERSION_MISMATCH", "Cannot verify Agent Reach 1.6.0 locally.") from exc
+
+
 def invoke(args: argparse.Namespace, root: Path) -> tuple[int, dict]:
     clean_identifier(args.task_id, "task-id")
     clean_identifier(args.agent, "agent")
@@ -461,6 +476,7 @@ def invoke(args: argparse.Namespace, root: Path) -> tuple[int, dict]:
     exe = shutil.which("agent-reach")
     if not exe:
         raise AdapterError("TOOL_UNAVAILABLE", "agent-reach executable is not on PATH.")
+    verify_upstream_version(exe)
     command = [exe, "read", *params] if args.channel == "auto" else [exe, args.channel, args.action, *params]
     request_id = uuid4().hex
     recorded_at = now()
