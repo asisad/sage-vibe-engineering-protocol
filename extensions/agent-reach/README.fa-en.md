@@ -1,6 +1,6 @@
 # Agent Reach Research Adapter — افزونهٔ مشترک SAGE / Deep Research
 
-نسخهٔ توسعه: `sage-agent-reach/0.1`. این افزونه مستقل از هستهٔ SAGE است و فایل‌های Agent Reach را تغییر نمی‌دهد. برای استفاده روی Windows، Python 3.11+ و `agent-reach 1.6.0` نصب‌شده روی PATH لازم است. وابستگی Python دیگری ندارد.
+نسخهٔ توسعه: `sage-agent-reach/0.1`. هر فراخوانی زنده ابتدا نسخهٔ محلی Agent Reach را بررسی می‌کند و نسخه‌های ناسازگار را پیش از سرچ رد می‌کند. این افزونه مستقل از هستهٔ SAGE است و فایل‌های Agent Reach را تغییر نمی‌دهد. برای استفاده روی Windows، Python 3.11+ و `agent-reach 1.6.0` نصب‌شده روی PATH لازم است. وابستگی Python دیگری ندارد.
 
 ## نتیجه و محدودیت اثبات
 
