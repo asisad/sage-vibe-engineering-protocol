@@ -1,0 +1,63 @@
+{
+  "schema_version": "sage-internet-eyes-instagram-specialist/0.1",
+  "extension_id": "sage.internet-eyes.instagram-specialist",
+  "version": "0.1.0",
+  "status": "SOURCE_ONLY_NOT_ACTIVE",
+  "compatible_core": "sage/0.8.4",
+  "architecture_owner": "SAGE Omega",
+  "primary_agent": "Content / Report",
+  "research_fabric": "Internet Eyes",
+  "evidence_owner": "Evidence Engine",
+  "output_owner": "Report Writer / Obsidian via existing gateway",
+  "upstream": {
+    "repository": "https://github.com/Jakeschincariol/instagram-agent-skill",
+    "pinned_commit": "d03c56bb598be770c60b201f94237e5d1a4268a6",
+    "license": "MIT",
+    "plugin_version": "1.0.0"
+  },
+  "existing_agent_reach": {
+    "channel": "instagram",
+    "level": "experimental",
+    "actions": [
+      "search",
+      "profile",
+      "posts"
+    ],
+    "read_only": true,
+    "not_a_post_publisher": true,
+    "not_a_reels_metric_collector": true
+  },
+  "skills": [
+    "ig-reel",
+    "ig-viral",
+    "ig-caption",
+    "ig-carousel",
+    "ig-story",
+    "ig-profile",
+    "ig-plan",
+    "ig-human",
+    "ig-comment",
+    "ig-reply",
+    "ig-dm",
+    "ig-repurpose",
+    "ig-audit"
+  ],
+  "integration": {
+    "mode": "ADAPT_EXTERNAL_SKILL_PACK_NOT_A_REPLACEMENT_FOR_AGENT_REACH",
+    "default": "OFFLINE_CATALOG_ONLY",
+    "auto_install": false,
+    "auto_login": false,
+    "auto_post": false,
+    "auto_dm": false,
+    "auto_comment": false,
+    "external_write_requires_explicit_authorized_tool": true,
+    "registered_sage_tool_router": false,
+    "installed_on_windows": false,
+    "live_windows_acceptance": "NOT_RUN",
+    "obsidian_gateway_route": "USE_EXISTING_OBSI_KAR_ONLY_WHEN_REPORT_DELIVERY_IS_REQUESTED"
+  },
+  "language_notes": {
+    "persian_auto_humanize": "DISABLED_UNTIL_LOCALIZED",
+    "reason": "Upstream ig-human removes Unicode format characters, including Persian ZWNJ; metrics and linter heuristics are English-oriented."
+  }
+}
