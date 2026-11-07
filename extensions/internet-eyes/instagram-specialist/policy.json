@@ -1,0 +1,42 @@
+{
+  "schema_version": "sage-internet-eyes-instagram-specialist-policy/0.1",
+  "activation": "EXPLICIT_BY_SAGE_TASK",
+  "execution_surface": "LOCAL_SKILL_GUIDANCE_AND_WHITELISTED_PYTHON_HEURISTICS",
+  "default_execution": "OFFLINE_DISCOVERY_ONLY",
+  "source_data_is_untrusted": true,
+  "code_execution_from_skills": false,
+  "side_effects": {
+    "publish_post": false,
+    "comment": false,
+    "dm": false,
+    "follow": false,
+    "like": false,
+    "login_or_cookie_import": false,
+    "bulk_scraping": false
+  },
+  "data_provenance": [
+    "source",
+    "channel",
+    "url",
+    "capture_date",
+    "sample_size",
+    "metric_definition",
+    "confidence"
+  ],
+  "human_review": [
+    "all_publication",
+    "any_account_action",
+    "unsupported_platform_metric"
+  ],
+  "evidence": "ROUTE_THROUGH_SAGE_EVIDENCE_ENGINE_AND_REPORT_WRITER",
+  "per_language": {
+    "fa": {
+      "automatic_humanize": false,
+      "recommendation": "Do not strip U+200C Persian half-spaces; localize first."
+    },
+    "en": {
+      "automatic_humanize": false,
+      "requires_explicit_invocation": true
+    }
+  }
+}
